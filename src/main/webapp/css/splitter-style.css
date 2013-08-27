@@ -1,0 +1,22 @@
+html,
+body
+{
+    height:95%;
+	margin: 5px;
+    padding:0;
+/*    overflow:hidden;*/
+}
+
+/*#vertical,*/
+#vertical
+{
+    height:98%;
+    width:98%;
+}
+,
+#horizontal
+{
+/*    height:90%;*/
+    height:98%;
+    width:98%;
+}

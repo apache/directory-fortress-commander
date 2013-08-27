@@ -1,0 +1,127 @@
+<!--
+  ~ Copyright (c) 2013, JoshuaTree Software. All rights reserved.
+  -->
+
+<html>
+<head>
+    <meta charset="utf-8" />
+   	<meta name="description" content="Wicket jQuery UI integration" />
+   	<meta name="keywords" content="wicket jquery, wicket jquery ui, autocomplete, dialog, draggable, droppable, progress bar, wizard, kendo ui, border layout, calendar" />
+   	<!--<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />-->
+    <link rel="stylesheet" type="text/css" href="css/camo-style.css" media="all" />
+   	<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.10.2.custom.min.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="css/kendo/kendo.common.min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="css/kendo/kendo.default.min.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="css/splitter-style.css" media="all" />
+
+
+    <!--link rel="stylesheet" type="text/css" href="css/jquery-ui.css" media="all" /-->
+    <!--.container { height:1080x; width:1920 }-->
+
+<!--
+    <style type="text/css">
+        .container { height:1080x; width:1920 }
+    </style>
+-->
+    <style type="text/css">
+        .resizable2 {
+           height:100%;
+           margin:0;
+           padding:0;
+           overflow:hidden;
+        }
+    </style>
+
+<!--
+    <style type="text/css">
+    fieldset { border:1px solid green }
+    legend {
+      padding: 0.2em 0.5em;
+      border:1px solid green;
+      color:green;
+      font-size:90%;
+      &lt;!&ndash;text-align:right;&ndash;&gt;
+      }
+    </style>
+-->
+
+<!--
+    <style type="text/css">
+    fieldset { border:1px solid green }
+
+    legend {
+      padding: 0.2em 0.5em;
+      color:green;
+      font-size:90%;
+      border: 1px solid #BFBAB0;
+      background-color: #F2EFE9;
+      }
+    </style>
+-->
+
+<!--
+
+border: 1px solid #BFBAB0;
+background-color: #F2EFE9;
+
+    <style type="text/css">
+    fieldset-background-color.css
+    fieldset.submit {
+    float: none;
+    width: auto;
+    border-style: none;
+    padding-left: 12em;
+    background-color: transparent;
+    }
+    </style>
+-->
+
+
+<title>Commander RBAC Administration</title>
+<link rel="shortcut icon" href="images/favicon.ico" />
+</head>
+<body>
+<!--<h2>Commander Web Admin</h2>-->
+<div id="header">
+    <h3>
+        <a href="#" wicket:id="users">USERS</a>
+        &nbsp
+        <a href="#" wicket:id="roles">ROLES</a>
+        &nbsp
+        <a href="#" wicket:id="pobjs">POBJS</a>
+        &nbsp
+        <a href="#" wicket:id="perms">PERMS</a>
+        &nbsp
+        <a href="#" wicket:id="ssds">SSDS</a>
+        &nbsp
+        <a href="#" wicket:id="dsds">DSDS</a>
+        &nbsp&nbsp
+        <a href="#" wicket:id="userous">OUSERS</a>
+        &nbsp
+        <a href="#" wicket:id="permous">OUPRMS</a>
+        &nbsp
+        <a href="#" wicket:id="admroles">ADMRLES</a>
+        &nbsp
+        <a href="#" wicket:id="admpobjs">ADMOBJS</a>
+        &nbsp
+        <a href="#" wicket:id="admperms">ADMPERMS</a>
+        &nbsp
+        <a href="#" wicket:id="pwpolicies">PLCYS</a>
+        &nbsp
+        <a href="#" wicket:id="binds">BINDS</a>
+        &nbsp
+        <a href="#" wicket:id="authzs">AUTHZ</a>
+        &nbsp
+        <a href="#" wicket:id="mods">MODS</a>
+        &nbsp
+        <a href="#" wicket:id="logout">LOGOUT</a>
+    </h3>
+</div>
+<div id="body">
+    <wicket:child />
+</div>
+<div id="footer">
+	<span wicket:id="footer"></span>
+</div>
+</body>
+</html>

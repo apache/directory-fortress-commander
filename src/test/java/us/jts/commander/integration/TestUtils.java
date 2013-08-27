@@ -1,0 +1,141 @@
+/*
+ * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
+ */
+
+package us.jts.commander.integration;
+
+
+import java.io.File;
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.Set;
+import java.util.StringTokenizer;
+import java.util.TreeSet;
+
+import junit.framework.TestCase;
+
+import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import us.jts.fortress.GlobalIds;
+import us.jts.fortress.util.LogUtil;
+import us.jts.fortress.util.attr.VUtil;
+
+
+/**
+ * Description of the Class
+ *
+ * @author Shawn McKinney
+ */
+public class TestUtils extends TestCase
+{
+    private static final String CLS_NM = TestUtils.class.getName();
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
+
+    /**
+     * Fortress stores complex attribute types within a single attribute in ldap.  Usually a delimiter of ',' is used for string tokenization.
+     * format: {@code name:value}
+     */
+    public static final String DELIMITER_TEST_DATA = ",";
+
+    private static String contextId = GlobalIds.HOME;
+
+
+    public static String getContext()
+    {
+        // This property can be overriden with system property:
+        String tenant = System.getProperty( GlobalIds.TENANT );
+        if ( VUtil.isNotNullOrEmpty( tenant ) && !tenant.equals( "${tenant}" ) )
+        {
+            contextId = tenant;
+        }
+        return contextId;
+    }
+
+
+    public static byte[] readJpegFile( String fileName )
+    {
+        URL fUrl = TestUtils.class.getClassLoader().getResource( fileName );
+        byte[] image = null;
+        try
+        {
+            if ( fUrl != null )
+            {
+                image = FileUtils.readFileToByteArray( new File( fUrl.toURI() ) );
+            }
+        }
+        catch ( URISyntaxException se )
+        {
+            String error = "readJpegFile caught URISyntaxException=" + se;
+            LOG.error( error );
+        }
+        catch ( IOException ioe )
+        {
+            String error = "readJpegFile caught IOException=" + ioe;
+            LOG.error( error );
+        }
+        return image;
+    }
+
+
+    /**
+     *
+     * @param len
+     */
+    public static void sleep( String len )
+    {
+        try
+        {
+            Integer iSleep = ( Integer.parseInt( len ) * 1000 );
+            //LOG.info(TestUtils.class.getName() + ".sleep for len=" + iSleep);
+            LogUtil.logIt( TestUtils.class.getName() + ".sleep for len=" + iSleep );
+            Thread.currentThread().sleep( iSleep );
+        }
+        catch ( InterruptedException ie )
+        {
+            LOG.warn( TestUtils.class.getName() + ".sleep caught InterruptedException=" + ie.getMessage(), ie );
+        }
+    }
+
+
+    /**
+     *
+     * @param len
+     */
+    public static void sleep( int len )
+    {
+        try
+        {
+            int iSleep = len * 1000;
+            us.jts.fortress.util.LogUtil.logIt( TestUtils.class.getName() + ".sleep for len=" + iSleep );
+            Thread.currentThread().sleep( iSleep );
+        }
+        catch ( InterruptedException ie )
+        {
+            LOG.warn( TestUtils.class.getName() + ".sleep caught InterruptedException=" + ie.getMessage(), ie );
+        }
+    }
+
+
+    /**
+     *
+     * @param len
+     */
+    public static void sleep( long len )
+    {
+        try
+        {
+            long iSleep = len * 1000;
+            us.jts.fortress.util.LogUtil.logIt( TestUtils.class.getName() + ".sleep for len=" + iSleep );
+            Thread.currentThread().sleep( iSleep );
+        }
+        catch ( InterruptedException ie )
+        {
+            LOG.warn( TestUtils.class.getName() + ".sleep caught InterruptedException=" + ie.getMessage(), ie );
+        }
+    }
+}

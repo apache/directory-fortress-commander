@@ -1,0 +1,28 @@
+<!--
+  ~ Copyright (c) 2013, JoshuaTree Software. All rights reserved.
+  -->
+
+<html xmlns:wicket="http://wicket.apache.org/">
+<body>
+        <wicket:panel>
+            <form wicket:id="form">
+                <fieldset>
+                    <legend>SoD Search Operations</legend>
+                    <div wicket:id="rolesearchmodal"></div>
+                    &nbsp;&nbsp;
+                    <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                           wicket:id="search" name="search" value="search"/>
+                    &nbsp;&nbsp;
+                        <span wicket:id="searchOptions">
+                            <input type="text" wicket:id="searchVal" id="searchVal" class="formLarge" style="width: 250px"/>
+        					<input type="radio" wicket:id="nameRb" id="nameRb">Name</input>
+                            <input type="radio" wicket:id="roleRb" id="roleRb"><a href="#" wicket:id="roleAssignLinkLbl" id="roleAssignLinkLbl">Roles</a></input>
+        				</span>
+                </fieldset>
+
+                <div wicket:id="sdtreegrid">
+                </div>
+            </form>
+        </wicket:panel>
+</body>
+</html>

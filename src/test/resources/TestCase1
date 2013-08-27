@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://test:test@localhost:8081/rbac" />
+<title>TestCase1</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">TestCase1</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/rbac</td>
+	<td>http://test:test@localhost:8081</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Commander Web Admin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Launch Page</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=USERS</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>User Administration</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>jtsTU16User7</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=roleRb</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=searchVal</td>
+	<td>role1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=search</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=clear</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=userId</td>
+	<td>selTestU1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=pswdField</td>
+	<td>password</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ou</td>
+	<td>dev1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=pwPolicy</td>
+	<td>test1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=roleAssignmentsLabel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=roles</td>
+	<td>role1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=beginTimeRC</td>
+	<td>8:00 AM</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=endTimeRC</td>
+	<td>5:00 PM</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=beginDateRC</td>
+	<td>1/1/2013</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=endDateRC</td>
+	<td>1/1/2099</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=beginLockDateRC</td>
+	<td>6/1/2013</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=endLockDateRC</td>
+	<td>6/15/2013</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=timeoutRC</td>
+	<td>120</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=sundayRC</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=mondayRC</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=tuesdayRC</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=wednesdayRC</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=thursdayRC</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=fridayRC</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=saturdayRC</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=assign</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=adminRoleAssignmentsLabel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=adminRoles</td>
+	<td>DemoAdminUsers</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=beginTimeARC</td>
+	<td>8:00 AM</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=endTimeARC</td>
+	<td>5:00 PM</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=beginDateARC</td>
+	<td>1/1/2013</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=endDateARC</td>
+	<td>1/1/2099</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=beginLockDateARC</td>
+	<td>6/1/2013</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=endLockDateARC</td>
+	<td>6/15/2013</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=timeoutARC</td>
+	<td>180</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=mondayARC</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=tuesdayARC</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=wednesdayARC</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=thursdayARC</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=fridayARC</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=assignAdminRole</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=contactInformationLabel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=description</td>
+	<td>Selenium Test User</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=employeeType</td>
+	<td>Test User</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=title</td>
+	<td>TestUser</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=emails</td>
+	<td>joeuser@selenium.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=phones</td>
+	<td>555-555-5555</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=mobiles</td>
+	<td>222-222-2222</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=addressAssignmentsLabel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=addresses</td>
+	<td>9 Vantage Pt</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=address.city</td>
+	<td>Maumelle</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=address.state</td>
+	<td>AR</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=address.country</td>
+	<td>US</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=address.postalCode</td>
+	<td>72113</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=address.postOfficeBox</td>
+	<td>422</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=address.building</td>
+	<td>2929</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=address.departmentNumber</td>
+	<td>2222</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=address.roomNumber</td>
+	<td>555</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=temporalConstraintsLabel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=beginTimeP</td>
+	<td>8:00 AM</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=endTimeP</td>
+	<td>5:00 PM</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=beginDateP</td>
+	<td>1/1/2013</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=endDateP</td>
+	<td>1/1/2099</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=beginLockDateP</td>
+	<td>6/1/2013</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=endLockDateP</td>
+	<td>6/15/2013</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=timeoutP</td>
+	<td>0</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=sundayP</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=mondayP</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=tuesdayP</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=wednesdayP</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=thursdayP</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=fridayP</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=saturdayP</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=systemInfoLabel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=system</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=cn</td>
+	<td>Firstname Lastname</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=sn</td>
+	<td>Lastname</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=importPhotoLabel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=upload</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=delete</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=systemInfoLabel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=system</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=delete</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=ROLES</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=PERMS</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=PWPOLICIES</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=SSDS</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=DSDS</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=LOGOUT</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=glob:search*</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

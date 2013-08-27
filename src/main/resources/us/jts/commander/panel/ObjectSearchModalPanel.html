@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<wicket:panel xmlns:wicket="http://wicket.apache.org">
+    <div style="margin: 1em">
+        <div class="boxContent">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Object Name</th>
+                    <th>Description</th>
+                    <th>Organization</th>
+                    <th>Type</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr valign="top" wicket:id="dataview">
+                    <td><a href="#" wicket:id="select">select</a></td>
+                    <td><span wicket:id="objectName"></span></td>
+                    <td><span wicket:id="description"></span></td>
+                    <td><span wicket:id="ou"></span></td>
+                    <td><span wicket:id="type"></span></td>
+                </tr>
+                </tbody>
+            </table>
+            <span class="pagination" wicket:id="navigator"></span>
+
+        </div>
+    </div>
+</wicket:panel>

@@ -1,0 +1,84 @@
+<!--
+  ~ Copyright (c) 2013, JoshuaTree Software. All rights reserved.
+  -->
+
+<html xmlns:wicket="http://wicket.apache.org/">
+<body>
+<wicket:panel>
+    <form wicket:id="editFields">
+
+        <fieldset>
+            <legend>Detail Operations</legend>
+
+        <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+               wicket:id="add"
+               value="add"/>
+        <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+               wicket:id="commit" value="commit"/>
+        <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+               wicket:id="delete" value="delete"/>
+        <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+               wicket:id="cancel" value="clear"/>
+
+        </fieldset>
+
+        <fieldset>
+            <table id="inputFormTable">
+                <h3><span wicket:id="objAssignmentsLabel" id="objAssignmentsLabel"/></h3>
+                <tr>
+                    <td>
+                        <label for="objectName">Object Name</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="objectName" id="objectName" class="formLarge" style="width: 250px"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="description">Description</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="description" id="description" class="formLarge" style="width: 250px"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="ou">Perm Organization</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="ou" id="ou" class="formLarge" style="width: 250px"/>
+                        <button wicket:id="ou.search" name="ou.search">search</button>
+                        <div wicket:id="ousmodal"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="type">Type</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="type" id="type" class="formLarge" style="width: 250px"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="internalId">Internal ID</label>
+                    </td>
+                    <td>
+                        <span wicket:id="internalId"></span>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+    <!--
+        "objectName",
+        "description",
+        "internalId",
+        "ou",
+        "type",
+        "props",
+        "admin"
+    -->
+</wicket:panel>
+</body>
+</html>

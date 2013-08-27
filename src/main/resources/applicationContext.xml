@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2013, JoshuaTree Software. All rights reserved.
+  -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/security
+                           http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <!-- Housekeeping -->
+    <bean id="baseURL" class="java.lang.String">
+        <constructor-arg value="${scheme}://${host}:${port}${rootPath}"/>
+    </bean>
+    <bean id="site" class="java.lang.String">
+        <constructor-arg value="${project.parent.url}"/>
+    </bean>
+    <bean id="license" class="java.lang.String">
+        <constructor-arg value="${licenseUrl}"/>
+    </bean>
+    <bean id="HOME" class="java.lang.String">
+        <constructor-arg value="HOME"/>
+    </bean>
+
+    <!-- These Fortress Manager beans are used as api for RBAC/IAM domain model -->
+    <bean id="reviewMgr" class="us.jts.fortress.ReviewMgrFactory" scope="prototype"
+          factory-method="createInstance">
+        <constructor-arg value="HOME"/>
+    </bean>
+    <bean id="adminMgr" class="us.jts.fortress.AdminMgrFactory" scope="prototype"
+          factory-method="createInstance">
+        <constructor-arg value="HOME"/>
+    </bean>
+    <bean id="accessMgr" class="us.jts.fortress.AccessMgrFactory" scope="prototype"
+          factory-method="createInstance">
+        <constructor-arg value="HOME"/>
+    </bean>
+    <bean id="delReviewMgr" class="us.jts.fortress.DelReviewMgrFactory" scope="prototype"
+          factory-method="createInstance">
+        <constructor-arg value="HOME"/>
+    </bean>
+    <bean id="delAdminMgr" class="us.jts.fortress.DelAdminMgrFactory" scope="prototype"
+          factory-method="createInstance">
+        <constructor-arg value="HOME"/>
+    </bean>
+    <bean id="delAccessMgr" class="us.jts.fortress.DelAccessMgrFactory" scope="prototype"
+          factory-method="createInstance">
+        <constructor-arg value="HOME"/>
+    </bean>
+    <bean id="auditMgr" class="us.jts.fortress.AuditMgrFactory" scope="prototype"
+          factory-method="createInstance">
+        <constructor-arg value="HOME"/>
+    </bean>
+    <bean id="pwPolicyMgr" class="us.jts.fortress.PwPolicyMgrFactory" scope="prototype"
+          factory-method="createInstance">
+        <constructor-arg value="HOME"/>
+    </bean>
+
+    <!-- Inject spring context into wicket pages -->
+    <bean id="wicketApplication" class="us.jts.commander.ApplicationContext"></bean>
+
+    <!-- setup spring security using preauthenticated (java ee) strategy -->
+     <bean id="filterChainProxy" class="org.springframework.security.web.FilterChainProxy">
+         <sec:filter-chain-map path-type="ant">
+             <sec:filter-chain pattern="/**" filters="sif,j2eePreAuthFilter,logoutFilter,etf,fsi"/>
+         </sec:filter-chain-map>
+     </bean>
+
+     <bean id="sif" class="org.springframework.security.web.context.SecurityContextPersistenceFilter"/>
+
+     <sec:authentication-manager alias="authenticationManager">
+         <sec:authentication-provider ref='preAuthenticatedAuthenticationProvider'/>
+     </sec:authentication-manager>
+
+     <bean id="preAuthenticatedAuthenticationProvider"
+           class="org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider">
+         <property name="preAuthenticatedUserDetailsService" ref="preAuthenticatedUserDetailsService"/>
+     </bean>
+
+     <bean id="preAuthenticatedUserDetailsService"
+           class="org.springframework.security.web.authentication.preauth.PreAuthenticatedGrantedAuthoritiesUserDetailsService"/>
+
+     <bean id="j2eePreAuthFilter"
+           class="org.springframework.security.web.authentication.preauth.j2ee.J2eePreAuthenticatedProcessingFilter">
+         <property name="authenticationManager" ref="authenticationManager"/>
+         <property name="authenticationDetailsSource">
+             <bean class="org.springframework.security.web.authentication.preauth.j2ee.J2eeBasedPreAuthenticatedWebAuthenticationDetailsSource">
+                 <property name="mappableRolesRetriever">
+                     <bean class="org.springframework.security.web.authentication.preauth.j2ee.WebXmlMappableAttributesRetriever"/>
+                 </property>
+                 <property name="userRoles2GrantedAuthoritiesMapper">
+                     <bean class="org.springframework.security.core.authority.mapping.SimpleAttributes2GrantedAuthoritiesMapper">
+                         <property name="convertAttributeToUpperCase" value="true"/>
+                     </bean>
+                 </property>
+             </bean>
+         </property>
+     </bean>
+
+     <bean id="preAuthenticatedProcessingFilterEntryPoint"
+           class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint"/>
+
+     <bean id="logoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
+         <constructor-arg value="/"/>
+         <constructor-arg>
+             <list>
+                 <bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler"/>
+             </list>
+         </constructor-arg>
+     </bean>
+
+     <bean id="servletContext" class="org.springframework.web.context.support.ServletContextFactoryBean"/>
+
+     <bean id="etf" class="org.springframework.security.web.access.ExceptionTranslationFilter">
+         <property name="authenticationEntryPoint" ref="preAuthenticatedProcessingFilterEntryPoint"/>
+     </bean>
+
+     <bean id="httpRequestAccessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+         <property name="allowIfAllAbstainDecisions" value="false"/>
+         <property name="decisionVoters">
+             <list>
+                 <ref bean="roleVoter"/>
+             </list>
+         </property>
+     </bean>
+
+     <bean id="fsi" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+         <property name="authenticationManager" ref="authenticationManager"/>
+         <property name="accessDecisionManager" ref="httpRequestAccessDecisionManager"/>
+         <property name="securityMetadataSource">
+             <sec:filter-invocation-definition-source>
+                 <!-- before spring interceptor recognizes these roles, the j2ee preauthentication filter requires prior declaration in web.xml -->
+                 <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.userpage"
+                                    access="ROLE_RBAC_ADMIN,ROLE_USERS"/>
+                 <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.rolepage"
+                                    access="ROLE_RBAC_ADMIN,ROLE_ROLES"/>
+                 <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.permpage"
+                                    access="ROLE_RBAC_ADMIN,ROLE_PERMS"/>
+                 <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.sdstaticpage"
+                                    access="ROLE_RBAC_ADMIN,ROLE_SSDS"/>
+                 <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.sddynamicpage"
+                                    access="ROLE_RBAC_ADMIN,ROLE_DSDS"/>
+                 <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.pwpolicypage"
+                                    access="ROLE_RBAC_ADMIN,ROLE_POLICIES"/>
+                 <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.objectpage"
+                                    access="ROLE_RBAC_ADMIN,ROLE_PERMOBJS"/>
+                 <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.ouuserpage"
+                                    access="ROLE_RBAC_ADMIN,ROLE_USEROUS"/>
+                 <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.oupermpage"
+                                    access="ROLE_RBAC_ADMIN,ROLE_PERMOUS"/>
+                 <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.roleadminpage"
+                                    access="ROLE_RBAC_ADMIN,ROLE_ADMINROLES"/>
+                 <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.objectadminpage"
+                                    access="ROLE_RBAC_ADMIN,ROLE_ADMINOBJS"/>
+                 <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.permadminpage"
+                                    access="ROLE_RBAC_ADMIN,ROLE_ADMINPERMS"/>
+                 <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.auditauthzpage"
+                                    access="ROLE_RBAC_ADMIN,ROLE_AUDIT_AUTHZS"/>
+                 <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.auditmodpage"
+                                    access="ROLE_RBAC_ADMIN,ROLE_AUDIT_MODS"/>
+                 <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.auditbindpage"
+                                    access="ROLE_RBAC_ADMIN,ROLE_AUDIT_BINDS"/>
+             </sec:filter-invocation-definition-source>
+         </property>
+     </bean>
+
+     <bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter"/>
+
+     <bean id="securityContextHolderAwareRequestFilter"
+           class="org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter"/>
+
+</beans>

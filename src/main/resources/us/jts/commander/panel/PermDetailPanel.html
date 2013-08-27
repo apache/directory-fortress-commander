@@ -1,0 +1,95 @@
+<!--
+  ~ Copyright (c) 2013, JoshuaTree Software. All rights reserved.
+  -->
+
+<html xmlns:wicket="http://wicket.apache.org/">
+<body>
+<wicket:panel>
+    <form wicket:id="editFields">
+
+        <fieldset>
+            <legend>Detail Operations</legend>
+
+        <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+               wicket:id="add"
+               value="add"/>
+        <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+               wicket:id="commit" value="commit"/>
+        <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+               wicket:id="delete" value="delete"/>
+        <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+               wicket:id="cancel" value="clear"/>
+
+        </fieldset>
+
+        <fieldset>
+            <table id="inputFormTable">
+                <h3><span wicket:id="permDetailLabel" id="permDetailLabel"/></h3>
+                <tr>
+                    <td>
+                        <label for="objectName">Object Name</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="objectName" id="objectName" class="formLarge" style="width: 250px"/>
+                        <button wicket:id="objectName.search" name="objectName.search">search</button>
+                        <div wicket:id="objectsmodal"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="opName">Operation Name</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="opName" id="opName" class="formLarge" style="width: 250px"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="objectId">Object ID</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="objectId" id="objectId" class="formLarge" style="width: 250px"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="roles">Roles</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="roles" style="width: 250px"/>
+                        <button wicket:id="permroles.search" name="permroles.search">search</button>
+                        <div wicket:id="permrolesmodal"></div>
+                        <button wicket:id="roles.delete" name="roles.delete">remove</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="internalId">Internal ID</label>
+                    </td>
+                    <td>
+                        <span wicket:id="internalId"></span>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+
+    <!--
+    private boolean admin;
+    private String internalId;
+    private String opName;
+    private String objectName;
+    private String objectId;
+    private String abstractName;
+    private String type;
+    @XmlElement(nillable = true)
+    private Props props = new Props();
+    //private Properties props;
+    @XmlElement(nillable = true)
+    private Set<String> roles;
+    @XmlElement(nillable = true)
+    private Set<String> users;
+    -->
+</wicket:panel>
+</body>
+</html>
