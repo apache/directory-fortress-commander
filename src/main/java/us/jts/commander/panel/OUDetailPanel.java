@@ -339,7 +339,7 @@ public class OUDetailPanel extends FormComponentPanel
                         msg += ", no action taken because parents selection is empty";
                     }
                     display.setMessage( msg );
-                    log.info( msg );
+                    log.debug( msg );
                 }
 
                 @Override
@@ -390,7 +390,7 @@ public class OUDetailPanel extends FormComponentPanel
                     msg += parentsSelection != null ? ": " + parentsSelection : "";
                     parentSearchModalPanel.setSearchVal( parentsSelection );
                     display.setMessage( msg );
-                    log.info( msg );
+                    log.debug( msg );
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     parentsModalWindow.show( target );
                 }

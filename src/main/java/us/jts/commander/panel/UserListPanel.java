@@ -191,7 +191,7 @@ public class UserListPanel extends FormComponentPanel
             @Override
             protected void onSubmit( AjaxRequestTarget target, Form form )
             {
-                LOG.info( ".search.onSubmit selected radio button: " + selectedRadioButton );
+                LOG.debug( ".search.onSubmit selected radio button: " + selectedRadioButton );
                 info( "Searching Users..." );
                 String searchVal = "";
                 if ( VUtil.isNotNullOrEmpty( searchData.getField1() ) )
@@ -308,7 +308,7 @@ public class UserListPanel extends FormComponentPanel
                 UserRole roleConstraint = roleSearchModalPanel.getRoleSelection();
                 if ( roleConstraint != null )
                 {
-                    LOG.info( "modal selected:" + roleConstraint.getName() );
+                    LOG.debug( "modal selected:" + roleConstraint.getName() );
                     searchData.setField1( roleConstraint.getName() );
                     selectedRadioButton = ROLES;
                     enableRoleSearch();
@@ -384,7 +384,7 @@ public class UserListPanel extends FormComponentPanel
                 msg += "adminRoleSelection: " + searchData.getField1();
                 adminRoleSearchModalPanel.setRoleSearchVal( searchData.getField1() );
                 adminRoleSearchModalPanel.setAdmin( true );
-                LOG.info( msg );
+                LOG.debug( msg );
                 target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                 adminRolesModalWindow.show( target );
             }
@@ -529,7 +529,7 @@ public class UserListPanel extends FormComponentPanel
                     objectSearchVal = searchData.getField1();
                 }
                 permSearchModalPanel.setSearchVal( objectSearchVal );
-                LOG.info( msg );
+                LOG.debug( msg );
                 target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                 permsModalWindow.show( target );
             }
@@ -732,7 +732,7 @@ public class UserListPanel extends FormComponentPanel
 
     private void processRadioButton( AjaxRequestTarget target )
     {
-        LOG.info( "RADIO Button: " + selectedRadioButton );
+        LOG.debug( "RADIO Button: " + selectedRadioButton );
         if ( selectedRadioButton.equals( USERS ) )
         {
             enableUserSearch();

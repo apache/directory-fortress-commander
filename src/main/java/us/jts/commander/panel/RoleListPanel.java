@@ -153,7 +153,7 @@ public class RoleListPanel<T extends Serializable> extends FormComponentPanel
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form form)
             {
-                log.info(".search onSubmit");
+                log.debug(".search onSubmit");
                 info("Searching Roles...");
                 if(!VUtil.isNotNullOrEmpty(searchVal))
                 {

@@ -170,7 +170,7 @@ public class SDListPanel extends FormComponentPanel
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form form)
             {
-                log.info(".search onSubmit");
+                log.debug(".search onSubmit");
                 info("Searching SDSets...");
                 if(!VUtil.isNotNullOrEmpty(searchVal))
                 {
@@ -252,7 +252,7 @@ public class SDListPanel extends FormComponentPanel
                 UserRole roleConstraint = roleSearchModalPanel.getRoleSelection();
                 if ( roleConstraint != null )
                 {
-                    log.info( "modal selected:" + roleConstraint.getName());
+                    log.debug( "modal selected:" + roleConstraint.getName());
                     searchVal = roleConstraint.getName();
                     selectedRadioButton = ROLES;
                     target.add( radioGroup );
@@ -267,7 +267,7 @@ public class SDListPanel extends FormComponentPanel
                 String msg = "clicked on roles search";
                 msg += "roleSelection: " + searchVal;
                 roleSearchModalPanel.setRoleSearchVal( searchVal );
-                log.info( msg );
+                log.debug( msg );
                 target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                 rolesModalWindow.show( target );
             }

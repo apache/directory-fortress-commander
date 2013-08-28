@@ -10,6 +10,7 @@ import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
+import us.jts.fortress.cfg.Config;
 
 /**
  * @author Shawn McKinney
@@ -26,10 +27,10 @@ public class ApplicationContext extends WebApplication
     @Override
     public void init()
     {
-        System.out.println("ApplicationContext.init()");
         super.init();
         getComponentInstantiationListeners().add(new SpringComponentInjector(this));
         getRequestCycleListeners().add(new CommanderRequestCycleListener());
+        getMarkupSettings().setStripWicketTags(true);
 
         //getApplicationSettings().setPageExpiredErrorPage(LaunchPage.class);
         //IResourceSettings.setThrowExceptionOnMissingResource(true);

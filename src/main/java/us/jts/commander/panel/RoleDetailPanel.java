@@ -387,7 +387,7 @@ public class RoleDetailPanel extends Panel
                         msg += ", no action taken because parent selection is empty";
                     }
                     display.setMessage( msg );
-                    log.info( msg );
+                    log.debug( msg );
                 }
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
@@ -450,7 +450,7 @@ public class RoleDetailPanel extends Panel
                     msg += parentsSelection != null ? ": " + parentsSelection : "";
                     roleSearchModalPanel.setRoleSearchVal( parentsSelection );
                     display.setMessage( msg );
-                    log.info( msg );
+                    log.debug( msg );
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     rolesModalWindow.show( target );
                 }

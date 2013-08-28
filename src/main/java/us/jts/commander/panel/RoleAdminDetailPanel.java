@@ -115,7 +115,7 @@ public class RoleAdminDetailPanel extends Panel
                 String msg = "clicked on permission OU search";
                 msg += permouSelection != null ? ": " + permouSelection : "";
                 permouSearchModalPanel.setSearchVal( permouSelection );
-                LOG.info( msg );
+                LOG.debug( msg );
                 target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                 permousModalWindow.show( target );
             }
@@ -168,7 +168,7 @@ public class RoleAdminDetailPanel extends Panel
                 {
                     msg += ", no action taken because parents selection is empty";
                 }
-                LOG.info( msg );
+                LOG.debug( msg );
             }
 
             @Override
@@ -219,7 +219,7 @@ public class RoleAdminDetailPanel extends Panel
                 String msg = "clicked on user OU search";
                 msg += userouSelection != null ? ": " + userouSelection : "";
                 userouSearchModalPanel.setSearchVal( userouSelection );
-                LOG.info( msg );
+                LOG.debug( msg );
                 target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                 userousModalWindow.show( target );
             }
@@ -272,7 +272,7 @@ public class RoleAdminDetailPanel extends Panel
                 {
                     msg += ", no action taken because parents selection is empty";
                 }
-                LOG.info( msg );
+                LOG.debug( msg );
             }
 
             @Override

@@ -352,7 +352,7 @@ public class SDDetailPanel extends FormComponentPanel
                         msg += ", no action taken because members selection is empty";
                     }
                     display.setMessage( msg );
-                    log.info( msg );
+                    log.debug( msg );
                 }
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
@@ -403,7 +403,7 @@ public class SDDetailPanel extends FormComponentPanel
                     msg += membersSelection != null ? ": " + membersSelection : "";
                     roleSearchModalPanel.setRoleSearchVal( membersSelection );
                     display.setMessage( msg );
-                    log.info( msg );
+                    log.debug( msg );
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     rolesModalWindow.show( target );
                 }

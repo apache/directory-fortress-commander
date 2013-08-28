@@ -342,7 +342,7 @@ public class PermDetailPanel extends FormComponentPanel
                         msg += ", no action taken because role selection is empty";
                     }
                     display.setMessage( msg );
-                    log.info( msg );
+                    log.debug( msg );
                 }
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
@@ -395,7 +395,7 @@ public class PermDetailPanel extends FormComponentPanel
                     objectSearchModalPanel.setSearchVal( perm.getObjectName() );
                     objectSearchModalPanel.setAdmin( isAdmin );
                     display.setMessage( msg );
-                    log.info( msg );
+                    log.debug( msg );
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     objectsModalWindow.show( target );
                 }
@@ -461,7 +461,7 @@ public class PermDetailPanel extends FormComponentPanel
                     msg += rolesSelection != null ? ": " + rolesSelection : "";
                     roleSearchModalPanel.setRoleSearchVal( rolesSelection );
                     display.setMessage( msg );
-                    log.info( msg );
+                    log.debug( msg );
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     rolesModalWindow.show( target );
                 }

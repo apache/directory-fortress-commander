@@ -264,7 +264,7 @@ public class ConstraintBasePanel extends FormComponentPanel
             {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(localDate);
-                log.info("localDate=" + localDate.toString());
+                log.debug("localDate=" + localDate.toString());
                 if (calendar.get(Calendar.HOUR_OF_DAY) < 10)
                     szTime = "0" + calendar.get(Calendar.HOUR_OF_DAY);
                 else
@@ -288,7 +288,7 @@ public class ConstraintBasePanel extends FormComponentPanel
             {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(localDate);
-                log.info("localDate=" + localDate.toString());
+                log.debug("localDate=" + localDate.toString());
                 szDate = "" + calendar.get(Calendar.YEAR);
 
                 if ((calendar.get(Calendar.MONTH) + 1) < 10)

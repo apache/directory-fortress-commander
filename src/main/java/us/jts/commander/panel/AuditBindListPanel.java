@@ -151,7 +151,7 @@ public class AuditBindListPanel extends FormComponentPanel
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form form)
             {
-                LOG.info( ".search onSubmit" );
+                LOG.debug( ".search onSubmit" );
                 UserAudit userAudit = (UserAudit)listForm.getModelObject();
                 if(!VUtil.isNotNullOrEmpty(userAudit.getUserId()))
                 {
@@ -279,7 +279,7 @@ public class AuditBindListPanel extends FormComponentPanel
                 User userSelection = userSearchModalPanel.getUserSelection();
                 if ( userSelection != null )
                 {
-                    LOG.info( "modal selected:" + userSelection.getUserId() );
+                    LOG.debug( "modal selected:" + userSelection.getUserId() );
                     UserAudit userAudit = ( UserAudit ) listForm.getModelObject();
                     userAudit.setUserId( userSelection.getUserId() );
                     target.add( userFld );
@@ -294,7 +294,7 @@ public class AuditBindListPanel extends FormComponentPanel
                 String msg = "clicked on users search";
                 msg += "userSelection: " + userAudit.getUserId();
                 userSearchModalPanel.setSearchVal( userAudit.getUserId() );
-                LOG.info( msg );
+                LOG.debug( msg );
                 target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                 usersModalWindow.show( target );
             }

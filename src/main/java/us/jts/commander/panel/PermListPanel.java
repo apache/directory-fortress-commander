@@ -147,7 +147,7 @@ public class PermListPanel extends FormComponentPanel
             @Override
             protected void onSubmit( AjaxRequestTarget target, Form form )
             {
-                log.info( ".search onSubmit" );
+                log.debug( ".search onSubmit" );
                 info( "Searching Perms..." );
                 if ( !VUtil.isNotNullOrEmpty( permObject ) )
                 {
@@ -226,7 +226,7 @@ public class PermListPanel extends FormComponentPanel
                 msg += "objectSelection: " + permObject;
                 objectSearchModalPanel.setSearchVal( permObject );
                 objectSearchModalPanel.setAdmin( isAdmin );
-                log.info( msg );
+                log.debug( msg );
                 target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                 objectsModalWindow.show( target );
             }

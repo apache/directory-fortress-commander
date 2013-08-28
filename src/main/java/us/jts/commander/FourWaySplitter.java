@@ -38,9 +38,6 @@ public class FourWaySplitter implements IBorderLayout
 
     public void addBorderLayout(MarkupContainer container)
     {
-        System.out.println("addBorderLayout");
-
-
         //container.add(new SplitterBehavior("#vertical").setOption("panes", this.getVerticalPanes()).setOption("orientation", "'vertical'"));
         //new SplitterBehavior("#vertical").setOption("panes", this.getVerticalPanes()).setOption("orientation", "'vertical'")
         SplitterBehavior vertical = new SplitterBehavior("#vertical");
@@ -84,7 +81,6 @@ public class FourWaySplitter implements IBorderLayout
     @Override
     public String getVerticalPanes()
     {
-         System.out.println("getVerticalPanes");
         //return "[ { resizable: false, size: '25%' }, {  }, { collapsible: true, size: '25%' } ]";
         //return "[ { resizable: false, size: '15%' }, { resizable: true, size: '70%' }, { collapsible: true, size: '15%' } ]";
         //return "[ { collapsible: true, resizable: false, size: '50px', min: '50px', max: '50px', scrollable: false }, { resizable: true, size: '80%' }, { collapsible: true, size: '5%', min: '50px'} ]";
@@ -96,7 +92,6 @@ public class FourWaySplitter implements IBorderLayout
     @Override
     public String getHorizontalPanes()
     {
-         System.out.println("getHorizontalPanes");
         //return "[ { size: '15%' }, { }, { size: '15%' } ]";
         //return "[ { collapsible: true, size: '78%' }, { size: '20%', max: '300px' } ]";
         //return "[ { collapsible: true, size: '78%' }, { collapsible: true, size: '20%', min: '200px', max: '300px' } ]";

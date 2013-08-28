@@ -101,7 +101,7 @@ public class ObjectListPanel extends FormComponentPanel
             @Override
             protected void onSubmit( AjaxRequestTarget target, Form form )
             {
-                log.info( ".search.onSubmit selected radio button: " + selectedRadioButton );
+                log.debug( ".search.onSubmit selected radio button: " + selectedRadioButton );
                 info( "Searching Permission Objects..." );
                 if ( !VUtil.isNotNullOrEmpty( searchVal ) )
                 {
@@ -309,7 +309,7 @@ public class ObjectListPanel extends FormComponentPanel
                 String msg = "clicked on ou search";
                 msg += "ouSelection: " + searchVal;
                 ouSearchModalPanel.setSearchVal( searchVal );
-                log.info( msg );
+                log.debug( msg );
                 target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                 ousModalWindow.show( target );
             }

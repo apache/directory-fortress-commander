@@ -20,13 +20,13 @@ import us.jts.commander.GlobalIds;
 /**
  * This class uses apache selenium firefox driver to drive commander web ui
  */
-public class CommanderSeleniumTestCase
+public class CommanderSeleniumITCase
 {
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;
     private StringBuffer verificationErrors = new StringBuffer();
-    private static final Logger log = Logger.getLogger( CommanderSeleniumTestCase.class.getName() );
+    private static final Logger log = Logger.getLogger( CommanderSeleniumITCase.class.getName() );
 
     @Before
     public void setUp() throws Exception
@@ -37,7 +37,12 @@ public class CommanderSeleniumTestCase
         driver.manage().window().maximize();
 
         // Use test local default:
-        baseUrl = "http://localhost:8081";
+        //baseUrl = "http://localhost:8081";
+        //baseUrl = "http://192.168.1.101:8080";
+        //baseUrl = "http://192.168.1.104:8080";
+
+        // tomcat default:
+        baseUrl = "http://localhost:8080";
         // tomcat SSL:
         //baseUrl = "https://localhost:8444";
         driver.manage().timeouts().implicitlyWait( 5, TimeUnit.SECONDS );
@@ -46,10 +51,10 @@ public class CommanderSeleniumTestCase
     @Test
     public void testCase1() throws Exception
     {
-        log.info( "Begin CommanderSeleniumTestCase" );
+        log.info( "Begin CommanderSeleniumITCase" );
         driver.get( baseUrl + "/commander" );
         login();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
 
         boolean skipFirstHalf = false;
         //boolean skipFirstHalf = true;
@@ -82,7 +87,7 @@ public class CommanderSeleniumTestCase
          *  LOGOUT
          */
         driver.findElement( By.linkText( "LOGOUT" ) ).click();
-        log.info( "End CommanderSeleniumTestCase" );
+        log.info( "End CommanderSeleniumITCase" );
         //driver.findElement( By.linkText( "glob:search*" ) ).click();
     }
 
@@ -103,47 +108,47 @@ public class CommanderSeleniumTestCase
         driver.findElement( By.linkText( "USERS" ) ).click();
         //driver.findElement( By.id( "roleRb" ) ).click();
         driver.findElement( By.id( "roleAssignLinkLbl" ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.linkText( ">" ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.linkText( GlobalIds.SELECT ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.name( "userformsearchfields:" + GlobalIds.SEARCH ) ).click();
         driver.findElement( By.id( GlobalIds.FIELD_1 ) ).clear();
         driver.findElement( By.id( GlobalIds.FIELD_1 ) ).sendKeys( "dev1" );
         driver.findElement( By.id( "ouAssignLinkLbl" ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.linkText( GlobalIds.SELECT ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.name( "userformsearchfields:" + GlobalIds.SEARCH ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         WebElement table = driver.findElement(By.id("usertreegrid"));
         List<WebElement> allRows = table.findElements(By.tagName("tr"));
         allRows.get( 4 ).findElement(By.className("imxt-cell")).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         allRows.get( 5 ).findElement(By.className("imxt-cell")).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         allRows.get( 6 ).findElement(By.className("imxt-cell")).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.name( GlobalIds.CLEAR ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.id( GlobalIds.USER_ID ) ).sendKeys( "selTestU1" );
         driver.findElement( By.id( GlobalIds.PSWD_FIELD ) ).clear();
         driver.findElement( By.id( GlobalIds.PSWD_FIELD ) ).sendKeys( "password" );
         driver.findElement( By.id( GlobalIds.OU ) ).clear();
         driver.findElement( By.id( GlobalIds.OU ) ).sendKeys( "dev1" );
         driver.findElement( By.name( GlobalIds.OU_SEARCH ) ).click();
-        TestUtils.sleep( 2 );
+        TUtils.sleep( 2 );
         driver.findElement( By.linkText( GlobalIds.SELECT ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.name( GlobalIds.POLICY_SEARCH ) ).click();
-        TestUtils.sleep( 2 );
+        TUtils.sleep( 2 );
         driver.findElement( By.linkText( ">" ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.linkText( GlobalIds.SELECT ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.name( GlobalIds.ADD ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.id( GlobalIds.ROLE_ASSIGNMENTS_LABEL ) ).click();
         ( ( JavascriptExecutor ) driver ).executeScript( "$(document.getElementById('roles')).val('role1');" );
         driver.findElement( By.id( GlobalIds.BEGIN_TIME_RC ) ).clear();
@@ -168,16 +173,16 @@ public class CommanderSeleniumTestCase
         driver.findElement( By.id( GlobalIds.FRIDAY_RC ) ).click();
         driver.findElement( By.id( GlobalIds.SATURDAY_RC ) ).click();
         driver.findElement( By.name( GlobalIds.ASSIGN ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.id( GlobalIds.ROLE_ASSIGNMENTS_LABEL ) ).click();
         driver.findElement( By.name( GlobalIds.ROLES_SEARCH ) ).click();
-        TestUtils.sleep( 2 );
+        TUtils.sleep( 2 );
         driver.findElement( By.linkText( "6" ) ).click();
-        TestUtils.sleep( 2 );
+        TUtils.sleep( 2 );
         driver.findElement( By.linkText( GlobalIds.SELECT ) ).click();
-        TestUtils.sleep( 2 );
+        TUtils.sleep( 2 );
         driver.findElement( By.name( GlobalIds.ASSIGN ) ).click();
-        TestUtils.sleep( 2 );
+        TUtils.sleep( 2 );
         driver.findElement( By.id( "adminRoleAssignmentsLabel" ) ).click();
             /*
                     if(driver.findElement( By.name( "adminRoles" ) ).isDisplayed())
@@ -211,20 +216,20 @@ public class CommanderSeleniumTestCase
         driver.findElement( By.id( GlobalIds.THURSDAY_ARC ) ).click();
         driver.findElement( By.id( GlobalIds.FRIDAY_ARC ) ).click();
         driver.findElement( By.name( GlobalIds.ASSIGN_ADMIN_ROLE ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.id( "adminRoleAssignmentsLabel" ) ).click();
         driver.findElement( By.name( "adminRoles.search" ) ).click();
-        TestUtils.sleep( 2 );
+        TUtils.sleep( 2 );
         driver.findElement( By.linkText( ">" ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.linkText( ">" ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.linkText( GlobalIds.SELECT ) ).click();
-        TestUtils.sleep( 2 );
+        TUtils.sleep( 2 );
         driver.findElement( By.name( GlobalIds.ASSIGN_ADMIN_ROLE ) ).click();
-        TestUtils.sleep( 2 );
+        TUtils.sleep( 2 );
         driver.findElement( By.id( "contactInformationLabel" ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.id( GlobalIds.DESCRIPTION ) ).clear();
         driver.findElement( By.id( GlobalIds.DESCRIPTION ) ).sendKeys( "Selenium Test User" );
         driver.findElement( By.id( GlobalIds.EMPLOYEE_TYPE ) ).clear();
@@ -241,7 +246,7 @@ public class CommanderSeleniumTestCase
         driver.findElement( By.id( GlobalIds.MOBILES ) ).clear();
         driver.findElement( By.id( GlobalIds.MOBILES ) ).sendKeys( "222-222-2222" );
         driver.findElement( By.id( GlobalIds.ADDRESS_ASSIGNMENTS_LABEL ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         ( ( JavascriptExecutor ) driver ).executeScript( "$(document.getElementById('addresses')).show();" );
         driver.findElement( By.id( GlobalIds.ADDRESSES ) ).clear();
         driver.findElement( By.id( GlobalIds.ADDRESSES ) ).sendKeys( "9 Vantage Pt" );
@@ -262,7 +267,7 @@ public class CommanderSeleniumTestCase
         driver.findElement( By.id( GlobalIds.ADDRESS_ROOM_NUMBER ) ).clear();
         driver.findElement( By.id( GlobalIds.ADDRESS_ROOM_NUMBER ) ).sendKeys( "555" );
         driver.findElement( By.id( GlobalIds.TEMPORAL_CONSTRAINTS_LABEL ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.id( GlobalIds.BEGIN_TIME_P ) ).clear();
         driver.findElement( By.id( GlobalIds.BEGIN_TIME_P ) ).sendKeys( "8:00 AM" );
         driver.findElement( By.id( GlobalIds.END_TIME_P ) ).clear();
@@ -285,33 +290,33 @@ public class CommanderSeleniumTestCase
         driver.findElement( By.id( GlobalIds.FRIDAY_P ) ).click();
         driver.findElement( By.id( GlobalIds.SATURDAY_P ) ).click();
         driver.findElement( By.id( GlobalIds.SYSTEM_INFO_LABEL ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.id( GlobalIds.SYSTEM ) ).click();
         driver.findElement( By.id( GlobalIds.CN ) ).clear();
         driver.findElement( By.id( GlobalIds.CN ) ).sendKeys( "Firstname Lastname" );
         driver.findElement( By.id( GlobalIds.SN ) ).clear();
         driver.findElement( By.id( GlobalIds.SN ) ).sendKeys( "Lastname" );
         driver.findElement( By.id( GlobalIds.IMPORT_PHOTO_LABEL ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         WebElement element = driver.findElement( By.name( "upload" ) );
         LocalFileDetector detector = new LocalFileDetector();
         String path = "./src/test/resources/p1.jpeg";
         File f = detector.getLocalFile( path );
         element.sendKeys( f.getAbsolutePath() );
         driver.findElement( By.name( GlobalIds.SAVE ) ).click();
-        TestUtils.sleep( 3 );
+        TUtils.sleep( 3 );
         driver.findElement( By.name( GlobalIds.COMMIT ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.id( GlobalIds.IMPORT_PHOTO_LABEL ) ).click();
-        TestUtils.sleep( 2 );
+        TUtils.sleep( 2 );
         driver.findElement( By.name( GlobalIds.DELETE ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.id( GlobalIds.SYSTEM_INFO_LABEL ) ).click();
         driver.findElement( By.id( GlobalIds.SYSTEM ) ).click();
         driver.findElement( By.name( GlobalIds.COMMIT ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.name( GlobalIds.DELETE ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
     }
 
     private void roles()
@@ -325,17 +330,17 @@ public class CommanderSeleniumTestCase
         driver.findElement( By.id( GlobalIds.DESCRIPTION ) ).clear();
         driver.findElement( By.id( GlobalIds.DESCRIPTION ) ).sendKeys( "Selenium Test Role" );
         driver.findElement( By.name( GlobalIds.PARENTROLES_SEARCH ) ).click();
-        TestUtils.sleep( 2 );
+        TUtils.sleep( 2 );
         driver.findElement( By.linkText( ">" ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.linkText( ">" ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.linkText( GlobalIds.SELECT ) ).click();
-        TestUtils.sleep( 2 );
+        TUtils.sleep( 2 );
         driver.findElement( By.name( GlobalIds.ADD ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.id( GlobalIds.TEMPORAL_CONSTRAINTS_LABEL ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.id( GlobalIds.BEGIN_TIME_P ) ).clear();
         driver.findElement( By.id( GlobalIds.BEGIN_TIME_P ) ).sendKeys( "8:00 AM" );
         driver.findElement( By.id( GlobalIds.END_TIME_P ) ).clear();
@@ -358,9 +363,9 @@ public class CommanderSeleniumTestCase
         driver.findElement( By.id( GlobalIds.FRIDAY_P ) ).click();
         driver.findElement( By.id( GlobalIds.SATURDAY_P ) ).click();
         driver.findElement( By.name( GlobalIds.COMMIT ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.name( GlobalIds.DELETE ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
     }
 
     private void pobjs()
@@ -368,7 +373,7 @@ public class CommanderSeleniumTestCase
         driver.findElement( By.linkText( "POBJS" ) ).click();
         driver.findElement( By.id( GlobalIds.SEARCH_VAL ) ).sendKeys( "t" );
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
     }
 
     private void perms()
@@ -376,7 +381,7 @@ public class CommanderSeleniumTestCase
         driver.findElement( By.linkText( "PERMS" ) ).click();
         driver.findElement( By.id( "permObject" ) ).sendKeys( "/cal" );
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
     }
 
     private void ssds()
@@ -385,7 +390,7 @@ public class CommanderSeleniumTestCase
         driver.findElement( By.id( "roleRb" ) ).click();
         driver.findElement( By.id( GlobalIds.SEARCH_VAL ) ).sendKeys( "oamT16SDR6" );
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
     }
 
     private void dsds()
@@ -394,7 +399,7 @@ public class CommanderSeleniumTestCase
         driver.findElement( By.id( "roleRb" ) ).click();
         driver.findElement( By.id( GlobalIds.SEARCH_VAL ) ).sendKeys( "oamT13DSD6" );
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
     }
 
     private void ouusers()
@@ -402,7 +407,7 @@ public class CommanderSeleniumTestCase
         driver.findElement( By.linkText( "OUSERS" ) ).click();
         driver.findElement( By.id( GlobalIds.SEARCH_VAL ) ).sendKeys( "d" );
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
     }
 
     private void ouperms()
@@ -414,7 +419,7 @@ public class CommanderSeleniumTestCase
 
     private void admrles()
     {
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.linkText( "ADMRLES" ) ).click();
         driver.findElement( By.id( GlobalIds.SEARCH_VAL ) ).clear();
         driver.findElement( By.id( GlobalIds.SEARCH_VAL ) ).sendKeys( "t" );
@@ -424,34 +429,34 @@ public class CommanderSeleniumTestCase
         driver.findElement( By.id( GlobalIds.DESCRIPTION ) ).clear();
         driver.findElement( By.id( GlobalIds.DESCRIPTION ) ).sendKeys( "Selenium Test Admin Role" );
         driver.findElement( By.name( GlobalIds.PARENTROLES_SEARCH ) ).click();
-        TestUtils.sleep( 2 );
+        TUtils.sleep( 2 );
         driver.findElement( By.linkText( ">" ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.linkText( ">" ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.linkText( GlobalIds.SELECT ) ).click();
-        TestUtils.sleep( 2 );
+        TUtils.sleep( 2 );
         // DELEGATION DETAILS:
         driver.findElement( By.name( GlobalIds.ROLEAUXPANEL + ":" + GlobalIds.USEROU_SEARCH ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.linkText( GlobalIds.SELECT ) ).click();
         driver.findElement( By.name( GlobalIds.ROLEAUXPANEL + ":" + GlobalIds.PERMOU_SEARCH ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.linkText( GlobalIds.SELECT ) ).click();
         driver.findElement( By.id( GlobalIds.BEGIN_RANGE ) ).clear();
         driver.findElement( By.id( GlobalIds.BEGIN_RANGE ) ).sendKeys( "oamT6D" );
         driver.findElement( By.name( GlobalIds.ROLEAUXPANEL + ":" + GlobalIds.BEGIN_RANGE_SEARCH ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.linkText( GlobalIds.SELECT ) ).click();
         driver.findElement( By.name( GlobalIds.ROLEAUXPANEL + ":" + GlobalIds.BEGIN_INCLUSIVE ) ).click();
         driver.findElement( By.name( GlobalIds.ROLEAUXPANEL + ":" + GlobalIds.END_RANGE_SEARCH ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.linkText( GlobalIds.SELECT ) ).click();
         driver.findElement( By.name( GlobalIds.ROLEAUXPANEL + ":" + GlobalIds.END_INCLUSIVE ) ).click();
         driver.findElement( By.name( GlobalIds.ADD ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.id( GlobalIds.TEMPORAL_CONSTRAINTS_LABEL ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.id( GlobalIds.BEGIN_TIME_P ) ).clear();
         driver.findElement( By.id( GlobalIds.BEGIN_TIME_P ) ).sendKeys( "8:00 AM" );
         driver.findElement( By.id( GlobalIds.END_TIME_P ) ).clear();
@@ -474,9 +479,9 @@ public class CommanderSeleniumTestCase
         driver.findElement( By.id( GlobalIds.FRIDAY_P ) ).click();
         driver.findElement( By.id( GlobalIds.SATURDAY_P ) ).click();
         driver.findElement( By.name( GlobalIds.COMMIT ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.name( GlobalIds.DELETE ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
     }
 
     private void admobjs()
@@ -484,17 +489,17 @@ public class CommanderSeleniumTestCase
         driver.findElement( By.linkText( "ADMOBJS" ) ).click();
         driver.findElement( By.id( GlobalIds.SEARCH_VAL ) ).sendKeys( "u" );
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
     }
 
     private void admperms()
     {
         driver.findElement( By.linkText( "ADMPERMS" ) ).click();
         driver.findElement( By.id( "objectAssignLinkLbl" ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         driver.findElement( By.linkText( GlobalIds.SELECT ) ).click();
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
     }
 
     private void plcys()
@@ -502,7 +507,7 @@ public class CommanderSeleniumTestCase
         driver.findElement( By.linkText( "PLCYS" ) ).click();
         driver.findElement( By.id( GlobalIds.SEARCH_VAL ) ).sendKeys( "oamtp1policy" );
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
     }
 
     private void binds()
@@ -511,17 +516,17 @@ public class CommanderSeleniumTestCase
         driver.findElement( By.id( GlobalIds.USER_ID ) ).clear();
         driver.findElement( By.id( GlobalIds.USER_ID ) ).sendKeys( "jtsuser1" );
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         WebElement table = driver.findElement(By.id("bindtreegrid"));
         // Now get all the TR elements from the table
         List<WebElement> allRows = table.findElements(By.tagName("tr"));
         // And iterate over them, getting the cells
         allRows.get( 4 ).findElement(By.className("imxt-cell")).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         allRows.get( 5 ).findElement(By.className("imxt-cell")).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         allRows.get( 6 ).findElement(By.className("imxt-cell")).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
     }
 
     private void authzs()
@@ -531,21 +536,21 @@ public class CommanderSeleniumTestCase
         driver.findElement( By.id( GlobalIds.OBJ_NAME ) ).sendKeys( "us.jts.fortress.rbac.AdminMgrImpl" );
         driver.findElement( By.name( "admin" ) ).click();
         driver.findElement( By.id( "permLinkLbl" ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         //driver.findElement( By.linkText( "6" ) ).click();
         driver.findElement( By.linkText( GlobalIds.SELECT ) ).click();
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         WebElement table = driver.findElement(By.id("authztreegrid"));
         // Now get all the TR elements from the table
         List<WebElement> allRows = table.findElements(By.tagName("tr"));
         // And iterate over them, getting the cells
         allRows.get( 4 ).findElement(By.className("imxt-cell")).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         allRows.get( 5 ).findElement(By.className("imxt-cell")).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         allRows.get( 6 ).findElement(By.className("imxt-cell")).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
     }
 
     private void mods()
@@ -554,19 +559,19 @@ public class CommanderSeleniumTestCase
         driver.findElement( By.id( GlobalIds.USER_ID ) ).clear();
         driver.findElement( By.id( GlobalIds.USER_ID ) ).sendKeys( "test" );
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
-        TestUtils.sleep( 3 );
+        TUtils.sleep( 5 );
         WebElement table = driver.findElement(By.id("modtreegrid"));
         // Now get all the TR elements from the table
         List<WebElement> allRows = table.findElements(By.tagName("tr"));
         // And iterate over them, getting the cells
         allRows.get( 5 ).findElement(By.className("imxt-cell")).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         nextPage(table, "modstable");
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         allRows.get( 6 ).findElement(By.className("imxt-cell")).click();
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
         nextPage(table, "modstable");
-        TestUtils.sleep( 1 );
+        TUtils.sleep( 1 );
     }
 
     private void nextPage(WebElement table, String szTableName)
@@ -578,7 +583,7 @@ public class CommanderSeleniumTestCase
             String szText = row.getText();
             if(szText.equals( "Go to the next page" ))
                 row.click();
-            log.info( "row text=" + row.getText());
+            log.debug( "row text=" + row.getText());
         }
     }
 
@@ -685,20 +690,20 @@ public class CommanderSeleniumTestCase
                     row.click();
                 log.info( "row text=" + row.getText());
             }
-            TestUtils.sleep( 1 );
+            TUtils.sleep( 1 );
 */
             //table = driver.findElement(By.className( "k-link"));
             //driver.findElement( By.className( "k-link" ) ).click();
             //driver.findElement( By.className( "k-icon k-i-arrow-e" ) ).click();
             //a.k-link:nth-child(4) > span:nth-child(1)
-            //TestUtils.sleep( 1 );
+            //TUtils.sleep( 1 );
             //driver.findElement( By.className( "k-link" ) ).click();
-            //TestUtils.sleep( 1 );
+            //TUtils.sleep( 1 );
             //driver.findElement( By.className( "k-link" ) ).click();
-            //TestUtils.sleep( 1 );
+            //TUtils.sleep( 1 );
 /*
             allRows.get( 6 ).findElement(By.className("imxt-cell")).click();
-            TestUtils.sleep( 1 );
+            TUtils.sleep( 1 );
             allRows.get( 7 ).findElement(By.className("imxt-cell")).click();
 */
     /*
@@ -708,7 +713,7 @@ public class CommanderSeleniumTestCase
                         continue;
 
                     row.findElement(By.className("imxt-cell")).click();
-                    TestUtils.sleep( 3 );
+                    TUtils.sleep( 3 );
                     //driver.findElement(By.className("imxt-cell")).click();
                 }
     */
@@ -767,7 +772,7 @@ public class CommanderSeleniumTestCase
     //            }
 
                 //List<WebElement> cells = row.findElements(By.xpath(".//*[local-name(.)='th' or local-name(.)='td']"));
-                //TestUtils.sleep( 1 );
+                //TUtils.sleep( 1 );
                 //( ( JavascriptExecutor ) driver ).executeScript( "document.getElementById('usertreegrid').focus();" );
     /*
                 ( ( JavascriptExecutor ) driver ).executeScript( "$(document.getElementById('adminRoles')).val" +

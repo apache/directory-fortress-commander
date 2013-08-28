@@ -133,7 +133,7 @@ public class OUListPanel extends FormComponentPanel
             @Override
             protected void onSubmit( AjaxRequestTarget target, Form form )
             {
-                log.info( ".search onSubmit" );
+                log.debug( ".search onSubmit" );
                 info( "Searching OrgUnits..." );
                 if ( !VUtil.isNotNullOrEmpty( searchVal ) )
                 {

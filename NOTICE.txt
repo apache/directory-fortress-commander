@@ -1,0 +1,18 @@
+Fortress EnMasse Web Application
+Copyright (c) 2011-2013 JoshuaTree.  All rights reserved.
+
+This product distribution source code was developed by JoshuaTree (http://jts.us/).
+
+The purpose of this NOTICE.txt file is to include notices that are required by the copyright owner and their license. Some of the accompanying products have an attribution requirement, so see below. Other accompanying products do not require attribution, so are not listed. 
+
+This product includes open source software developed by the following:
+
+1. The Apache Software Foundation (http://www.apache.org/)
+2. UnBoundID Corp (http://www.unboundid.com/)
+3. The Eigenbase Project (http://www.eigenbase.org/)
+4. JUnit.org (http://www.junit.org/)
+5. The Java Community Process (http://www.jcp.org/)
+6. SLF4J (http://www.slf4j.org/)
+7. Terracotta (http://www.terracotta.org/TPL)
+8. Spring (http://www.springsource.org/)
+9. AspectJ (http://www.eclipse.org/aspectj/)

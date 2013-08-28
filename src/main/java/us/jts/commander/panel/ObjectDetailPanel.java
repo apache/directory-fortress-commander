@@ -307,7 +307,7 @@ public class ObjectDetailPanel extends FormComponentPanel
                     msg += permObj.getOu() != null ? ": " + permObj.getOu() : "";
                     ouSearchModalPanel.setSearchVal( permObj.getOu() );
                     display.setMessage( msg );
-                    log.info( msg );
+                    log.debug( msg );
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     ousModalWindow.show( target );
                 }

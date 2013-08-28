@@ -46,7 +46,7 @@ public class ContextMenuPage extends CommanderBasePage
             @Override
             public void onClick( AjaxRequestTarget target, IMenuItem item )
             {
-                this.info( "Clicked " + item.getTitle().getObject() );
+                this.debug( "Clicked " + item.getTitle().getObject() );
 
                 target.add( this );
                 //target.add(feedback);

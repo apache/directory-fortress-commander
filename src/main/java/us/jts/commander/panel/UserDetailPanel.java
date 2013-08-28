@@ -639,11 +639,11 @@ public class UserDetailPanel extends FormComponentPanel
                     HttpServletRequest servletReq = ( HttpServletRequest ) getRequest().getContainerRequest();
                     if ( servletReq.isUserInRole( "rbac_admin" ) )
                     {
-                        log.info( "User has RBAC_ADMIN" );
+                        log.debug( "User has RBAC_ADMIN" );
                     }
                     else
                     {
-                        log.info( "User NOT RBAC_ADMIN" );
+                        log.debug( "User NOT RBAC_ADMIN" );
                     }
 
                     User user = ( User ) form.getModel().getObject();
@@ -832,7 +832,7 @@ public class UserDetailPanel extends FormComponentPanel
                         msg += ", no action taken because address selection is empty";
                     }
                     display.setMessage( msg );
-                    log.info( msg );
+                    log.debug( msg );
                 }
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
@@ -879,7 +879,7 @@ public class UserDetailPanel extends FormComponentPanel
                         msg += ", no action taken because emails selection is empty";
                     }
                     display.setMessage( msg );
-                    log.info( msg );
+                    log.debug( msg );
                 }
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
@@ -926,7 +926,7 @@ public class UserDetailPanel extends FormComponentPanel
                         msg += ", no action taken because phones selection is empty";
                     }
                     display.setMessage( msg );
-                    log.info( msg );
+                    log.debug( msg );
                 }
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
@@ -973,7 +973,7 @@ public class UserDetailPanel extends FormComponentPanel
                         msg += ", no action taken because mobiles selection is empty";
                     }
                     display.setMessage( msg );
-                    log.info( msg );
+                    log.debug( msg );
                 }
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
@@ -1029,7 +1029,7 @@ public class UserDetailPanel extends FormComponentPanel
                     msg += roleSelection != null ? ": " + roleSelection : "";
                     roleSearchModalPanel.setRoleSearchVal( roleSelection );
                     display.setMessage( msg );
-                    log.info( msg );
+                    log.debug( msg );
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     rolesModalWindow.show( target );
                 }
@@ -1087,7 +1087,7 @@ public class UserDetailPanel extends FormComponentPanel
                     msg += adminRoleSelection != null ? ": " + adminRoleSelection : "";
                     adminRoleSearchModalPanel.setRoleSearchVal( adminRoleSelection );
                     display.setMessage( msg );
-                    log.info( msg );
+                    log.debug( msg );
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     adminRolesModalWindow.show( target );
                 }
@@ -1146,7 +1146,7 @@ public class UserDetailPanel extends FormComponentPanel
                     msg += user.getPwPolicy() != null ? ": " + user.getPwPolicy() : "";
                     policySearchModalPanel.setSearchVal( user.getPwPolicy() );
                     display.setMessage( msg );
-                    log.info( msg );
+                    log.debug( msg );
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     policiesModalWindow.show( target );
                 }
@@ -1205,7 +1205,7 @@ public class UserDetailPanel extends FormComponentPanel
                     msg += user.getOu() != null ? ": " + user.getOu() : "";
                     ouSearchModalPanel.setSearchVal( user.getOu( ) );
                     display.setMessage( msg );
-                    log.info( msg );
+                    log.debug( msg );
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     ousModalWindow.show( target );
                 }
@@ -1235,8 +1235,8 @@ public class UserDetailPanel extends FormComponentPanel
         {
             String choice = comboBox.getModelObject();
             String msg = choice != null ? choice : "no choice";
-            this.info( msg );
-            log.info( msg );
+            this.debug( msg );
+            log.debug( msg );
         }
 
         private void clearDetailPanel()

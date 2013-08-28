@@ -7,13 +7,8 @@ package us.jts.commander.integration;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Set;
-import java.util.StringTokenizer;
-import java.util.TreeSet;
 
 import junit.framework.TestCase;
 
@@ -31,9 +26,9 @@ import us.jts.fortress.util.attr.VUtil;
  *
  * @author Shawn McKinney
  */
-public class TestUtils extends TestCase
+public class TUtils extends TestCase
 {
-    private static final String CLS_NM = TestUtils.class.getName();
+    private static final String CLS_NM = TUtils.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
     /**
@@ -59,7 +54,7 @@ public class TestUtils extends TestCase
 
     public static byte[] readJpegFile( String fileName )
     {
-        URL fUrl = TestUtils.class.getClassLoader().getResource( fileName );
+        URL fUrl = TUtils.class.getClassLoader().getResource( fileName );
         byte[] image = null;
         try
         {
@@ -91,13 +86,13 @@ public class TestUtils extends TestCase
         try
         {
             Integer iSleep = ( Integer.parseInt( len ) * 1000 );
-            //LOG.info(TestUtils.class.getName() + ".sleep for len=" + iSleep);
-            LogUtil.logIt( TestUtils.class.getName() + ".sleep for len=" + iSleep );
+            //LOG.debug(TUtils.class.getName() + ".sleep for len=" + iSleep);
+            LogUtil.logIt( TUtils.class.getName() + ".sleep for len=" + iSleep );
             Thread.currentThread().sleep( iSleep );
         }
         catch ( InterruptedException ie )
         {
-            LOG.warn( TestUtils.class.getName() + ".sleep caught InterruptedException=" + ie.getMessage(), ie );
+            LOG.warn( TUtils.class.getName() + ".sleep caught InterruptedException=" + ie.getMessage(), ie );
         }
     }
 
@@ -111,12 +106,12 @@ public class TestUtils extends TestCase
         try
         {
             int iSleep = len * 1000;
-            us.jts.fortress.util.LogUtil.logIt( TestUtils.class.getName() + ".sleep for len=" + iSleep );
+            us.jts.fortress.util.LogUtil.logIt( TUtils.class.getName() + ".sleep for len=" + iSleep );
             Thread.currentThread().sleep( iSleep );
         }
         catch ( InterruptedException ie )
         {
-            LOG.warn( TestUtils.class.getName() + ".sleep caught InterruptedException=" + ie.getMessage(), ie );
+            LOG.warn( TUtils.class.getName() + ".sleep caught InterruptedException=" + ie.getMessage(), ie );
         }
     }
 
@@ -130,12 +125,12 @@ public class TestUtils extends TestCase
         try
         {
             long iSleep = len * 1000;
-            us.jts.fortress.util.LogUtil.logIt( TestUtils.class.getName() + ".sleep for len=" + iSleep );
+            us.jts.fortress.util.LogUtil.logIt( TUtils.class.getName() + ".sleep for len=" + iSleep );
             Thread.currentThread().sleep( iSleep );
         }
         catch ( InterruptedException ie )
         {
-            LOG.warn( TestUtils.class.getName() + ".sleep caught InterruptedException=" + ie.getMessage(), ie );
+            LOG.warn( TUtils.class.getName() + ".sleep caught InterruptedException=" + ie.getMessage(), ie );
         }
     }
 }
