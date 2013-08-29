@@ -3,7 +3,7 @@ ________________________________________________________________________________
 ###################################################################################
 README for Fortress Commander Web Application Installation
 RC29 (BETA RELEASE CANDIDATE)
-Last updated: August 27, 2013
+Last updated: August 29, 2013
 ___________________________________________________________________________________
 ###################################################################################
 # Prerequisites
@@ -44,6 +44,8 @@ NOTE: The EnMasse maven may run without connection to Internet iff:
 
   - Commander - Identity, Administrative, Compliance and Review pages
 
+  - Wicket - Controls buttons and links displayed by role and permissions
+
   - OpenLDAP - Password Hashing, Policies.
 ___________________________________________________________________________________
 ###################################################################################
@@ -58,23 +60,21 @@ Before you can successfully complete the steps to install and run Commander, the
 http://maven.apache.org/download.html
 http://www.sonatype.com/books/mvnref-book/reference/installation-sect-maven-install.html
 
-3. Java SDK Version 6 or beyond installed:
+3. Java SDK Version 7 or beyond installed:
 http://www.oracle.com/technetwork/java/javase/downloads/index.html
 
 4. Fortress/OpenLDAP QUICKSTART installed:
 instructions: http://www.joshuatreesoftware.us/iamfortress/guides/README-QUICKSTART.html
 binaries: https://iamfortress.org/projects
 
-5. Tomcat 7 installed:
+5. Tomcat 7 (or suitable servlet container) installed:
 http://tomcat.apache.org
 
 6. Fortress Sentry package (a.k.a Realm) installed:
-instructions: http://www.joshuatreesoftware.us/iamfortress/javadocs/api-sentry/com/jts/fortress/sentry/tomcat/package-summary.html
-binaries: https://iamfortress.org/projects
 
-Note: There is a complete Commander demo that handles these prereqs for you located here:
-https://iamfortress.org/Commander
-
+instructions: http://www.jts.us/iamfortress/javadocs/api-sentry/us/jts/sentry/tomcat/package-summary.html
+binaries: http://iamfortress.org/download
+Note: There is a complete Commander demo that handles these prereqs for you located at link above.
 _________________________________________________________________________________
 ###################################################################################
 # SECTION 2:  Instructions for Commander installation using distribution package
