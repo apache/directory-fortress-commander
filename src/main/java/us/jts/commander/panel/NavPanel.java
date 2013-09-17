@@ -433,6 +433,7 @@ public class NavPanel extends FormComponentPanel
                 }
             }.setPosition( IndicatingAjaxButton.Position.RIGHT));
 */
+/*
         add( new SecureIndicatingAjaxButton("test" )
         {
             @Override public void onSubmit ( AjaxRequestTarget target, Form < ?>form)
@@ -450,12 +451,12 @@ public class NavPanel extends FormComponentPanel
                 }
             }
         }
-
         .
 
         setPosition( IndicatingAjaxButton.Position.RIGHT )
 
         );
+*/
     }
 }
 }
