@@ -10,7 +10,7 @@ ________________________________________________________________________________
 ###################################################################################
 1. Internet access to retrieve dependencies from online Maven repo.
 
-NOTE: The EnMasse maven may run without connection to Internet iff:
+NOTE: The Commander maven may run without connection to Internet iff:
 - The binary dependencies are already present in M2_HOME
 
 2. Java SDK Version 7 or beyond installed to target environment
