@@ -116,10 +116,10 @@ ________________________________________________________________________________
 
 Note: This test case depends that the prerequisite tasks have been performed in SECTION 1.
 
-1. Load the test security policy into LDAP using Commander install target:
->mvn install
+1. Load the test security policy into LDAP using Commander test target:
+>mvn test
 
-2. Run the Selenium Web driver test
+2. Run the Selenium Web driver integration tests:
 >mvn verify -DskipTests=false
 
 ___________________________________________________________________________________
