@@ -426,7 +426,52 @@
                     </connectors>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <configuration>
+                            <target>
+                                <echo message="###############  Run Fortress Ant script to load demo policy  ###############"/>
+                                <java
+                                        classname="org.apache.tools.ant.launch.Launcher"
+                                        fork="true"
+                                        failonerror="true"
+                                        dir="${basedir}"
+                                        timeout="4000000"
+                                        taskname="startAnt">
+                                    <classpath>
+                                        <pathelement location="${ANT_HOME}/lib/ant-launcher.jar"/>
+                                        <pathelement location="${ANT_HOME}/lib/ant.jar"/>
+                                        <pathelement location="./src/main/resources"/>
+                                        <pathelement location="${us.joshuatreesoftware:fortress:jar}"/>
+                                        <pathelement location="${log4j:log4j:jar}"/>
+                                        <pathelement location="${com.unboundid:unboundid-ldapsdk:jar}"/>
+                                        <pathelement location="${org.jgrapht:jgrapht-jdk1.5:jar}"/>
+                                        <pathelement location="${org.jasypt:jasypt:jar}"/>
+                                        <pathelement location="${commons-configuration:commons-configuration:jar}"/>
+                                        <pathelement location="${commons-lang:commons-lang:jar}"/>
+                                        <pathelement location="${commons-collections:commons-collections:jar}"/>
+                                        <pathelement location="${commons-logging:commons-logging:jar}"/>
+                                        <pathelement location="${net.sf.ehcache:ehcache-core:jar}"/>
+                                        <pathelement location="${org.slf4j:slf4j-api:jar}"/>
+                                        <pathelement location="${org.slf4j:slf4j-log4j12:jar}"/>
+                                    </classpath>
+                                    <sysproperty key="version" value="${version}"/>
+                                    <sysproperty key="tenant" value="HOME"/>
+                                    <arg value="-buildfile"/>
+                                    <arg file="./src/main/resources/CommanderDemoUsers.xml"/>
+                                </java>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 

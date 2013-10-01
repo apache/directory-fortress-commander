@@ -114,11 +114,12 @@ ________________________________________________________________________________
 # SECTION 6:  Instructions to integration test Commander Web application
 ###################################################################################
 
-note: This test case depends that the following Fortress targets have been run:
-a. init-slapd
-b. test-full
+Note: This test case depends that the prerequisite tasks have been performed in SECTION 1.
 
-1. Run Selenium Web driver test
+1. Load the test security policy into LDAP using Commander install target:
+>mvn install
+
+2. Run the Selenium Web driver test
 >mvn verify -DskipTests=false
 
 ___________________________________________________________________________________
