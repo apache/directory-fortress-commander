@@ -3,10 +3,10 @@ ________________________________________________________________________________
 ###################################################################################
 README for Fortress Commander Web Application Installation
 RC29 (BETA RELEASE CANDIDATE)
-Last updated: August 29, 2013
+Last updated: October 1, 2013
 ___________________________________________________________________________________
 ###################################################################################
-# Prerequisites
+# SECTION 1: Prerequisites
 ###################################################################################
 1. Internet access to retrieve dependencies from online Maven repo.
 
@@ -14,11 +14,26 @@ NOTE: The Commander maven may run without connection to Internet iff:
 - The binary dependencies are already present in M2_HOME
 
 2. Java SDK Version 7 or beyond installed to target environment
-3. Maven 3 installed to target environment
-4. Fortress/OpenLDAP are installed to target system.
 
+3. Apache Ant installed.
+
+4. Apache Maven 3 installed.
+
+5. Fortress/OpenLDAP QUICKSTART installed to target system.
+Instructions: http://www.jts.us/iamfortress/guides/README-QUICKSTART.html
+Download: http://iamfortress.org/download/
+
+6. Tomcat 7 (or suitable servlet container) installed:
+http://tomcat.apache.org
+
+7. Fortress Sentry package (a.k.a Realm) installed as the Java security provider on Tomcat server:
+Instructions: http://www.jts.us/iamfortress/javadocs/api-sentry/us/jts/sentry/tomcat/package-summary.html
+
+Important Note: The Fortress QUICKSTART package includes prerequisite #'s 3,4,5,6 & 7 from above.
+Download QUICKSTART packages from here: http://iamfortress.org/download/
+___________________________________________________________________________________
 ###################################################################################
-# Important Notes about Commander Web Application
+# SECTION 2: Important Notes about Commander Web Application
 ###################################################################################
 
 1. Commander is released as Open Source and available for unrestricted use via BSD 3 clause license. (see LICENSE.txt)
@@ -47,37 +62,9 @@ NOTE: The Commander maven may run without connection to Internet iff:
   - Wicket - Controls buttons and links displayed by role and permissions
 
   - OpenLDAP - Password Hashing, Policies.
-___________________________________________________________________________________
-###################################################################################
-# SECTION 1:  Prerequisites for use of Commander Web Application
-###################################################################################
-
-Before you can successfully complete the steps to install and run Commander, the following steps must be completed:
-
-1. Internet access from your target machine to Maven 2 online repos.
-
-2. Maven 3 installed to target:
-http://maven.apache.org/download.html
-http://www.sonatype.com/books/mvnref-book/reference/installation-sect-maven-install.html
-
-3. Java SDK Version 7 or beyond installed:
-http://www.oracle.com/technetwork/java/javase/downloads/index.html
-
-4. Fortress/OpenLDAP QUICKSTART installed:
-instructions: http://www.joshuatreesoftware.us/iamfortress/guides/README-QUICKSTART.html
-binaries: https://iamfortress.org/projects
-
-5. Tomcat 7 (or suitable servlet container) installed:
-http://tomcat.apache.org
-
-6. Fortress Sentry package (a.k.a Realm) installed:
-
-instructions: http://www.jts.us/iamfortress/javadocs/api-sentry/us/jts/sentry/tomcat/package-summary.html
-binaries: http://iamfortress.org/download
-Note: There is a complete Commander demo that handles these prereqs for you located at link above.
 _________________________________________________________________________________
 ###################################################################################
-# SECTION 2:  Instructions for Commander installation using distribution package
+# SECTION 3:  Instructions for Commander installation using Source Bundle
 ###################################################################################
 
 1. Retrieve Fortress Commander source code bundle either from iamfortress.org or OpenLDAP.org.
@@ -85,7 +72,7 @@ ________________________________________________________________________________
 2. Extract contents of openldap-fortress-commander.tar.gz to target env.
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 3:  Instructions to build Commander Web archive file
+# SECTION 4:  Instructions to build Commander Web archive file
 ###################################################################################
 
 1. Open a command prompt on target machine in the root folder of the commander-dist package
@@ -100,7 +87,7 @@ ________________________________________________________________________________
 >mvn install
 
 ###################################################################################
-# SECTION 4:  Instructions to Deploy Commander Web application to Tomcat
+# SECTION 5:  Instructions to Deploy Commander Web application to Tomcat
 ###################################################################################
 
 1. Enable Maven to communicate with Tomcat using settings.xml file.
@@ -124,7 +111,7 @@ note: If you followed the installation steps of Fortress QUICKSTART your Tomcat 
 >mvn tomcat:redeploy
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 5:  Instructions to integration test Commander Web application
+# SECTION 6:  Instructions to integration test Commander Web application
 ###################################################################################
 
 note: This test case depends that the following Fortress targets have been run:
@@ -136,7 +123,7 @@ b. test-full
 
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 6:  Instructions to create Commander javadoc (optional)
+# SECTION 7:  Instructions to create Commander javadoc (optional)
 ###################################################################################
 
 The service level documentation provides descriptions for each of the Commander pages.
