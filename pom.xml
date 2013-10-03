@@ -7,7 +7,7 @@
     <groupId>us.joshuatreesoftware</groupId>
     <artifactId>commander</artifactId>
     <packaging>war</packaging>
-    <version>1.0-RC29</version>
+    <version>1.0-RC30</version>
     <name>Commander Webapp</name>
     <url>http://jts.us</url>
     <description>Commander is an ANSI RBAC compliant administrative Web UI</description>
@@ -68,7 +68,7 @@
     </developers>
 
     <properties>
-        <version>1.0-RC29</version>
+        <version>1.0-RC30</version>
         <title>${name} ${version}</title>
         <wicket.version>6.11.0</wicket.version>
         <wicket.jquery.version>6.11.0</wicket.jquery.version>
@@ -224,7 +224,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-<!--            <version>2.33.0</version>-->
+            <!--            <version>2.33.0</version>-->
             <version>2.35.0</version>
         </dependency>
         <dependency>
@@ -479,6 +479,7 @@
         <profile>
             <id>release-sign-artifacts</id>
             <activation>
+                <activeByDefault>false</activeByDefault>
                 <property>
                     <name>performRelease</name>
                     <value>true</value>
@@ -503,6 +504,18 @@
                 </plugins>
             </build>
         </profile>
-
+        <profile>
+            <id>load-ldap</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>!ANT_HOME</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <properties>
+                <ANT_HOME>../apache-ant/</ANT_HOME>
+            </properties>
+        </profile>
     </profiles>
 </project>
