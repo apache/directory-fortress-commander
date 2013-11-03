@@ -39,21 +39,4 @@ public class SecureIndicatingAjaxButton extends IndicatingAjaxButton
         if( ! GlobalUtils.isAuthorized( roleName, servletReq ) )
             setVisible( false );
     }
-
-    public SecureIndicatingAjaxButton( String id )
-    {
-        super( id );
-        try
-        {
-            boolean result = accessMgr.checkAccess( GlobalUtils.getRbacSession( this ), new Permission("test", "test") );
-            if(!result)
-                setVisible( false );
-        }
-        catch ( us.jts.fortress.SecurityException se )
-        {
-            String error = "Fortress Security Exception=" + se;
-            LOG.error( error );
-            //throw new RuntimeException("SecurityIndicatingAjaxButton caught Exception=" + e);
-        }
-    }
 }

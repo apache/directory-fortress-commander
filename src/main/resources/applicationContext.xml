@@ -73,7 +73,7 @@
         <property name="targetMethod" value="putAll"/>
         <property name="arguments">
             <util:properties>
-                <prop key="version">1.0-RC31</prop>
+                <prop key="version">1.0-RC32</prop>
             </util:properties>
         </property>
     </bean>

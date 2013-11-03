@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: us.joshuatreesoftware:fortress:1.0-RC32">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/us/joshuatreesoftware/fortress/1.0-RC32/fortress-1.0-RC32.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/us/joshuatreesoftware/fortress/1.0-RC32/fortress-1.0-RC32-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/us/joshuatreesoftware/fortress/1.0-RC32/fortress-1.0-RC32-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -7,7 +7,7 @@
     <groupId>us.joshuatreesoftware</groupId>
     <artifactId>commander</artifactId>
     <packaging>war</packaging>
-    <version>1.0-RC31</version>
+    <version>1.0-RC32</version>
     <name>Commander Webapp</name>
     <url>http://jts.us</url>
     <description>Commander is an ANSI RBAC compliant administrative Web UI</description>
@@ -68,7 +68,7 @@
     </developers>
 
     <properties>
-        <version>1.0-RC31</version>
+        <version>1.0-RC32</version>
         <title>${name} ${version}</title>
         <wicket.version>6.11.0</wicket.version>
         <wicket.jquery.version>6.11.0</wicket.jquery.version>
@@ -458,6 +458,10 @@
                                         <pathelement location="${net.sf.ehcache:ehcache-core:jar}"/>
                                         <pathelement location="${org.slf4j:slf4j-api:jar}"/>
                                         <pathelement location="${org.slf4j:slf4j-log4j12:jar}"/>
+                                        <pathelement location="${org.apache.cxf:cxf-common-utilities:jar}"/>
+                                        <pathelement location="${javax.ws.rs:jsr311-api:jar}"/>
+                                        <pathelement location="${commons-httpclient:commons-httpclient:jar}"/>
+                                        <pathelement location="${commons-codec:commons-codec:jar}"/>
                                     </classpath>
                                     <sysproperty key="version" value="${version}"/>
                                     <sysproperty key="tenant" value="HOME"/>
@@ -515,6 +519,7 @@
             </activation>
             <properties>
                 <ANT_HOME>../apache-ant/</ANT_HOME>
+<!--                <ANT_HOME>/home/smckinn/JavaTools/apache-ant-1.8.2</ANT_HOME>-->
             </properties>
         </profile>
     </profiles>
