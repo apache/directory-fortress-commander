@@ -455,6 +455,7 @@
                                         <pathelement location="${commons-lang:commons-lang:jar}"/>
                                         <pathelement location="${commons-collections:commons-collections:jar}"/>
                                         <pathelement location="${commons-logging:commons-logging:jar}"/>
+                                        <pathelement location="${commons-io:commons-io:jar}"/>
                                         <pathelement location="${net.sf.ehcache:ehcache-core:jar}"/>
                                         <pathelement location="${org.slf4j:slf4j-api:jar}"/>
                                         <pathelement location="${org.slf4j:slf4j-log4j12:jar}"/>

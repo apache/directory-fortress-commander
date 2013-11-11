@@ -636,6 +636,7 @@ public class UserDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
                     log.debug( ".onSubmit assign" );
+/*
                     HttpServletRequest servletReq = ( HttpServletRequest ) getRequest().getContainerRequest();
                     if ( servletReq.isUserInRole( "rbac_admin" ) )
                     {
@@ -645,6 +646,7 @@ public class UserDetailPanel extends FormComponentPanel
                     {
                         log.debug( "User NOT RBAC_ADMIN" );
                     }
+*/
 
                     User user = ( User ) form.getModel().getObject();
                     if ( assignRole( user, roleSelection ) )
