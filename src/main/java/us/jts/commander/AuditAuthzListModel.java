@@ -78,7 +78,15 @@ public class AuditAuthzListModel<T extends Serializable> extends Model
                userAudit.getBeginDate() == null  &&
                userAudit.getEndDate() == null
              )
+            ||
+             ( !VUtil.isNotNullOrEmpty( userAudit.getUserId() )   &&
+                VUtil.isNotNullOrEmpty( userAudit.getObjName() )  &&
+                !VUtil.isNotNullOrEmpty( userAudit.getOpName() )  &&
+                userAudit.getBeginDate() == null  &&
+                userAudit.getEndDate() == null
+            )
            )
+
         {
             log.debug(".getObject null");
             authZs = new ArrayList<AuthZ>();
@@ -99,6 +107,7 @@ public class AuditAuthzListModel<T extends Serializable> extends Model
                 }
             }
             authZs = getList(userAudit);
+            userAudit.setDn( "" );
         }
         return (T) authZs;
     }
