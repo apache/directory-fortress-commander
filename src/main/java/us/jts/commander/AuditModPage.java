@@ -1,7 +1,6 @@
 /*
- * Copyright (c) 2013, JoshuaTree Software. All rights reserved.
+ * Copyright (c) 2013-2014, JoshuaTree Software. All rights reserved.
  */
-
 package us.jts.commander;
 
 import org.apache.wicket.Component;

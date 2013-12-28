@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2013-2014, JoshuaTree Software. All rights reserved.
+ */
 package us.jts.commander.panel;
 
 import java.util.ArrayList;

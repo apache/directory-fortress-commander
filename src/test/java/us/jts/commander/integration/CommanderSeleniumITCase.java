@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, JoshuaTree Software. All rights reserved.
+ * Copyright (c) 2013-2014, JoshuaTree Software. All rights reserved.
  */
 package us.jts.commander.integration;
 
@@ -42,7 +42,7 @@ public class CommanderSeleniumITCase
         //baseUrl = "http://192.168.1.104:8080";
 
         // tomcat default:
-        baseUrl = "http://localhost:8080";
+        baseUrl = "http://localhost:8081";
         // tomcat SSL:
         //baseUrl = "https://localhost:8444";
         driver.manage().timeouts().implicitlyWait( 5, TimeUnit.SECONDS );

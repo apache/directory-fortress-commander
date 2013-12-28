@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, JoshuaTree Software. All rights reserved.
+ * Copyright (c) 2013-2014, JoshuaTree Software. All rights reserved.
  */
 
 package us.jts.commander;
@@ -162,6 +162,6 @@ public abstract class CommanderBasePage extends WebPage
         {
             actionLink.setVisible( false );
         }
-        add( new Label( "footer", "Copyright (c) 2013, JoshuaTree. All Rights Reserved." ) );
+        add( new Label( "footer", "Copyright (c) 2013-2014, JoshuaTree. All Rights Reserved." ) );
     }
 }

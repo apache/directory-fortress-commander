@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2013, JoshuaTree Software. All rights reserved.
+  ~ Copyright (c) 2013-2014, JoshuaTree Software. All rights reserved.
   -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -353,7 +353,7 @@
                 <version>2.9.1</version>
                 <configuration>
                     <stylesheet>java</stylesheet>
-                    <bottom>&lt;small&gt;Copyright &amp;copy; 2011-2013 Joshua Tree Software, LLC. All Rights Reserved.
+                    <bottom>&lt;small&gt;Copyright &amp;copy; 2011-2014 Joshua Tree Software, LLC. All Rights Reserved.
                         Generated ${maven.build.timestamp}.&lt;/small&gt;</bottom>
                     <overview>src/main/java/us/jts/commander/overview.html</overview>
                     <version>true</version>
