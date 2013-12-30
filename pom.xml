@@ -7,7 +7,7 @@
     <groupId>us.joshuatreesoftware</groupId>
     <artifactId>commander</artifactId>
     <packaging>war</packaging>
-    <version>1.0-RC33</version>
+    <version>1.0-RC34</version>
     <name>Commander Webapp</name>
     <url>http://jts.us</url>
     <description>Commander is an ANSI RBAC compliant administrative Web UI</description>
@@ -68,7 +68,7 @@
     </developers>
 
     <properties>
-        <version>1.0-RC33</version>
+        <version>1.0-RC34</version>
         <title>${name} ${version}</title>
         <wicket.version>6.12.0</wicket.version>
         <wicket.jquery.version>6.11.0</wicket.jquery.version>
