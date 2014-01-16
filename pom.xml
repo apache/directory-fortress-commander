@@ -8,7 +8,7 @@
     <artifactId>commander</artifactId>
     <packaging>war</packaging>
     <version>1.0-RC34</version>
-    <name>Commander Webapp</name>
+    <name>Fortress Commander</name>
     <url>http://jts.us</url>
     <description>Commander is an ANSI RBAC compliant administrative Web UI</description>
 
@@ -152,6 +152,13 @@
             <artifactId>wicketstuff-jwicket-ui-resize</artifactId>
             <version>${wicket.jquery.version}</version>
         </dependency>
+<!--
+        <dependency>
+            <groupId>de.agilecoders.wicket</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>0.5.0</version>
+        </dependency>
+-->
         <dependency>
             <groupId>com.googlecode.wicket-jquery-ui</groupId>
             <artifactId>wicket-jquery-ui</artifactId>
