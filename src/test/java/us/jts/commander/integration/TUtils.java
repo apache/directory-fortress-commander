@@ -37,21 +37,6 @@ public class TUtils extends TestCase
      */
     public static final String DELIMITER_TEST_DATA = ",";
 
-    private static String contextId = GlobalIds.HOME;
-
-
-    public static String getContext()
-    {
-        // This property can be overriden with system property:
-        String tenant = System.getProperty( GlobalIds.TENANT );
-        if ( VUtil.isNotNullOrEmpty( tenant ) && !tenant.equals( "${tenant}" ) )
-        {
-            contextId = tenant;
-        }
-        return contextId;
-    }
-
-
     public static byte[] readJpegFile( String fileName )
     {
         URL fUrl = TUtils.class.getClassLoader().getResource( fileName );
@@ -86,8 +71,6 @@ public class TUtils extends TestCase
         try
         {
             Integer iSleep = ( Integer.parseInt( len ) * 1000 );
-            //LOG.debug(TUtils.class.getName() + ".sleep for len=" + iSleep);
-            LogUtil.logIt( TUtils.class.getName() + ".sleep for len=" + iSleep );
             Thread.currentThread().sleep( iSleep );
         }
         catch ( InterruptedException ie )
@@ -106,7 +89,6 @@ public class TUtils extends TestCase
         try
         {
             int iSleep = len * 1000;
-            us.jts.fortress.util.LogUtil.logIt( TUtils.class.getName() + ".sleep for len=" + iSleep );
             Thread.currentThread().sleep( iSleep );
         }
         catch ( InterruptedException ie )
@@ -125,8 +107,7 @@ public class TUtils extends TestCase
         try
         {
             long iSleep = len * 1000;
-            us.jts.fortress.util.LogUtil.logIt( TUtils.class.getName() + ".sleep for len=" + iSleep );
-            Thread.currentThread().sleep( iSleep );
+             Thread.currentThread().sleep( iSleep );
         }
         catch ( InterruptedException ie )
         {
