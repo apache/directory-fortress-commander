@@ -77,7 +77,7 @@ public class ObjectListModel<T extends Serializable> extends Model
         }
         else
         {
-            log.debug(".getObject userId: " + permObj != null ? permObj.getObjectName() : "null");
+            log.debug(".getObject userId: " + permObj != null ? permObj.getObjName() : "null");
             permObjs = getList(permObj);
         }
         return (T) permObjs;
@@ -103,7 +103,7 @@ public class ObjectListModel<T extends Serializable> extends Model
         List<PermObj> permObjList = null;
         try
         {
-            log.debug(".getList permObjectName: " + permObj != null ? permObj.getObjectName() : "null");
+            log.debug(".getList permObjectName: " + permObj != null ? permObj.getObjName() : "null");
             if(VUtil.isNotNullOrEmpty(permObj.getOu()))
             {
                 // TODO: make this work with administrative permissions:

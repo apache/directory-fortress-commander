@@ -112,7 +112,7 @@ public class ObjectListPanel extends FormComponentPanel
                 {
                     case NAMES:
                         log.debug( ".onSubmit OBJECT RB selected" );
-                        srchObject.setObjectName( searchVal );
+                        srchObject.setObjName( searchVal );
                         break;
                     case OUS:
                         log.debug( ".onSubmit OUS RB selected" );
@@ -194,9 +194,9 @@ public class ObjectListPanel extends FormComponentPanel
             DefaultMutableTreeNode node = model.getObject();
             treeModel.removeNodeFromParent(node);
             PermObj permObj = (PermObj) node.getUserObject();
-            log.debug(".removeSelectedItems user node: " + permObj.getObjectName());
+            log.debug(".removeSelectedItems user node: " + permObj.getObjName());
             List<PermObj> permObjs = ((List<PermObj>) getDefaultModel().getObject());
-            permObjs.remove(permObj.getObjectName());
+            permObjs.remove(permObj.getObjName());
         }
     }
 
@@ -204,7 +204,7 @@ public class ObjectListPanel extends FormComponentPanel
     {
         DefaultTreeModel model;
         PermObj rootObject = new PermObj(  );
-        //rootObject.setObjectName( "Permission Objects" );
+        //rootObject.setObjName( "Permission Objects" );
         rootNode = new DefaultMutableTreeNode(rootObject);
         model = new DefaultTreeModel(rootNode);
         if (permObjs == null)
@@ -224,10 +224,10 @@ public class ObjectListPanel extends FormComponentPanel
             new ArrayList<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>>();
 
 
-        PropertyColumn objectName = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("Object Name"), "userObject.ObjectName");
-        objectName.setInitialSize( 300 );
-        columns.add(objectName);
+        PropertyColumn objName = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+                    Model.of("Object Name"), "userObject.ObjName");
+        objName.setInitialSize( 300 );
+        columns.add(objName);
 
         PropertyColumn ou = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
                     Model.of("Perm Organization"), "userObject.Ou");
@@ -254,7 +254,7 @@ public class ObjectListPanel extends FormComponentPanel
                 if(!node.isRoot())
                 {
                     PermObj permObj = (PermObj) node.getUserObject();
-                    log.debug("TreeGrid.addGrid.selectItem selected permission object =" + permObj.getObjectName());
+                    log.debug("TreeGrid.addGrid.selectItem selected permission object =" + permObj.getObjName());
                     if (super.isItemSelected(itemModel))
                     {
                         log.debug("TreeGrid.addGrid.selectItem item is selected");

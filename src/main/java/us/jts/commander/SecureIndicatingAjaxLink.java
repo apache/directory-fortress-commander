@@ -15,10 +15,10 @@ import us.jts.fortress.rbac.Permission;
  */
 public class SecureIndicatingAjaxLink extends IndicatingAjaxLink
 {
-    public SecureIndicatingAjaxLink( String id, String objectName, String opName  )
+    public SecureIndicatingAjaxLink( String id, String objName, String opName  )
     {
         super( id );
-        if(!GlobalUtils.isFound( new Permission(objectName, opName), this ))
+        if(!GlobalUtils.isFound( new Permission(objName, opName), this ))
             setEnabled( false );
     }
 

@@ -43,7 +43,7 @@ public class ObjectDetailPanel extends FormComponentPanel
     private Form editForm;
     private Displayable display;
     private boolean isAdmin;
-    private String objectName;
+    private String objName;
 
     public Form getForm()
     {
@@ -55,9 +55,9 @@ public class ObjectDetailPanel extends FormComponentPanel
         super( id );
         this.isAdmin = isAdmin;
         if(isAdmin)
-            objectName = GlobalIds.DEL_ADMIN_MGR;
+            objName = GlobalIds.DEL_ADMIN_MGR;
         else
-            objectName = GlobalIds.ADMIN_MGR;
+            objName = GlobalIds.ADMIN_MGR;
 
         this.adminMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
         this.editForm = new ObjectDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<PermObj>( new PermObj() ) );
@@ -86,7 +86,7 @@ public class ObjectDetailPanel extends FormComponentPanel
                         adminMgr.addPermObj( permObj );
                         component = editForm;
                         SaveModelEvent.send( getPage(), this, permObj, target, SaveModelEvent.Operations.ADD );
-                        String msg = "Perm objectName: " + permObj.getObjectName() + " has been added";
+                        String msg = "Perm objName: " + permObj.getObjName() + " has been added";
                         display.setMessage( msg );
                     }
                     catch ( us.jts.fortress.SecurityException se )
@@ -130,7 +130,7 @@ public class ObjectDetailPanel extends FormComponentPanel
                     try
                     {
                         adminMgr.updatePermObj( permObj );
-                        String msg = "PermObject objectName: " + permObj.getObjectName() + " has been updated";
+                        String msg = "PermObject objName: " + permObj.getObjName() + " has been updated";
                         SaveModelEvent.send( getPage(), this, permObj, target, SaveModelEvent.Operations.UPDATE );
                         component = editForm;
                         display.setMessage( msg );
@@ -177,7 +177,7 @@ public class ObjectDetailPanel extends FormComponentPanel
                         adminMgr.deletePermObj( permObj );
                         form.setModelObject( new PermObj() );
                         modelChanged();
-                        String msg = "PermObject objectName: " + permObj.getObjectName() + " has been deleted";
+                        String msg = "PermObject objName: " + permObj.getObjName() + " has been deleted";
                         SaveModelEvent.send( getPage(), this, permObj, target, SaveModelEvent.Operations.DELETE );
                         component = editForm;
                         display.setMessage( msg );
@@ -253,9 +253,9 @@ public class ObjectDetailPanel extends FormComponentPanel
                 add( new Label( "objAssignmentsLabel", "RBAC Permission Object Detail" ) );
             }
 
-            TextField objectName = new TextField( "objectName" );
-            add( objectName );
-            objectName.setRequired( false );
+            TextField objName = new TextField( "objName" );
+            add( objName );
+            objName.setRequired( false );
             TextField type = new TextField( "type" );
             add( type );
             TextField description = new TextField( "description" );
@@ -342,7 +342,7 @@ public class ObjectDetailPanel extends FormComponentPanel
                 SelectModelEvent modelEvent = ( SelectModelEvent ) event.getPayload();
                 PermObj permObj = ( PermObj ) modelEvent.getEntity();
                 this.setModelObject(permObj);
-                String msg = "PermObject Name: " + permObj.getObjectName() + " has been selected";
+                String msg = "PermObject Name: " + permObj.getObjName() + " has been selected";
                 log.debug( msg );
                 component = editForm;
             }

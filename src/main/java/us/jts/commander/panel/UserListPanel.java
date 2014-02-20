@@ -203,7 +203,7 @@ public class UserListPanel extends FormComponentPanel
                     LOG.debug( ".onSubmit PERMS RB selected" );
 
                     Permission srchPerm = new Permission();
-                    srchPerm.setObjectName( searchData.getField1() );
+                    srchPerm.setObjName( searchData.getField1() );
                     srchPerm.setOpName( searchData.getField2() );
                     setDefaultModel( new UserListModel( srchPerm, GlobalUtils.getRbacSession( this ) ) );
                 }
@@ -508,7 +508,7 @@ public class UserListPanel extends FormComponentPanel
                 Permission permSelection = permSearchModalPanel.getSelection();
                 if ( permSelection != null )
                 {
-                    searchData.setField1( permSelection.getObjectName() );
+                    searchData.setField1( permSelection.getObjName() );
                     searchData.setField2( permSelection.getOpName() );
                 }
                 selectedRadioButton = PERMS;

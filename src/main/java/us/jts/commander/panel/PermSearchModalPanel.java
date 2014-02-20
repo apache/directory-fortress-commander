@@ -76,8 +76,8 @@ public class PermSearchModalPanel extends Panel
                         window.close( target );
                     }
                 } );
-                item.add( new Label( "objectName", new PropertyModel( item.getModel(), "objectName" ) ) );
-                item.add( new Label( "objectId", new PropertyModel( item.getModel(), "objectId" ) ) );
+                item.add( new Label( "objName", new PropertyModel( item.getModel(), "objName" ) ) );
+                item.add( new Label( "objId", new PropertyModel( item.getModel(), "objId" ) ) );
                 item.add( new Label( "opName", new PropertyModel( item.getModel(), "opName" ) ) );
                 item.add( new Label( "type", new PropertyModel( item.getModel(), "type" ) ) );
                 item.add( new Label( "admin", new PropertyModel( item.getModel(), "admin" ) ) );

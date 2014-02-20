@@ -64,7 +64,7 @@ public class UserListModel<T extends Serializable> extends Model
     {
         this.perm = perm;
         init( session );
-        log.debug( "constructor perm: " + perm != null ? perm.getObjectName() : "null" );
+        log.debug( "constructor perm: " + perm != null ? perm.getObjName() : "null" );
     }
 
     private void init(final Session session )

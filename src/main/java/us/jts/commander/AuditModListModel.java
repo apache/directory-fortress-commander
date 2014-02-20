@@ -137,10 +137,10 @@ public class AuditModListModel<T extends Serializable> extends Model
     }
 
     /**
-     * Utility will parse a String containing objectName.operationName and return the objectName only.
+     * Utility will parse a String containing objName.operationName and return the objName only.
      *
      * @param szObj contains raw data format.
-     * @return String containing objectName.
+     * @return String containing objName.
      */
     private String getTruncatedObjName(String szObj)
     {

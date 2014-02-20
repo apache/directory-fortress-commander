@@ -402,7 +402,7 @@ public class AuditAuthzListPanel extends FormComponentPanel
                     UserAudit userAudit = (UserAudit)listForm.getModelObject();
                     LOG.debug( "modal selected:" + permSelection.getAbstractName() );
                     permission = permSelection;
-                    userAudit.setObjName( permSelection.getObjectName() );
+                    userAudit.setObjName( permSelection.getObjName() );
                     userAudit.setOpName( permSelection.getOpName() );
                     target.add( objFld );
                     target.add( opFld );

@@ -132,7 +132,7 @@ public class GlobalUtils
             int eindx = raw.indexOf( "+" );
             if ( eindx != -1 )
             {
-                perm.setObjectId( raw.substring( bindx + OBJ_ID.length() + 1, eindx ) );
+                perm.setObjId( raw.substring( bindx + OBJ_ID.length() + 1, eindx ) );
             }
         }
         bindx = raw.indexOf( OBJ_NM );
@@ -142,7 +142,7 @@ public class GlobalUtils
             if ( eindx != -1 )
             {
                 eindx += bindx;
-                perm.setObjectName( raw.substring( bindx + OBJ_NM.length() + 1, eindx ) );
+                perm.setObjName( raw.substring( bindx + OBJ_NM.length() + 1, eindx ) );
             }
         }
         bindx = raw.indexOf( OP_NM );

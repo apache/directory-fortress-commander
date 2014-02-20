@@ -139,14 +139,13 @@ public class GlobalIds
     public static final String FT_MODIFIER = "ftModifier";
     public static final String FT_MOD_CODE = "ftModCode";
 
-    public static final String OBJECT_NAME = "objectName";
     public static final String OBJ_NAME = "objName";
     public static final String OP_NAME = "opName";
     public static final String FAILED_ONLY = "failedOnly";
     public static final String ADMIN = "admin";
     public static final String GET_USER_AUTHZS = "getUserAuthZs";
     public static final String GET_USER_BINDS = "searchBinds";
-    public static final String OBJECT_ID = "objectId";
+    public static final String OBJECT_ID = "objId";
     public static final String USERS_PAGE = "users";
     public static final String ROLES_PAGE = "roles";
     public static final String ADMROLES_PAGE = "admroles";

@@ -102,7 +102,7 @@ public class PermDetailPanel extends FormComponentPanel
                         rolesSelection = "";
                         component = editForm;
                         SaveModelEvent.send(getPage(), this, perm, target, SaveModelEvent.Operations.ADD);
-                        String msg = "Perm objectName: " + perm.getObjectName() + " opName: " + perm.getOpName() + " has been added";
+                        String msg = "Perm objName: " + perm.getObjName() + " opName: " + perm.getOpName() + " has been added";
                         display.setMessage(msg);
                     }
                     catch (us.jts.fortress.SecurityException se)
@@ -162,7 +162,7 @@ public class PermDetailPanel extends FormComponentPanel
                             adminMgr.updatePermission(perm);
                         }
                         roles.add( rolesSelection );
-                        String msg = "Perm objectName: " + perm.getObjectName() + " opName: " + perm.getOpName() + " has been updated";
+                        String msg = "Perm objName: " + perm.getObjName() + " opName: " + perm.getOpName() + " has been updated";
                         SaveModelEvent.send(getPage(), this, perm, target, SaveModelEvent.Operations.UPDATE);
                         rolesSelection = "";
                         component = editForm;
@@ -214,7 +214,7 @@ public class PermDetailPanel extends FormComponentPanel
                         rolesCB = new ComboBox<String>( "roles", new PropertyModel<String>( editForm, ROLES_SELECTION ),roles );
                         editForm.addOrReplace(rolesCB);
                         modelChanged();
-                        String msg = "Perm objectName: " + perm.getObjectName() + " opName: " + perm.getOpName() + " has been deleted";
+                        String msg = "Perm objName: " + perm.getObjName() + " opName: " + perm.getOpName() + " has been deleted";
                         SaveModelEvent.send(getPage(), this, perm, target, SaveModelEvent.Operations.DELETE);
                         component = editForm;
                         display.setMessage(msg);
@@ -285,7 +285,7 @@ public class PermDetailPanel extends FormComponentPanel
                 }
             });
 
-            objectTF = new TextField( GlobalIds.OBJECT_NAME );
+            objectTF = new TextField( GlobalIds.OBJ_NAME );
             // making this required prevents the object modal from opening when field empty:
             //objectTF.setRequired( true );
             objectTF.setOutputMarkupId( true );
@@ -304,8 +304,8 @@ public class PermDetailPanel extends FormComponentPanel
             TextField opName = new TextField(GlobalIds.OP_NAME);
             add(opName);
             opName.setRequired(false);
-            TextField objectId = new TextField( GlobalIds.OBJECT_ID );
-            add(objectId);
+            TextField objId = new TextField( GlobalIds.OBJECT_ID );
+            add(objId);
             Label internalId = new Label("internalId");
             add(internalId);
             rolesCB = new ComboBox<String>( "roles", new PropertyModel<String>( this, ROLES_SELECTION ), roles );
@@ -376,13 +376,13 @@ public class PermDetailPanel extends FormComponentPanel
                     if ( permObj != null )
                     {
                         Permission perm = ( Permission ) editForm.getModel().getObject();
-                        perm.setObjectName( permObj.getObjectName() );
+                        perm.setObjName( permObj.getObjName() );
                         target.add( objectTF );
                     }
                 }
             } );
 
-            add( new AjaxButton( "objectName.search" )
+            add( new AjaxButton( "objName.search" )
             {
                 private static final long serialVersionUID = 1L;
 
@@ -391,8 +391,8 @@ public class PermDetailPanel extends FormComponentPanel
                 {
                     String msg = "clicked on ObjectNames search";
                     Permission perm = ( Permission ) editForm.getModel().getObject();
-                    msg += perm.getObjectName() != null ? ": " + perm.getObjectName() : "";
-                    objectSearchModalPanel.setSearchVal( perm.getObjectName() );
+                    msg += perm.getObjName() != null ? ": " + perm.getObjName() : "";
+                    objectSearchModalPanel.setSearchVal( perm.getObjName() );
                     objectSearchModalPanel.setAdmin( isAdmin );
                     display.setMessage( msg );
                     log.debug( msg );
@@ -525,7 +525,7 @@ public class PermDetailPanel extends FormComponentPanel
                     rolesCB = new ComboBox<String>( "roles", new PropertyModel<String>( this, ROLES_SELECTION ),roles );
                 }
                 editForm.addOrReplace(rolesCB);
-                String msg = "Perm objectName: " + perm.getObjectName() + " opName: " + perm.getOpName() + " has been selected";
+                String msg = "Perm objName: " + perm.getObjName() + " opName: " + perm.getOpName() + " has been selected";
                 log.debug(msg);
                 component = editForm;
             }

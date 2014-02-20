@@ -71,7 +71,7 @@ public class PermListModel<T extends Serializable> extends Model
         }
         else
         {
-            log.debug(" .getObject perm objectNm: " + perm != null ? perm.getObjectName() : "null");
+            log.debug(" .getObject perm objectNm: " + perm != null ? perm.getObjName() : "null");
             log.debug(" .getObject perm opNm: " + perm != null ? perm.getOpName() : "null");
             perms = getList(perm);
         }
@@ -98,7 +98,7 @@ public class PermListModel<T extends Serializable> extends Model
         List<Permission> permsList = null;
         try
         {
-            String szObjectNm = perm != null ? perm.getObjectName() : "";
+            String szObjectNm = perm != null ? perm.getObjName() : "";
             String szOpNm = perm != null ? perm.getOpName() : "";
             log.debug(".getList objectNm: " + szObjectNm + " opNm: " + szOpNm);
             perm.setAdmin( isAdmin );

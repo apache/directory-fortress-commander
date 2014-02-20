@@ -68,10 +68,10 @@ public class PermListPanel extends FormComponentPanel
         setDefaultModel(permListModel);
         List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>> columns =
             new ArrayList<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>>();
-        PropertyColumn objectName = new PropertyColumn(new Model("Object Name"), "userObject.ObjectName");
-        objectName.setInitialSize( 250 );
-        columns.add(objectName);
-        columns.add(new PropertyColumn(new Model("Object Id"), "userObject.ObjectId"));
+        PropertyColumn objName = new PropertyColumn(new Model("Object Name"), "userObject.ObjName");
+        objName.setInitialSize( 250 );
+        columns.add(objName);
+        columns.add(new PropertyColumn(new Model("Object Id"), "userObject.ObjId"));
         columns.add(new PropertyColumn(new Model("Operation Name"), "userObject.OpName"));
         String roleAssignLabel;
         if(isAdmin)
@@ -101,7 +101,7 @@ public class PermListPanel extends FormComponentPanel
                 if(!node.isRoot())
                 {
                     Permission perm = (Permission) node.getUserObject();
-                    log.debug("TreeGrid.addGrid.selectItem selected perm objNm: " + perm.getObjectName() + " opNm: " + perm.getOpName());
+                    log.debug("TreeGrid.addGrid.selectItem selected perm objNm: " + perm.getObjName() + " opNm: " + perm.getOpName());
                     if (super.isItemSelected(itemModel))
                     {
                         log.debug("TreeGrid.addGrid.selectItem item is selected");
@@ -212,7 +212,7 @@ public class PermListPanel extends FormComponentPanel
                 PermObj permObj = objectSearchModalPanel.getSelection();
                 if ( permObj != null )
                 {
-                    permObject = permObj.getObjectName();
+                    permObject = permObj.getObjName();
                     target.add( permObjectFld );
                 }
             }
@@ -306,7 +306,7 @@ public class PermListPanel extends FormComponentPanel
             DefaultMutableTreeNode node = model.getObject();
             treeModel.removeNodeFromParent(node);
             Permission perm = (Permission) node.getUserObject();
-            log.debug(".removeSelectedItems perm objNm: " + perm.getObjectName() + " opNm: " + perm.getOpName());
+            log.debug(".removeSelectedItems perm objNm: " + perm.getObjName() + " opNm: " + perm.getOpName());
             List<Permission> perms = ((List<Permission>) getDefaultModel().getObject());
             perms.remove(perm);
         }

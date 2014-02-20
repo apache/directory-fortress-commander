@@ -29,12 +29,12 @@ public class TestAuthorization
 
     private static final Logger LOG = LoggerFactory.getLogger( TestAuthorization.class.getName() );
 
-    public boolean checkAccess( Session session, String objectName, String opName )
+    public boolean checkAccess( Session session, String objName, String opName )
     {
         boolean result = false;
         try
         {
-            result = accessMgr.checkAccess( session, new Permission(objectName, opName) );
+            result = accessMgr.checkAccess( session, new Permission(objName, opName) );
         }
         catch ( us.jts.fortress.SecurityException se )
         {

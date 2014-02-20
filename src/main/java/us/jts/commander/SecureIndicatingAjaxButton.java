@@ -25,10 +25,10 @@ public class SecureIndicatingAjaxButton extends IndicatingAjaxButton
 
     private static final Logger LOG = Logger.getLogger(SecureIndicatingAjaxButton.class.getName());
 
-    public SecureIndicatingAjaxButton( String id, String objectName, String opName )
+    public SecureIndicatingAjaxButton( String id, String objName, String opName )
     {
         super( id );
-        if(!GlobalUtils.isFound( new Permission(objectName, opName), this ))
+        if(!GlobalUtils.isFound( new Permission(objName, opName), this ))
             setVisible( false );
     }
 

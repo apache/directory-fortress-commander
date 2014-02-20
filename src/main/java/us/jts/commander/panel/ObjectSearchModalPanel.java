@@ -74,7 +74,7 @@ public class ObjectSearchModalPanel extends Panel
                         window.close( target );
                     }
                 } );
-                item.add( new Label( "objectName", new PropertyModel( item.getModel(), "objectName" ) ) );
+                item.add( new Label( "objName", new PropertyModel( item.getModel(), "objName" ) ) );
                 item.add( new Label( "description", new PropertyModel( item.getModel(), "description" ) ) );
                 item.add( new Label( "ou", new PropertyModel( item.getModel(), "ou" ) ) );
                 item.add( new Label( "type", new PropertyModel( item.getModel(), "type" ) ) );

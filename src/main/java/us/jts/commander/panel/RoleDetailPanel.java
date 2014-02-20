@@ -59,7 +59,7 @@ public class RoleDetailPanel extends Panel
     private Form editForm;
     private Displayable display;
     private boolean isAdmin;
-    private String objectName;
+    private String objName;
 
     public Form getForm()
     {
@@ -74,12 +74,12 @@ public class RoleDetailPanel extends Panel
         this.delAdminMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
         if(isAdmin)
         {
-            this.objectName = GlobalIds.DEL_ADMIN_MGR;
+            this.objName = GlobalIds.DEL_ADMIN_MGR;
             this.editForm = new RoleDetailForm(GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<AdminRole>(new AdminRole()));
         }
         else
         {
-            this.objectName = GlobalIds.ADMIN_MGR;
+            this.objName = GlobalIds.ADMIN_MGR;
             this.editForm = new RoleDetailForm(GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<Role>(new Role()));
         }
 
@@ -128,7 +128,7 @@ public class RoleDetailPanel extends Panel
             parentsCB = new ComboBox<String>( GlobalIds.PARENTS, new PropertyModel<String>( this, PARENTS_SELECTION ), parents );
             add(parentsCB);
 
-            add( new SecureIndicatingAjaxButton( GlobalIds.ADD, objectName, GlobalIds.ADD_ROLE )
+            add( new SecureIndicatingAjaxButton( GlobalIds.ADD, objName, GlobalIds.ADD_ROLE )
             {
                 @Override
                 protected void onSubmit(AjaxRequestTarget target, Form form)
@@ -187,7 +187,7 @@ public class RoleDetailPanel extends Panel
                     attributes.getAjaxCallListeners().add( ajaxCallListener );
                 }
             });
-            add( new SecureIndicatingAjaxButton( GlobalIds.COMMIT, objectName, GlobalIds.UPDATE_ROLE )
+            add( new SecureIndicatingAjaxButton( GlobalIds.COMMIT, objName, GlobalIds.UPDATE_ROLE )
             {
                 @Override
                 protected void onSubmit(AjaxRequestTarget target, Form form)
@@ -243,7 +243,7 @@ public class RoleDetailPanel extends Panel
                     attributes.getAjaxCallListeners().add( ajaxCallListener );
                 }
             });
-            add( new SecureIndicatingAjaxButton( GlobalIds.DELETE, objectName, GlobalIds.DELETE_ROLE )
+            add( new SecureIndicatingAjaxButton( GlobalIds.DELETE, objName, GlobalIds.DELETE_ROLE )
             {
                 @Override
                 protected void onSubmit(AjaxRequestTarget target, Form form)
