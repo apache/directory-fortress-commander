@@ -33,7 +33,7 @@ public class StartExamples
 		Server server = new Server();
 		SocketConnector connector = new SocketConnector();
 
-        System.setProperty("version", "1.0-RC34");
+        System.setProperty("version", "1.0-RC35");
 
 		// Set some timeout options to make debugging easier.
 		connector.setMaxIdleTime(1000 * 60 * 60);
