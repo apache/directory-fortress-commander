@@ -4,9 +4,8 @@
 
 package us.jts.commander.panel;
 
-import com.googlecode.wicket.jquery.ui.kendo.datetime.DatePicker;
-import com.googlecode.wicket.jquery.ui.kendo.datetime.TimePicker;
-
+import com.googlecode.wicket.kendo.ui.form.datetime.DatePicker;
+import com.googlecode.wicket.kendo.ui.form.datetime.TimePicker;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import us.jts.commander.GlobalIds;

@@ -5,8 +5,8 @@
 package us.jts.commander.panel;
 
 import com.googlecode.wicket.jquery.ui.form.spinner.Spinner;
-import com.googlecode.wicket.jquery.ui.kendo.button.AjaxButton;
-import com.googlecode.wicket.jquery.ui.kendo.combobox.ComboBox;
+import com.googlecode.wicket.kendo.ui.form.button.AjaxButton;
+import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;

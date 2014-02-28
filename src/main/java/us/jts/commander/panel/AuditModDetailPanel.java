@@ -5,9 +5,9 @@
 package us.jts.commander.panel;
 
 import com.googlecode.wicket.jquery.core.Options;
-import com.googlecode.wicket.jquery.ui.kendo.datatable.DataTable;
-import com.googlecode.wicket.jquery.ui.kendo.datatable.column.IColumn;
-import com.googlecode.wicket.jquery.ui.kendo.datatable.column.PropertyColumn;
+import com.googlecode.wicket.kendo.ui.datatable.DataTable;
+import com.googlecode.wicket.kendo.ui.datatable.column.IColumn;
+import com.googlecode.wicket.kendo.ui.datatable.column.PropertyColumn;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -21,9 +21,11 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import us.jts.commander.*;
 import us.jts.commander.GlobalIds;
-import us.jts.fortress.*;
+import us.jts.commander.GlobalUtils;
+import us.jts.commander.SelectModelEvent;
+import us.jts.fortress.AuditMgr;
+import us.jts.fortress.ReviewMgr;
 import us.jts.fortress.rbac.Mod;
 import us.jts.fortress.rbac.User;
 import us.jts.fortress.util.attr.VUtil;
@@ -73,8 +75,9 @@ public class AuditModDetailPanel extends FormComponentPanel
         private String ftModId;
         private String userId;
         private byte[] modPhoto;
+        private DataTable<RequestMod> table2;
         private DataTable<RequestMod> table;
-        private List<IColumn<RequestMod>> columns;
+        private List<IColumn> columns;
         private Options options;
 
         public AuditAuthzDetailForm( String id, final IModel<Mod> model )
@@ -87,6 +90,8 @@ public class AuditModDetailPanel extends FormComponentPanel
             options = new Options();
             options.set( "height", 240 );
             options.set( "pageable", "{ pageSizes: [ 5, 10, 15, 20 ] }" );
+            table2 = new DataTable("modstable", columns, createDataProvider( null ), ROWS, options);
+
             table = new DataTable<RequestMod>( "modstable", columns, createDataProvider( null ), ROWS, options );
             table.setOutputMarkupId( true );
             add( table );
@@ -222,13 +227,13 @@ public class AuditModDetailPanel extends FormComponentPanel
         return results;
     }
 
-    private List<IColumn<RequestMod>> newColumnList()
+    private List<IColumn> newColumnList()
     {
-        List<IColumn<RequestMod>> columns = new ArrayList<IColumn<RequestMod>>();
-        columns.add( new PropertyColumn<RequestMod>( "#", "index", 30 ) );
-        columns.add( new PropertyColumn<RequestMod>( "Op", "type", 50 ) );
-        columns.add( new PropertyColumn<RequestMod>( "Name", "name", 80 ) );
-        columns.add( new PropertyColumn<RequestMod>( "Value", "value", 200 ) );
+        List<IColumn> columns = new ArrayList<IColumn>();
+        columns.add( new PropertyColumn( "#", "index", 30 ) );
+        columns.add( new PropertyColumn( "Op", "type", 50 ) );
+        columns.add( new PropertyColumn( "Name", "name", 80 ) );
+        columns.add( new PropertyColumn( "Value", "value", 200 ) );
         return columns;
     }
 }

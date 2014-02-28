@@ -4,7 +4,7 @@
 
 package us.jts.commander.panel;
 
-import com.googlecode.wicket.jquery.ui.kendo.button.AjaxButton;
+import com.googlecode.wicket.kendo.ui.form.button.AjaxButton;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;

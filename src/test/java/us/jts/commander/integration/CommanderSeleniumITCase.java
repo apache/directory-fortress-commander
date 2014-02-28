@@ -559,7 +559,7 @@ public class CommanderSeleniumITCase
         driver.findElement( By.id( GlobalIds.USER_ID ) ).clear();
         driver.findElement( By.id( GlobalIds.USER_ID ) ).sendKeys( "test" );
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
-        TUtils.sleep( 10 );
+        TUtils.sleep( 5 );
         WebElement table = driver.findElement(By.id("modtreegrid"));
         // Now get all the TR elements from the table
         List<WebElement> allRows = table.findElements(By.tagName("tr"));

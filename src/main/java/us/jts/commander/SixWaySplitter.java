@@ -4,8 +4,8 @@
 
 package us.jts.commander;
 
-import com.googlecode.wicket.jquery.ui.kendo.splitter.IBorderLayout;
-import com.googlecode.wicket.jquery.ui.kendo.splitter.SplitterBehavior;
+import com.googlecode.wicket.kendo.ui.widget.splitter.IBorderLayout;
+import com.googlecode.wicket.kendo.ui.widget.splitter.SplitterBehavior;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 

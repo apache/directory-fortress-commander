@@ -5,9 +5,9 @@
 package us.jts.commander.panel;
 
 import com.googlecode.wicket.jquery.ui.form.spinner.Spinner;
-import com.googlecode.wicket.jquery.ui.kendo.datetime.DatePicker;
-import com.googlecode.wicket.jquery.ui.kendo.datetime.TimePicker;
 
+import com.googlecode.wicket.kendo.ui.form.datetime.DatePicker;
+import com.googlecode.wicket.kendo.ui.form.datetime.TimePicker;
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.FormComponentPanel;

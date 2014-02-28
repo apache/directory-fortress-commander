@@ -4,7 +4,7 @@
 
 package us.jts.commander.panel;
 
-import com.googlecode.wicket.jquery.ui.kendo.datetime.DatePicker;
+import com.googlecode.wicket.kendo.ui.form.datetime.DatePicker;
 import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.SizeUnit;
 import com.inmethod.grid.column.PropertyColumn;
