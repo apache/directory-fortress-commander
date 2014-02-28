@@ -7,6 +7,7 @@ package us.jts.commander.panel;
 import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
+import com.googlecode.wicket.kendo.ui.renderer.ChoiceRenderer;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -189,7 +190,7 @@ public class UserDetailPanel extends FormComponentPanel
 
             // Add the role assignment values & temporal constraint panel:
             rolesCB = new ComboBox<UserRole>( ROLES, new PropertyModel<String>( this, ROLE_SELECTION ),
-                model.getObject().getRoles(), new ComboBoxRenderer<UserRole>( GlobalIds.NAME ) );
+                model.getObject().getRoles(), new ChoiceRenderer<UserRole>( GlobalIds.NAME ) );
             rolesCB.setOutputMarkupId( true );
             add( rolesCB );
             roleConstraintPanel = new ConstraintRolePanel( ROLECONSTRAINTPANEL, new PropertyModel<UserRole>( this,
@@ -199,7 +200,7 @@ public class UserDetailPanel extends FormComponentPanel
 
             // Add the adminRole assignment values & temporal constraint panel:
             adminRolesCB = new ComboBox<UserAdminRole>( ADMIN_ROLES, new PropertyModel<String>( this,
-                ADMIN_ROLE_SELECTION ), model.getObject().getAdminRoles(), new ComboBoxRenderer<UserAdminRole>( GlobalIds.NAME
+                ADMIN_ROLE_SELECTION ), model.getObject().getAdminRoles(), new ChoiceRenderer<UserAdminRole>( GlobalIds.NAME
             ) );
             adminRolesCB.setOutputMarkupId( true );
             add( adminRolesCB );
@@ -1264,11 +1265,11 @@ public class UserDetailPanel extends FormComponentPanel
 
             editForm.addOrReplace( addressCB );
             rolesCB = new ComboBox<UserRole>( ROLES, new PropertyModel<String>( this, ROLE_SELECTION ),
-                new ArrayList<UserRole>(), new ComboBoxRenderer<UserRole>( GlobalIds.NAME ) );
+                new ArrayList<UserRole>(), new ChoiceRenderer<UserRole>( GlobalIds.NAME ) );
             rolesCB.setOutputMarkupId( true );
             editForm.addOrReplace( rolesCB );
             adminRolesCB = new ComboBox<UserAdminRole>( ADMIN_ROLES, new PropertyModel<String>( this,
-                ADMIN_ROLE_SELECTION ), new ArrayList<UserAdminRole>(), new ComboBoxRenderer<UserAdminRole>( GlobalIds.NAME ) );
+                ADMIN_ROLE_SELECTION ), new ArrayList<UserAdminRole>(), new ChoiceRenderer<UserAdminRole>( GlobalIds.NAME ) );
             adminRolesCB.setOutputMarkupId( true );
             editForm.addOrReplace( adminRolesCB );
             modelChanged();
@@ -1479,7 +1480,7 @@ public class UserDetailPanel extends FormComponentPanel
                 log.debug( msg );
                 display.setMessage( msg );
                 rolesCB = new ComboBox<UserRole>( ROLES, new PropertyModel<String>( this, ROLE_SELECTION ),
-                    user.getRoles(), new ComboBoxRenderer<UserRole>( GlobalIds.NAME ) );
+                    user.getRoles(), new ChoiceRenderer<UserRole>( GlobalIds.NAME ) );
                 AjaxFormComponentUpdatingBehavior roleAjaxUpdater = new AjaxFormComponentUpdatingBehavior( "onchange" )
                 {
                     @Override
@@ -1509,7 +1510,7 @@ public class UserDetailPanel extends FormComponentPanel
                 this.rolesCB.setOutputMarkupId( true );
                 editForm.addOrReplace( rolesCB );
                 adminRolesCB = new ComboBox<UserAdminRole>( ADMIN_ROLES, new PropertyModel<String>( this,
-                    ADMIN_ROLE_SELECTION ), user.getAdminRoles(), new ComboBoxRenderer<UserAdminRole>( GlobalIds.NAME ) );
+                    ADMIN_ROLE_SELECTION ), user.getAdminRoles(), new ChoiceRenderer<UserAdminRole>( GlobalIds.NAME ) );
                 AjaxFormComponentUpdatingBehavior adminRoleAjaxUpdater = new AjaxFormComponentUpdatingBehavior(
                     "onchange" )
                 {
