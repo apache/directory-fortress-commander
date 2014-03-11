@@ -214,6 +214,17 @@
             <artifactId>httpunit</artifactId>
             <version>1.6.1</version>
         </dependency>
+        <!--  ANT DEPENDENCIES FOR RUNNING ANT PLUG-IN FOR FORTRESS LOAD UTILITY  -->
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>1.8.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant-launcher</artifactId>
+            <version>1.8.1</version>
+        </dependency>
         <!--  JETTY DEPENDENCIES FOR TESTING  -->
         <dependency>
             <groupId>org.eclipse.jetty.aggregate</groupId>
@@ -443,9 +454,9 @@
                                         timeout="4000000"
                                         taskname="startAnt">
                                     <classpath>
-                                        <pathelement location="${ANT_HOME}/lib/ant-launcher.jar"/>
-                                        <pathelement location="${ANT_HOME}/lib/ant.jar"/>
                                         <pathelement location="./src/main/resources"/>
+                                        <pathelement location="${org.apache.ant:ant-launcher:jar}"/>
+                                        <pathelement location="${org.apache.ant:ant:jar}"/>
                                         <pathelement location="${us.joshuatreesoftware:fortress:jar}"/>
                                         <pathelement location="${log4j:log4j:jar}"/>
                                         <pathelement location="${com.unboundid:unboundid-ldapsdk:jar}"/>
@@ -508,20 +519,6 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
-        <profile>
-            <id>load-ldap</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-                <property>
-                    <name>!ANT_HOME</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <properties>
-                <ANT_HOME>../apache-ant/</ANT_HOME>
-<!--                <ANT_HOME>/home/smckinn/JavaTools/apache-ant-1.8.2</ANT_HOME>-->
-            </properties>
         </profile>
     </profiles>
 </project>
