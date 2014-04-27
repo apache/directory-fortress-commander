@@ -1,0 +1,117 @@
+<!--
+  ~ This work is part of OpenLDAP Software <http://www.openldap.org/>.
+  ~
+  ~ Copyright 1998-2014 The OpenLDAP Foundation.
+  ~ All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted only as authorized by the OpenLDAP
+  ~ Public License.
+  ~
+  ~ A copy of this license is available in the file LICENSE in the
+  ~ top-level directory of the distribution or, alternatively, at
+  ~ <http://www.OpenLDAP.org/license.html>.
+  -->
+
+<html xmlns:wicket="http://wicket.apache.org/">
+<body>
+
+<wicket:panel>
+    <tr>
+        <td>
+            <table id="inputConstraintsTable">
+                <tr>
+                    <td>
+                        <label for="beginTimeP">Begin Time</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="beginTimeP" id="beginTimeP" class="formLarge"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="endTimeP">End Time</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="endTimeP" id="endTimeP" class="formLarge"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="beginDateP">Begin Date</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="beginDateP" id="beginDateP" class="formLarge"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="endDateP">End Date</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="endDateP" id="endDateP" class="formLarge"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="beginLockDateP">Begin Lock Date</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="beginLockDateP" id="beginLockDateP" class="formLarge"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="endLockDateP">End Lock Date</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="endLockDateP" id="endLockDateP" class="formLarge"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="timeout">Timeout (minutes)</label>
+                    </td>
+                    <td>
+                        <input wicket:id="timeout"  id="timeoutP" type="text" style="width: 35px;">
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <fieldset>
+                <legend>Day Mask</legend>
+                <input type="checkbox" wicket:id="sunday" id="sundayP"/>
+                <label for="sunday">SU</label>
+                <input type="checkbox" wicket:id="monday" id="mondayP"/>
+                <label for="monday">M</label>
+                <input type="checkbox" wicket:id="tuesday" id="tuesdayP"/>
+                <label for="tuesday">TU</label>
+                <input type="checkbox" wicket:id="wednesday" id="wednesdayP"/>
+                <label for="wednesday">W</label>
+                <input type="checkbox" wicket:id="thursday" id="thursdayP"/>
+                <label for="thursday">TH</label>
+                <input type="checkbox" wicket:id="friday" id="fridayP"/>
+                <label for="friday">F</label>
+                <input type="checkbox" wicket:id="saturday" id="saturdayP"/>
+                <label for="saturday">SA</label>
+            </fieldset>
+        </td>
+    </tr>
+
+</wicket:panel>
+
+<!--
+    private String beginTime;
+    private String endTime;
+    private String beginDate;
+    private String endDate;
+    private String beginLockDate;
+    private String endLockDate;
+    private String dayMask;
+    private String name;
+-->
+</body>
+</html>

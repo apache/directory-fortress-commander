@@ -1,9 +1,22 @@
-Copyright © 2011-2014. JoshuaTree. All Rights Reserved.
+#
+# This work is part of OpenLDAP Software <http://www.openldap.org/>.
+#
+# Copyright 1998-2014 The OpenLDAP Foundation.
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted only as authorized by the OpenLDAP
+# Public License.
+#
+# A copy of this license is available in the file LICENSE in the
+# top-level directory of the distribution or, alternatively, at
+# <http://www.OpenLDAP.org/license.html>.
+#
 ___________________________________________________________________________________
 ###################################################################################
 README for Fortress Commander Web Application Installation
-RC29 (BETA RELEASE CANDIDATE)
-Last updated: October 1, 2013
+RC36 (BETA RELEASE CANDIDATE)
+Last updated: April 27, 2014
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 1: Prerequisites
@@ -27,7 +40,7 @@ Download: http://iamfortress.org/download/
 http://tomcat.apache.org
 
 7. Fortress Sentry package (a.k.a Realm) installed as the Java security provider on Tomcat server:
-Instructions: http://www.jts.us/iamfortress/javadocs/api-sentry/us/jts/sentry/tomcat/package-summary.html
+Instructions: http://www.jts.us/iamfortress/javadocs/api-sentry/org/openldap/sentry/tomcat/package-summary.html
 
 Important Note: The Fortress QUICKSTART package includes prerequisite #'s 3,4,5,6 & 7 from above.
 Download QUICKSTART packages from here: http://iamfortress.org/download/
@@ -53,7 +66,7 @@ ________________________________________________________________________________
   - Spring Security - Role-Based Access Control Interceptor
     - Service-level Authorization uses Spring Security.
     - To find out what Roles required to which Services, view the Spring annotations inside this file:
-        commander-dist-[version]/src//main/java/com/jts/enmasse/FortressServiceImpl.java
+        commander-dist-[version]/src//main/java/org/openldap/enmasse/FortressServiceImpl.java
 
   - Fortress Sentry - Java EE security plugin for Identity, Coarse-grained Authorization, and Audit Trail
 

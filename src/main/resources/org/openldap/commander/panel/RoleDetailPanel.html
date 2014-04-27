@@ -1,0 +1,90 @@
+<!--
+  ~ This work is part of OpenLDAP Software <http://www.openldap.org/>.
+  ~
+  ~ Copyright 1998-2014 The OpenLDAP Foundation.
+  ~ All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted only as authorized by the OpenLDAP
+  ~ Public License.
+  ~
+  ~ A copy of this license is available in the file LICENSE in the
+  ~ top-level directory of the distribution or, alternatively, at
+  ~ <http://www.OpenLDAP.org/license.html>.
+  -->
+
+<html xmlns:wicket="http://wicket.apache.org/">
+<body>
+<wicket:panel>
+    <form wicket:id="editFields">
+        <fieldset>
+            <legend>Detail Operations</legend>
+
+            <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                   wicket:id="add" name="add" value="add"/>
+            <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                   wicket:id="commit" name="commit" value="commit"/>
+            <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                   wicket:id="delete" name="delete" value="delete"/>
+            <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                   wicket:id="cancel" name="cancel" value="clear"/>
+        </fieldset>
+
+        <div id="accordion">
+
+            <h3><span wicket:id="roleDetailLabel" id="roleDetailLabel"/></h3>
+
+            <div>
+                <table id="inputFormTable">
+                    <tr>
+                        <td>
+                            <label for="name">Name</label>
+                        </td>
+                        <td>
+                            <input type="text" wicket:id="name" id="name" class="formLarge" style="width: 250px"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="description">Description</label>
+                        </td>
+                        <td>
+                            <input type="text" wicket:id="description" id="description" class="formLarge"
+                                   style="width: 250px"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="parents">Parents</label>
+                        </td>
+                        <td>
+                            <input type="text" wicket:id="parents" style="width: 250px"/>
+                            <button wicket:id="parentroles.search" name="parentroles.search">search</button>
+                            <div wicket:id="parentrolesmodal"></div>
+                            <button wicket:id="roles.delete" name="roles.delete">remove</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="id">Internal ID</label>
+                        </td>
+                        <td>
+                            <span wicket:id="id"></span>
+                        </td>
+                    </tr>
+                </table>
+
+                <!--<h3><span wicket:id="roleauxLabel" id="roleauxLabel"/></h3>-->
+                <div wicket:id="roleauxpanel" id="roleauxpanel"></div>
+            </div>
+
+            <h3><span wicket:id="temporalConstraintsLabel" id="temporalConstraintsLabel"/></h3>
+
+            <div>
+                <div wicket:id="constraintpanel" id="constraintpanel"></div>
+            </div>
+        </div>
+    </form>
+</wicket:panel>
+</body>
+</html>

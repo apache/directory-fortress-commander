@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2013-2014, JoshuaTree Software. All rights reserved.
+  ~ This work is part of OpenLDAP Software <http://www.openldap.org/>.
+  ~
+  ~ Copyright 1998-2014 The OpenLDAP Foundation.
+  ~ All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted only as authorized by the OpenLDAP
+  ~ Public License.
+  ~
+  ~ A copy of this license is available in the file LICENSE in the
+  ~ top-level directory of the distribution or, alternatively, at
+  ~ <http://www.OpenLDAP.org/license.html>.
   -->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -30,35 +41,35 @@
     </bean>
 
     <!-- These Fortress Manager beans are used as api for RBAC/IAM domain model -->
-    <bean id="reviewMgr" class="us.jts.fortress.ReviewMgrFactory" scope="prototype"
+    <bean id="reviewMgr" class="org.openldap.fortress.ReviewMgrFactory" scope="prototype"
           factory-method="createInstance">
         <constructor-arg value="HOME"/>
     </bean>
-    <bean id="adminMgr" class="us.jts.fortress.AdminMgrFactory" scope="prototype"
+    <bean id="adminMgr" class="org.openldap.fortress.AdminMgrFactory" scope="prototype"
           factory-method="createInstance">
         <constructor-arg value="HOME"/>
     </bean>
-    <bean id="accessMgr" class="us.jts.fortress.AccessMgrFactory" scope="prototype"
+    <bean id="accessMgr" class="org.openldap.fortress.AccessMgrFactory" scope="prototype"
           factory-method="createInstance">
         <constructor-arg value="HOME"/>
     </bean>
-    <bean id="delReviewMgr" class="us.jts.fortress.DelReviewMgrFactory" scope="prototype"
+    <bean id="delReviewMgr" class="org.openldap.fortress.DelReviewMgrFactory" scope="prototype"
           factory-method="createInstance">
         <constructor-arg value="HOME"/>
     </bean>
-    <bean id="delAdminMgr" class="us.jts.fortress.DelAdminMgrFactory" scope="prototype"
+    <bean id="delAdminMgr" class="org.openldap.fortress.DelAdminMgrFactory" scope="prototype"
           factory-method="createInstance">
         <constructor-arg value="HOME"/>
     </bean>
-    <bean id="delAccessMgr" class="us.jts.fortress.DelAccessMgrFactory" scope="prototype"
+    <bean id="delAccessMgr" class="org.openldap.fortress.DelAccessMgrFactory" scope="prototype"
           factory-method="createInstance">
         <constructor-arg value="HOME"/>
     </bean>
-    <bean id="auditMgr" class="us.jts.fortress.AuditMgrFactory" scope="prototype"
+    <bean id="auditMgr" class="org.openldap.fortress.AuditMgrFactory" scope="prototype"
           factory-method="createInstance">
         <constructor-arg value="HOME"/>
     </bean>
-    <bean id="pwPolicyMgr" class="us.jts.fortress.PwPolicyMgrFactory" scope="prototype"
+    <bean id="pwPolicyMgr" class="org.openldap.fortress.PwPolicyMgrFactory" scope="prototype"
           factory-method="createInstance">
         <constructor-arg value="HOME"/>
     </bean>
@@ -73,13 +84,13 @@
         <property name="targetMethod" value="putAll"/>
         <property name="arguments">
             <util:properties>
-                <prop key="version">1.0-RC35</prop>
+                <prop key="version">1.0-RC36</prop>
             </util:properties>
         </property>
     </bean>
 
     <!-- Inject spring context into wicket pages -->
-    <bean id="wicketApplication" class="us.jts.commander.ApplicationContext"></bean>
+    <bean id="wicketApplication" class="org.openldap.commander.ApplicationContext"></bean>
 
     <!-- setup spring security using preauthenticated (java ee) strategy -->
     <bean id="filterChainProxy" class="org.springframework.security.web.FilterChainProxy">
@@ -152,35 +163,35 @@
         <property name="securityMetadataSource">
             <sec:filter-invocation-definition-source>
                 <!-- before spring interceptor recognizes these roles, the j2ee preauthentication filter requires prior declaration in web.xml -->
-                <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.userpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.userpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_USERS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.rolepage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.rolepage"
                                    access="ROLE_RBAC_ADMIN,ROLE_ROLES"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.permpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.permpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_PERMS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.sdstaticpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.sdstaticpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_SSDS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.sddynamicpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.sddynamicpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_DSDS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.pwpolicypage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.pwpolicypage"
                                    access="ROLE_RBAC_ADMIN,ROLE_POLICIES"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.objectpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.objectpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_PERMOBJS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.ouuserpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.ouuserpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_USEROUS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.oupermpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.oupermpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_PERMOUS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.roleadminpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.roleadminpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_ADMINROLES"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.objectadminpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.objectadminpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_ADMINOBJS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.permadminpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.permadminpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_ADMINPERMS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.auditauthzpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.auditauthzpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_AUDIT_AUTHZS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.auditmodpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.auditmodpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_AUDIT_MODS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/us.jts.commander.auditbindpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.auditbindpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_AUDIT_BINDS"/>
             </sec:filter-invocation-definition-source>
         </property>

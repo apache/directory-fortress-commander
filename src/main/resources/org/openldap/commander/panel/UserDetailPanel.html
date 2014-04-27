@@ -1,0 +1,378 @@
+<!--
+  ~ This work is part of OpenLDAP Software <http://www.openldap.org/>.
+  ~
+  ~ Copyright 1998-2014 The OpenLDAP Foundation.
+  ~ All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted only as authorized by the OpenLDAP
+  ~ Public License.
+  ~
+  ~ A copy of this license is available in the file LICENSE in the
+  ~ top-level directory of the distribution or, alternatively, at
+  ~ <http://www.OpenLDAP.org/license.html>.
+  -->
+
+<html xmlns:wicket="http://wicket.apache.org/">
+<body>
+<wicket:panel>
+<form wicket:id="editFields">
+<fieldset>
+    <legend>Detail Operations</legend>
+
+    <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+           wicket:id="add" value="add" name="add"/>
+    <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+           wicket:id="commit" value="commit" name="commit"/>
+    <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+           wicket:id="delete" value="delete" name="delete"/>
+    <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+           wicket:id="cancel" value="clear" name="clear"/>
+</fieldset>
+<div id="accordion">
+<h3><img wicket:id="jpegPhoto" width="25" height="25"/>&nbsp;&nbsp;<span wicket:id="userDetailLabel"/></h3>
+
+<div>
+    <table id="inputFormTable">
+        <tr>
+            <td>
+                <label for="userId">UserId</label>
+            </td>
+            <td>
+                <input type="text" wicket:id="userId" id="userId" class="formLarge" style="width: 250px"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="pswdField">Password</label>
+
+            </td>
+            <td>
+                <input wicket:id="pswdField" id="pswdField" type="password" style="width: 250px"/>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="ou">User Organization</label>
+            </td>
+            <td>
+                <input type="text" wicket:id="ou" id="ou" class="formLarge" style="width: 250px"/>
+                <button wicket:id="ou.search" name="ou.search">search</button>
+                <div wicket:id="ousmodal"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="pwPolicy">PW Policy</label>
+            </td>
+            <td>
+                <input type="text" wicket:id="pwPolicy" id="pwPolicy" class="formLarge" style="width: 250px"/>
+                <button wicket:id="policy.search" name="policy.search">search</button>
+                <div wicket:id="policiesmodal"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="reset">Reset</label>
+            </td>
+            <td>
+                <input type="checkbox" wicket:id="reset" id="reset"/>
+                <button wicket:id="resetbtn" name="resetbtn">Reset</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="locked">Locked</label>
+            </td>
+            <td>
+                <input type="checkbox" wicket:id="locked" id="locked"/>
+                <button wicket:id="lockbtn" name="lockbtn"><span wicket:id="lockLabel" id="lockLabel"/></button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<h3><span wicket:id="roleAssignmentsLabel" id="roleAssignmentsLabel"/></h3>
+
+<div>
+    <table id="inputRoleAssignmentsTable">
+        <fieldset>
+            <legend>RBAC Role Assignment Operations</legend>
+            <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                   wicket:id="assign" name="assign" value="assign"/>
+            <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                   wicket:id="deassign" name="deassign" value="deassign"/>
+        </fieldset>
+        <tr>
+            <td>
+                <label for="roles">RBAC Roles</label>
+            </td>
+            <td>
+                <input type="text" wicket:id="roles" id="roles" style="width: 250px;display:block"/>
+                <button wicket:id="roles.search" name="roles.search">search</button>
+                <div wicket:id="rolesmodal"></div>
+            </td>
+        </tr>
+    </table>
+    <div wicket:id="roleconstraintpanel"></div>
+</div>
+<h3><span wicket:id="adminRoleAssignmentsLabel" id="adminRoleAssignmentsLabel"/></h3>
+
+<div>
+    <table id="inputAdminRoleAssignmentsTable">
+        <fieldset>
+            <legend>Admin Role Assignment Operations</legend>
+            <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                   wicket:id="assignAdminRole" name="assignAdminRole" value="assign"/>
+            <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                   wicket:id="deassignAdminRole" name="deassignAdminRole" value="deassign"/>
+        </fieldset>
+        <tr>
+            <td>
+                <label for="adminRoles">Admin Roles</label>
+            </td>
+            <td>
+                <input type="text" wicket:id="adminRoles" id="adminRoles" style="width: 250px;display:inline"/>
+                <button wicket:id="adminRoles.search" name="adminRoles.search">search</button>
+                <div wicket:id="adminrolesmodal"></div>
+            </td>
+        </tr>
+    </table>
+    <div wicket:id="adminroleconstraintpanel"></div>
+</div>
+<h3><span wicket:id="contactInformationLabel" id="contactInformationLabel"/></h3>
+
+<div>
+    <table id="contactInfoTable">
+        <tr>
+            <td>
+                <label for="displayName">Display Name</label>
+            </td>
+            <td>
+                <input type="text" wicket:id="displayName" id="displayName" class="formLarge"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="description">Description</label>
+            </td>
+            <td>
+                <input type="text" wicket:id="description" id="description" class="formLarge" style="width: 250px"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="employeeType">Employee Type</label>
+            </td>
+            <td>
+                <input type="text" wicket:id="employeeType" id="employeeType" class="formLarge" style="width: 250px"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="title">Title</label>
+            </td>
+            <td>
+                <input type="text" wicket:id="title" id="title" class="formLarge" style="width: 250px"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="emails">Emails</label>
+            </td>
+            <td>
+                <input type="text" wicket:id="emails" id="emails" style="width: 250px"/>
+                <button wicket:id="emails.delete" name="emails.delete">remove</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="phones">Phones</label>
+            </td>
+            <td>
+                <input type="text" wicket:id="phones" id="phones" style="width: 250px"/>
+                <button wicket:id="phones.delete" name="phones.delete">remove</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="mobiles">Mobiles</label>
+            </td>
+            <td>
+                <input type="text" wicket:id="mobiles" id="mobiles" style="width: 250px"/>
+                <button wicket:id="mobiles.delete" name="mobiles.delete">remove</button>
+            </td>
+        </tr>
+    </table>
+</div>
+<h3><span wicket:id="addressAssignmentsLabel" id="addressAssignmentsLabel"/></h3>
+
+<div>
+    <table id="inputAddressTable">
+        <tr>
+            <td>
+                <label for="addresses">Addresses</label>
+            </td>
+            <td>
+                <input type="text" wicket:id="addresses" id="addresses" style="width: 250px"/>
+                <button wicket:id="address.delete" name="address.delete">remove</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="address.city">City</label>
+            </td>
+            <td>
+                <input type="text" wicket:id="address.city" id="address.city"
+                       class="formLarge" style="width: 250px"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="address.state">State</label>
+            </td>
+            <td>
+                <input type="text" wicket:id="address.state" id="address.state"
+                       class="formLarge" style="width: 250px"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="address.country">Country</label>
+            </td>
+            <td>
+                <input type="text" wicket:id="address.country" id="address.country"
+                       class="formLarge" style="width: 250px"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="address.postalCode">Postal Code</label>
+            </td>
+            <td>
+                <input type="text" wicket:id="address.postalCode" id="address.postalCode"
+                       class="formLarge" style="width: 250px"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="address.postOfficeBox">Post Office Box</label>
+            </td>
+            <td>
+                <input type="text" wicket:id="address.postOfficeBox" id="address.postOfficeBox"
+                       class="formLarge" style="width: 250px"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="address.building">Building #</label>
+            </td>
+            <td>
+                <input type="text" wicket:id="address.building" id="address.building"
+                       class="formLarge" style="width: 250px"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="address.departmentNumber">Department #</label>
+            </td>
+            <td>
+                <input type="text" wicket:id="address.departmentNumber" id="address.departmentNumber"
+                       class="formLarge" style="width: 250px"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="address.roomNumber">Room #</label>
+            </td>
+            <td>
+                <input type="text" wicket:id="address.roomNumber" id="address.roomNumber"
+                       class="formLarge" style="width: 250px"/>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<h3><span wicket:id="temporalConstraintsLabel" id="temporalConstraintsLabel"/></h3>
+
+<div>
+    <div wicket:id="constraintpanel" id="constraintpanel"></div>
+</div>
+
+<h3><span wicket:id="systemInfoLabel" id="systemInfoLabel"/></h3>
+
+<div>
+    <table id="systemInfoTable">
+        <tr>
+            <td>
+                <label for="system">System:</label>
+            </td>
+            <td>
+                <input type="checkbox" wicket:id="system" id="system"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="internalId">Internal ID</label>
+            </td>
+            <td>
+                <span wicket:id="internalId"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="cn">CN</label>
+            </td>
+            <td>
+                <input type="text" wicket:id="cn" id="cn" class="formLarge" style="width: 250px"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="dn">DN</label>
+            </td>
+            <td>
+                <span wicket:id="dn"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="sn">SN</label>
+            </td>
+            <td>
+                <input type="text" wicket:id="sn" id="sn" class="formLarge" style="width: 250px"/>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<h3><span wicket:id="importPhotoLabel" id="importPhotoLabel"/></h3>
+
+<div>
+    <table id="inputJpegPhotoTable">
+        <tr>
+            <td>
+                <input type="file" wicket:id="upload" id="upload"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                       wicket:id="save" name="save" value="save"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img wicket:id="jpegPhoto2" width="125" height="125"/>
+            </td>
+        </tr>
+    </table>
+</div>
+
+</div>
+
+</form>
+</wicket:panel>
+</body>
+</html>

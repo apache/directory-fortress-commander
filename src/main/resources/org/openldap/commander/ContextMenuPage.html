@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--
+  ~ This work is part of OpenLDAP Software <http://www.openldap.org/>.
+  ~
+  ~ Copyright 1998-2014 The OpenLDAP Foundation.
+  ~ All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted only as authorized by the OpenLDAP
+  ~ Public License.
+  ~
+  ~ A copy of this license is available in the file LICENSE in the
+  ~ top-level directory of the distribution or, alternatively, at
+  ~ <http://www.OpenLDAP.org/license.html>.
+  -->
+
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+    <wicket:head>
+        <title>Wicket - jQuery UI: Context Menu</title>
+        <style type="text/css">
+            /* labels */
+            .label {
+            margin: 10px;
+            text-decoration: underline;
+            }
+
+            /* sub menus */
+            .ui-menu .ui-menu {
+            width: 150px;
+            }
+        </style>
+    </wicket:head>
+</head>
+<body>
+
+<wicket:extend>
+    <div id="wrapper-panel-frame" class="ui-corner-all">
+        <span wicket:id="label1" class="label"></span>&nbsp;<span wicket:id="label2" class="label"></span><br/>
+
+        <div wicket:id="menu" style="width: 200px;"></div>
+        <br/>
+    </div>
+
+</wicket:extend>
+</body>
+</html>

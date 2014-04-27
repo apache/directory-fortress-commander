@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2009-2014. Joshua Tree Software, LLC.  All Rights Reserved.
+  ~ This work is part of OpenLDAP Software <http://www.openldap.org/>.
+  ~
+  ~ Copyright 1998-2014 The OpenLDAP Foundation.
+  ~ All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted only as authorized by the OpenLDAP
+  ~ Public License.
+  ~
+  ~ A copy of this license is available in the file LICENSE in the
+  ~ top-level directory of the distribution or, alternatively, at
+  ~ <http://www.OpenLDAP.org/license.html>.
   -->
 <project basedir="." default="all" name="Fortress Sample Data">
-    <taskdef classname="us.jts.fortress.ant.FortressAntTask" name="FortressAdmin" >
+    <taskdef classname="org.openldap.fortress.ant.FortressAntTask" name="FortressAdmin" >
         <classpath path="${java.class.path}"/>
     </taskdef>
 
@@ -34,38 +45,38 @@
             </addadminrole>
 
             <addpermgrant>
-                <permgrant objName="us.jts.fortress.rbac.AuditMgrImpl" opName="searchBinds" roleNm="AuditAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.AuditMgrImpl" opName="searchAuthZs" roleNm="AuditAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.AuditMgrImpl" opName="getUserAuthZs" roleNm="AuditAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.AuditMgrImpl" opName="searchUserSessions" roleNm="AuditAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.AuditMgrImpl" opName="searchAdminMods" roleNm="AuditAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.AuditMgrImpl" opName="searchInvalidUsers" roleNm="AuditAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="readUser" roleNm="AuditAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="findUsers" roleNm="AuditAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="findPermissions" roleNm="AuditAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.AuditMgrImpl" opName="searchBinds" roleNm="AuditAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.AuditMgrImpl" opName="searchAuthZs" roleNm="AuditAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.AuditMgrImpl" opName="getUserAuthZs" roleNm="AuditAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.AuditMgrImpl" opName="searchUserSessions" roleNm="AuditAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.AuditMgrImpl" opName="searchAdminMods" roleNm="AuditAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.AuditMgrImpl" opName="searchInvalidUsers" roleNm="AuditAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.ReviewMgrImpl" opName="readUser" roleNm="AuditAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.ReviewMgrImpl" opName="findUsers" roleNm="AuditAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.ReviewMgrImpl" opName="findPermissions" roleNm="AuditAdmin" admin="true"/>
 
-                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="readUser" roleNm="UserAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="findUsers" roleNm="UserAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="assignedUsers" roleNm="UserAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="assignedRoles" roleNm="UserAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="authorizedUsers" roleNm="UserAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="authorizedRoles" roleNm="UserAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="userPermissions" roleNm="UserAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="findPermissions" roleNm="UserAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.ReviewMgrImpl" opName="findRoles" roleNm="UserAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.DelReviewMgrImpl" opName="searchOU" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.ReviewMgrImpl" opName="readUser" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.ReviewMgrImpl" opName="findUsers" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.ReviewMgrImpl" opName="assignedUsers" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.ReviewMgrImpl" opName="assignedRoles" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.ReviewMgrImpl" opName="authorizedUsers" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.ReviewMgrImpl" opName="authorizedRoles" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.ReviewMgrImpl" opName="userPermissions" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.ReviewMgrImpl" opName="findPermissions" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.ReviewMgrImpl" opName="findRoles" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.DelReviewMgrImpl" opName="searchOU" roleNm="UserAdmin" admin="true"/>
 
-                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="addUser" roleNm="UserAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="disableUser" roleNm="UserAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="deleteUser" roleNm="UserAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="updateUser" roleNm="UserAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="changePassword" roleNm="UserAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="lockUserAccount" roleNm="UserAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="unlockUserAccount" roleNm="UserAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="resetPassword" roleNm="UserAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="assignUser" roleNm="UserAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.AdminMgrImpl" opName="deassignUser" roleNm="UserAdmin" admin="true"/>
-                <permgrant objName="us.jts.fortress.rbac.PwPolicyMgrImpl" opName="updateUserPolicy" roleNm="FortressSuperAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.AdminMgrImpl" opName="addUser" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.AdminMgrImpl" opName="disableUser" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.AdminMgrImpl" opName="deleteUser" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.AdminMgrImpl" opName="updateUser" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.AdminMgrImpl" opName="changePassword" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.AdminMgrImpl" opName="lockUserAccount" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.AdminMgrImpl" opName="unlockUserAccount" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.AdminMgrImpl" opName="resetPassword" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.AdminMgrImpl" opName="assignUser" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.AdminMgrImpl" opName="deassignUser" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.rbac.PwPolicyMgrImpl" opName="updateUserPolicy" roleNm="FortressSuperAdmin" admin="true"/>
 
             </addpermgrant>
 

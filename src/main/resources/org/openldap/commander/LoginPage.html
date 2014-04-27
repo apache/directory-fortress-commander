@@ -1,0 +1,54 @@
+<!--
+  ~ This work is part of OpenLDAP Software <http://www.openldap.org/>.
+  ~
+  ~ Copyright 1998-2014 The OpenLDAP Foundation.
+  ~ All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted only as authorized by the OpenLDAP
+  ~ Public License.
+  ~
+  ~ A copy of this license is available in the file LICENSE in the
+  ~ top-level directory of the distribution or, alternatively, at
+  ~ <http://www.OpenLDAP.org/license.html>.
+  -->
+<html>
+<head></head>
+<body>
+<wicket:extend>
+    <h3> Commander Login Form </h3>
+
+    <form wicket:id="loginFields">
+        <fieldset>
+            <legend>Login Operations</legend>
+            <div>
+                <table id="inputFormTable">
+                    <tr>
+                        <td>
+                            <label for="userId">UserID</label>
+                        </td>
+                        <td>
+                            <input type="text" wicket:id="userId" id="userId" class="formLarge" style="width: 250px"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="pswdField">Password</label>
+
+                        </td>
+                        <td>
+                            <input wicket:id="pswdField" id="pswdField" type="password" style="width: 250px"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="submit" wicket:id="login" value="login" name="login"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+    </form>
+</wicket:extend>
+</body>
+</html>

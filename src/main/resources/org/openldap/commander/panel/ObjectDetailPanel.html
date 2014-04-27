@@ -1,0 +1,95 @@
+<!--
+  ~ This work is part of OpenLDAP Software <http://www.openldap.org/>.
+  ~
+  ~ Copyright 1998-2014 The OpenLDAP Foundation.
+  ~ All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted only as authorized by the OpenLDAP
+  ~ Public License.
+  ~
+  ~ A copy of this license is available in the file LICENSE in the
+  ~ top-level directory of the distribution or, alternatively, at
+  ~ <http://www.OpenLDAP.org/license.html>.
+  -->
+
+<html xmlns:wicket="http://wicket.apache.org/">
+<body>
+<wicket:panel>
+    <form wicket:id="editFields">
+
+        <fieldset>
+            <legend>Detail Operations</legend>
+
+        <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+               wicket:id="add"
+               value="add"/>
+        <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+               wicket:id="commit" value="commit"/>
+        <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+               wicket:id="delete" value="delete"/>
+        <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+               wicket:id="cancel" value="clear"/>
+
+        </fieldset>
+
+        <fieldset>
+            <table id="inputFormTable">
+                <h3><span wicket:id="objAssignmentsLabel" id="objAssignmentsLabel"/></h3>
+                <tr>
+                    <td>
+                        <label for="objName">Object Name</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="objName" id="objName" class="formLarge" style="width: 250px"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="description">Description</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="description" id="description" class="formLarge" style="width: 250px"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="ou">Perm Organization</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="ou" id="ou" class="formLarge" style="width: 250px"/>
+                        <button wicket:id="ou.search" name="ou.search">search</button>
+                        <div wicket:id="ousmodal"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="type">Type</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="type" id="type" class="formLarge" style="width: 250px"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="internalId">Internal ID</label>
+                    </td>
+                    <td>
+                        <span wicket:id="internalId"></span>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+    <!--
+        "objName",
+        "description",
+        "internalId",
+        "ou",
+        "type",
+        "props",
+        "admin"
+    -->
+</wicket:panel>
+</body>
+</html>
