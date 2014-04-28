@@ -1,21 +1,32 @@
 <!--
-  ~ Copyright (c) 2013-2014, JoshuaTree Software. All rights reserved.
+  ~ This work is part of OpenLDAP Software <http://www.openldap.org/>.
+  ~
+  ~ Copyright 1998-2014 The OpenLDAP Foundation.
+  ~ All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted only as authorized by the OpenLDAP
+  ~ Public License.
+  ~
+  ~ A copy of this license is available in the file LICENSE in the
+  ~ top-level directory of the distribution or, alternatively, at
+  ~ <http://www.OpenLDAP.org/license.html>.
   -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>us.joshuatreesoftware</groupId>
+    <groupId>org.openldap</groupId>
     <artifactId>commander</artifactId>
     <packaging>war</packaging>
-    <version>1.0-RC35</version>
+    <version>1.0-RC36</version>
     <name>Fortress Commander</name>
-    <url>http://jts.us</url>
-    <description>Commander is an ANSI RBAC compliant administrative Web UI</description>
+    <url>http://www.openldap.org/fortress/</url>
+    <description>Commander is an ANSI RBAC INCITS 359 compliant administrative Web UI</description>
 
     <licenses>
         <license>
-            <name>BSD</name>
-            <url>http://jts.us/License</url>
+            <name>OpenLDAP Public License</name>
+            <url>http://www.OpenLDAP.org/license.html</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -58,7 +69,7 @@
         <developer>
             <id>smckinney</id>
             <name>Shawn McKinney</name>
-            <email>shawn.mckinney@jts.us</email>
+            <email>smckinney@symas.com</email>
             <roles>
                 <role>Developer</role>
             </roles>
@@ -68,7 +79,7 @@
     </developers>
 
     <properties>
-        <version>1.0-RC35</version>
+        <version>1.0-RC36</version>
         <title>${name} ${version}</title>
         <wicket.version>6.14.0</wicket.version>
         <wicket.jquery.version>6.14.0</wicket.jquery.version>
@@ -86,7 +97,7 @@
     <dependencies>
         <!-- Fortress provides RBAC 'CRUD' & policy enforcement APIs for Commander Web -->
         <dependency>
-            <groupId>us.joshuatreesoftware</groupId>
+            <groupId>org.openldap</groupId>
             <artifactId>fortress</artifactId>
             <version>${version}</version>
         </dependency>
@@ -367,7 +378,7 @@
                     <stylesheet>java</stylesheet>
                     <bottom>&lt;small&gt;Copyright &amp;copy; 2011-2014 Joshua Tree Software, LLC. All Rights Reserved.
                         Generated ${maven.build.timestamp}.&lt;/small&gt;</bottom>
-                    <overview>src/main/java/us/jts/commander/overview.html</overview>
+                    <overview>src/main/java/org/openldap/commander/overview.html</overview>
                     <version>true</version>
                     <author>true</author>
                     <doctitle>${title}</doctitle>
@@ -457,7 +468,7 @@
                                         <pathelement location="./src/main/resources"/>
                                         <pathelement location="${org.apache.ant:ant-launcher:jar}"/>
                                         <pathelement location="${org.apache.ant:ant:jar}"/>
-                                        <pathelement location="${us.joshuatreesoftware:fortress:jar}"/>
+                                        <pathelement location="${org.openldap:fortress:jar}"/>
                                         <pathelement location="${log4j:log4j:jar}"/>
                                         <pathelement location="${com.unboundid:unboundid-ldapsdk:jar}"/>
                                         <pathelement location="${org.jgrapht:jgrapht-jdk1.5:jar}"/>
