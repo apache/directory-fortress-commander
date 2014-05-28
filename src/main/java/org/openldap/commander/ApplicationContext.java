@@ -17,11 +17,15 @@ package org.openldap.commander;
 
 import org.apache.wicket.Page;
 import org.apache.wicket.Session;
+import org.apache.wicket.core.request.handler.PageProvider;
+import org.apache.wicket.core.request.handler.RenderPageRequestHandler;
 import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
+import org.apache.wicket.request.cycle.AbstractRequestCycleListener;
+import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
-import org.openldap.fortress.cfg.Config;
 
 /**
  * @author Shawn McKinney
@@ -30,26 +34,27 @@ import org.openldap.fortress.cfg.Config;
 public class ApplicationContext extends WebApplication
 {
     @Override
-    public Session newSession(Request request, Response response)
+    public Session newSession( Request request, Response response )
     {
-        return new RbacSession(request);
+        return new RbacSession( request );
     }
 
     @Override
     public void init()
     {
         super.init();
-        getComponentInstantiationListeners().add(new SpringComponentInjector(this));
-        getRequestCycleListeners().add(new CommanderRequestCycleListener());
-        getMarkupSettings().setStripWicketTags(true);
+        getComponentInstantiationListeners().add( new SpringComponentInjector( this ) );
 
-        //getApplicationSettings().setPageExpiredErrorPage(LaunchPage.class);
-        //IResourceSettings.setThrowExceptionOnMissingResource(true);
-        // mounting login page so that it can be referred to in the security constraint
-        //mountPage( "/login", LoginPage.class );
-        //mountPage( "/login", LoginPage.class );
-        //mountPage( "/app/login", LoginPage.class );
-        //mountBookmarkablePage( "/login", LoginPage.class );
+        // Catch runtime exceptions this way:
+        getRequestCycleListeners().add( new AbstractRequestCycleListener()
+        {
+            @Override
+            public IRequestHandler onException( RequestCycle cycle, Exception e )
+            {
+                return new RenderPageRequestHandler( new PageProvider( new ErrorPage( e ) ) );
+            }
+        } );
+        getMarkupSettings().setStripWicketTags( true );
     }
 
     public Class<? extends Page> getHomePage()

@@ -31,6 +31,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
  * @author Shawn McKinney
  * @version $Rev$
  */
+@Deprecated
 public class CommanderRequestCycleListener extends AbstractRequestCycleListener
 {
     private static final Logger LOG = Logger.getLogger( CommanderRequestCycleListener.class.getName() );

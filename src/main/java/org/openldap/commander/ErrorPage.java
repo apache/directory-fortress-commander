@@ -26,6 +26,14 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
  */
 public class ErrorPage extends CommanderBasePage
 {
+    public ErrorPage( Exception e )
+    {
+        add( new Label( "title", new Model<String>( "Runtime Exception Occurred" ) ) );
+        add( new Label( "message", new Model<String>( e.getLocalizedMessage() ) ) );
+        add( new BookmarkablePageLink( "homePage", getApplication().getHomePage() ) );
+    }
+
+    @Deprecated
     public ErrorPage( final PageParameters parameters )
     {
         add( new Label( "title", new Model<String>( parameters.get( "title" ).toString() ) ) );
