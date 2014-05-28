@@ -18,7 +18,7 @@
     <groupId>org.openldap</groupId>
     <artifactId>commander</artifactId>
     <packaging>war</packaging>
-    <version>1.0-RC36</version>
+    <version>1.0-RC37</version>
     <name>Fortress Commander</name>
     <url>http://www.openldap.org/fortress/</url>
     <description>Commander is an ANSI RBAC INCITS 359 compliant administrative Web UI</description>
@@ -79,7 +79,7 @@
     </developers>
 
     <properties>
-        <version>1.0-RC36</version>
+        <version>1.0-RC37</version>
         <title>${name} ${version}</title>
         <wicket.version>6.14.0</wicket.version>
         <wicket.jquery.version>6.14.0</wicket.jquery.version>
@@ -92,13 +92,14 @@
         <jetty.stopPort>9081</jetty.stopPort>
         <jetty.port>9080</jetty.port>
         <skipTests>true</skipTests>
+        <sentry.home>/home/smckinn/GIT/fortressDev/openldap-fortress-realm</sentry.home>
     </properties>
 
     <dependencies>
         <!-- Fortress provides RBAC 'CRUD' & policy enforcement APIs for Commander Web -->
         <dependency>
             <groupId>org.openldap</groupId>
-            <artifactId>fortress</artifactId>
+            <artifactId>sentry</artifactId>
             <version>${version}</version>
         </dependency>
         <dependency>
@@ -365,8 +366,22 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.4</version>
+                <!-- this is needed to pickup the context.xml in META-INF: -->
                 <configuration>
                     <warName>${project.artifactId}</warName>
+                    <archive>
+                        <manifest>
+                            <classpathPrefix>lib/</classpathPrefix>
+                        </manifest>
+                    </archive>
+                    <webResources>
+                        <resource>
+                            <!-- this is relative to the pom.xml directory -->
+                            <directory>${project.basedir}/src/main/resources
+                            </directory>
+
+                        </resource>
+                    </webResources>
                 </configuration>
             </plugin>
             <!-- Javadoc archive -->
