@@ -25,6 +25,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.openldap.commander.AuditAuthzPage;
 import org.openldap.commander.AuditBindPage;
 import org.openldap.commander.AuditModPage;
+import org.openldap.commander.GroupPage;
 import org.openldap.commander.SdDynamicPage;
 import org.openldap.commander.GlobalIds;
 import org.openldap.commander.ObjectAdminPage;
@@ -351,6 +352,32 @@ public class NavPanel extends FormComponentPanel
                 public void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
                     setResponsePage( PermAdminPage.class );
+                }
+
+                @Override
+                protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
+                {
+                    super.updateAjaxAttributes( attributes );
+                    AjaxCallListener ajaxCallListener = new AjaxCallListener()
+                    {
+                        @Override
+                        public CharSequence getFailureHandler( Component component )
+                        {
+                            return GlobalIds.WINDOW_LOCATION_REPLACE_COMMANDER_HOME_HTML;
+                        }
+                    };
+                    attributes.getAjaxCallListeners().add( ajaxCallListener );
+                }
+            }
+
+            );
+
+            add( new SecureIndicatingAjaxButton( GlobalIds.GROUP_PAGE, GlobalIds.ROLE_GROUPS )
+            {
+                @Override
+                public void onSubmit( AjaxRequestTarget target, Form<?> form )
+                {
+                    setResponsePage( GroupPage.class );
                 }
 
                 @Override

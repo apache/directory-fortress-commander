@@ -14,10 +14,13 @@
  */
 package org.openldap.commander;
 
+import com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPDN;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.string.StringValue;
+import org.openldap.fortress.AccessMgr;
+import org.openldap.fortress.DelAccessMgr;
 import org.openldap.fortress.ReviewMgr;
 import org.openldap.fortress.rbac.AuthZ;
 import org.openldap.fortress.rbac.Permission;
@@ -26,6 +29,9 @@ import org.openldap.fortress.rbac.User;
 import org.openldap.fortress.util.attr.VUtil;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -41,6 +47,44 @@ public class GlobalUtils
     public static Session getRbacSession( Component component )
     {
         return ( ( RbacSession ) component.getSession() ).getRbacSession();
+    }
+
+    public static Session createRbacSession( AccessMgr accessMgr, String userId )
+    {
+        Session session;
+        try
+        {
+            // Create an RBAC session and attach to Wicket session:
+            session = accessMgr.createSession( new User( userId ), true );
+            String message = "RBAC Session successfully created for userId: " + session.getUserId();
+            LOG.debug( message );
+        }
+        catch ( org.openldap.fortress.SecurityException se )
+        {
+            String error = "createRbacSession caught SecurityException=" + se;
+            LOG.error( error );
+            throw new RuntimeException( error );
+        }
+        return session;
+    }
+
+    public static void loadPermissionsIntoSession( DelAccessMgr delAccessMgr, Session session)
+    {
+        try
+        {
+            // Retrieve user permissions and attach RBAC session to Wicket session:
+            ( ( RbacSession ) RbacSession.get() ).setSession( session );
+            List<Permission> permissions = delAccessMgr.sessionPermissions( session );
+            ( ( RbacSession ) RbacSession.get() ).setPermissions( permissions );
+            String message = "RBAC Session successfully created for userId: " + session.getUserId();
+            LOG.debug( message );
+        }
+        catch ( org.openldap.fortress.SecurityException se )
+        {
+            String error = "loadPermissionsIntoSession caught SecurityException=" + se;
+            LOG.error( error );
+            throw new RuntimeException( error );
+        }
     }
 
     public static List<Permission> getRbacPermissions( Component component )
@@ -62,6 +106,40 @@ public class GlobalUtils
     {
         List<Permission> permissions = GlobalUtils.getRbacPermissions( component );
         return VUtil.isNotNullOrEmpty( permissions ) && permissions.contains( permission );
+    }
+
+    /**
+     * This utility method can deserialize any object but is used to convert java.security.Principal to Fortress RBAC session object.
+     *
+     * @param str contains String to deserialize
+     * @param cls contains class to use for destination object
+     * @return deserialization target object
+     */
+    public static <T> T deserialize(String str, Class<T> cls)
+    {
+        // deserialize the object
+        try
+        {
+            // This encoding induces a bijection between byte[] and String (unlike UTF-8)
+            byte b[] = str.getBytes("ISO-8859-1");
+            ByteArrayInputStream bi = new ByteArrayInputStream(b);
+            ObjectInputStream si = new ObjectInputStream(bi);
+            return cls.cast(si.readObject());
+        }
+        catch (java.io.UnsupportedEncodingException e)
+        {
+            LOG.warn( "deserialize caught UnsupportedEncodingException:" + e);
+        }
+        catch (IOException e)
+        {
+            LOG.warn( "deserialize caught IOException:" + e);
+        }
+        catch (ClassNotFoundException e)
+        {
+            LOG.warn( "deserialize caught ClassNotFoundException:" + e);
+        }
+        // this method failed so return null
+        return null;
     }
 
     public static String getPageType( PageParameters parameters )
@@ -235,5 +313,19 @@ public class GlobalUtils
 
         }
         return user;
+    }
+
+    /**
+     * Method will retrieve the relative distinguished name from a distinguished name variable.
+     *
+     * @param dn contains ldap distinguished name.
+     * @return rDn as string.
+     * @throws com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPException in the event of ldap client error.
+     */
+    public static String getRdn( String dn )
+    {
+        String[] dnList;
+        dnList = LDAPDN.explodeDN( dn, true );
+        return dnList[0];
     }
 }

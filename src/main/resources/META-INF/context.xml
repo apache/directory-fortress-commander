@@ -1,0 +1,11 @@
+<Context path="/commander" reloadable="true">
+
+    <Realm className="org.openldap.sentry.tomcat.Tc7AccessMgrProxy"
+           debug="0"
+           resourceName="UserDatabase"
+           defaultRoles=""
+           containerType="TomcatContext"
+           realmClasspath=""
+            />
+
+</Context>

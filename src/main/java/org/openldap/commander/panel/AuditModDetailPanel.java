@@ -51,7 +51,6 @@ import java.util.List;
  */
 public class AuditModDetailPanel extends FormComponentPanel
 {
-    //public static final String MODPHOTO = "modphoto";
     public static final int MOD_OFFSET = 3;
     public static final int ROWS = 5;
     @SpringBean
@@ -86,7 +85,6 @@ public class AuditModDetailPanel extends FormComponentPanel
         private String ftModId;
         private String userId;
         private byte[] modPhoto;
-        private DataTable<RequestMod> table2;
         private DataTable<RequestMod> table;
         private List<IColumn> columns;
         private Options options;
@@ -101,7 +99,7 @@ public class AuditModDetailPanel extends FormComponentPanel
             options = new Options();
             options.set( "height", 240 );
             options.set( "pageable", "{ pageSizes: [ 5, 10, 15, 20 ] }" );
-            table2 = new DataTable("modstable", columns, createDataProvider( null ), ROWS, options);
+            //table2 = new DataTable("modstable", columns, createDataProvider( null ), ROWS, options);
 
             table = new DataTable<RequestMod>( "modstable", columns, createDataProvider( null ), ROWS, options );
             table.setOutputMarkupId( true );

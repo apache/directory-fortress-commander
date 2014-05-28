@@ -73,6 +73,10 @@
           factory-method="createInstance">
         <constructor-arg value="HOME"/>
     </bean>
+    <bean id="groupMgr" class="org.openldap.fortress.ldap.group.GroupMgrFactory" scope="prototype"
+          factory-method="createInstance">
+        <constructor-arg value="HOME"/>
+    </bean>
 
     <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
         <property name="targetObject">
@@ -84,7 +88,7 @@
         <property name="targetMethod" value="putAll"/>
         <property name="arguments">
             <util:properties>
-                <prop key="version">1.0-RC36</prop>
+                <prop key="version">1.0-RC37</prop>
             </util:properties>
         </property>
     </bean>
@@ -193,6 +197,8 @@
                                    access="ROLE_RBAC_ADMIN,ROLE_AUDIT_MODS"/>
                 <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.auditbindpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_AUDIT_BINDS"/>
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.grouppage"
+                                   access="ROLE_RBAC_ADMIN,ROLE_GROUPS"/>
             </sec:filter-invocation-definition-source>
         </property>
     </bean>

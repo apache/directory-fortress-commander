@@ -78,6 +78,16 @@
                 <permgrant objName="org.openldap.fortress.rbac.AdminMgrImpl" opName="deassignUser" roleNm="UserAdmin" admin="true"/>
                 <permgrant objName="org.openldap.fortress.rbac.PwPolicyMgrImpl" opName="updateUserPolicy" roleNm="FortressSuperAdmin" admin="true"/>
 
+                <permgrant objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="add" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="update" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="delete" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="addProperty" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="deleteProperty" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="assign" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="deassign" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="read" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="find" roleNm="UserAdmin" admin="true"/>
+                <permgrant objName="org.openldap.fortress.ldap.group.GroupMgrImpl" opName="findWithUsers" roleNm="UserAdmin" admin="true"/>
             </addpermgrant>
 
 
@@ -98,6 +108,7 @@
                 <role name="ROLE_AUDIT_MODS" description="Grants Audit Modification page access in Commander"/>
                 <role name="ROLE_AUDIT_BINDS" description="Grants Audit Bind page access in Commander"/>
                 <role name="ROLE_AUDITOR" description="Grants acces to all Audit pages"/>
+                <role name="ROLE_GROUPS" description="Grants Group page access in Commander"/>
                 <role name="CommanderSuperUser" description="Role to access Commander pages and funtions"/>
             </addrole>
 
@@ -117,6 +128,7 @@
                 <relationship child="CommanderSuperUser" parent="ROLE_AUDIT_AUTHZS"/>
                 <relationship child="CommanderSuperUser" parent="ROLE_AUDIT_BINDS"/>
                 <relationship child="CommanderSuperUser" parent="ROLE_AUDIT_MODS"/>
+                <relationship child="CommanderSuperUser" parent="ROLE_GROUPS"/>
                 <relationship child="ROLE_AUDITOR" parent="ROLE_AUDIT_BINDS"/>
                 <relationship child="ROLE_AUDITOR" parent="ROLE_AUDIT_AUTHZS"/>
                 <relationship child="ROLE_AUDITOR" parent="ROLE_AUDIT_MODS"/>

@@ -428,7 +428,6 @@ public class UserDetailPanel extends FormComponentPanel
                         String error = ".onSubmit caught SecurityException=" + se;
                         log.error( error );
                         display.setMessage( error );
-                        display.display();
                     }
                 }
 
@@ -549,6 +548,7 @@ public class UserDetailPanel extends FormComponentPanel
                             adminMgr.lockUserAccount( user );
                             user.setLocked( true );
                             msg+= " account has been locked";
+                            display.setMessage( msg );
                         }
                     }
                     catch ( org.openldap.fortress.SecurityException se )
@@ -556,10 +556,8 @@ public class UserDetailPanel extends FormComponentPanel
                         String error = ".onSubmit caught SecurityException=" + se;
                         log.error( error );
                         display.setMessage( error );
-                        display.display();
                     }
 
-                    display.setMessage( msg );
                     component = editForm;
                     initAccordionLabels( user );
                 }
@@ -606,16 +604,15 @@ public class UserDetailPanel extends FormComponentPanel
                         adminMgr.resetPassword( user, user.getPassword() );
                         user.setReset( true );
                         msg+= " account has been reset";
+                        display.setMessage( msg );
                     }
                     catch ( org.openldap.fortress.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
                         log.error( error );
                         display.setMessage( error );
-                        display.display();
                     }
 
-                    display.setMessage( msg );
                     component = editForm;
                     initAccordionLabels( user );
                 }

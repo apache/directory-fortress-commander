@@ -27,6 +27,9 @@ import org.openldap.fortress.rbac.Permission;
 import org.openldap.fortress.rbac.User;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.security.Principal;
 import java.util.List;
 
@@ -104,6 +107,9 @@ public abstract class CommanderBasePage extends WebPage
             OuPermPage.class, parameters, GlobalIds.ROLE_PERMOUS );
         add( permouLink );
 
+        add( new SecureBookmarkablePageLink( GlobalIds.GROUP_PAGE, GroupPage.class,
+            GlobalIds.ROLE_GROUPS ) );
+
         add( new SecureBookmarkablePageLink( GlobalIds.AUDIT_BINDS_PAGE, AuditBindPage.class,
             GlobalIds.ROLE_AUDIT_BINDS ) );
 
@@ -113,6 +119,8 @@ public abstract class CommanderBasePage extends WebPage
         add( new SecureBookmarkablePageLink( GlobalIds.AUDIT_MODS_PAGE, AuditModPage.class,
             GlobalIds.ROLE_AUDIT_MODS ) );
 
+        add( new Label( "footer", "Copyright (c) 1998-2014, The OpenLDAP Foundation. All Rights Reserved." ) );
+
         final Link actionLink = new Link( "logout" )
         {
             @Override
@@ -120,59 +128,50 @@ public abstract class CommanderBasePage extends WebPage
             {
                 HttpServletRequest servletReq = ( HttpServletRequest ) getRequest().getContainerRequest();
                 servletReq.getSession().invalidate();
-/*
-                try
-                {
-                    servletReq.logout();
-                }
-                catch ( ServletException se )
-                {
-                    LOG.warn( "ServletException caught during logout: " + se );
-                }
-                catch ( java.lang.AbstractMethodError ae )
-                {
-                    LOG.warn( "AbstractMethodError caught during logout: " + ae );
-                }
-*/
                 getSession().invalidate();
                 setResponsePage( LaunchPage.class );
             }
         };
         add( actionLink );
         HttpServletRequest servletReq = ( HttpServletRequest ) getRequest().getContainerRequest();
+
+        // RBAC Security Processing:
         Principal principal = servletReq.getUserPrincipal();
-        boolean isLoggedIn = principal != null;
         // Is this a Java EE secured page && has the User successfully authenticated already?
-        if ( isLoggedIn )
+        boolean isSecured = principal != null;
+        if( isSecured && !isLoggedIn( ) )
         {
-            // TODO: make sure this is both necessary & thread safe:
-            synchronized ( ( RbacSession ) RbacSession.get() )
+            String szPrincipal = principal.toString();
+            // Pull the RBAC session from the realm and assert into the Web app's session:
+            Session realmSession = GlobalUtils.deserialize(szPrincipal, Session.class);
+
+            // If this is null, app in container that cannot share rbac session with app, Must now create session manually:
+            if(realmSession == null)
             {
-                if ( GlobalUtils.getRbacSession( this ) == null )
+                realmSession = GlobalUtils.createRbacSession( accessMgr, principal.getName() );
+            }
+            if(realmSession != null)
+            {
+                synchronized ( ( RbacSession ) RbacSession.get() )
                 {
-                    try
-                    {
-                        // Create an RBAC session and attach to Wicket session:
-                        Session session = accessMgr.createSession( new User( principal.getName() ), true );
-                        String message = "RBAC Session successfully created for userId: " + session.getUserId();
-                        ( ( RbacSession ) RbacSession.get() ).setSession( session );
-                        List<Permission> permissions = delAccessMgr.sessionPermissions( session );
-                        ( ( RbacSession ) RbacSession.get() ).setPermissions( permissions );
-                        LOG.debug( message );
-                    }
-                    catch ( org.openldap.fortress.SecurityException se )
-                    {
-                        String error = "CommanderBasePage caught SecurityException=" + se;
-                        LOG.error( error );
-                        throw new RuntimeException( error );
-                    }
+                    GlobalUtils.loadPermissionsIntoSession( delAccessMgr, realmSession );
                 }
             }
+            // give up
+            else
+            {
+                throw new RuntimeException( "cannot create RBAC session for user: " + principal.getName() );
+            }
         }
-        else
+    }
+
+    private boolean isLoggedIn( )
+    {
+        boolean isLoggedIn = false;
+        if ( GlobalUtils.getRbacSession( this ) != null )
         {
-            actionLink.setVisible( false );
+            isLoggedIn = true;
         }
-        add( new Label( "footer", "Copyright (c) 1998-2014, The OpenLDAP Foundation. All Rights Reserved." ) );
+        return isLoggedIn;
     }
 }

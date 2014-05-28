@@ -191,4 +191,7 @@
     <security-role>
         <role-name>ROLE_AUDIT_BINDS</role-name>
     </security-role>
+    <security-role>
+        <role-name>ROLE_GROUPS</role-name>
+    </security-role>
 </web-app>

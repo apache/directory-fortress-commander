@@ -15,9 +15,6 @@
 package org.openldap.commander;
 
 import com.googlecode.wicket.jquery.ui.form.button.IndicatingAjaxButton;
-import org.apache.log4j.Logger;
-import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.openldap.fortress.AccessMgr;
 import org.openldap.fortress.rbac.Permission;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,11 +28,6 @@ import javax.servlet.http.HttpServletRequest;
 @Authorizable
 public class SecureIndicatingAjaxButton extends IndicatingAjaxButton
 {
-    @SpringBean
-    AccessMgr accessMgr;
-
-    private static final Logger LOG = Logger.getLogger(SecureIndicatingAjaxButton.class.getName());
-
     public SecureIndicatingAjaxButton( String id, String objName, String opName )
     {
         super( id );

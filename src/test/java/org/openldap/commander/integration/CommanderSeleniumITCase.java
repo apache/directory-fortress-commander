@@ -89,10 +89,12 @@ public class CommanderSeleniumITCase
             admobjs();
             admperms();
             plcys();
+            //groups();
             binds();
             authzs();
             mods();
         }
+
 
         /*****
          *  LOGOUT
@@ -518,6 +520,41 @@ public class CommanderSeleniumITCase
         driver.findElement( By.linkText( "PLCYS" ) ).click();
         driver.findElement( By.id( GlobalIds.SEARCH_VAL ) ).sendKeys( "oamtp1policy" );
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
+        TUtils.sleep( 1 );
+    }
+
+    private void groups()
+    {
+        driver.findElement( By.linkText( "GROUPS" ) ).click();
+        driver.findElement( By.id( "searchVal" ) ).sendKeys( "t" );
+        driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
+        TUtils.sleep( 1 );
+        TUtils.sleep( 1 );
+        WebElement table = driver.findElement(By.id("grouptreegrid"));
+        List<WebElement> allRows = table.findElements(By.tagName("tr"));
+        allRows.get( 4 ).findElement(By.className("imxt-cell")).click();
+        TUtils.sleep( 1 );
+        allRows.get( 5 ).findElement(By.className("imxt-cell")).click();
+        TUtils.sleep( 1 );
+        allRows.get( 6 ).findElement(By.className("imxt-cell")).click();
+        TUtils.sleep( 1 );
+        driver.findElement( By.name( GlobalIds.CLEAR ) ).click();
+        TUtils.sleep( 1 );
+        driver.findElement( By.id( GlobalIds.NAME ) ).sendKeys( "selGroup1" );
+        driver.findElement( By.id( GlobalIds.DESCRIPTION ) ).clear();
+        driver.findElement( By.id( GlobalIds.DESCRIPTION ) ).sendKeys( "Selenium Test Create Group Node" );
+        driver.findElement( By.id( "protocol" ) ).clear();
+        driver.findElement( By.id( "protocol" ) ).sendKeys( "test" );
+        driver.findElement( By.id( "memberProps" ) ).clear();
+        driver.findElement( By.id( "memberProps" ) ).sendKeys( "testKey1=testVal1" );
+
+        driver.findElement( By.name( "members.search" ) ).click();
+        TUtils.sleep( 2 );
+        driver.findElement( By.linkText( ">" ) ).click();
+        TUtils.sleep( 1 );
+        driver.findElement( By.linkText( GlobalIds.SELECT ) ).click();
+        TUtils.sleep( 1 );
+        driver.findElement( By.name( GlobalIds.ADD ) ).click();
         TUtils.sleep( 1 );
     }
 

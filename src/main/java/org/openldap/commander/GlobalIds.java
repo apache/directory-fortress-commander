@@ -36,6 +36,7 @@ public class GlobalIds
     public static final String ROLE_AUDIT_AUTHZS = "ROLE_AUDIT_AUTHZS";
     public static final String ROLE_AUDIT_BINDS = "ROLE_AUDIT_BINDS";
     public static final String ROLE_AUDIT_MODS = "ROLE_AUDIT_MODS";
+    public static final String ROLE_GROUPS = "ROLE_GROUPS";
     public static final String SSD = "SSD";
     public static final String DSD = "DSD";
     public static final String PAGE_TYPE = "type";
@@ -45,6 +46,7 @@ public class GlobalIds
     public static final String DEL_REVIEW_MGR = "org.openldap.fortress.rbac.DelReviewMgrImpl";
     public static final String PWPOLICY_MGR = "org.openldap.fortress.rbac.PwPolicyMgrImpl";
     public static final String AUDIT_MGR = "org.openldap.fortress.rbac.AuditMgrImpl";
+    public static final String GROUP_MGR = "org.openldap.fortress.ldap.group.GroupMgrImpl";
     public static final String ASSIGN_USER = "assignUser";
     public static final String ADD = "add";
     public static final String COMMIT = "commit";
@@ -124,6 +126,7 @@ public class GlobalIds
     public static final String LOGIN = "login";
     public static final String EMPLOYEE_TYPE = "employeeType";
     public static final String TITLE = "title";
+    public static final String GROUP_PAGE = "groups";
     public static final String AUDIT_AUTHZS_PAGE = "authzs";
     public static final String AUDIT_MODS_PAGE = "mods";
     public static final String AUDIT_BINDS_PAGE = "binds";
@@ -188,6 +191,8 @@ public class GlobalIds
     public static final String ROLEDETAILPANEL = "roledetailpanel";
     public static final String SDLISTPANEL = "sdlistpanel";
     public static final String SDDETAILPANEL = "sddetailpanel";
+    public static final String GROUPLISTPANEL = "grouplistpanel";
+    public static final String GROUPDETAILPANEL = "groupdetailpanel";
     public static final String LAYOUT = "layout";
     public static final String PAGE_HEADER = "pageHeader";
     public static final String DETAIL_FIELDS = "detailFields";
