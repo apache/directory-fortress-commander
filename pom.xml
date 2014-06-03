@@ -81,7 +81,7 @@
     <properties>
         <version>1.0-RC37</version>
         <title>${name} ${version}</title>
-        <wicket.version>6.14.0</wicket.version>
+        <wicket.version>6.15.0</wicket.version>
         <wicket.jquery.version>6.14.0</wicket.jquery.version>
         <slf4j.version>1.5.11</slf4j.version>
         <spring.version>3.2.3.RELEASE</spring.version>
