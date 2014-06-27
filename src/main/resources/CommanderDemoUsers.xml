@@ -25,18 +25,21 @@
                 <user userId="test" password="test" description="Commander Demo User" ou="demousrs1" cn="test" sn="user"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" photo="TestPhoto1.jpeg"/>
                 <user userId="test1" password="test" description="Commander Demo User1" ou="demousrs1" cn="test1" sn="user"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>
                 <user userId="test2" password="test" description="Commander Demo User2" ou="demousrs1" cn="test2" sn="user"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>
+                <user userId="test3" password="test" description="Commander Group Demo User2" ou="demousrs1" cn="test3" sn="user"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>                
             </adduser>
 
             <adduseradminrole>
                 <userrole userId="test" name="FortressSuperAdmin" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
                 <userrole userId="test1" name="UserAdmin" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
                 <userrole userId="test2" name="AuditAdmin" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
+                <userrole userId="test3" name="FortressSuperAdmin" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>                
             </adduseradminrole>
 
             <adduserrole>
                 <userrole userId="test" name="CommanderSuperUser"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
                 <userrole userId="test1" name="ROLE_USERS"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
                 <userrole userId="test2" name="ROLE_AUDITOR"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
+                <userrole userId="test3" name="CommanderGroupAdmin"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>                
             </adduserrole>
 
             <addadminrole>
@@ -110,6 +113,7 @@
                 <role name="ROLE_AUDITOR" description="Grants acces to all Audit pages"/>
                 <role name="ROLE_GROUPS" description="Grants Group page access in Commander"/>
                 <role name="CommanderSuperUser" description="Role to access Commander pages and funtions"/>
+                <role name="CommanderGroupAdmin" description="Access User, Group, Audit and PW Policy Pages"/>                
             </addrole>
 
             <addroleinheritance>
@@ -129,6 +133,12 @@
                 <relationship child="CommanderSuperUser" parent="ROLE_AUDIT_BINDS"/>
                 <relationship child="CommanderSuperUser" parent="ROLE_AUDIT_MODS"/>
                 <relationship child="CommanderSuperUser" parent="ROLE_GROUPS"/>
+                <relationship child="CommanderGroupAdmin" parent="ROLE_GROUPS"/>                
+                <relationship child="CommanderGroupAdmin" parent="ROLE_POLICIES"/>
+                <relationship child="CommanderGroupAdmin" parent="ROLE_USERS"/>
+                <relationship child="CommanderGroupAdmin" parent="ROLE_AUDIT_AUTHZS"/>
+                <relationship child="CommanderGroupAdmin" parent="ROLE_AUDIT_BINDS"/>
+                <relationship child="CommanderGroupAdmin" parent="ROLE_AUDIT_MODS"/>                
                 <relationship child="ROLE_AUDITOR" parent="ROLE_AUDIT_BINDS"/>
                 <relationship child="ROLE_AUDITOR" parent="ROLE_AUDIT_AUTHZS"/>
                 <relationship child="ROLE_AUDITOR" parent="ROLE_AUDIT_MODS"/>

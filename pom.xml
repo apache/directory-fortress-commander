@@ -81,7 +81,7 @@
     <properties>
         <version>1.0-RC37</version>
         <title>${name} ${version}</title>
-        <wicket.version>6.15.0</wicket.version>
+        <wicket.version>6.16.0</wicket.version>
         <wicket.jquery.version>6.14.0</wicket.jquery.version>
         <slf4j.version>1.5.11</slf4j.version>
         <spring.version>3.2.3.RELEASE</spring.version>
@@ -92,7 +92,6 @@
         <jetty.stopPort>9081</jetty.stopPort>
         <jetty.port>9080</jetty.port>
         <skipTests>true</skipTests>
-        <sentry.home>/home/smckinn/GIT/fortressDev/openldap-fortress-realm</sentry.home>
     </properties>
 
     <dependencies>
