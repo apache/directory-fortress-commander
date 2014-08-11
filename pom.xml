@@ -18,7 +18,7 @@
     <groupId>org.openldap</groupId>
     <artifactId>commander</artifactId>
     <packaging>war</packaging>
-    <version>1.0-RC38</version>
+    <version>1.0-RC39</version>
     <name>Fortress Commander</name>
     <url>http://www.openldap.org/fortress/</url>
     <description>Commander is an ANSI RBAC INCITS 359 compliant administrative Web UI</description>
@@ -73,13 +73,13 @@
             <roles>
                 <role>Developer</role>
             </roles>
-            <organization>jts.us</organization>
+            <organization>symas.com</organization>
             <timezone>-5</timezone>
         </developer>
     </developers>
 
     <properties>
-        <version>1.0-RC38</version>
+        <version>1.0-RC39</version>
         <title>${name} ${version}</title>
         <wicket.version>6.16.0</wicket.version>
         <wicket.jquery.version>6.16.0</wicket.jquery.version>
@@ -100,7 +100,7 @@
         <dependency>
             <groupId>org.openldap</groupId>
             <artifactId>sentry</artifactId>
-            <version>${version}</version>
+            <version>1.0-RC39a</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tomcat</groupId>
@@ -540,4 +540,12 @@
             </build>
         </profile>
     </profiles>
+
+    <repositories>
+        <repository>
+            <id>maven2</id>
+            <url>http://repo1.maven.org/maven2</url>
+        </repository>
+    </repositories>
+
 </project>

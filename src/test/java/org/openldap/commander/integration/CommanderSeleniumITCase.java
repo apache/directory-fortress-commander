@@ -54,8 +54,10 @@ public class CommanderSeleniumITCase
 
         // tomcat default:
         baseUrl = "http://localhost:8080";
+        //baseUrl = "http://fortressdemo2.com:8080";
         // tomcat SSL:
-        //baseUrl = "https://localhost:8444";
+        //baseUrl = "https://localhost:8443";
+        //baseUrl = "https://fortressdemo2.com:8443";
         driver.manage().timeouts().implicitlyWait( 5, TimeUnit.SECONDS );
     }
 

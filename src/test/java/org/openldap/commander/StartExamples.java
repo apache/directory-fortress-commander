@@ -44,7 +44,7 @@ public class StartExamples
 		Server server = new Server();
 		SocketConnector connector = new SocketConnector();
 
-        System.setProperty("version", "1.0-RC38");
+        System.setProperty("version", "1.0-RC39");
 
 		// Set some timeout options to make debugging easier.
 		connector.setMaxIdleTime(1000 * 60 * 60);
