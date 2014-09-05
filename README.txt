@@ -115,7 +115,10 @@ Add to file:
       <password>m@nager123</password>
 </server>
 
-note: If you followed the installation steps of Fortress QUICKSTART your Tomcat Manager creds would be as above.
+note1: If you followed the installation steps of Fortress QUICKSTART your Tomcat Manager creds would be as above.
+note2: If not using the Fortress Tomcat realm, add the following to tomcat-users.xml and restart tomcat:
+  <role rolename="manager-script"/>
+  <user username="tcmanager" password="m@nager123" roles="manager-script"/>
 
 2. Enter maven command to deploy to Tomcat:
 >mvn tomcat:deploy

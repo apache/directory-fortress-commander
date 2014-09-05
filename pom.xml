@@ -80,7 +80,7 @@
 
     <properties>
         <version>1.0-RC39</version>
-        <title>${name} ${version}</title>
+        <title>${project.name} ${version}</title>
         <wicket.version>6.16.0</wicket.version>
         <wicket.jquery.version>6.16.0</wicket.jquery.version>
         <wicket.kendo-ui.version>6.14.0</wicket.kendo-ui.version>
@@ -337,7 +337,8 @@
                 <configuration>
                     <warFile>target/${project.artifactId}.war</warFile>
                     <server>local-tomcat</server>
-                    <url>http://localhost:8080/manager/html</url>
+                    <url>http://localhost:8080/manager/text</url>
+                    <!-- TODO: CHANGE ME ON NEXT RELEASE TO USE 'TEXT' on URL: <url>http://localhost:8080/manager/text</url>-->
                     <path>/${project.artifactId}</path>
                     <!-- Warning the tomcat manager creds here are for deploying into a demo environment only. -->
                     <username>tcmanager</username>
@@ -408,20 +409,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <!-- Integration Test -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -463,7 +450,9 @@
                     <execution>
                         <phase>test</phase>
                         <configuration>
-                            <target>
+                            <target name="fortress-load"
+                                    unless="noload"
+                                    description="Loads commander rbac policy into ldap">
                                 <echo message="###############  Run Fortress Ant script to load demo policy  ###############"/>
                                 <java
                                         classname="org.apache.tools.ant.launch.Launcher"
@@ -494,7 +483,7 @@
                                         <pathelement location="${commons-httpclient:commons-httpclient:jar}"/>
                                         <pathelement location="${commons-codec:commons-codec:jar}"/>
                                     </classpath>
-                                    <sysproperty key="version" value="${version}"/>
+                                    <sysproperty key="version" value="${project.version}"/>
                                     <sysproperty key="tenant" value="HOME"/>
                                     <arg value="-buildfile"/>
                                     <arg file="./src/main/resources/CommanderDemoUsers.xml"/>
