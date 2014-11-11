@@ -1,0 +1,92 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.
+-->
+
+<html xmlns:wicket="http://wicket.apache.org/">
+<body>
+
+<wicket:panel>
+    <h3>Delegated Administration Settings</h3>
+    <tr>
+        <td>
+            <table id="adminRoleTable">
+                <tr>
+                    <td>
+                        <label for="osU">User Organizations</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="osU" style="width: 200px"/>
+                        <button wicket:id="userou.search" name="userou.search">search</button>
+                        <div wicket:id="useroumodal"></div>
+                        <button wicket:id="userou.delete" name="userou.delete">remove</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="osP">Perm Organizations</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="osP" style="width: 200px"/>
+                        <button wicket:id="permou.search" name="permou.search">search</button>
+                        <div wicket:id="permoumodal"></div>
+                        <button wicket:id="permou.delete" name="permou.delete">remove</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="beginRange">Begin Range</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="beginRange" id="beginRange" class="formLarge" style="width: 200px"/>
+                        <button wicket:id="beginRange.search" name="beginRange.search">search</button>
+                        <div wicket:id="beginrolesmodal"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="beginInclusive">Begin Inclusive</label>
+                    </td>
+                    <td>
+                        <input type="checkbox" wicket:id="beginInclusive" id="beginInclusive"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="endRange">End Range</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="endRange" id="endRange" class="formLarge" style="width: 200px"/>
+                        <button wicket:id="endRange.search" name="endRange.search">search</button>
+                        <div wicket:id="endrolesmodal"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="endInclusive">End Inclusive</label>
+                    </td>
+                    <td>
+                        <input type="checkbox" wicket:id="endInclusive" id="endInclusive"/>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+</wicket:panel>
+</body>
+</html>

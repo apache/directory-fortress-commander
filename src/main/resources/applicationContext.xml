@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ This work is part of OpenLDAP Software <http://www.openldap.org/>.
-  ~
-  ~ Copyright 1998-2014 The OpenLDAP Foundation.
-  ~ All rights reserved.
-  ~
-  ~ Redistribution and use in source and binary forms, with or without
-  ~ modification, are permitted only as authorized by the OpenLDAP
-  ~ Public License.
-  ~
-  ~ A copy of this license is available in the file LICENSE in the
-  ~ top-level directory of the distribution or, alternatively, at
-  ~ <http://www.OpenLDAP.org/license.html>.
-  -->
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.
+-->
+
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:sec="http://www.springframework.org/schema/security"
@@ -41,39 +46,39 @@
     </bean>
 
     <!-- These Fortress Manager beans are used as api for RBAC/IAM domain model -->
-    <bean id="reviewMgr" class="org.openldap.fortress.ReviewMgrFactory" scope="prototype"
+    <bean id="reviewMgr" class="org.apache.directory.fortress.core.ReviewMgrFactory" scope="prototype"
           factory-method="createInstance">
         <constructor-arg value="HOME"/>
     </bean>
-    <bean id="adminMgr" class="org.openldap.fortress.AdminMgrFactory" scope="prototype"
+    <bean id="adminMgr" class="org.apache.directory.fortress.core.AdminMgrFactory" scope="prototype"
           factory-method="createInstance">
         <constructor-arg value="HOME"/>
     </bean>
-    <bean id="accessMgr" class="org.openldap.fortress.AccessMgrFactory" scope="prototype"
+    <bean id="accessMgr" class="org.apache.directory.fortress.core.AccessMgrFactory" scope="prototype"
           factory-method="createInstance">
         <constructor-arg value="HOME"/>
     </bean>
-    <bean id="delReviewMgr" class="org.openldap.fortress.DelReviewMgrFactory" scope="prototype"
+    <bean id="delReviewMgr" class="org.apache.directory.fortress.core.DelReviewMgrFactory" scope="prototype"
           factory-method="createInstance">
         <constructor-arg value="HOME"/>
     </bean>
-    <bean id="delAdminMgr" class="org.openldap.fortress.DelAdminMgrFactory" scope="prototype"
+    <bean id="delAdminMgr" class="org.apache.directory.fortress.core.DelAdminMgrFactory" scope="prototype"
           factory-method="createInstance">
         <constructor-arg value="HOME"/>
     </bean>
-    <bean id="delAccessMgr" class="org.openldap.fortress.DelAccessMgrFactory" scope="prototype"
+    <bean id="delAccessMgr" class="org.apache.directory.fortress.core.DelAccessMgrFactory" scope="prototype"
           factory-method="createInstance">
         <constructor-arg value="HOME"/>
     </bean>
-    <bean id="auditMgr" class="org.openldap.fortress.AuditMgrFactory" scope="prototype"
+    <bean id="auditMgr" class="org.apache.directory.fortress.core.AuditMgrFactory" scope="prototype"
           factory-method="createInstance">
         <constructor-arg value="HOME"/>
     </bean>
-    <bean id="pwPolicyMgr" class="org.openldap.fortress.PwPolicyMgrFactory" scope="prototype"
+    <bean id="pwPolicyMgr" class="org.apache.directory.fortress.core.PwPolicyMgrFactory" scope="prototype"
           factory-method="createInstance">
         <constructor-arg value="HOME"/>
     </bean>
-    <bean id="groupMgr" class="org.openldap.fortress.ldap.group.GroupMgrFactory" scope="prototype"
+    <bean id="groupMgr" class="org.apache.directory.fortress.core.ldap.group.GroupMgrFactory" scope="prototype"
           factory-method="createInstance">
         <constructor-arg value="HOME"/>
     </bean>
@@ -94,7 +99,7 @@
     </bean>
 
     <!-- Inject spring context into wicket pages -->
-    <bean id="wicketApplication" class="org.openldap.commander.ApplicationContext"></bean>
+    <bean id="wicketApplication" class="org.apache.directory.fortress.web.ApplicationContext"></bean>
 
     <!-- setup spring security using preauthenticated (java ee) strategy -->
     <bean id="filterChainProxy" class="org.springframework.security.web.FilterChainProxy">
@@ -167,37 +172,37 @@
         <property name="securityMetadataSource">
             <sec:filter-invocation-definition-source>
                 <!-- before spring interceptor recognizes these roles, the j2ee preauthentication filter requires prior declaration in web.xml -->
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.userpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.userpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_USERS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.rolepage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.rolepage"
                                    access="ROLE_RBAC_ADMIN,ROLE_ROLES"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.permpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.permpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_PERMS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.sdstaticpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.sdstaticpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_SSDS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.sddynamicpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.sddynamicpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_DSDS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.pwpolicypage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.pwpolicypage"
                                    access="ROLE_RBAC_ADMIN,ROLE_POLICIES"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.objectpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.objectpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_PERMOBJS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.ouuserpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.ouuserpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_USEROUS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.oupermpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.oupermpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_PERMOUS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.roleadminpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.roleadminpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_ADMINROLES"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.objectadminpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.objectadminpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_ADMINOBJS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.permadminpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.permadminpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_ADMINPERMS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.auditauthzpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.auditauthzpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_AUDIT_AUTHZS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.auditmodpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.auditmodpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_AUDIT_MODS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.auditbindpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.auditbindpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_AUDIT_BINDS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.openldap.commander.grouppage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.grouppage"
                                    access="ROLE_RBAC_ADMIN,ROLE_GROUPS"/>
             </sec:filter-invocation-definition-source>
         </property>

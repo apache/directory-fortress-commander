@@ -1,0 +1,88 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.
+-->
+
+<html>
+<head>
+    <meta charset="utf-8" />
+   	<meta name="description" content="Wicket jQuery UI integration" />
+   	<meta name="keywords" content="wicket jquery, wicket jquery ui, autocomplete, dialog, draggable, droppable, progress bar, wizard, kendo ui, border layout, calendar" />
+    <link rel="stylesheet" type="text/css" href="css/camo-style.css" media="all" />
+   	<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.10.2.custom.min.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="css/kendo/kendo.common.min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="css/kendo/kendo.default.min.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="css/splitter-style.css" media="all" />
+
+    <style type="text/css">
+        .resizable2 {
+           height:100%;
+           margin:0;
+           padding:0;
+           overflow:hidden;
+        }
+    </style>
+
+<title>Fortress Web RBAC Administration</title>
+<link rel="shortcut icon" href="images/favicon.ico" />
+</head>
+<body>
+<div id="header">
+    <h3>
+        <a href="#" wicket:id="users">USERS</a>
+        &nbsp
+        <a href="#" wicket:id="roles">ROLES</a>
+        &nbsp
+        <a href="#" wicket:id="pobjs">POBJS</a>
+        &nbsp
+        <a href="#" wicket:id="perms">PERMS</a>
+        &nbsp
+        <a href="#" wicket:id="ssds">SSDS</a>
+        &nbsp
+        <a href="#" wicket:id="dsds">DSDS</a>
+        &nbsp&nbsp
+        <a href="#" wicket:id="userous">OUSERS</a>
+        &nbsp
+        <a href="#" wicket:id="permous">OUPRMS</a>
+        &nbsp
+        <a href="#" wicket:id="admroles">ADMRLES</a>
+        &nbsp
+        <a href="#" wicket:id="admpobjs">ADMOBJS</a>
+        &nbsp
+        <a href="#" wicket:id="admperms">ADMPERMS</a>
+        &nbsp
+        <a href="#" wicket:id="pwpolicies">PLCYS</a>
+        &nbsp
+        <a href="#" wicket:id="groups">GROUPS</a>
+        &nbsp
+        <a href="#" wicket:id="binds">BINDS</a>
+        &nbsp
+        <a href="#" wicket:id="authzs">AUTHZ</a>
+        &nbsp
+        <a href="#" wicket:id="mods">MODS</a>
+        &nbsp
+        <a href="#" wicket:id="logout">LOGOUT</a>
+    </h3>
+</div>
+<div id="body">
+    <wicket:child />
+</div>
+<div id="footer">
+	<span wicket:id="footer"></span>
+</div>
+</body>
+</html>

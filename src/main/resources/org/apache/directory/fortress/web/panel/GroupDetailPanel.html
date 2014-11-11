@@ -1,0 +1,106 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.
+-->
+
+<html xmlns:wicket="http://wicket.apache.org/">
+<body>
+<wicket:panel>
+    <form wicket:id="editFields">
+
+        <fieldset>
+            <legend>Detail Operations</legend>
+
+        <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+               wicket:id="add"
+               value="add"/>
+        <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+               wicket:id="commit" value="update"/>
+        <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+               wicket:id="delete" value="delete"/>
+        <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+               wicket:id="cancel" value="clear" name="clear"/>
+
+        </fieldset>
+
+        <fieldset>
+            <table id="inputFormTable">
+                <h3><span wicket:id="groupAssignmentsLabel" id="groupAssignmentsLabel"/></h3>
+                <tr>
+                    <td>
+                        <label for="name">Object Name</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="name" id="name" class="formLarge" style="width: 250px"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="description">Description</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="description" id="description" class="formLarge" style="width: 250px"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="protocol">Protocol</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="protocol" id="protocol" class="formLarge" style="width: 250px"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="memberProps">Properties</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="memberProps"  id="memberProps" style="width: 250px"/>
+                        <button wicket:id="memberProps.add" name="memberProps.add">add</button>
+                        <button wicket:id="memberProps.delete" name="memberProps.delete">delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="memberAssign">User DN</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="memberAssign" id="memberAssign" class="formLarge" style="width: 250px"/>
+
+                        <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                               wicket:id="members.search" name="members.search" value="search"/>
+
+                        <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                               wicket:id="member.assign" name="member.assign" value="assign"/>
+
+                        <div wicket:id="membersmodal"></div>
+                    </td>
+                </tr>
+            </table>
+            <div wicket:id="memberstable" id="modstable" style="width: 720px;"></div>
+        </fieldset>
+    </form>
+    <!-- Group attributes:
+        "name",
+        "description",
+        "protocol",
+        "members",
+        "props",
+    -->
+</wicket:panel>
+</body>
+</html>

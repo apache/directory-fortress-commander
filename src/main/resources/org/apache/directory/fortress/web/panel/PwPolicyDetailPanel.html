@@ -1,0 +1,171 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.
+-->
+
+<html xmlns:wicket="http://wicket.apache.org/">
+<body>
+<wicket:panel>
+    <form wicket:id="editFields">
+        <fieldset>
+            <legend>Detail Operations</legend>
+
+            <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                   wicket:id="add"
+                   value="add"/>
+            <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                   wicket:id="commit" value="commit"/>
+            <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                   wicket:id="delete" value="delete"/>
+            <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                   wicket:id="cancel" value="clear"/>
+        </fieldset>
+
+        <div id="accordion">
+            <h3>Password Policy Detail</h3>
+
+            <div>
+                <table id="inputFormTable">
+                    <tr>
+                        <td>
+                            <label for="name">Name</label>
+                        </td>
+                        <td>
+                            <input type="text" wicket:id="name" id="name" class="formLarge"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="minAge">Min Age</label>
+                        </td>
+                        <td>
+                            <input type="text" wicket:id="minAge" id="minAge" class="formLarge"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="maxAge">Max Age</label>
+                        </td>
+                        <td>
+                            <input type="text" wicket:id="maxAge" id="maxAge" class="formLarge"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="inHistory">In History</label>
+                        </td>
+                        <td>
+                            <input type="text" wicket:id="inHistory" id="inHistory" class="formLarge"/>
+                        </td>
+                    </tr>
+<!--
+                    <tr>
+                        <td>
+                            <label for="checkQuality">Check Quality</label>
+                        </td>
+                        <td>
+                            <input type="text" wicket:id="checkQuality" id="checkQuality" class="formLarge"/>
+                        </td>
+                    </tr>
+-->
+                    <tr>
+                        <td>
+                            <label for="minLength">Min Length</label>
+                        </td>
+                        <td>
+                            <input type="text" wicket:id="minLength" id="minLength" class="formLarge"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="expireWarning">Expire Warning</label>
+                        </td>
+                        <td>
+                            <input type="text" wicket:id="expireWarning" id="expireWarning" class="formLarge"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="graceLoginLimit">Grace Login Limit</label>
+                        </td>
+                        <td>
+                            <input type="text" wicket:id="graceLoginLimit" id="graceLoginLimit" class="formLarge"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="lockout">Lockout</label>
+                        </td>
+                        <td>
+                            <input type="checkbox" wicket:id="lockout" id="lockout"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="lockoutDuration">Lockout Duration</label>
+                        </td>
+                        <td>
+                            <input type="text" wicket:id="lockoutDuration" id="lockoutDuration" class="formLarge"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="maxFailure">Max Failure</label>
+                        </td>
+                        <td>
+                            <input type="text" wicket:id="maxFailure" id="maxFailure" class="formLarge"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="failureCountInterval">Failure Count Interval</label>
+                        </td>
+                        <td>
+                            <input type="text" wicket:id="failureCountInterval" id="failureCountInterval" class="formLarge"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="mustChange">Must Change</label>
+                        </td>
+                        <td>
+                            <input type="checkbox" wicket:id="mustChange" id="mustChange"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="allowUserChange">Allow User Change</label>
+                        </td>
+                        <td>
+                            <input type="checkbox" wicket:id="allowUserChange" id="allowUserChange"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="safeModify">Safe Modify</label>
+                        </td>
+                        <td>
+                            <input type="checkbox" wicket:id="safeModify" id="safeModify"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </form>
+</wicket:panel>
+</body>
+</html>

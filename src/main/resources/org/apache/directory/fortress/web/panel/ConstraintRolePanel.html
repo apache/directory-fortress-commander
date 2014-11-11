@@ -1,0 +1,110 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.
+-->
+
+<html xmlns:wicket="http://wicket.apache.org/">
+<body>
+
+<wicket:panel>
+    <tr>
+        <td>
+            <table id="roleConstraintsTable">
+                <tr>
+                    <td>
+                        <label for="beginTimeRC">Begin Time</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="beginTimeRC" id="beginTimeRC" class="formLarge"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="endTimeRC">End Time</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="endTimeRC" id="endTimeRC" class="formLarge"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="beginDateRC">Begin Date</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="beginDateRC" id="beginDateRC" class="formLarge"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="endDateRC">End Date</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="endDateRC" id="endDateRC" class="formLarge"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="beginLockDateRC">Begin Lock Date</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="beginLockDateRC" id="beginLockDateRC" class="formLarge"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="endLockDateRC">End Lock Date</label>
+                    </td>
+                    <td>
+                        <input type="text" wicket:id="endLockDateRC" id="endLockDateRC" class="formLarge"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="timeout">Timeout (minutes)</label>
+                    </td>
+                    <td>
+                        <input wicket:id="timeout" id="timeoutRC" type="text" style="width: 35px;">
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <fieldset>
+                <legend>Day Mask</legend>
+                <input type="checkbox" wicket:id="sunday" id="sundayRC"/>
+                <label for="sunday">SU</label>
+                <input type="checkbox" wicket:id="monday" id="mondayRC"/>
+                <label for="monday">M</label>
+                <input type="checkbox" wicket:id="tuesday" id="tuesdayRC"/>
+                <label for="tuesday">TU</label>
+                <input type="checkbox" wicket:id="wednesday" id="wednesdayRC"/>
+                <label for="wednesday">W</label>
+                <input type="checkbox" wicket:id="thursday" id="thursdayRC"/>
+                <label for="thursday">TH</label>
+                <input type="checkbox" wicket:id="friday" id="fridayRC"/>
+                <label for="friday">F</label>
+                <input type="checkbox" wicket:id="saturday" id="saturdayRC"/>
+                <label for="saturday">SA</label>
+            </fieldset>
+        </td>
+    </tr>
+
+</wicket:panel>
+</body>
+</html>

@@ -1,22 +1,26 @@
 #
-# This work is part of OpenLDAP Software <http://www.openldap.org/>.
+#   Licensed to the Apache Software Foundation (ASF) under one
+#   or more contributor license agreements.  See the NOTICE file
+#   distributed with this work for additional information
+#   regarding copyright ownership.  The ASF licenses this file
+#   to you under the Apache License, Version 2.0 (the
+#   "License"); you may not use this file except in compliance
+#   with the License.  You may obtain a copy of the License at
 #
-# Copyright 1998-2014 The OpenLDAP Foundation.
-# All rights reserved.
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted only as authorized by the OpenLDAP
-# Public License.
-#
-# A copy of this license is available in the file LICENSE in the
-# top-level directory of the distribution or, alternatively, at
-# <http://www.OpenLDAP.org/license.html>.
+#   Unless required by applicable law or agreed to in writing,
+#   software distributed under the License is distributed on an
+#   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+#   KIND, either express or implied.  See the License for the
+#   specific language governing permissions and limitations
+#   under the License.
 #
 ___________________________________________________________________________________
 ###################################################################################
-README for Fortress Commander Web Application Installation
-RC36 (BETA RELEASE CANDIDATE)
-Last updated: April 27, 2014
+README for Fortress Web Application Installation
+RC40
+Last updated: November 4, 2014
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 1: Prerequisites
@@ -32,25 +36,20 @@ NOTE: The Commander maven may run without connection to Internet iff:
 
 4. Apache Maven 3 installed.
 
-5. Fortress/OpenLDAP QUICKSTART installed to target system.
-Instructions: http://www.jts.us/iamfortress/guides/README-QUICKSTART.html
-Download: http://iamfortress.org/download/
+5. Fortress/ApacheDS QUICKSTART installed to target system.
+Instructions: http://directory.apache.org/fortress/quick-start/apacheds/apacheds.html
 
 6. Tomcat 7 (or suitable servlet container) installed:
 http://tomcat.apache.org
 
-7. Fortress Sentry package (a.k.a Realm) installed as the Java security provider on Tomcat server:
-Instructions: http://www.jts.us/iamfortress/javadocs/api-sentry/org/openldap/sentry/tomcat/package-summary.html
+7. Fortress Realm must be enabled:
+Instructions: https://symas.com/javadocs/sentry
 
-Important Note: The Fortress QUICKSTART package includes prerequisite #'s 3,4,5,6 & 7 from above.
-Download QUICKSTART packages from here: http://iamfortress.org/download/
-___________________________________________________________________________________
 ###################################################################################
-# SECTION 2: Important Notes about Commander Web Application
+# SECTION 2: Important Notes about Fortress Web Application
 ###################################################################################
 
-1. Commander is released as Open Source and available for unrestricted use via BSD 3 clause license. (see LICENSE.txt)
-  - Commander dependencies are Open Source also.
+1. Fortress Web is released as Apache 2.0. (see LICENSE.txt)
 
 2. This web app was tested using Apache Tomcat 7 but would work inside any current Java Servlet container (with changes to deploy procedure)
 
@@ -77,15 +76,17 @@ ________________________________________________________________________________
   - OpenLDAP - Password Hashing, Policies.
 _________________________________________________________________________________
 ###################################################################################
-# SECTION 3:  Instructions for Commander installation using Source Bundle
+# SECTION 3:  Instructions for Fortress Web installation using Source Bundle
 ###################################################################################
 
-1. Retrieve Fortress Commander source code bundle either from iamfortress.org or OpenLDAP.org.
+1. Retrieve Fortress Web source code bundle:
+https://git-wip-us.apache.org/repos/asf/directory-fortress-web.git
 
-2. Extract contents of openldap-fortress-commander.tar.gz to target env.
+
+2. Extract contents of directory-fortress-web.tar.gz to target env.
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 4:  Instructions to build Commander Web archive file
+# SECTION 4:  Instructions to build Fortress Web archive file
 ###################################################################################
 
 1. Open a command prompt on target machine in the root folder of the commander-dist package
@@ -100,7 +101,7 @@ ________________________________________________________________________________
 >mvn install
 
 ###################################################################################
-# SECTION 5:  Instructions to Deploy Commander Web application to Tomcat
+# SECTION 5:  Instructions to Deploy Fortress Web application to Tomcat
 ###################################################################################
 
 1. Enable Maven to communicate with Tomcat using settings.xml file.
@@ -127,7 +128,7 @@ note2: If not using the Fortress Tomcat realm, add the following to tomcat-users
 >mvn tomcat:redeploy
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 6:  Instructions to integration test Commander Web application
+# SECTION 6:  Instructions to integration test Fortress Web application
 ###################################################################################
 
 Note: This test case depends that the prerequisite tasks have been performed in SECTION 1.
@@ -140,7 +141,7 @@ Note: This test case depends that the prerequisite tasks have been performed in 
 
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 7:  Instructions to create Commander javadoc (optional)
+# SECTION 7:  Instructions to create Fortress Web javadoc (optional)
 ###################################################################################
 
 The service level documentation provides descriptions for each of the Commander pages.
@@ -151,4 +152,4 @@ $ mvn javadoc:javadoc
 
 2. View the document output here:
 
-openldap-fortress-commander/target/site/apidocs
+directory-fortress-web/target/site/apidocs

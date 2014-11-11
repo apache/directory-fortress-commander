@@ -1,0 +1,59 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.
+-->
+<html>
+   <head>
+      <title>Overview of the org.apache.directory.fortress.web component</title>
+   </head>
+   <body>
+       Fortress Web is a web application that interface with <A HREF="https://symas.com/javadocs/fortress/">Fortress</A> and a directory server like <A HREF="http://www.openldap.org/">OpenLDAP</A> or <A HREF="http://directory.apache.org/apacheds/">ApacheDS</A>.
+
+       <h2>What technologies are in use?</h2>
+
+       Fortress Web was built using established <A HREF="http://www.opensource.org/">Open Source</A> technologies including
+       <A HREF="http://wicket.apache.org//">Apache Wicket</A> (Web UI framework), <A HREF="http://www.springsource.org/">Spring Framework</A> (glue), <A HREF="http://maven.apache.org/">Maven</A> (dependencies)
+       and runs inside any reasonably compliant Java Servlets container.
+
+       Access control decisions are enforced using <A HREF="https://symas.com/javadocs/sentry/">Fortress Realm</A> which itself
+       uses declarative <A HREF="http://docs.oracle.com/javaee/5/tutorial/doc/bnbwk.html">Java EE Security</A> and <A HREF="http://static.springsource.org/spring-security/site/">Spring Security</A> policy hooks that are wired to
+       connect back to the <A HREF="https://symas.com/javadocs/fortress/org/openldap/fortress/rbac/package-summary.html">Fortress Core</A> <A HREF="http://en.wikipedia.org/wiki/Role-based_access_control">RBAC</A> component.
+
+       Fine-grained access control decisions are enforced using <A HREF="https://symas.com/javadocs/fortress/org/openldap/fortress/DelAccessMgr.html">Fortress ARBAC delegated access management.</A>
+
+       Commander server-side is a <a href="http://java.sun.com/developer/technicalArticles/tools/webapps_1/">Java Web program</a> artifact and is wholly dependent on <A HREF="http://www.jts.us/iamfortress/javadocs/api/index.html">Fortress</A>
+       but also needs a <A HREF="http://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol">V3 compliant LDAP</A> server like OpenLDAP.  For more information on installing and setting up OpenLDAP check out
+       <A HREF="http://directory.apache.org/fortress/quick-start/apacheds/apacheds.html">Fortress ApacheDS Quickstart</A>
+
+       <h2>What can Fortress Web do?</h2>
+
+       Contained within this application are Web pages to perform ANSI RBAC administration along with IETF password policies and viewing the security audit trail and history of changes.
+
+      <h2>What are the conditions of use?</h2>
+      <p>
+          This software development kit is open source, thus free to use and distribute via the <a href="http://www.apache.org/licenses/">Apache License, Version 2.0</a>.
+          It was developed and tested on open systems like <a href="http://www.ubuntu.com/">Ubuntu</a> and <a href="http://www.centos.org/">Centos</a> and was helped along
+          by the following open source products:
+       <ol>
+           <li><a href="http://www.openldap.org/project/">The OpenLDAP Project</a></li>
+           <li><a href="http://www.apache.org/">The Apache Software Foundation</a></li>
+           <li><a href="http://www.eigenbase.org/">The Eigenbase Project</a></li>
+           <li><a href="http://ehcache.org/">Ehcache</a></li>
+       </ol>
+      </p>
+   </body>
+</html>

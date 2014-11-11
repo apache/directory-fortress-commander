@@ -1,0 +1,76 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.
+-->
+
+<html xmlns:wicket="http://wicket.apache.org/">
+<body>
+<wicket:panel>
+    <form wicket:id="authzform">
+        <fieldset>
+            <legend>Authorization Search Operations</legend>
+            <table id="inputFormTable">
+                <tr>
+                    <td>
+                        <input type="button"
+                               class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                               wicket:id="search" value="search" name="search"/>
+                        <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                               wicket:id="clear" value="clear" name="clear"/>
+                        &nbsp&nbsp
+                        <label for="failedOnly">Failed Only?</label>
+                        <input type="checkbox" wicket:id="failedOnly" id="failedOnly"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div wicket:id="usersearchmodal"></div>
+                        <label for="userId"><a href="#" wicket:id="userAssignLinkLbl" id="userAssignLinkLbl">User ID</a></label>
+                        <input type="text" wicket:id="userId" id="userId" class="formLarge" style="width: 250px"/>
+                        &nbsp&nbsp
+                        <label for="beginDate">Begin Date</label>
+                        <input type="text" wicket:id="beginDate" id="beginDate" class="formLarge"/>
+                        &nbsp&nbsp
+                        <label for="endDate">End Date</label>
+                        <input type="text" wicket:id="endDate" id="endDate" class="formLarge"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div wicket:id="permsearchmodal"></div>
+                        <fieldset>
+                            <legend><label><a href="#" wicket:id="permLinkLbl" id="permLinkLbl">Permission</a></label>
+                            </legend>
+                            <label for="admin">Is Admin?</label>
+                            <input type="checkbox" wicket:id="admin" id="admin"/>
+                            <label for="objName">Object Name</label>
+                            <input type="text" wicket:id="objName" id="objName" class="formLarge"
+                                   style="width: 300px"/>
+                            &nbsp&nbsp
+                            <label for="opName">Operation Name</label>
+                            <input type="text" wicket:id="opName" id="opName" class="formLarge" style="width: 300px"/>
+                        </fieldset>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <div wicket:id="authztreegrid" id="authztreegrid">
+        </div>
+    </form>
+</wicket:panel>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.
+-->
+
+<html xmlns:wicket="http://wicket.apache.org/">
+<body>
+<wicket:panel>
+    <form wicket:id="userlistform">
+        <fieldset>
+            <legend>User Search Operations</legend>
+
+            <div wicket:id="userformsearchfields">
+
+                <table id="inputFormTable">
+                    <tr>
+                        <div wicket:id="rolesearchmodal"></div>
+                        <div wicket:id="adminrolesearchmodal"></div>
+                        <div wicket:id="ousearchmodal"></div>
+                        <div wicket:id="permsearchmodal"></div>
+                        &nbsp;&nbsp;
+
+                    <span wicket:id="searchOptions">
+                        <input type="radio" wicket:id="userRb" id="userRb">UserId</input>
+                        <input type="radio" wicket:id="roleRb" id="roleRb"><a href="#" wicket:id="roleAssignLinkLbl"
+                                                                              id="roleAssignLinkLbl">RBAC
+                        Role</a></input>
+                        <input type="radio" wicket:id="adminRoleRb" id="adminRoleRb"><a href="#"
+                                                                                        wicket:id="adminRoleAssignLinkLbl"
+                                                                                        id="adminRoleAssignLinkLbl">Admin
+                        Role</a></input>
+                        <input type="radio" wicket:id="ouRb" id="ouRb"><a href="#" wicket:id="ouAssignLinkLbl"
+                                                                          id="ouAssignLinkLbl">User
+                        Organization</a></input>
+                        <input type="radio" wicket:id="permRb" id="permRb"><a href="#" wicket:id="permLinkLbl"
+                                                                              id="permLinkLbl">Permission</a></input>
+                    </span>
+
+                    </tr>
+
+                    <tr>
+                        <div wicket:id="searchfields">
+                            <fieldset>
+                                <legend><label wicket:id="searchFieldslabel">Search Fields</label></legend>
+                                <!--<label wicket:id="searchFieldslabel">Search Fields</label>-->
+                                <label for="field1" wicket:id="field1label">Field1</label>
+                                <input type="text" wicket:id="field1" id="field1" class="formLarge"
+                                       style="width: 300px"/>
+                                &nbsp&nbsp
+                                <label for="field2" wicket:id="field2label">Field2</label>
+                                <input type="text" wicket:id="field2" id="field2" class="formLarge"
+                                       style="width: 300px"/>
+                            </fieldset>
+                        </div>
+
+                    </tr>
+
+                    <tr>
+                        <input type="button"
+                               class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                               wicket:id="search" value="search" name="search"/>
+                        &nbsp&nbsp
+                        <input type="button"
+                               class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                               wicket:id="clear" value="clear" name="clear"/>
+                    </tr>
+                </table>
+            </div>
+
+        </fieldset>
+        <div wicket:id="usertreegrid" id="usertreegrid">
+        </div>
+    </form>
+</wicket:panel>
+</body>
+</html>

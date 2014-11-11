@@ -1,0 +1,94 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.
+-->
+
+<html xmlns:wicket="http://wicket.apache.org/">
+<body>
+<wicket:panel>
+    <form wicket:id="editFields">
+        <fieldset>
+            <legend>Detail Operations</legend>
+
+            <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                   wicket:id="add" name="add" value="add"/>
+            <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                   wicket:id="commit" name="commit" value="commit"/>
+            <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                   wicket:id="delete" name="delete" value="delete"/>
+            <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                   wicket:id="cancel" name="cancel" value="clear"/>
+        </fieldset>
+
+        <div id="accordion">
+
+            <h3><span wicket:id="roleDetailLabel" id="roleDetailLabel"/></h3>
+
+            <div>
+                <table id="inputFormTable">
+                    <tr>
+                        <td>
+                            <label for="name">Name</label>
+                        </td>
+                        <td>
+                            <input type="text" wicket:id="name" id="name" class="formLarge" style="width: 250px"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="description">Description</label>
+                        </td>
+                        <td>
+                            <input type="text" wicket:id="description" id="description" class="formLarge"
+                                   style="width: 250px"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="parents">Parents</label>
+                        </td>
+                        <td>
+                            <input type="text" wicket:id="parents" style="width: 250px"/>
+                            <button wicket:id="parentroles.search" name="parentroles.search">search</button>
+                            <div wicket:id="parentrolesmodal"></div>
+                            <button wicket:id="roles.delete" name="roles.delete">remove</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="id">Internal ID</label>
+                        </td>
+                        <td>
+                            <span wicket:id="id"></span>
+                        </td>
+                    </tr>
+                </table>
+
+                <!--<h3><span wicket:id="roleauxLabel" id="roleauxLabel"/></h3>-->
+                <div wicket:id="roleauxpanel" id="roleauxpanel"></div>
+            </div>
+
+            <h3><span wicket:id="temporalConstraintsLabel" id="temporalConstraintsLabel"/></h3>
+
+            <div>
+                <div wicket:id="constraintpanel" id="constraintpanel"></div>
+            </div>
+        </div>
+    </form>
+</wicket:panel>
+</body>
+</html>
