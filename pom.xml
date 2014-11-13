@@ -105,11 +105,15 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>${version.slf4j.log4j12}</version>
         </dependency>
+
+        <!-- Servlet API DEPENDENCIES -->
         <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-servlet-api</artifactId>
-            <version>8.0.0-RC1</version>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
         </dependency>
+
         <!--  JETTY used for embedded testing within intellij -->
         <dependency>
             <groupId>org.mortbay.jetty</groupId>
