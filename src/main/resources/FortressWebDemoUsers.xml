@@ -17,7 +17,7 @@
    specific language governing permissions and limitations
    under the License.
 -->
-<project basedir="." default="all" name="Fortress Sample Data">
+<project basedir="." default="all" name="Fortress Web Sample Policy">
     <taskdef classname="org.apache.directory.fortress.core.ant.FortressAntTask" name="FortressAdmin" >
         <classpath path="${java.class.path}"/>
     </taskdef>
@@ -26,10 +26,10 @@
         <FortressAdmin>
 
             <adduser>
-                <user userId="test" password="password" description="Fortress Web Demo User" ou="demousrs1" cn="test" sn="user"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" photo="TestPhoto1.jpeg"/>
-                <user userId="test1" password="password" description="Fortress Web Demo User1" ou="demousrs1" cn="test1" sn="user"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>
-                <user userId="test2" password="password" description="Fortress Web Demo User2" ou="demousrs1" cn="test2" sn="user"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>
-                <user userId="test3" password="password" description="Fortress Web Group Demo User2" ou="demousrs1" cn="test3" sn="user"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>
+                <user userId="test" password="password" description="Fortress Web Demo User" ou="demousrs1" cn="test" sn="user"  beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" photo="TestPhoto1.jpeg"/>
+                <user userId="test1" password="password" description="Fortress Web Demo User1" ou="demousrs1" cn="test1" sn="user"  beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>
+                <user userId="test2" password="password" description="Fortress Web Demo User2" ou="demousrs1" cn="test2" sn="user"  beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>
+                <user userId="test3" password="password" description="Fortress Web Group Demo User2" ou="demousrs1" cn="test3" sn="user" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>
             </adduser>
 
             <adduseradminrole>
@@ -148,6 +148,10 @@
                 <relationship child="ROLE_AUDITOR" parent="ROLE_AUDIT_AUTHZS"/>
                 <relationship child="ROLE_AUDITOR" parent="ROLE_AUDIT_MODS"/>
             </addroleinheritance>
+
+            <addorgunit>
+                <orgunit name="demousrs1" typeName="USER" description="Test User Org 1 for Fortress Web User"/>
+            </addorgunit>
 
         </FortressAdmin>
     </target>
