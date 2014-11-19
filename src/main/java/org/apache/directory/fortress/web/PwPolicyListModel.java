@@ -26,46 +26,50 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.core.PwPolicyMgr;
 import org.apache.directory.fortress.core.rbac.PwPolicy;
 import org.apache.directory.fortress.core.rbac.Session;
+import org.apache.directory.fortress.core.SecurityException;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Shawn McKinney
  * @version $Rev$
- * @param <T>
  */
-public class PwPolicyListModel<T extends Serializable> extends Model
+public class PwPolicyListModel extends Model<SerializableList<PwPolicy>>
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+
     @SpringBean
     private PwPolicyMgr pwPolicyMgr;
-    private static final Logger log = Logger.getLogger(PwPolicyListModel.class.getName());
+    private static final Logger LOG = Logger.getLogger(PwPolicyListModel.class.getName());
     private transient PwPolicy policy;
-    private transient List<PwPolicy> policies = null;
+    private transient SerializableList<PwPolicy> policies = null;
 
     /**
      * Default constructor
      */
-    public PwPolicyListModel( final Session session )
+    public PwPolicyListModel( Session session )
     {
         Injector.get().inject(this);
         // TODO: enable this after search permission added:
         //this.pwPolicyMgr.setAdmin( session );
     }
 
+    
     /**
      * User contains the search arguments.
      *
      * @param policy
      */
-    public PwPolicyListModel(PwPolicy policy, final Session session )
+    public PwPolicyListModel( PwPolicy policy, Session session )
     {
-        Injector.get().inject(this);
+        Injector.get().inject( this );
         this.policy = policy;
         // TODO: enable this after search permission added:
         //this.pwPolicyMgr.setAdmin( session );
     }
+    
 
     /**
      * This data is bound for RoleListPanel
@@ -73,55 +77,61 @@ public class PwPolicyListModel<T extends Serializable> extends Model
      * @return T extends List<Role> roles data will be bound to panel data view component.
      */
     @Override
-    public T getObject()
+    public SerializableList<PwPolicy> getObject()
     {
-        if (policies != null)
+        if ( policies != null )
         {
-            log.debug(".getObject count: " + policy != null ? policies.size() : "null");
-            return (T) policies;
+            LOG.debug( ".getObject count: " + policy != null ? policies.size() : "null" );
+            return policies;
         }
-        if (policy == null)
+        
+        if ( policy == null )
         {
-            log.debug(".getObject null");
-            policies = new ArrayList<PwPolicy>();
+            LOG.debug( ".getObject null" );
+            policies = new SerializableList<PwPolicy>( new ArrayList<PwPolicy>() );
         }
         else
         {
-            log.debug(".getObject policyNm: " + policy != null ? policy.getName() : "null");
-            policies = getList(policy);
+            LOG.debug( ".getObject policyNm: " + policy != null ? policy.getName() : "null" );
+            policies = new SerializableList<PwPolicy>( getList( policy ) );
         }
-        return (T) policies;
+        
+        return policies;
     }
 
+    
     @Override
-    public void setObject(Object object)
+    public void setObject( SerializableList<PwPolicy> object )
     {
-        log.debug(".setObject count: " + object != null ? ((List<PwPolicy>)object).size() : "null");
-        this.policies = (List<PwPolicy>) object;
+        LOG.debug( ".setObject count: " + object != null ? ((List<PwPolicy>)object).size() : "null" );
+        policies = object;
     }
+    
 
     @Override
     public void detach()
     {
         //log.debug(".detach");
-        this.policies = null;
-        this.policy = null;
+        policies = null;
+        policy = null;
     }
 
-    private List<PwPolicy> getList(PwPolicy policy)
+    private List<PwPolicy> getList( PwPolicy policy )
     {
         List<PwPolicy> policiesList = null;
+        
         try
         {
             String szPolicyNm = policy != null ? policy.getName() : "";
-            log.debug(".getList policyNm: " + szPolicyNm);
-            policiesList = pwPolicyMgr.search(szPolicyNm);
+            LOG.debug( ".getList policyNm: " + szPolicyNm );
+            policiesList = pwPolicyMgr.search( szPolicyNm );
         }
-        catch (org.apache.directory.fortress.core.SecurityException se)
+        catch ( SecurityException se )
         {
             String error = ".getList caught SecurityException=" + se;
-            log.warn(error);
+            LOG.warn( error );
         }
+        
         return policiesList;
     }
 }

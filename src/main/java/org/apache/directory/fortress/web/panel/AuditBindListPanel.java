@@ -25,6 +25,7 @@ import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.SizeUnit;
 import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -45,6 +46,7 @@ import org.apache.directory.fortress.web.GlobalUtils;
 import org.apache.directory.fortress.web.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.SecureIndicatingAjaxLink;
 import org.apache.directory.fortress.web.SelectModelEvent;
+import org.apache.directory.fortress.web.SerializableList;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.Model;
 import org.apache.directory.fortress.core.rbac.Bind;
@@ -56,6 +58,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -78,7 +81,7 @@ public class AuditBindListPanel extends FormComponentPanel
     private TextField userFld;
     protected DatePicker beginDateDP;
     protected DatePicker endDateDP;
-    private IModel<AuditBindListModel> pageModel;
+    private IModel<SerializableList<Bind>> pageModel;
 
     public AuditBindListPanel(String id, UserAudit userAudit )
     {

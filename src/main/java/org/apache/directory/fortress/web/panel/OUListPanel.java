@@ -165,7 +165,7 @@ public class OUListPanel extends FormComponentPanel
                     srchOu.setType( OrgUnit.Type.PERM );
                 }
                 srchOu.setName( searchVal );
-                setDefaultModel( new OUListModel<OrgUnit>( srchOu, GlobalUtils.getRbacSession( this ) ) );
+                setDefaultModel( new OUListModel( srchOu, GlobalUtils.getRbacSession( this ) ) );
                 treeModel.reload();
                 rootNode.removeAllChildren();
                 List<OrgUnit> orgUnits1 = ( List<OrgUnit> ) getDefaultModelObject();

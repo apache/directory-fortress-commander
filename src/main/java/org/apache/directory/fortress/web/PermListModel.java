@@ -25,46 +25,49 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.rbac.Permission;
-import org.apache.directory.fortress.core.rbac.Role;
 import org.apache.directory.fortress.core.rbac.Session;
+import org.apache.directory.fortress.core.SecurityException;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Shawn McKinney
  * @version $Rev$
- * @param <T>
  */
-public class PermListModel<T extends Serializable> extends Model
+public class PermListModel extends Model<SerializableList<Permission>>
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+    
     @SpringBean
     private ReviewMgr reviewMgr;
-    private static final Logger log = Logger.getLogger(PermListModel.class.getName());
+    private static final Logger LOG = Logger.getLogger(PermListModel.class.getName());
     private transient Permission perm;
-    private transient List<Permission> perms = null;
+    private transient SerializableList<Permission> perms = null;
     private boolean isAdmin;
 
-    public PermListModel(final boolean isAdmin, final Session session )
+    public PermListModel( boolean isAdmin, Session session )
     {
-        Injector.get().inject(this);
+        Injector.get().inject( this );
         this.isAdmin = isAdmin;
-        this.reviewMgr.setAdmin( session );
+        reviewMgr.setAdmin( session );
     }
+    
 
     /**
      * User contains the search arguments.
      *
      * @param perm
      */
-    public PermListModel(Permission perm, final boolean isAdmin, final Session session )
+    public PermListModel( Permission perm, boolean isAdmin, Session session )
     {
-        Injector.get().inject(this);
+        Injector.get().inject( this );
         this.isAdmin = isAdmin;
         this.perm = perm;
-        this.reviewMgr.setAdmin( session );
+        reviewMgr.setAdmin( session );
     }
+    
 
     /**
      * This data is bound for RoleListPanel
@@ -72,33 +75,38 @@ public class PermListModel<T extends Serializable> extends Model
      * @return T extends List<Permission> perms data will be bound to panel data view component.
      */
     @Override
-    public T getObject()
+    public SerializableList<Permission> getObject()
     {
-        if (perms != null)
+        if ( perms != null )
         {
-            log.debug(".getObject count: " + perms != null ? perms.size() : "null");
-            return (T) perms;
+            LOG.debug( ".getObject count: " + perms != null ? perms.size() : "null" );
+            
+            return perms;
         }
+        
         if (perm == null)
         {
-            log.debug(".getObject null");
-            perms = new ArrayList<Permission>();
+            LOG.debug( ".getObject null ");
+            perms = new SerializableList<Permission>( new ArrayList<Permission>() );
         }
         else
         {
-            log.debug(" .getObject perm objectNm: " + perm != null ? perm.getObjName() : "null");
-            log.debug(" .getObject perm opNm: " + perm != null ? perm.getOpName() : "null");
-            perms = getList(perm);
+            LOG.debug( " .getObject perm objectNm: " + perm != null ? perm.getObjName() : "null" );
+            LOG.debug( " .getObject perm opNm: " + perm != null ? perm.getOpName() : "null" );
+            perms = new SerializableList<Permission>( getList( perm ) );
         }
-        return (T) perms;
+        
+        return perms;
     }
+    
 
     @Override
-    public void setObject(Object object)
+    public void setObject( SerializableList<Permission> object )
     {
-        log.debug(".setObject count: " + perms != null ? ((List<Role>)object).size() : "null");
-        this.perms = (List<Permission>) object;
+        LOG.debug( ".setObject count: " + perms != null ? object.size() : "null" );
+        this.perms = object;
     }
+    
 
     @Override
     public void detach()
@@ -107,23 +115,26 @@ public class PermListModel<T extends Serializable> extends Model
         this.perms = null;
         this.perm = null;
     }
+    
 
-    private List<Permission> getList(Permission perm)
+    private List<Permission> getList( Permission perm )
     {
         List<Permission> permsList = null;
+        
         try
         {
             String szObjectNm = perm != null ? perm.getObjName() : "";
             String szOpNm = perm != null ? perm.getOpName() : "";
-            log.debug(".getList objectNm: " + szObjectNm + " opNm: " + szOpNm);
+            LOG.debug( ".getList objectNm: " + szObjectNm + " opNm: " + szOpNm );
             perm.setAdmin( isAdmin );
-            permsList = reviewMgr.findPermissions(perm);
+            permsList = reviewMgr.findPermissions( perm );
         }
-        catch (org.apache.directory.fortress.core.SecurityException se)
+        catch ( SecurityException se )
         {
             String error = ".getList caught SecurityException=" + se;
-            log.warn(error);
+            LOG.warn( error );
         }
+        
         return permsList;
     }
 }

@@ -175,7 +175,8 @@ public class RoleListPanel<T extends Serializable> extends FormComponentPanel
                 {
                     searchVal = "";
                 }
-                T srchRole = createRole(searchVal);
+                
+                Role srchRole = createRole(searchVal);
                 setDefaultModel(new RoleListModel(srchRole, isAdmin, GlobalUtils.getRbacSession( this )));
                 treeModel.reload();
                 rootNode.removeAllChildren();
@@ -290,17 +291,19 @@ public class RoleListPanel<T extends Serializable> extends FormComponentPanel
         return model;
     }
 
-    private T createRole(String name)
+    private Role createRole(String name)
     {
-        T role;
-        if(isAdmin)
+        Role role;
+        
+        if ( isAdmin )
         {
-            role = (T)new AdminRole(name);
+            role = new AdminRole(name);
         }
         else
         {
-            role = (T)new Role(name);
+            role = new Role(name);
         }
+        
         return role;
     }
 }

@@ -29,44 +29,48 @@ import org.apache.directory.fortress.core.rbac.Bind;
 import org.apache.directory.fortress.core.rbac.Session;
 import org.apache.directory.fortress.core.rbac.UserAudit;
 import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.SecurityException;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Shawn McKinney
  * @version $Rev$
- * @param <T>
  */
-public class AuditBindListModel<T extends Serializable> extends Model
+public class AuditBindListModel extends Model<SerializableList<Bind>>
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+
     @SpringBean
     private AuditMgr auditMgr;
-    private static final Logger log = Logger.getLogger(AuditBindListModel.class.getName());
+    private static final Logger LOG = Logger.getLogger( AuditBindListModel.class.getName() );
     private transient UserAudit userAudit;
-    private transient List<Bind> binds = null;
+    private transient SerializableList<Bind> binds = null;
 
     /**
      * Default constructor
      */
-    public AuditBindListModel( final Session session )
+    public AuditBindListModel( Session session )
     {
-        Injector.get().inject(this);
-        this.auditMgr.setAdmin( session );
+        Injector.get().inject( this );
+        auditMgr.setAdmin( session );
     }
+    
 
     /**
      * User contains the search arguments.
      *
      * @param userAudit
      */
-    public AuditBindListModel( UserAudit userAudit, final Session session )
+    public AuditBindListModel( UserAudit userAudit, Session session )
     {
-        Injector.get().inject(this);
+        Injector.get().inject( this );
         this.userAudit = userAudit;
-        this.auditMgr.setAdmin( session );
+        auditMgr.setAdmin( session );
     }
+    
 
     /**
      * This data is bound for RoleListPanel
@@ -74,58 +78,66 @@ public class AuditBindListModel<T extends Serializable> extends Model
      * @return T extends List<Role> roles data will be bound to panel data view component.
      */
     @Override
-    public T getObject()
+    public SerializableList<Bind> getObject()
     {
-        if (binds != null)
+        if ( binds != null )
         {
-            log.debug(".getObject count: " + userAudit != null ? binds.size() : "null");
-            return (T) binds;
+            LOG.debug( ".getObject count: " + userAudit != null ? binds.size() : "null" );
+            return binds;
         }
+        
         // if caller did not set userId return an empty list:
-        if (userAudit == null ||
-             ( !VUtil.isNotNullOrEmpty( userAudit.getUserId() )   &&
-               userAudit.getBeginDate() == null  &&
-               userAudit.getEndDate() == null
+        if ( ( userAudit == null ) || 
+             ( 
+                 !VUtil.isNotNullOrEmpty( userAudit.getUserId() ) &&
+                 ( userAudit.getBeginDate() == null ) && 
+                 ( userAudit.getEndDate() == null )
              )
            )
         {
-            log.debug(".getObject null");
-            binds = new ArrayList<Bind>();
+            LOG.debug(".getObject null");
+            binds = new SerializableList<Bind>( new ArrayList<Bind>() );
         }
         else
         {
             // get the list of matching bind records from fortress:
-            binds = getList(userAudit);
+            binds = new SerializableList<Bind>( getList(userAudit) );
         }
-        return (T) binds;
+        
+        return binds;
     }
+    
 
     @Override
-    public void setObject(Object object)
+    public void setObject( SerializableList<Bind> object )
     {
-        log.debug(".setObject count: " + object != null ? ((List<Bind>)object).size() : "null");
-        this.binds = (List<Bind>) object;
+        LOG.debug( ".setObject count: " + object != null ? object.size() : "null" );
+        this.binds = object;
     }
+    
 
     @Override
     public void detach()
     {
-        this.binds = null;
-        this.userAudit = null;
+        binds = null;
+        userAudit = null;
     }
+    
 
-    private List<Bind> getList(UserAudit userAudit)
+    private List<Bind> getList( UserAudit userAudit )
     {
         List<Bind> bindList = null;
+        
         try
         {
             bindList = auditMgr.searchBinds( userAudit );
         }
-        catch (org.apache.directory.fortress.core.SecurityException se)
+        catch ( SecurityException se )
         {
             String error = ".getList caught SecurityException=" + se;
-            log.warn(error);
+            LOG.warn( error );
         }
+        
         return bindList;
     }
 }

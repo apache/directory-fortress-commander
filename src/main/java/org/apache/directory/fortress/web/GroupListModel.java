@@ -28,44 +28,48 @@ import org.apache.directory.fortress.core.ldap.group.GroupMgr;
 import org.apache.directory.fortress.core.rbac.Session;
 import org.apache.directory.fortress.core.rbac.User;
 import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.SecurityException;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Shawn McKinney
  * @version $Rev$
- * @param <T>
  */
-public class GroupListModel<T extends Serializable> extends Model
+public class GroupListModel extends Model<SerializableList<Group>>
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+
     @SpringBean
     private GroupMgr groupMgr;
-    private static final Logger log = Logger.getLogger(GroupListModel.class.getName());
+    private static final Logger LOG = Logger.getLogger( GroupListModel.class.getName() );
     private transient Group group;
-    private transient List<Group> groups = null;
+    private transient SerializableList<Group> groups = null;
 
     /**
      * Default constructor
      */
-    public GroupListModel(final Session session)
+    public GroupListModel( Session session )
     {
-        Injector.get().inject(this);
-        this.groupMgr.setAdmin( session );
+        Injector.get().inject( this );
+        groupMgr.setAdmin( session );
     }
+    
 
     /**
      * Group contains the search arguments.
      *
      * @param group
      */
-    public GroupListModel(Group group, final Session session)
+    public GroupListModel( Group group, Session session )
     {
-        Injector.get().inject(this);
+        Injector.get().inject( this );
         this.group = group;
-        this.groupMgr.setAdmin( session );
+        groupMgr.setAdmin( session );
     }
+    
 
     /**
      * This data is bound for {@link org.apache.directory.fortress.web.panel.ObjectListPanel}
@@ -73,63 +77,69 @@ public class GroupListModel<T extends Serializable> extends Model
      * @return T extends List<User> users data will be bound to panel data view component.
      */
     @Override
-    public T getObject()
+    public SerializableList<Group> getObject()
     {
-        if (groups != null)
+        if ( groups != null )
         {
-            log.debug(".getObject count: " + group != null ? groups.size() : "null");
-            return (T) groups;
+            LOG.debug( ".getObject count: " + group != null ? groups.size() : "null" );
+            return groups;
         }
-        if (group == null)
+        
+        if ( group == null )
         {
-            log.debug(".getObject null");
-            groups = new ArrayList<Group>();
+            LOG.debug( ".getObject null" );
+            groups = new SerializableList<Group>( new ArrayList<Group>() );
         }
         else
         {
-            log.debug(".getObject group name: " + group != null ? group.getName() : "null");
-            groups = getList(group);
+            LOG.debug( ".getObject group name: " + group != null ? group.getName() : "null" );
+            groups = new SerializableList<Group>( getList( group ) );
         }
-        return (T) groups;
+        return groups;
     }
+    
 
     @Override
-    public void setObject(Object object)
+    public void setObject( SerializableList<Group> object )
     {
-        log.debug(".setObject count: " + object != null ? ((List<Group>)object).size() : "null");
-        this.groups = (List<Group>) object;
+        LOG.debug(".setObject count: " + object != null ? object.size() : "null");
+        groups = object;
     }
+    
 
     @Override
     public void detach()
     {
         //log.debug(".detach");
-        this.groups = null;
-        this.group = null;
+        groups = null;
+        group = null;
     }
+    
 
-    public List<Group> getList(Group group)
+    public List<Group> getList( Group group )
     {
         List<Group> groupList = null;
+        
         try
         {
-            if( VUtil.isNotNullOrEmpty( group.getMembers() ))
+            if ( VUtil.isNotNullOrEmpty( group.getMembers() ) )
             {
                 String userId = group.getMembers().get( 0 );
-                log.debug(".getList group name: " + group != null ? group.getName() : "null");
+                LOG.debug( ".getList group name: " + group != null ? group.getName() : "null" );
                 groupList = groupMgr.find( new User( userId ) );
             }
             else
             {
-                log.debug(".getList group name: " + group != null ? group.getName() : "null");
+                LOG.debug( ".getList group name: " + group != null ? group.getName() : "null" );
                 groupList = groupMgr.find( group );
             }
         }
-        catch (org.apache.directory.fortress.core.SecurityException se)
+        catch ( SecurityException se )
         {
             String error = ".getList caught SecurityException=" + se;
-            log.warn(error);
+            LOG.warn( error );
         }
+        
         return groupList;
     }
 }

@@ -28,47 +28,51 @@ import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.rbac.AdminRole;
 import org.apache.directory.fortress.core.rbac.Role;
 import org.apache.directory.fortress.core.rbac.Session;
+import org.apache.directory.fortress.core.SecurityException;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Shawn McKinney
  * @version $Rev$
- * @param <T>
  */
-public class RoleListModel<T extends Serializable> extends Model
+public class RoleListModel extends Model<SerializableList<? extends Role>>
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+
     @SpringBean
     private ReviewMgr reviewMgr;
     @SpringBean
     private DelReviewMgr delReviewMgr;
-    private static final Logger log = Logger.getLogger(RoleListModel.class.getName());
-    private transient T role;
-    private transient List<T> roles = null;
+    private static final Logger LOG = Logger.getLogger(RoleListModel.class.getName());
+    private transient Role role;
+    private transient SerializableList<? extends Role> roles = null;
     private boolean isAdmin;
 
 
-    public RoleListModel(final boolean isAdmin, final Session session )
+    public RoleListModel( boolean isAdmin, Session session )
     {
-        Injector.get().inject(this);
+        Injector.get().inject( this );
         this.isAdmin = isAdmin;
         this.reviewMgr.setAdmin( session );
     }
+    
 
     /**
      * User contains the search arguments.
      *
      * @param role
      */
-    public RoleListModel(T role, final boolean isAdmin, final Session session )
+    public RoleListModel( Role role, boolean isAdmin, Session session )
     {
-        Injector.get().inject(this);
+        Injector.get().inject( this );
         this.role = role;
         this.isAdmin = isAdmin;
         this.reviewMgr.setAdmin( session );
     }
+    
 
     /**
      * This data is bound for RoleListPanel
@@ -76,78 +80,88 @@ public class RoleListModel<T extends Serializable> extends Model
      * @return T extends List<Role> roles data will be bound to panel data view component.
      */
     @Override
-    public T getObject()
+    public SerializableList<? extends Role> getObject()
     {
-        if (roles != null)
+        if ( roles != null )
         {
-            log.debug(".getObject count: " + role != null ? roles.size() : "null");
-            return (T) roles;
+            LOG.debug(".getObject count: " + role != null ? roles.size() : "null");
+            return roles;
         }
-        if (role == null)
+        
+        if ( role == null )
         {
-            log.debug(".getObject null");
-            roles = new ArrayList<T>();
+            LOG.debug(".getObject null");
+            roles = new SerializableList<Role>( new ArrayList<Role>() );
         }
         else
         {
-            log.debug(".getObject roleNm: " + role != null ? ((Role)role).getName() : "null");
-            if(isAdmin)
+            LOG.debug(".getObject roleNm: " + role != null ? role.getName() : "null");
+            
+            if ( isAdmin )
             {
-                roles = getAdminList( ( (AdminRole)role ).getName() );
+                roles = new SerializableList<AdminRole>( getAdminList( ( (AdminRole)role ).getName() ) );
             }
             else
             {
-                roles = getList( ( (Role)role ).getName() );
+                roles = new SerializableList<Role>( getList( role.getName() ) );
             }
-
         }
-        return (T) roles;
+        
+        return roles;
     }
+    
 
     @Override
-    public void setObject(Object object)
+    public void setObject( SerializableList<? extends Role> object )
     {
-        log.debug(".setObject count: " + object != null ? ((List<Role>)object).size() : "null");
-        this.roles = (List<T>) object;
+        LOG.debug(".setObject count: " + object != null ? object.size() : "null");
+        this.roles = object;
     }
+    
 
     @Override
     public void detach()
     {
         //log.debug(".detach");
-        this.roles = null;
-        this.role = null;
+        roles = null;
+        role = null;
     }
+    
 
-    private List<T> getList(String szRoleNm)
+    private List<Role> getList( String szRoleNm )
     {
-        List<T> rolesList = null;
+        List<Role> rolesList = null;
+        
         try
         {
-            log.debug(".getList roleNm: " + szRoleNm);
-            rolesList = (List<T>)reviewMgr.findRoles(szRoleNm);
+            LOG.debug( ".getList roleNm: " + szRoleNm );
+            rolesList = reviewMgr.findRoles( szRoleNm );
         }
-        catch (org.apache.directory.fortress.core.SecurityException se)
+        catch ( org.apache.directory.fortress.core.SecurityException se )
         {
             String error = ".getList caught SecurityException=" + se;
-            log.warn(error);
+            LOG.warn( error) ;
         }
+        
         return rolesList;
     }
+    
 
-    private List<T> getAdminList(String szRoleNm)
+    private List<AdminRole> getAdminList( String szRoleNm )
     {
-        List<T> rolesList = null;
+        List<AdminRole> rolesList = null;
+        
         try
         {
-            log.debug(".getList roleNm: " + szRoleNm);
-            rolesList = (List<T>)delReviewMgr.findRoles(szRoleNm);
+            LOG.debug( ".getList roleNm: " + szRoleNm );
+            rolesList = (List<AdminRole>)delReviewMgr.findRoles( szRoleNm );
         }
-        catch (org.apache.directory.fortress.core.SecurityException se)
+        catch ( SecurityException se )
         {
             String error = ".getAdminList caught SecurityException=" + se;
-            log.warn(error);
+            LOG.warn( error );
         }
+        
         return rolesList;
     }
 }

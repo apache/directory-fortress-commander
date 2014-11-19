@@ -26,6 +26,9 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
  */
 public class ErrorPage extends FortressWebBasePage
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+
     public ErrorPage( Exception e )
     {
         add( new Label( "title", new Model<String>( "Runtime Exception Occurred" ) ) );

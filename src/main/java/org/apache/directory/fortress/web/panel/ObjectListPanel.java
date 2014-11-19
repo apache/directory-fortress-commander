@@ -135,7 +135,7 @@ public class ObjectListPanel extends FormComponentPanel
                         srchObject.setOu( searchVal );
                         break;
                 }
-                setDefaultModel( new ObjectListModel<PermObj>( srchObject, isAdmin,
+                setDefaultModel( new ObjectListModel( srchObject, isAdmin,
                     GlobalUtils.getRbacSession( this ) ) );
                 treeModel.reload();
                 rootNode.removeAllChildren();

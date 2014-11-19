@@ -4,7 +4,7 @@
  *   distributed with this work for additional information
  *   regarding copyright ownership.  The ASF licenses this file
  *   to you under the Apache License, Version 2.0 (the
- *   "License"); you may not use this file except in compliance
+ *   "License" ); you may not use this file except in compliance
  *   with the License.  You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
@@ -30,46 +30,50 @@ import org.apache.directory.fortress.core.rbac.Permission;
 import org.apache.directory.fortress.core.rbac.Session;
 import org.apache.directory.fortress.core.rbac.UserAudit;
 import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.SecurityException;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Shawn McKinney
  * @version $Rev$
- * @param <T>
  */
-public class AuditAuthzListModel<T extends Serializable> extends Model
+public class AuditAuthzListModel extends Model<SerializableList<AuthZ>>
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+    
     @SpringBean
     private AuditMgr auditMgr;
     @SpringBean
     private ReviewMgr reviewMgr;
-    private static final Logger log = Logger.getLogger(AuditAuthzListModel.class.getName());
+    private static final Logger LOG = Logger.getLogger(AuditAuthzListModel.class.getName());
     private transient UserAudit userAudit;
-    private transient List<AuthZ> authZs = null;
+    private transient SerializableList<AuthZ> authZs = null;
 
     /**
      * Default constructor
      */
-    public AuditAuthzListModel( final Session session )
+    public AuditAuthzListModel( Session session )
     {
-        Injector.get().inject(this);
-        this.auditMgr.setAdmin( session );
+        Injector.get().inject( this );
+        auditMgr.setAdmin( session );
     }
+    
 
     /**
      * User contains the search arguments.
      *
      * @param userAudit
      */
-    public AuditAuthzListModel( UserAudit userAudit, final Session session )
+    public AuditAuthzListModel( UserAudit userAudit, Session session )
     {
-        Injector.get().inject(this);
+        Injector.get().inject( this );
         this.userAudit = userAudit;
-        this.auditMgr.setAdmin( session );
+        auditMgr.setAdmin( session );
     }
+    
 
     /**
      * This data is bound for RoleListPanel
@@ -77,13 +81,14 @@ public class AuditAuthzListModel<T extends Serializable> extends Model
      * @return T extends List<Role> roles data will be bound to panel data view component.
      */
     @Override
-    public T getObject()
+    public SerializableList<AuthZ> getObject()
     {
         if (authZs != null)
         {
-            log.debug(".getObject count: " + userAudit != null ? authZs.size() : "null");
-            return (T) authZs;
+            LOG.debug( ".getObject count: " + userAudit != null ? authZs.size() : "null" );
+            return authZs;
         }
+        
         // if caller did not set userId return an empty list:
         if (userAudit == null ||
              ( !VUtil.isNotNullOrEmpty( userAudit.getUserId() )   &&
@@ -103,47 +108,55 @@ public class AuditAuthzListModel<T extends Serializable> extends Model
            )
 
         {
-            log.debug(".getObject null");
-            authZs = new ArrayList<AuthZ>();
+            LOG.debug( ".getObject null" );
+            authZs = new SerializableList<AuthZ>( new ArrayList<AuthZ>() );
         }
         else
         {
             // get the list of matching authorization records from fortress:
-            //log.debug(".getObject authZ id: " + userAudit != null ? userAudit.getUserId() : "null");
-            if(VUtil.isNotNullOrEmpty( userAudit.getObjName()) && VUtil.isNotNullOrEmpty( userAudit.getOpName()) && !VUtil.isNotNullOrEmpty( userAudit.getDn()))
+            //log.debug( ".getObject authZ id: " + userAudit != null ? userAudit.getUserId() : "null" );
+            if ( VUtil.isNotNullOrEmpty( userAudit.getObjName()) && VUtil.isNotNullOrEmpty( userAudit.getOpName()) && !VUtil.isNotNullOrEmpty( userAudit.getDn() ) )
             {
                 Permission permission = getPermission( userAudit );
-                userAudit.setDn( permission.getDn() );
-                if(permission == null)
+
+                if ( permission == null)
                 {
                     String warning = "Matching permission not found for object: " + userAudit.getObjName() + " operation: " + userAudit.getOpName();
-                    log.warn( warning );
+                    LOG.warn( warning );
                     throw new RuntimeException( warning );
                 }
+
+                userAudit.setDn( permission.getDn() );
             }
-            authZs = getList(userAudit);
+            
+            authZs = new SerializableList<AuthZ>( getList( userAudit ) );
             userAudit.setDn( "" );
         }
-        return (T) authZs;
+        
+        return authZs;
     }
+    
 
     @Override
-    public void setObject(Object object)
+    public void setObject( SerializableList<AuthZ> object )
     {
-        log.debug(".setObject count: " + object != null ? ((List<AuthZ>)object).size() : "null");
-        this.authZs = (List<AuthZ>) object;
+        LOG.debug( ".setObject count: " + object != null ? object.size() : "null" );
+        authZs = object;
     }
+    
 
     @Override
     public void detach()
     {
-        this.authZs = null;
-        this.userAudit = null;
+        authZs = null;
+        userAudit = null;
     }
+    
 
-    private List<AuthZ> getList(UserAudit userAudit)
+    private List<AuthZ> getList( UserAudit userAudit )
     {
         List<AuthZ> authZList = null;
+        
         try
         {
             authZList = auditMgr.getUserAuthZs( userAudit );
@@ -151,23 +164,27 @@ public class AuditAuthzListModel<T extends Serializable> extends Model
         catch (org.apache.directory.fortress.core.SecurityException se)
         {
             String error = ".getList caught SecurityException=" + se;
-            log.warn(error);
+            LOG.warn( error );
         }
+        
         return authZList;
     }
+    
 
-    private Permission getPermission(UserAudit userAudit)
+    private Permission getPermission( UserAudit userAudit )
     {
         Permission permission = null;
+        
         try
         {
             permission = reviewMgr.readPermission( new Permission ( userAudit.getObjName(), userAudit.getOpName(), userAudit.isAdmin()) );
         }
-        catch (org.apache.directory.fortress.core.SecurityException se)
+        catch ( SecurityException se )
         {
             String error = ".getPermission caught SecurityException=" + se;
-            log.warn(error);
+            LOG.warn( error );
         }
+        
         return permission;
     }
 }

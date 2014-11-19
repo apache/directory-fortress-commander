@@ -26,44 +26,48 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.core.DelReviewMgr;
 import org.apache.directory.fortress.core.rbac.OrgUnit;
 import org.apache.directory.fortress.core.rbac.Session;
+import org.apache.directory.fortress.core.SecurityException;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Shawn McKinney
  * @version $Rev$
- * @param <T>
  */
-public class OUListModel<T extends Serializable> extends Model
+public class OUListModel extends Model<SerializableList<OrgUnit>>
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+    
     @SpringBean
     private DelReviewMgr delReviewMgr;
-    private static final Logger log = Logger.getLogger( OUListModel.class.getName() );
+    private static final Logger LOG = Logger.getLogger( OUListModel.class.getName() );
     private transient OrgUnit orgUnit;
-    private transient List<OrgUnit> orgUnits = null;
+    private transient SerializableList<OrgUnit> orgUnits = null;
 
     /**
      * Default constructor
      */
-    public OUListModel( boolean isUser, final Session session )
+    public OUListModel( boolean isUser, Session session )
     {
         Injector.get().inject( this );
-        this.delReviewMgr.setAdmin( session );
+        delReviewMgr.setAdmin( session );
     }
 
+    
     /**
      * User contains the search arguments.
      *
      * @param orgUnit
      */
-    public OUListModel( OrgUnit orgUnit, final Session session )
+    public OUListModel( OrgUnit orgUnit, Session session )
     {
         Injector.get().inject( this );
         this.orgUnit = orgUnit;
-        this.delReviewMgr.setAdmin( session );
+        delReviewMgr.setAdmin( session );
     }
+    
 
     /**
      * This data is bound for SDListPanel
@@ -71,55 +75,62 @@ public class OUListModel<T extends Serializable> extends Model
      * @return T extends List<OrgUnit> orgUnits data will be bound to panel data view component.
      */
     @Override
-    public T getObject()
+    public SerializableList<OrgUnit> getObject()
     {
         if ( orgUnits != null )
         {
-            log.debug( ".getObject count: " + orgUnit != null ? orgUnits.size() : "null" );
-            return ( T ) orgUnits;
+            LOG.debug( ".getObject count: " + orgUnit != null ? orgUnits.size() : "null" );
+            return orgUnits;
         }
+        
         if ( orgUnit == null )
         {
-            log.debug( ".getObject null" );
-            orgUnits = new ArrayList<OrgUnit>();
+            LOG.debug( ".getObject null" );
+            orgUnits = new SerializableList<OrgUnit>( new ArrayList<OrgUnit>() );
         }
         else
         {
-            log.debug( ".getObject orgUnitNm: " + orgUnit != null ? orgUnit.getName() : "null" );
-            orgUnits = getList( orgUnit );
+            LOG.debug( ".getObject orgUnitNm: " + orgUnit != null ? orgUnit.getName() : "null" );
+            orgUnits = new SerializableList<OrgUnit>( getList( orgUnit ) );
         }
-        return ( T ) orgUnits;
+        
+        return orgUnits;
     }
 
+    
     @Override
-    public void setObject( Object object )
+    public void setObject( SerializableList<OrgUnit> object )
     {
-        log.debug( ".setObject count: " + object != null ? ( ( List<OrgUnit> ) object ).size() : "null" );
-        this.orgUnits = ( List<OrgUnit> ) object;
+        LOG.debug( ".setObject count: " + object != null ? ( ( List<OrgUnit> ) object ).size() : "null" );
+        orgUnits = object;
     }
+    
 
     @Override
     public void detach()
     {
         //log.debug( ".detach" );
-        this.orgUnits = null;
-        this.orgUnit = null;
+        orgUnits = null;
+        orgUnit = null;
     }
+    
 
     private List<OrgUnit> getList( OrgUnit orgUnit )
     {
         List<OrgUnit> orgUnitList = null;
+        
         try
         {
             String szOrgUnitNm = orgUnit != null && orgUnit.getName() != null ? orgUnit.getName() : "";
-            log.debug( ".getList orgUnitNm: " + szOrgUnitNm );
+            LOG.debug( ".getList orgUnitNm: " + szOrgUnitNm );
             orgUnitList = delReviewMgr.search( orgUnit.getType(), orgUnit.getName() );
         }
-        catch ( org.apache.directory.fortress.core.SecurityException se )
+        catch ( SecurityException se )
         {
             String error = ".getList caught SecurityException=" + se;
-            log.warn( error );
+            LOG.warn( error );
         }
+        
         return orgUnitList;
     }
 }

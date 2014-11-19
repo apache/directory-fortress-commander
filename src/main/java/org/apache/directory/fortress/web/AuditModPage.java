@@ -37,6 +37,9 @@ import org.apache.directory.fortress.core.rbac.UserAudit;
  */
 public class AuditModPage extends FortressWebBasePage
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+
     boolean firstLoad = true;
 
     public AuditModPage()
@@ -86,14 +89,17 @@ public class AuditModPage extends FortressWebBasePage
 
         // 4. List Panel:
         container.add(new AjaxLazyLoadPanel("modlistpanel")
-         {
-           @Override
-           public Component getLazyLoadComponent(String id)
-           {
-                //return new AuditAuthzListPanel(id);
-               return new AuditModListPanel( id, userAudit );
-           }
-         });
+        {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+            @Override
+            
+            public Component getLazyLoadComponent(String id)
+            {
+                 //return new AuditAuthzListPanel(id);
+                return new AuditModListPanel( id, userAudit );
+            }
+        });
 
         this.add(container);
     }

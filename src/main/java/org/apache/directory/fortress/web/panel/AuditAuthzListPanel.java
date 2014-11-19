@@ -82,7 +82,6 @@ public class AuditAuthzListPanel extends FormComponentPanel
     protected DatePicker beginDateDP;
     protected DatePicker endDateDP;
     private Permission permission;
-    private IModel<AuditAuthzListModel> pageModel;
 
     public AuditAuthzListPanel(String id, UserAudit userAudit )
     {
@@ -92,7 +91,7 @@ public class AuditAuthzListPanel extends FormComponentPanel
 
     private void init( UserAudit userAudit )
     {
-        pageModel = new AuditAuthzListModel(userAudit, GlobalUtils.getRbacSession( this ) );
+        AuditAuthzListModel pageModel = new AuditAuthzListModel(userAudit, GlobalUtils.getRbacSession( this ) );
         setDefaultModel(pageModel);
         createAndLoadGrid();
         this.listForm = new Form("authzform");

@@ -133,7 +133,7 @@ public class GroupListPanel extends FormComponentPanel
                         srchObject.setMember( searchVal );
                         break;
                 }
-                setDefaultModel( new GroupListModel<Group>( srchObject, GlobalUtils.getRbacSession( this ) ) );
+                setDefaultModel( new GroupListModel( srchObject, GlobalUtils.getRbacSession( this ) ) );
                 treeModel.reload();
                 rootNode.removeAllChildren();
                 List<Group> groups = ( List<Group> ) getDefaultModelObject();

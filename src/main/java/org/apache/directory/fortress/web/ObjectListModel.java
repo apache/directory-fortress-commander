@@ -23,53 +23,56 @@ import org.apache.log4j.Logger;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.directory.api.util.Strings;
 import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.rbac.OrgUnit;
 import org.apache.directory.fortress.core.rbac.PermObj;
 import org.apache.directory.fortress.core.rbac.Session;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.SecurityException;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * @author Shawn McKinney
  * @version $Rev$
- * @param <T>
  */
-public class ObjectListModel<T extends Serializable> extends Model
+public class ObjectListModel extends Model<SerializableList<PermObj>>
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+    
     @SpringBean
     private ReviewMgr reviewMgr;
-    private static final Logger log = Logger.getLogger(ObjectListModel.class.getName());
+    private static final Logger LOG = Logger.getLogger( ObjectListModel.class.getName() );
     private transient PermObj permObj;
-    private transient List<PermObj> permObjs = null;
+    private transient SerializableList<PermObj> permObjs = null;
     private boolean isAdmin;
 
     /**
      * Default constructor
      */
-    public ObjectListModel(final boolean isAdmin, final Session session)
+    public ObjectListModel( boolean isAdmin, Session session)
     {
         Injector.get().inject(this);
         this.isAdmin = isAdmin;
-        this.reviewMgr.setAdmin( session );
+        reviewMgr.setAdmin( session );
     }
+    
 
     /**
      * User contains the search arguments.
      *
      * @param permObj
      */
-    public ObjectListModel(PermObj permObj, final boolean isAdmin, final Session session)
+    public ObjectListModel( PermObj permObj, boolean isAdmin, Session session )
     {
         Injector.get().inject(this);
         this.permObj = permObj;
         this.isAdmin = isAdmin;
-        this.reviewMgr.setAdmin( session );
+        reviewMgr.setAdmin( session );
     }
-
 
 
     /**
@@ -78,33 +81,37 @@ public class ObjectListModel<T extends Serializable> extends Model
      * @return T extends List<User> users data will be bound to panel data view component.
      */
     @Override
-    public T getObject()
+    public SerializableList<PermObj> getObject()
     {
         if (permObjs != null)
         {
-            log.debug(".getObject count: " + permObj != null ? permObjs.size() : "null");
-            return (T) permObjs;
+            LOG.debug(".getObject count: " + permObj != null ? permObjs.size() : "null");
+            return permObjs;
         }
+        
         if (permObj == null)
         {
-            log.debug(".getObject null");
-            permObjs = new ArrayList<PermObj>();
+            LOG.debug(".getObject null");
+            permObjs = new SerializableList<PermObj>( new ArrayList<PermObj>());
         }
         else
         {
-            log.debug(".getObject userId: " + permObj != null ? permObj.getObjName() : "null");
-            permObjs = getList(permObj);
+            LOG.debug(".getObject userId: " + permObj != null ? permObj.getObjName() : "null");
+            permObjs = new SerializableList<PermObj>( getList(permObj) );
         }
-        return (T) permObjs;
+        
+        return permObjs;
     }
 
+    
     @Override
-    public void setObject(Object object)
+    public void setObject(SerializableList<PermObj> object)
     {
-        log.debug(".setObject count: " + object != null ? ((List<PermObj>)object).size() : "null");
-        this.permObjs = (List<PermObj>) object;
+        LOG.debug(".setObject count: " + object != null ? object.size() : "null");
+        this.permObjs = object;
     }
 
+    
     @Override
     public void detach()
     {
@@ -113,31 +120,37 @@ public class ObjectListModel<T extends Serializable> extends Model
         this.permObj = null;
     }
 
+    
     public List<PermObj> getList(PermObj permObj)
     {
         List<PermObj> permObjList = null;
+        
         try
         {
-            log.debug(".getList permObjectName: " + permObj != null ? permObj.getObjName() : "null");
-            if(VUtil.isNotNullOrEmpty(permObj.getOu()))
+            LOG.debug( ".getList permObjectName:" + permObj != null ? permObj.getObjName() : "null" );
+            
+            String ou = permObj.getOu();
+            
+            if ( Strings.isEmpty( ou ) )
             {
-                // TODO: make this work with administrative permissions:
-                permObjList = reviewMgr.findPermObjs( new OrgUnit( permObj.getOu() ) );
-            }
-            else
-            {
-                if(isAdmin)
+                if ( isAdmin )
                 {
                     permObj.setAdmin( true );
                 }
+                
                 permObjList = reviewMgr.findPermObjs( permObj );
             }
+            else
+            {
+                // TODO: make this work with administrative permissions:
+                permObjList = reviewMgr.findPermObjs( new OrgUnit( ou ) );
+            }
         }
-        catch (org.apache.directory.fortress.core.SecurityException se)
+        catch ( SecurityException se )
         {
-            String error = ".getList caught SecurityException=" + se;
-            log.warn(error);
+            LOG.warn( ".getList caught SecurityException={}", se );
         }
+        
         return permObjList;
     }
 }

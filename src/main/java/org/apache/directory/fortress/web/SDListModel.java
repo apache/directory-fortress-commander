@@ -28,44 +28,48 @@ import org.apache.directory.fortress.core.rbac.Role;
 import org.apache.directory.fortress.core.rbac.SDSet;
 import org.apache.directory.fortress.core.rbac.Session;
 import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.SecurityException;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Shawn McKinney
  * @version $Rev$
- * @param <T>
  */
-public class SDListModel<T extends Serializable> extends Model
+public class SDListModel extends Model<SerializableList<SDSet>>
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+
     @SpringBean
     private ReviewMgr reviewMgr;
-    private static final Logger log = Logger.getLogger(SDListModel.class.getName());
+    private static final Logger LOG = Logger.getLogger(SDListModel.class.getName());
     private transient SDSet sdSet;
-    private transient List<SDSet> sdSets = null;
+    private transient SerializableList<SDSet> sdSets = null;
 
     /**
      * Default constructor
      */
-    public SDListModel(boolean isStatic, final Session session )
+    public SDListModel( boolean isStatic, Session session )
     {
-        Injector.get().inject(this);
-        this.reviewMgr.setAdmin( session );
+        Injector.get().inject( this );
+        reviewMgr.setAdmin( session );
     }
+    
 
     /**
      * User contains the search arguments.
      *
      * @param sdSet
      */
-    public SDListModel(SDSet sdSet, final Session session )
+    public SDListModel( SDSet sdSet, final Session session )
     {
-        Injector.get().inject(this);
+        Injector.get().inject( this );
         this.sdSet = sdSet;
-        this.reviewMgr.setAdmin( session );
+        reviewMgr.setAdmin( session );
     }
+    
 
     /**
      * This data is bound for SDListPanel
@@ -73,75 +77,88 @@ public class SDListModel<T extends Serializable> extends Model
      * @return T extends List<SDSet> sdSets data will be bound to panel data view component.
      */
     @Override
-    public T getObject()
+    public SerializableList<SDSet> getObject()
     {
-        if (sdSets != null)
+        if ( sdSets != null )
         {
-            log.debug(".getObject count: " + sdSet != null ? sdSets.size() : "null");
-            return (T) sdSets;
+            LOG.debug( ".getObject count: " + sdSet != null ? sdSets.size() : "null" );
+            return sdSets;
         }
-        if (sdSet == null)
+        
+        if ( sdSet == null )
         {
-            log.debug(".getObject null");
-            sdSets = new ArrayList<SDSet>();
+            LOG.debug( ".getObject null" );
+            sdSets = new SerializableList<SDSet>( new ArrayList<SDSet>() );
         }
         else
         {
-            log.debug(".getObject sdSetNm: " + sdSet != null ? sdSet.getName() : "null");
-            sdSets = getList(sdSet);
+            LOG.debug( ".getObject sdSetNm: " + sdSet != null ? sdSet.getName() : "null" );
+            sdSets = new SerializableList<SDSet>( getList( sdSet ) );
         }
-        return (T) sdSets;
+        
+        return sdSets;
     }
+    
 
     @Override
-    public void setObject(Object object)
+    public void setObject( SerializableList<SDSet> object )
     {
-        log.debug(".setObject count: " + object != null ? ((List<SDSet>)object).size() : "null");
-        this.sdSets = (List<SDSet>) object;
+        LOG.debug( ".setObject count: " + object != null ? object.size() : "null" );
+        sdSets = object;
     }
+    
 
     @Override
     public void detach()
     {
         //log.debug(".detach");
-        this.sdSets = null;
-        this.sdSet = null;
+        sdSets = null;
+        sdSet = null;
     }
 
-    private List<SDSet> getList(SDSet sdSet)
+    
+    private List<SDSet> getList( SDSet sdSet )
     {
         List<SDSet> sdSetList = null;
+        
         try
         {
             String szSdSetNm = sdSet != null && sdSet.getName() != null ? sdSet.getName() : "";
-            log.debug(".getList sdSetNm: " + szSdSetNm);
-            if(VUtil.isNotNullOrEmpty(sdSet.getMembers()))
+            LOG.debug( ".getList sdSetNm: " + szSdSetNm );
+        
+            if ( VUtil.isNotNullOrEmpty( sdSet.getMembers() ) )
             {
                 Object[] roleNms = sdSet.getMembers().toArray();
                 String szRoleNm = (String)roleNms[0];
-                Role role = new Role(szRoleNm);
-                if(sdSet.getType().equals(SDSet.SDType.STATIC))
+                Role role = new Role( szRoleNm );
+                
+                if ( sdSet.getType().equals( SDSet.SDType.STATIC ) )
                 {
-                    sdSetList = reviewMgr.ssdRoleSets(role);
+                    sdSetList = reviewMgr.ssdRoleSets( role );
                 }
                 else
                 {
-                    sdSetList = reviewMgr.dsdRoleSets(role);
+                    sdSetList = reviewMgr.dsdRoleSets( role );
                 }
             }
             else
             {
-                if(sdSet.getType().equals(SDSet.SDType.STATIC))
-                    sdSetList = reviewMgr.ssdSets(sdSet);
+                if ( sdSet.getType().equals( SDSet.SDType.STATIC ) )
+                {
+                    sdSetList = reviewMgr.ssdSets( sdSet );
+                }
                 else
-                    sdSetList = reviewMgr.dsdSets(sdSet);
+                {
+                    sdSetList = reviewMgr.dsdSets( sdSet );
+                }
             }
         }
-        catch (org.apache.directory.fortress.core.SecurityException se)
+        catch ( SecurityException se )
         {
             String error = ".getList caught SecurityException=" + se;
-            log.warn(error);
+            LOG.warn( error );
         }
+        
         return sdSetList;
     }
 }

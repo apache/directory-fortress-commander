@@ -33,8 +33,8 @@ import org.apache.directory.fortress.core.rbac.Role;
 import org.apache.directory.fortress.core.rbac.Session;
 import org.apache.directory.fortress.core.rbac.User;
 import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.SecurityException;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -42,10 +42,12 @@ import java.util.Set;
 /**
  * @author Shawn McKinney
  * @version $Rev$
- * @param <T>
  */
-public class UserListModel<T extends Serializable> extends Model
+public class UserListModel extends Model<SerializableList<User>>
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+    
     @SpringBean
     private ReviewMgr reviewMgr;
     @SpringBean
@@ -53,40 +55,44 @@ public class UserListModel<T extends Serializable> extends Model
     private static final Logger log = Logger.getLogger(UserListModel.class.getName());
     private transient User user;
     private transient Permission perm;
-    private transient List<User> users = null;
+    private transient SerializableList<User> users = null;
 
     /**
      * Default constructor
      */
-    public UserListModel( final Session session )
+    public UserListModel( Session session )
     {
         init( session );
     }
 
+    
     /**
      * User contains the search arguments.
      *
      * @param user
      */
-    public UserListModel(User user, final Session session )
+    public UserListModel( User user, Session session )
     {
         this.user = user;
         init( session );
         log.debug( "constructor userId: " + user != null ? user.getUserId() : "null" );
     }
 
-    public UserListModel(Permission perm, final Session session )
+    
+    public UserListModel( Permission perm, Session session )
     {
         this.perm = perm;
         init( session );
         log.debug( "constructor perm: " + perm != null ? perm.getObjName() : "null" );
     }
+    
 
-    private void init(final Session session )
+    private void init( Session session )
     {
         Injector.get().inject( this );
-        this.reviewMgr.setAdmin( session );
+        reviewMgr.setAdmin( session );
     }
+    
 
     /**
      * This data is bound for {@link UserListPanel}
@@ -94,81 +100,90 @@ public class UserListModel<T extends Serializable> extends Model
      * @return T extends List<User> users data will be bound to panel data view component.
      */
     @Override
-    public T getObject()
+    public SerializableList<User> getObject()
     {
         if (users != null)
         {
-            log.debug(".getObject count: " + user != null ? users.size() : "null");
-            return (T) users;
+            log.debug( ".getObject count: " + user != null ? users.size() : "null" );
+            return users;
         }
-        if (user == null && perm == null)
+        
+        if ( ( user == null ) && ( perm == null  ))
         {
-            log.debug(".getObject null");
-            users = new ArrayList<User>();
+            log.debug( ".getObject null" );
+            users = new SerializableList<User>( new ArrayList<User>() );
         }
         else
         {
             //log.debug(".getObject userId: " + user != null ? user.getUserId() : "null");
-            users = getList(user);
+            users = new SerializableList<User>( getList( user ) );
         }
-        return (T) users;
+        
+        return users;
     }
 
+    
     @Override
-    public void setObject(Object object)
+    public void setObject( SerializableList<User> object )
     {
-        log.debug(".setObject count: " + object != null ? ((List<User>)object).size() : "null");
-        this.users = (List<User>) object;
+        log.debug(".setObject count: " + object != null ? object.size() : "null");
+        users = object;
     }
+    
 
     @Override
     public void detach()
     {
         //log.debug(".detach");
-        this.users = null;
-        this.user = null;
+        users = null;
+        user = null;
     }
+    
 
     public List<User> getList(User user)
     {
         List<User> usersList = null;
+        
         try
         {
-            if(perm != null)
+            if ( perm != null )
             {
                 Set<String> users = reviewMgr.authorizedPermissionUsers( perm );
-                if(VUtil.isNotNullOrEmpty( users ))
+                
+                if ( VUtil.isNotNullOrEmpty( users ) )
                 {
                     usersList = new ArrayList<User>();
+                    
                     for(String userId : users)
                     {
-                        User user1 = reviewMgr.readUser( new User(userId) );
+                        User user1 = reviewMgr.readUser( new User( userId ) );
                         usersList.add( user1 );
                     }
                 }
             }
-            else if(VUtil.isNotNullOrEmpty(user.getOu()))
+            else if( VUtil.isNotNullOrEmpty( user.getOu() ) )
             {
-                usersList = reviewMgr.findUsers(new OrgUnit(user.getOu(), OrgUnit.Type.USER));
+                usersList = reviewMgr.findUsers( new OrgUnit( user.getOu(), OrgUnit.Type.USER ) );
             }
-            else if(VUtil.isNotNullOrEmpty(user.getRoles()))
+            else if ( VUtil.isNotNullOrEmpty( user.getRoles() ) )
             {
-                usersList = reviewMgr.assignedUsers(new Role(user.getRoles().get(0).getName()));
+                usersList = reviewMgr.assignedUsers( new Role( user.getRoles().get( 0 ).getName() ) );
             }
-            else if(VUtil.isNotNullOrEmpty(user.getAdminRoles()))
+            else if ( VUtil.isNotNullOrEmpty( user.getAdminRoles() ) )
             {
-                usersList = delReviewMgr.assignedUsers(new AdminRole(user.getAdminRoles().get(0).getName()));
+                usersList = delReviewMgr.assignedUsers( new AdminRole( user.getAdminRoles().get( 0 ).getName() ) );
             }
             else
             {
-                usersList = reviewMgr.findUsers(user);
+                usersList = reviewMgr.findUsers( user );
             }
         }
-        catch (org.apache.directory.fortress.core.SecurityException se)
+        catch ( SecurityException se )
         {
             String error = ".getList caught SecurityException=" + se;
-            log.warn(error);
+            log.warn( error );
         }
+        
         return usersList;
     }
 }
