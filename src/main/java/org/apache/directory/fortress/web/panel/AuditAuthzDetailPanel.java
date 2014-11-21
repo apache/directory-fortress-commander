@@ -20,6 +20,7 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import org.apache.directory.fortress.web.GlobalUtils;
 import org.apache.directory.fortress.web.SelectModelEvent;
 import org.apache.log4j.Logger;
@@ -38,6 +39,7 @@ import org.apache.directory.fortress.core.rbac.AuthZ;
 import org.apache.directory.fortress.core.rbac.User;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
+
 /**
  * @author Shawn McKinney
  * @version $Rev$
@@ -45,75 +47,86 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  */
 public class AuditAuthzDetailPanel extends FormComponentPanel
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     @SpringBean
     private AuditMgr auditMgr;
     @SpringBean
     private ReviewMgr reviewMgr;
-    private static final Logger LOG = Logger.getLogger(AuditAuthzDetailPanel.class.getName());
+    private static final Logger LOG = Logger.getLogger( AuditAuthzDetailPanel.class.getName() );
     private Form detailForm;
     private Displayable display;
     private UserAuditDetailPanel userPanel;
+
 
     public Form getForm()
     {
         return this.detailForm;
     }
 
+
     public AuditAuthzDetailPanel( String id, Displayable display )
     {
-        super(id);
+        super( id );
         this.auditMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
         this.reviewMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
-        this.detailForm = new AuditAuthzDetailForm(GlobalIds.DETAIL_FIELDS, new CompoundPropertyModel<AuthZ>(new AuthZ()));
+        this.detailForm = new AuditAuthzDetailForm( GlobalIds.DETAIL_FIELDS, new CompoundPropertyModel<AuthZ>(
+            new AuthZ() ) );
         this.display = display;
         add( detailForm );
     }
 
     public class AuditAuthzDetailForm extends Form
     {
+        /** Default serialVersionUID */
+        private static final long serialVersionUID = 1L;
         private Component component;
 
-        public AuditAuthzDetailForm(String id, final IModel<AuthZ> model)
+
+        public AuditAuthzDetailForm( String id, final IModel<AuthZ> model )
         {
-            super(id, model);
+            super( id, model );
             add( new Label( GlobalIds.REQ_RESULT ) );
-            add(  new Label( GlobalIds.REQ_START ) );
+            add( new Label( GlobalIds.REQ_START ) );
             add( new Label( GlobalIds.REQ_ATTR ) );
             add( new Label( GlobalIds.REQ_ATTRS_ONLY ) );
             add( new Label( GlobalIds.REQ_DEREF_ALIASES ) );
-            userPanel = new UserAuditDetailPanel( GlobalIds.USERAUDITDETAILPANEL, new CompoundPropertyModel<User>(new User()) );
+            userPanel = new UserAuditDetailPanel( GlobalIds.USERAUDITDETAILPANEL, new CompoundPropertyModel<User>(
+                new User() ) );
             add( userPanel );
             setOutputMarkupId( true );
         }
 
+
         @Override
-        public void onEvent(final IEvent<?> event)
+        public void onEvent( final IEvent<?> event )
         {
-            if (event.getPayload() instanceof SelectModelEvent )
+            if ( event.getPayload() instanceof SelectModelEvent )
             {
-                SelectModelEvent modelEvent = (SelectModelEvent) event.getPayload();
-                AuthZ authZ = (AuthZ) modelEvent.getEntity();
-                this.setModelObject(authZ);
+                SelectModelEvent modelEvent = ( SelectModelEvent ) event.getPayload();
+                AuthZ authZ = ( AuthZ ) modelEvent.getEntity();
+                this.setModelObject( authZ );
                 String msg = "AuthZ: " + authZ.getReqAuthzID() + " has been selected";
                 LOG.debug( ".onEvent SelectModelEvent: " + authZ.getReqAuthzID() );
-                GlobalUtils.getAuthZPerm(authZ.getReqDN() );
-                display.setMessage(msg);
+                GlobalUtils.getAuthZPerm( authZ.getReqDN() );
+                display.setMessage( msg );
                 component = detailForm;
 
             }
-            else if (event.getPayload() instanceof AjaxRequestTarget)
+            else if ( event.getPayload() instanceof AjaxRequestTarget )
             {
                 // only add the form to ajax target if something has changed...
-                if (component != null)
+                if ( component != null )
                 {
-                    AjaxRequestTarget target = ((AjaxRequestTarget) event.getPayload());
+                    AjaxRequestTarget target = ( ( AjaxRequestTarget ) event.getPayload() );
                     LOG.debug( ".onEvent AjaxRequestTarget: " + target.toString() );
-                    target.add(component);
+                    target.add( component );
                     component = null;
                 }
-                display.display((AjaxRequestTarget) event.getPayload());
+                display.display( ( AjaxRequestTarget ) event.getPayload() );
             }
         }
+
 
         @Override
         protected void onBeforeRender()
@@ -122,16 +135,16 @@ public class AuditAuthzDetailPanel extends FormComponentPanel
             {
                 User user = null;
                 // necessary to push the 'changed' model down into the aggregated panel:
-                AuthZ authZ = (AuthZ)detailForm.getModelObject();
-                if( VUtil.isNotNullOrEmpty( authZ.getReqAuthzID() ))
+                AuthZ authZ = ( AuthZ ) detailForm.getModelObject();
+                if ( VUtil.isNotNullOrEmpty( authZ.getReqAuthzID() ) )
                 {
-                    user = GlobalUtils.getUser(reviewMgr, authZ.getReqAuthzID());
+                    user = GlobalUtils.getUser( reviewMgr, authZ.getReqAuthzID() );
                 }
-                if(user == null)
+                if ( user == null )
                 {
                     user = new User();
                 }
-                IModel<User> userModel = new CompoundPropertyModel<User>(user);
+                IModel<User> userModel = new CompoundPropertyModel<User>( user );
                 userPanel.setDefaultModel( userModel );
             }
             else

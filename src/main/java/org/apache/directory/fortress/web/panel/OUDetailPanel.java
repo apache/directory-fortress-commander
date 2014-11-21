@@ -20,6 +20,7 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import com.googlecode.wicket.kendo.ui.form.button.AjaxButton;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
 import org.apache.log4j.Logger;
@@ -50,6 +51,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * @author Shawn McKinney
  * @version $Rev$
@@ -57,35 +59,41 @@ import java.util.List;
  */
 public class OUDetailPanel extends FormComponentPanel
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     @SpringBean
     private DelAdminMgr delAdminMgr;
-    private static final Logger log = Logger.getLogger(OUDetailPanel.class.getName());
+    private static final Logger log = Logger.getLogger( OUDetailPanel.class.getName() );
     private Form editForm;
     private Displayable display;
     private boolean isUser;
+
 
     public Form getForm()
     {
         return this.editForm;
     }
 
-    public OUDetailPanel(String id, Displayable display, boolean isUser)
+
+    public OUDetailPanel( String id, Displayable display, boolean isUser )
     {
-        super(id);
+        super( id );
         this.delAdminMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
         this.isUser = isUser;
         OrgUnit ou = new OrgUnit();
-        if(isUser)
+        if ( isUser )
             ou.setType( OrgUnit.Type.USER );
         else
             ou.setType( OrgUnit.Type.PERM );
-        this.editForm = new OUDetailForm(GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<OrgUnit>(ou));
+        this.editForm = new OUDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<OrgUnit>( ou ) );
         this.display = display;
-        add(editForm);
+        add( editForm );
     }
 
     public class OUDetailForm extends Form
     {
+        /** Default serialVersionUID */
+        private static final long serialVersionUID = 1L;
         private static final String PARENTS = "parents";
         private static final String PARENTS_SELECTION = "parentsSelection";
         private String internalId;
@@ -95,52 +103,64 @@ public class OUDetailPanel extends FormComponentPanel
         private List<String> parents = new ArrayList<String>();
         private OrgUnit parent = new OrgUnit();
 
-        public OUDetailForm(String id, final IModel<OrgUnit> model)
-        {
-            super(id, model);
 
-            if(isUser)
+        public OUDetailForm( String id, final IModel<OrgUnit> model )
+        {
+            super( id, model );
+
+            if ( isUser )
                 parent.setType( OrgUnit.Type.USER );
             else
                 parent.setType( OrgUnit.Type.PERM );
 
             add( new SecureIndicatingAjaxButton( GlobalIds.ADD, GlobalIds.DEL_ADMIN_MGR, "addOU" )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
-                protected void onSubmit(AjaxRequestTarget target, Form form)
+                protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
-                    log.debug(".onSubmit Add");
-                    OrgUnit orgUnit = (OrgUnit)form.getModel().getObject();
-                    updateEntityWithComboData(orgUnit);
+                    log.debug( ".onSubmit Add" );
+                    OrgUnit orgUnit = ( OrgUnit ) form.getModel().getObject();
+                    updateEntityWithComboData( orgUnit );
                     try
                     {
                         delAdminMgr.add( orgUnit );
-                        SaveModelEvent.send(getPage(), this, orgUnit, target, SaveModelEvent.Operations.ADD);
+                        SaveModelEvent.send( getPage(), this, orgUnit, target, SaveModelEvent.Operations.ADD );
                         component = editForm;
                         String msg = "OrgUnit: " + orgUnit.getName() + " has been added";
-                        display.setMessage(msg);
+                        display.setMessage( msg );
                     }
-                    catch (org.apache.directory.fortress.core.SecurityException se)
+                    catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error(error);
-                        display.setMessage(error);
+                        log.error( error );
+                        display.setMessage( error );
                         display.display();
                     }
                 }
 
+
                 @Override
-                public void onError(AjaxRequestTarget target, Form form)
+                public void onError( AjaxRequestTarget target, Form form )
                 {
-                    log.info("OUDetailPanel.add.onError caught");
+                    log.info( "OUDetailPanel.add.onError caught" );
                     target.add();
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -149,9 +169,13 @@ public class OUDetailPanel extends FormComponentPanel
                     };
                     attributes.getAjaxCallListeners().add( ajaxCallListener );
                 }
-            });
+            } );
             add( new SecureIndicatingAjaxButton( GlobalIds.COMMIT, GlobalIds.DEL_ADMIN_MGR, "updateOU" )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
@@ -176,11 +200,13 @@ public class OUDetailPanel extends FormComponentPanel
                     }
                 }
 
+
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "OUDetailPanel.update.onError" );
                 }
+
 
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
@@ -188,6 +214,10 @@ public class OUDetailPanel extends FormComponentPanel
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -199,6 +229,10 @@ public class OUDetailPanel extends FormComponentPanel
             } );
             add( new SecureIndicatingAjaxButton( GlobalIds.DELETE, GlobalIds.DEL_ADMIN_MGR, "deleteOU" )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
@@ -238,11 +272,13 @@ public class OUDetailPanel extends FormComponentPanel
                     }
                 }
 
+
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "OUDetailPanel.delete.onError" );
                 }
+
 
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
@@ -250,6 +286,10 @@ public class OUDetailPanel extends FormComponentPanel
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -259,38 +299,50 @@ public class OUDetailPanel extends FormComponentPanel
                     attributes.getAjaxCallListeners().add( ajaxCallListener );
                 }
             } );
-            add(new AjaxSubmitLink(GlobalIds.CANCEL)
+            add( new AjaxSubmitLink( GlobalIds.CANCEL )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
-                protected void onSubmit(AjaxRequestTarget target, Form form)
+                protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
                     OrgUnit ou = new OrgUnit();
-                    if(isUser)
+                    if ( isUser )
                         ou.setType( OrgUnit.Type.USER );
                     else
                         ou.setType( OrgUnit.Type.PERM );
 
-                    setModelObject(ou);
+                    setModelObject( ou );
                     parentsSelection = "";
                     parents = new ArrayList<String>();
-                    parentsCB = new ComboBox<String>( PARENTS, new PropertyModel<String>( form, PARENTS_SELECTION ),parents );
+                    parentsCB = new ComboBox<String>( PARENTS, new PropertyModel<String>( form, PARENTS_SELECTION ),
+                        parents );
                     editForm.addOrReplace( parentsCB );
                     component = editForm;
                     String msg = "OU Detail cancelled input form";
-                    display.setMessage(msg);
+                    display.setMessage( msg );
                 }
 
+
                 @Override
-                public void onError(AjaxRequestTarget target, Form form)
+                public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "OUDetailPanel.cancel.onError" );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -299,9 +351,9 @@ public class OUDetailPanel extends FormComponentPanel
                     };
                     attributes.getAjaxCallListeners().add( ajaxCallListener );
                 }
-            });
+            } );
 
-            if(isUser)
+            if ( isUser )
             {
                 add( new Label( "ouAssignmentsLabel", "User Organizational Detail" ) );
             }
@@ -310,21 +362,22 @@ public class OUDetailPanel extends FormComponentPanel
                 add( new Label( "ouAssignmentsLabel", "Permission Organizational Detail" ) );
             }
 
-            TextField name = new TextField("name");
+            TextField name = new TextField( "name" );
             add( name );
-            TextField description = new TextField("description");
-            description.setRequired(false);
-            add(description);
-            Label iid = new Label("id");
-            add(iid);
+            TextField description = new TextField( "description" );
+            description.setRequired( false );
+            add( description );
+            Label iid = new Label( "id" );
+            add( iid );
             parentsCB = new ComboBox<String>( PARENTS, new PropertyModel<String>( this, PARENTS_SELECTION ), parents );
-            add(parentsCB);
-            setOutputMarkupId(true);
+            add( parentsCB );
+            setOutputMarkupId( true );
             addParentSearchModal();
 
             add( new AjaxButton( "parents.delete" )
             {
                 private static final long serialVersionUID = 1L;
+
 
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
@@ -358,12 +411,17 @@ public class OUDetailPanel extends FormComponentPanel
                     log.debug( msg );
                 }
 
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -375,14 +433,20 @@ public class OUDetailPanel extends FormComponentPanel
             } );
         }
 
+
         private void addParentSearchModal()
         {
             final ModalWindow parentsModalWindow;
             add( parentsModalWindow = new ModalWindow( "ouparentsmodal" ) );
-            final OUSearchModalPanel parentSearchModalPanel = new OUSearchModalPanel( parentsModalWindow.getContentId(), parentsModalWindow, isUser );
+            final OUSearchModalPanel parentSearchModalPanel = new OUSearchModalPanel(
+                parentsModalWindow.getContentId(), parentsModalWindow, isUser );
             parentsModalWindow.setContent( parentSearchModalPanel );
             parentsModalWindow.setWindowClosedCallback( new ModalWindow.WindowClosedCallback()
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 public void onClose( AjaxRequestTarget target )
                 {
@@ -399,6 +463,7 @@ public class OUDetailPanel extends FormComponentPanel
             {
                 private static final long serialVersionUID = 1L;
 
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
@@ -410,12 +475,18 @@ public class OUDetailPanel extends FormComponentPanel
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     parentsModalWindow.show( target );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -432,51 +503,55 @@ public class OUDetailPanel extends FormComponentPanel
             parentsModalWindow.setCookieName( "parent-assign-modal" );
         }
 
-        private void updateEntityWithComboData(OrgUnit orgUnit)
+
+        private void updateEntityWithComboData( OrgUnit orgUnit )
         {
-            if(VUtil.isNotNullOrEmpty(parentsSelection))
+            if ( VUtil.isNotNullOrEmpty( parentsSelection ) )
             {
                 orgUnit.setParent( parentsSelection );
                 parents.add( parentsSelection );
             }
         }
 
+
         @Override
-        public void onEvent(final IEvent<?> event)
+        public void onEvent( final IEvent<?> event )
         {
-            if (event.getPayload() instanceof SelectModelEvent)
+            if ( event.getPayload() instanceof SelectModelEvent )
             {
-                SelectModelEvent modelEvent = (SelectModelEvent) event.getPayload();
-                OrgUnit orgUnit = (OrgUnit) modelEvent.getEntity();
-                this.setModelObject(orgUnit);
-                if(VUtil.isNotNullOrEmpty(orgUnit.getParents()))
+                SelectModelEvent modelEvent = ( SelectModelEvent ) event.getPayload();
+                OrgUnit orgUnit = ( OrgUnit ) modelEvent.getEntity();
+                this.setModelObject( orgUnit );
+                if ( VUtil.isNotNullOrEmpty( orgUnit.getParents() ) )
                 {
-                    parents = new ArrayList<String>(orgUnit.getParents());
-                    parentsCB = new ComboBox<String>( PARENTS, new PropertyModel<String>( this, PARENTS_SELECTION ),parents );
+                    parents = new ArrayList<String>( orgUnit.getParents() );
+                    parentsCB = new ComboBox<String>( PARENTS, new PropertyModel<String>( this, PARENTS_SELECTION ),
+                        parents );
                 }
                 else
                 {
                     parents = new ArrayList<String>();
-                    parentsCB = new ComboBox<String>( PARENTS, new PropertyModel<String>( this, PARENTS_SELECTION ),parents );
+                    parentsCB = new ComboBox<String>( PARENTS, new PropertyModel<String>( this, PARENTS_SELECTION ),
+                        parents );
                 }
-                editForm.addOrReplace(parentsCB);
+                editForm.addOrReplace( parentsCB );
                 String msg = "OrgUnit: " + orgUnit.getName() + " has been selected";
-                log.debug(".onEvent SelectModelEvent: " + orgUnit.getName());
-                display.setMessage(msg);
+                log.debug( ".onEvent SelectModelEvent: " + orgUnit.getName() );
+                display.setMessage( msg );
                 component = editForm;
             }
-            else if (event.getPayload() instanceof AjaxRequestTarget)
+            else if ( event.getPayload() instanceof AjaxRequestTarget )
             {
                 // only add the form to ajax target if something has changed...
-                if (component != null)
+                if ( component != null )
                 {
-                    AjaxRequestTarget target = ((AjaxRequestTarget) event.getPayload());
-                    log.debug(".onEvent AjaxRequestTarget: " + target.toString());
-                    target.add(component);
+                    AjaxRequestTarget target = ( ( AjaxRequestTarget ) event.getPayload() );
+                    log.debug( ".onEvent AjaxRequestTarget: " + target.toString() );
+                    target.add( component );
                     component = null;
                 }
 
-                display.display((AjaxRequestTarget) event.getPayload());
+                display.display( ( AjaxRequestTarget ) event.getPayload() );
             }
         }
     }

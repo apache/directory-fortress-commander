@@ -20,6 +20,7 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.SizeUnit;
 import com.inmethod.grid.column.PropertyColumn;
@@ -59,6 +60,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+
 /**
  *
  * @author Shawn McKinney
@@ -66,7 +68,9 @@ import java.util.List;
  */
 public class GroupListPanel extends FormComponentPanel
 {
-    private static final Logger log = Logger.getLogger(GroupListPanel.class.getName());
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+    private static final Logger log = Logger.getLogger( GroupListPanel.class.getName() );
     private Form listForm;
     private DefaultTreeModel treeModel;
     private DefaultMutableTreeNode node;
@@ -79,39 +83,48 @@ public class GroupListPanel extends FormComponentPanel
     private static final char NAMES = 'N';
     private static final char MEMBERS = 'M';
 
-    public GroupListPanel(String id)
+
+    public GroupListPanel( String id )
     {
         super( id );
         GroupListModel groupListModel = new GroupListModel( new Group( "" ), GlobalUtils.getRbacSession( this ) );
-        setDefaultModel(groupListModel);
+        setDefaultModel( groupListModel );
         addGrid();
-        radioGroup = new RadioGroup("searchOptions",  new PropertyModel(this, "selectedRadioButton"));
+        radioGroup = new RadioGroup( "searchOptions", new PropertyModel( this, "selectedRadioButton" ) );
         add( radioGroup );
-        Radio groupRb = new Radio("groupRb", new Model(new Character(NAMES)));
-        radioGroup.add(groupRb);
-        Radio memberRb = new Radio("memberRb", new Model(new Character(MEMBERS)));
-        radioGroup.add(memberRb);
+        Radio groupRb = new Radio( "groupRb", new Model( new Character( NAMES ) ) );
+        radioGroup.add( groupRb );
+        Radio memberRb = new Radio( "memberRb", new Model( new Character( MEMBERS ) ) );
+        radioGroup.add( memberRb );
         addMemberSearchModal( memberRb );
         radioGroup.setOutputMarkupId( true );
         radioGroup.setRenderBodyOnly( false );
-        searchValFld = new TextField(GlobalIds.SEARCH_VAL, new PropertyModel<String>(this, GlobalIds.SEARCH_VAL));
+        searchValFld = new TextField( GlobalIds.SEARCH_VAL, new PropertyModel<String>( this, GlobalIds.SEARCH_VAL ) );
         searchValFld.setOutputMarkupId( true );
-        AjaxFormComponentUpdatingBehavior ajaxUpdater = new AjaxFormComponentUpdatingBehavior(GlobalIds.ONBLUR)
+        AjaxFormComponentUpdatingBehavior ajaxUpdater = new AjaxFormComponentUpdatingBehavior( GlobalIds.ONBLUR )
         {
-          @Override
-          protected void onUpdate(final AjaxRequestTarget target)
-          {
-              target.add( searchValFld );
-          }
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
+            @Override
+            protected void onUpdate( final AjaxRequestTarget target )
+            {
+                target.add( searchValFld );
+            }
         };
-        searchValFld.add(ajaxUpdater);
+        searchValFld.add( ajaxUpdater );
         radioGroup.add( searchValFld );
 
-        this.listForm.add(radioGroup);
+        this.listForm.add( radioGroup );
         selectedRadioButton = NAMES;
 
         this.listForm.add( new SecureIndicatingAjaxButton( GlobalIds.SEARCH, GlobalIds.GROUP_MGR, "find" )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             protected void onSubmit( AjaxRequestTarget target, Form form )
             {
@@ -150,18 +163,25 @@ public class GroupListPanel extends FormComponentPanel
                 target.add( grid );
             }
 
+
             @Override
             public void onError( AjaxRequestTarget target, Form form )
             {
                 log.warn( ".search.onError" );
                 target.add();
             }
+
+
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
             {
                 super.updateAjaxAttributes( attributes );
                 AjaxCallListener ajaxCallListener = new AjaxCallListener()
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     public CharSequence getFailureHandler( Component component )
                     {
@@ -173,16 +193,17 @@ public class GroupListPanel extends FormComponentPanel
         } );
     }
 
+
     @Override
-    public void onEvent(IEvent event)
+    public void onEvent( IEvent event )
     {
-        if (event.getPayload() instanceof SaveModelEvent)
+        if ( event.getPayload() instanceof SaveModelEvent )
         {
-            SaveModelEvent modelEvent = (SaveModelEvent) event.getPayload();
-            switch (modelEvent.getOperation())
+            SaveModelEvent modelEvent = ( SaveModelEvent ) event.getPayload();
+            switch ( modelEvent.getOperation() )
             {
                 case ADD:
-                    add(modelEvent.getEntity());
+                    add( modelEvent.getEntity() );
                     break;
                 case UPDATE:
                     //modelEvent.
@@ -195,108 +216,120 @@ public class GroupListPanel extends FormComponentPanel
                     log.error( "onEvent caught invalid operation" );
                     break;
             }
-            AjaxRequestTarget target = ((SaveModelEvent) event.getPayload()).getAjaxRequestTarget();
-            log.debug(".onEvent AJAX - GroupListPanel - SaveModelEvent: " + target.toString());
+            AjaxRequestTarget target = ( ( SaveModelEvent ) event.getPayload() ).getAjaxRequestTarget();
+            log.debug( ".onEvent AJAX - GroupListPanel - SaveModelEvent: " + target.toString() );
         }
     }
 
-    private void removeSelectedItems(TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String> grid)
+
+    private void removeSelectedItems( TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String> grid )
     {
         Collection<IModel<DefaultMutableTreeNode>> selected = grid.getSelectedItems();
-        for (IModel<DefaultMutableTreeNode> model : selected)
+        for ( IModel<DefaultMutableTreeNode> model : selected )
         {
             DefaultMutableTreeNode node = model.getObject();
-            treeModel.removeNodeFromParent(node);
-            Group group = (Group) node.getUserObject();
-            log.debug(".removeSelectedItems user node: " + group.getName());
+            treeModel.removeNodeFromParent( node );
+            Group group = ( Group ) node.getUserObject();
+            log.debug( ".removeSelectedItems user node: " + group.getName() );
             //List<Group> groups = ((List<Group>) getDefaultModel().getObject());
             //groups.remove(group.getName());
         }
     }
 
-    private DefaultTreeModel createTreeModel(List<Group> groups)
+
+    private DefaultTreeModel createTreeModel( List<Group> groups )
     {
         DefaultTreeModel model;
-        Group rootObject = new Group(  );
-        rootNode = new DefaultMutableTreeNode(rootObject);
-        model = new DefaultTreeModel(rootNode);
-        if (groups == null)
-            log.debug("no Groups found");
+        Group rootObject = new Group();
+        rootNode = new DefaultMutableTreeNode( rootObject );
+        model = new DefaultTreeModel( rootNode );
+        if ( groups == null )
+            log.debug( "no Groups found" );
         else
         {
-            log.debug(".createTreeModel Groups found:" + groups.size());
-            for (Group group : groups)
-                rootNode.add(new DefaultMutableTreeNode(group));
+            log.debug( ".createTreeModel Groups found:" + groups.size() );
+            for ( Group group : groups )
+                rootNode.add( new DefaultMutableTreeNode( group ) );
         }
         return model;
     }
+
 
     private void addGrid()
     {
         List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>> columns =
             new ArrayList<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>>();
 
-
         PropertyColumn groupName = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("Group Name"), "userObject.Name");
+            Model.of( "Group Name" ), "userObject.Name" );
         groupName.setInitialSize( 400 );
-        columns.add(groupName);
+        columns.add( groupName );
 
         PropertyColumn description = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("Description"), "userObject.Description");
+            Model.of( "Description" ), "userObject.Description" );
         description.setInitialSize( 400 );
-        columns.add(description);
+        columns.add( description );
 
-        PropertyColumn protocol = new PropertyColumn(new Model("Protocol"), "userObject.Protocol");
+        PropertyColumn protocol = new PropertyColumn( new Model( "Protocol" ), "userObject.Protocol" );
         protocol.setInitialSize( 400 );
-        columns.add(protocol);
+        columns.add( protocol );
 
-        List<Group> groups = (List<Group>) getDefaultModel().getObject();
-        treeModel = createTreeModel(groups);
-        grid = new TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String>("grouptreegrid", treeModel, columns)
+        List<Group> groups = ( List<Group> ) getDefaultModel().getObject();
+        treeModel = createTreeModel( groups );
+        grid = new TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String>( "grouptreegrid", treeModel, columns )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
-            public void selectItem(IModel itemModel, boolean selected)
+            public void selectItem( IModel itemModel, boolean selected )
             {
-                node = (DefaultMutableTreeNode) itemModel.getObject();
-                if(!node.isRoot())
+                node = ( DefaultMutableTreeNode ) itemModel.getObject();
+                if ( !node.isRoot() )
                 {
-                    Group group = (Group) node.getUserObject();
-                    log.debug("TreeGrid.addGrid.selectItem selected group =" + group.getName());
-                    if (super.isItemSelected(itemModel))
+                    Group group = ( Group ) node.getUserObject();
+                    log.debug( "TreeGrid.addGrid.selectItem selected group =" + group.getName() );
+                    if ( super.isItemSelected( itemModel ) )
                     {
-                        log.debug("TreeGrid.addGrid.selectItem item is selected");
-                        super.selectItem(itemModel, false);
+                        log.debug( "TreeGrid.addGrid.selectItem item is selected" );
+                        super.selectItem( itemModel, false );
                     }
                     else
                     {
-                        super.selectItem(itemModel, true);
-                        SelectModelEvent.send(getPage(), this, group);
+                        super.selectItem( itemModel, true );
+                        SelectModelEvent.send( getPage(), this, group );
                     }
                 }
             }
         };
-        grid.setContentHeight(50, SizeUnit.EM);
-        grid.setAllowSelectMultiple(false);
-        grid.setClickRowToSelect(true);
-        grid.setClickRowToDeselect(false);
-        grid.setSelectToEdit(false);
+        grid.setContentHeight( 50, SizeUnit.EM );
+        grid.setAllowSelectMultiple( false );
+        grid.setClickRowToSelect( true );
+        grid.setClickRowToDeselect( false );
+        grid.setSelectToEdit( false );
         // expand the root node
-        grid.getTreeState().expandNode((TreeNode) treeModel.getRoot());
-        this.listForm = new Form("grouplistform");
-        this.listForm.add(grid);
-        add(this.listForm);
-        grid.setOutputMarkupId(true);
+        grid.getTreeState().expandNode( ( TreeNode ) treeModel.getRoot() );
+        this.listForm = new Form( "grouplistform" );
+        this.listForm.add( grid );
+        add( this.listForm );
+        grid.setOutputMarkupId( true );
     }
+
 
     private void addMemberSearchModal( Radio memberRb )
     {
         final ModalWindow memberModalWindow;
         listForm.add( memberModalWindow = new ModalWindow( "membersearchmodal" ) );
-        final UserSearchModalPanel userSearchModalPanel = new UserSearchModalPanel( memberModalWindow.getContentId(), memberModalWindow );
+        final UserSearchModalPanel userSearchModalPanel = new UserSearchModalPanel( memberModalWindow.getContentId(),
+            memberModalWindow );
         memberModalWindow.setContent( userSearchModalPanel );
         memberModalWindow.setWindowClosedCallback( new ModalWindow.WindowClosedCallback()
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             public void onClose( AjaxRequestTarget target )
             {
@@ -312,7 +345,11 @@ public class GroupListPanel extends FormComponentPanel
 
         memberRb.add( new SecureIndicatingAjaxLink( "memberAssignLinkLbl", GlobalIds.REVIEW_MGR, "findUsers" )
         {
-            public void onClick(AjaxRequestTarget target)
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
+            public void onClick( AjaxRequestTarget target )
             {
                 String msg = "clicked on ou search";
                 msg += "memberSelection: " + searchVal;
@@ -321,12 +358,18 @@ public class GroupListPanel extends FormComponentPanel
                 target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                 memberModalWindow.show( target );
             }
+
+
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
             {
                 super.updateAjaxAttributes( attributes );
                 AjaxCallListener ajaxCallListener = new AjaxCallListener()
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     public CharSequence getFailureHandler( Component component )
                     {
@@ -335,7 +378,7 @@ public class GroupListPanel extends FormComponentPanel
                 };
                 attributes.getAjaxCallListeners().add( ajaxCallListener );
             }
-        });
+        } );
 
         memberModalWindow.setTitle( "Member Search Modal" );
         memberModalWindow.setInitialWidth( 450 );
@@ -343,18 +386,20 @@ public class GroupListPanel extends FormComponentPanel
         memberModalWindow.setCookieName( "member-modal" );
     }
 
-    public void add(FortEntity entity)
+
+    public void add( FortEntity entity )
     {
-        if (getDefaultModelObject() != null)
+        if ( getDefaultModelObject() != null )
         {
             //List<Group> groups = ((List<Group>) getDefaultModelObject());
             //groups.add( ( Group ) entity );
-            treeModel.insertNodeInto(new DefaultMutableTreeNode(entity), rootNode, 0);
+            treeModel.insertNodeInto( new DefaultMutableTreeNode( entity ), rootNode, 0 );
         }
     }
 
+
     public void prune()
     {
-        removeSelectedItems(grid);
+        removeSelectedItems( grid );
     }
 }

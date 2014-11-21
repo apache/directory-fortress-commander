@@ -20,6 +20,7 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -37,6 +38,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.core.PwPolicyMgr;
 import org.apache.directory.fortress.core.rbac.PwPolicy;
 
+
 /**
  *
  * @author Shawn McKinney
@@ -44,17 +46,20 @@ import org.apache.directory.fortress.core.rbac.PwPolicy;
  */
 public class PwPolicySearchModalPanel extends Panel
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     @SpringBean
     private PwPolicyMgr pwPolicyMgr;
-    private static final Logger LOG = Logger.getLogger(PwPolicySearchModalPanel.class.getName());
+    private static final Logger LOG = Logger.getLogger( PwPolicySearchModalPanel.class.getName() );
     private ModalWindow window;
     private PwPolicy policySelection;
     private String policySearchVal;
 
+
     /**
      * @param id
      */
-    public PwPolicySearchModalPanel( String id, ModalWindow window)
+    public PwPolicySearchModalPanel( String id, ModalWindow window )
     {
         super( id );
         // TODO: add later:
@@ -62,6 +67,7 @@ public class PwPolicySearchModalPanel extends Panel
         this.window = window;
         loadPanel();
     }
+
 
     public void loadPanel()
     {
@@ -71,10 +77,15 @@ public class PwPolicySearchModalPanel extends Panel
         add( new AjaxPagingNavigator( "policynavigator", policyView ) );
     }
 
+
     private PageableListView createListView( final LoadableDetachableModel requests )
     {
         final PageableListView listView = new PageableListView( "policydataview", requests, 16 )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             protected void populateItem( final ListItem item )
             {
@@ -83,8 +94,9 @@ public class PwPolicySearchModalPanel extends Panel
                 {
                     private static final long serialVersionUID = 1L;
 
+
                     @Override
-                    public void onClick(AjaxRequestTarget target)
+                    public void onClick( AjaxRequestTarget target )
                     {
                         policySelection = modelObject;
                         window.close( target );
@@ -101,7 +113,8 @@ public class PwPolicySearchModalPanel extends Panel
                 item.add( new Label( "lockout", new PropertyModel( item.getModel(), "lockout" ) ) );
                 item.add( new Label( "lockoutDuration", new PropertyModel( item.getModel(), "lockoutDuration" ) ) );
                 item.add( new Label( "maxFailure", new PropertyModel( item.getModel(), "maxFailure" ) ) );
-                item.add( new Label( "failureCountInterval", new PropertyModel( item.getModel(), "failureCountInterval" ) ) );
+                item.add( new Label( "failureCountInterval",
+                    new PropertyModel( item.getModel(), "failureCountInterval" ) ) );
                 item.add( new Label( "mustChange", new PropertyModel( item.getModel(), "mustChange" ) ) );
                 item.add( new Label( "allowUserChange", new PropertyModel( item.getModel(), "allowUserChange" ) ) );
                 item.add( new Label( "safeModify", new PropertyModel( item.getModel(), "safeModify" ) ) );
@@ -111,10 +124,15 @@ public class PwPolicySearchModalPanel extends Panel
         return listView;
     }
 
+
     private LoadableDetachableModel getListViewModel()
     {
         final LoadableDetachableModel ret = new LoadableDetachableModel()
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             protected Object load()
             {
@@ -122,7 +140,7 @@ public class PwPolicySearchModalPanel extends Panel
                 try
                 {
                     policySelection = null;
-                    if(policySearchVal == null)
+                    if ( policySearchVal == null )
                         policySearchVal = "";
                     policies = pwPolicyMgr.search( policySearchVal );
                 }
@@ -137,10 +155,12 @@ public class PwPolicySearchModalPanel extends Panel
         return ret;
     }
 
+
     public PwPolicy getPolicySelection()
     {
         return policySelection;
     }
+
 
     public void setSearchVal( String searchVal )
     {

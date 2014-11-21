@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.web;
 
+
 import org.apache.wicket.Component;
 import org.apache.wicket.extensions.ajax.markup.html.AjaxLazyLoadPanel;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -30,46 +31,55 @@ import org.apache.directory.fortress.web.panel.GroupListPanel;
 import org.apache.directory.fortress.web.panel.InfoPanel;
 import org.apache.directory.fortress.web.panel.NavPanel;
 
+
 /**
  * @author Shawn McKinney
  * @version $Rev$
  */
 public class GroupPage extends FortressWebBasePage
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     private String label = "LDAP Group Page";
-    public GroupPage(PageParameters parameters)
+
+
+    public GroupPage( PageParameters parameters )
     {
-        add(new Label(GlobalIds.PAGE_HEADER, label));
-        WebMarkupContainer container = new WebMarkupContainer(GlobalIds.LAYOUT);
+        add( new Label( GlobalIds.PAGE_HEADER, label ) );
+        WebMarkupContainer container = new WebMarkupContainer( GlobalIds.LAYOUT );
         FourWaySplitter splitter = new FourWaySplitter();
-        splitter.addBorderLayout(container);
+        splitter.addBorderLayout( container );
 
         // Add the four necessary panels for Commander Page: 1. Nav,, 2. List, 3. Info, 4. Detail
         // Nav and Info are generic and work across all entities, the others are specific to this entity type.
 
         // 1. Nav Panel:
-        NavPanel navPanel = new NavPanel(GlobalIds.NAVPANEL);
+        NavPanel navPanel = new NavPanel( GlobalIds.NAVPANEL );
 
         // 2. List Panel:
-        container.add(new AjaxLazyLoadPanel(GlobalIds.GROUPLISTPANEL)
-         {
-           @Override
-           public Component getLazyLoadComponent(String id)
-           {
+        container.add( new AjaxLazyLoadPanel( GlobalIds.GROUPLISTPANEL )
+        {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
+            @Override
+            public Component getLazyLoadComponent( String id )
+            {
                 return new GroupListPanel( id );
-           }
-         });
+            }
+        } );
 
         // 3. Info Panel:
-        InfoPanel infoPanel = new InfoPanel(GlobalIds.INFOPANEL);
-        container.add(infoPanel);
+        InfoPanel infoPanel = new InfoPanel( GlobalIds.INFOPANEL );
+        container.add( infoPanel );
 
         // 4. Detail Panel:
         Displayable display = infoPanel.getDisplay();
         GroupDetailPanel groupDetail = new GroupDetailPanel( GlobalIds.GROUPDETAILPANEL, display );
-        container.add(groupDetail);
+        container.add( groupDetail );
 
-        container.add(navPanel);
-        this.add(container);
+        container.add( navPanel );
+        this.add( container );
     }
 }

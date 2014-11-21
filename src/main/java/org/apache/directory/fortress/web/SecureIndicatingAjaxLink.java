@@ -19,9 +19,11 @@
  */
 package org.apache.directory.fortress.web;
 
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxLink;
 import org.apache.directory.fortress.core.rbac.Permission;
+
 
 /**
  * ...
@@ -31,12 +33,17 @@ import org.apache.directory.fortress.core.rbac.Permission;
  */
 public class SecureIndicatingAjaxLink extends IndicatingAjaxLink
 {
-    public SecureIndicatingAjaxLink( String id, String objName, String opName  )
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+
+
+    public SecureIndicatingAjaxLink( String id, String objName, String opName )
     {
         super( id );
-        if(!GlobalUtils.isFound( new Permission(objName, opName), this ))
+        if ( !GlobalUtils.isFound( new Permission( objName, opName ), this ) )
             setEnabled( false );
     }
+
 
     @Override
     public void onClick( AjaxRequestTarget target )

@@ -20,6 +20,7 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import com.googlecode.wicket.kendo.ui.form.datetime.DatePicker;
 import com.googlecode.wicket.kendo.ui.form.datetime.TimePicker;
 import org.apache.wicket.model.IModel;
@@ -29,6 +30,7 @@ import org.apache.directory.fortress.core.util.time.Constraint;
 
 import java.util.Date;
 
+
 /**
  * @author Shawn McKinney
  * @version $Rev$
@@ -36,12 +38,15 @@ import java.util.Date;
  */
 public class ConstraintAdminRolePanel extends ConstraintBasePanel
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     private static final String BEGIN_TIME_RC = GlobalIds.BEGIN_TIME_ARC;
     private static final String END_TIME_RC = GlobalIds.END_TIME_ARC;
     private static final String BEGIN_DATE_RC = GlobalIds.BEGIN_DATE_ARC;
     private static final String END_DATE_RC = GlobalIds.END_DATE_ARC;
     private static final String BEGIN_LOCK_DATE_RC = GlobalIds.BEGIN_LOCK_DATE_ARC;
     private static final String END_LOCK_DATE_RC = GlobalIds.END_LOCK_DATE_ARC;
+
 
     /**
      * Constructor requires model to be passed in.
@@ -51,100 +56,124 @@ public class ConstraintAdminRolePanel extends ConstraintBasePanel
      */
     public ConstraintAdminRolePanel( String id, final IModel constraint )
     {
-        super(id, constraint);
-        beginTimeTP = new TimePicker( BEGIN_TIME_RC, new PropertyModel<Date>(this, BEGIN_TIME ))
+        super( id, constraint );
+        beginTimeTP = new TimePicker( BEGIN_TIME_RC, new PropertyModel<Date>( this, BEGIN_TIME ) )
         {
-            @Override
-            protected void onBeforeRender()
-            {
-                if (this.getParent().getDefaultModelObject() != null)
-                {
-                    super.onBeforeRender();
-                    Constraint constraint = (Constraint) this.getParent().getDefaultModelObject();
-                    beginTime = renderTime(beginTime, constraint.getBeginTime());
-                }
-            }
-        };
-        add(beginTimeTP);
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
 
-        endTimeTP = new TimePicker( END_TIME_RC, new PropertyModel<Date>(this, END_TIME ))
-        {
-            @Override
-            protected void onBeforeRender()
-            {
-                if (this.getParent().getDefaultModelObject() != null)
-                {
-                    super.onBeforeRender();
-                    Constraint constraint = (Constraint) this.getParent().getDefaultModelObject();
-                    endTime = renderTime(endTime, constraint.getEndTime());
-                }
-            }
-        };
-        add(endTimeTP);
-        endTimeTP.setRequired(false);
 
-        beginDateDP = new DatePicker( BEGIN_DATE_RC, new PropertyModel<Date>(this, BEGIN_DATE ))
-        {
             @Override
             protected void onBeforeRender()
             {
-                if (this.getParent().getDefaultModelObject() != null)
+                if ( this.getParent().getDefaultModelObject() != null )
                 {
                     super.onBeforeRender();
-                    Constraint constraint = (Constraint) this.getParent().getDefaultModelObject();
-                    beginDate = renderDate(beginDate, constraint.getBeginDate());
+                    Constraint constraint = ( Constraint ) this.getParent().getDefaultModelObject();
+                    beginTime = renderTime( beginTime, constraint.getBeginTime() );
                 }
             }
         };
-        beginDateDP.setRequired(false);
-        add(beginDateDP);
+        add( beginTimeTP );
 
-        endDateDP = new DatePicker( END_DATE_RC, new PropertyModel<Date>(this, END_DATE ))
+        endTimeTP = new TimePicker( END_TIME_RC, new PropertyModel<Date>( this, END_TIME ) )
         {
-            @Override
-            protected void onBeforeRender()
-            {
-                if (this.getParent().getDefaultModelObject() != null)
-                {
-                    super.onBeforeRender();
-                    Constraint constraint = (Constraint) this.getParent().getDefaultModelObject();
-                    endDate = renderDate(endDate, constraint.getEndDate());
-                }
-            }
-        };
-        endDateDP.setRequired(false);
-        add(endDateDP);
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
 
-        beginLockDateDP = new DatePicker( BEGIN_LOCK_DATE_RC, new PropertyModel<Date>(this, BEGIN_LOCK_DATE ))
-        {
-            @Override
-            protected void onBeforeRender()
-            {
-                if (this.getParent().getDefaultModelObject() != null)
-                {
-                    super.onBeforeRender();
-                    Constraint constraint = (Constraint) this.getParent().getDefaultModelObject();
-                    beginLockDate = renderDate(beginLockDate, constraint.getBeginLockDate());
-                }
-            }
-        };
-        beginLockDateDP.setRequired(false);
-        add(beginLockDateDP);
 
-        endLockDateDP = new DatePicker( END_LOCK_DATE_RC, new PropertyModel<Date>(this, END_LOCK_DATE ))
-        {
             @Override
             protected void onBeforeRender()
             {
-                if (this.getParent().getDefaultModelObject() != null)
+                if ( this.getParent().getDefaultModelObject() != null )
                 {
                     super.onBeforeRender();
-                    Constraint constraint = (Constraint) this.getParent().getDefaultModelObject();
-                    endLockDate = renderDate(endLockDate, constraint.getEndLockDate());
+                    Constraint constraint = ( Constraint ) this.getParent().getDefaultModelObject();
+                    endTime = renderTime( endTime, constraint.getEndTime() );
                 }
             }
         };
-        endLockDateDP.setRequired(false);
-        add(endLockDateDP);
+        add( endTimeTP );
+        endTimeTP.setRequired( false );
+
+        beginDateDP = new DatePicker( BEGIN_DATE_RC, new PropertyModel<Date>( this, BEGIN_DATE ) )
+        {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
+            @Override
+            protected void onBeforeRender()
+            {
+                if ( this.getParent().getDefaultModelObject() != null )
+                {
+                    super.onBeforeRender();
+                    Constraint constraint = ( Constraint ) this.getParent().getDefaultModelObject();
+                    beginDate = renderDate( beginDate, constraint.getBeginDate() );
+                }
+            }
+        };
+        beginDateDP.setRequired( false );
+        add( beginDateDP );
+
+        endDateDP = new DatePicker( END_DATE_RC, new PropertyModel<Date>( this, END_DATE ) )
+        {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
+            @Override
+            protected void onBeforeRender()
+            {
+                if ( this.getParent().getDefaultModelObject() != null )
+                {
+                    super.onBeforeRender();
+                    Constraint constraint = ( Constraint ) this.getParent().getDefaultModelObject();
+                    endDate = renderDate( endDate, constraint.getEndDate() );
+                }
+            }
+        };
+        endDateDP.setRequired( false );
+        add( endDateDP );
+
+        beginLockDateDP = new DatePicker( BEGIN_LOCK_DATE_RC, new PropertyModel<Date>( this, BEGIN_LOCK_DATE ) )
+        {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
+            @Override
+            protected void onBeforeRender()
+            {
+                if ( this.getParent().getDefaultModelObject() != null )
+                {
+                    super.onBeforeRender();
+                    Constraint constraint = ( Constraint ) this.getParent().getDefaultModelObject();
+                    beginLockDate = renderDate( beginLockDate, constraint.getBeginLockDate() );
+                }
+            }
+        };
+        beginLockDateDP.setRequired( false );
+        add( beginLockDateDP );
+
+        endLockDateDP = new DatePicker( END_LOCK_DATE_RC, new PropertyModel<Date>( this, END_LOCK_DATE ) )
+        {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
+            @Override
+            protected void onBeforeRender()
+            {
+                if ( this.getParent().getDefaultModelObject() != null )
+                {
+                    super.onBeforeRender();
+                    Constraint constraint = ( Constraint ) this.getParent().getDefaultModelObject();
+                    endLockDate = renderDate( endLockDate, constraint.getEndLockDate() );
+                }
+            }
+        };
+        endLockDateDP.setRequired( false );
+        add( endLockDateDP );
     }
 }

@@ -20,9 +20,11 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.request.resource.DynamicImageResource;
 import org.apache.wicket.request.resource.IResource;
+
 
 /**
  *
@@ -31,16 +33,26 @@ import org.apache.wicket.request.resource.IResource;
  */
 public abstract class JpegImage extends Image
 {
-    public JpegImage(String id)
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+
+
+    public JpegImage( String id )
     {
-        super(id);
-        setImageResource(new DynamicImageResource()
+        super( id );
+        setImageResource( new DynamicImageResource()
         {
-            protected byte[] getImageData(IResource.Attributes attributes)
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
+            protected byte[] getImageData( IResource.Attributes attributes )
             {
                 return getPhoto();
             }
-        });
+        } );
     }
+
+
     protected abstract byte[] getPhoto();
 }

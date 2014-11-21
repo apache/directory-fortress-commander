@@ -20,7 +20,9 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import java.io.Serializable;
+
 
 /**
  * @author Shawn McKinney
@@ -29,6 +31,9 @@ import java.io.Serializable;
  */
 class RequestMod implements Serializable
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+
     enum TYPE
     {
         ADD,
@@ -42,33 +47,38 @@ class RequestMod implements Serializable
     private String name;
     private String value;
 
+
     RequestMod( int index, String name, String value )
     {
-        this.type = type;
         this.index = index;
         this.name = name;
         this.value = value;
     }
+
 
     RequestMod( String name )
     {
         this.name = name;
     }
 
+
     public int getIndex()
     {
         return index;
     }
+
 
     public TYPE getType()
     {
         return type;
     }
 
+
     public void setType( TYPE type )
     {
         this.type = type;
     }
+
 
     public void setIndex( int index )
     {
@@ -76,25 +86,30 @@ class RequestMod implements Serializable
 
     }
 
+
     public String getValue()
     {
         return value;
     }
+
 
     public void setValue( String value )
     {
         this.value = value;
     }
 
+
     public String getName()
     {
         return name;
     }
 
+
     public void setName( String name )
     {
         this.name = name;
     }
+
 
     @Override
     public boolean equals( Object o )
@@ -117,6 +132,7 @@ class RequestMod implements Serializable
 
         return true;
     }
+
 
     @Override
     public int hashCode()

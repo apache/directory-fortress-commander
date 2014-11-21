@@ -19,11 +19,13 @@
  */
 package org.apache.directory.fortress.web;
 
+
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import javax.servlet.http.HttpServletRequest;
+
 
 /**
  * ...
@@ -33,23 +35,30 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class SecureBookmarkablePageLink extends BookmarkablePageLink
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+
+
     public <C extends Page> SecureBookmarkablePageLink( String id, Class<C> pageClass, String roleName )
     {
         super( id, pageClass );
-        if(!isAuthorized( roleName ))
+        if ( !isAuthorized( roleName ) )
         {
             setVisible( false );
         }
     }
 
-    public <C extends Page> SecureBookmarkablePageLink( String id, Class<C> pageClass, PageParameters parameters, String roleName )
+
+    public <C extends Page> SecureBookmarkablePageLink( String id, Class<C> pageClass, PageParameters parameters,
+        String roleName )
     {
         super( id, pageClass, parameters );
-        if(!isAuthorized( roleName ))
+        if ( !isAuthorized( roleName ) )
         {
             setVisible( false );
         }
     }
+
 
     private boolean isAuthorized( String roleName )
     {

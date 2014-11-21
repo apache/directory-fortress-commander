@@ -20,6 +20,7 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.SizeUnit;
 import com.inmethod.grid.column.PropertyColumn;
@@ -55,6 +56,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+
 /**
  *
  * @author Shawn McKinney
@@ -62,7 +64,9 @@ import java.util.List;
  */
 public class RoleListPanel<T extends Serializable> extends FormComponentPanel
 {
-    private static final Logger log = Logger.getLogger(RoleListPanel.class.getName());
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+    private static final Logger log = Logger.getLogger( RoleListPanel.class.getName() );
     private Form listForm;
     private DefaultTreeModel treeModel;
     private DefaultMutableTreeNode node;
@@ -71,141 +75,158 @@ public class RoleListPanel<T extends Serializable> extends FormComponentPanel
     private String searchVal;
     private boolean isAdmin;
 
-    public RoleListPanel(String id, final boolean isAdmin)
+
+    public RoleListPanel( String id, final boolean isAdmin )
     {
-        super(id);
+        super( id );
         this.isAdmin = isAdmin;
-        RoleListModel roleListModel = new RoleListModel(createRole(""), isAdmin, GlobalUtils.getRbacSession( this ));
-        setDefaultModel(roleListModel);
+        RoleListModel roleListModel = new RoleListModel( createRole( "" ), isAdmin, GlobalUtils.getRbacSession( this ) );
+        setDefaultModel( roleListModel );
         List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>> columns =
             new ArrayList<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>>();
-        columns.add(new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-            Model.of("Name"), "userObject.name"));
+        columns.add( new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+            Model.of( "Name" ), "userObject.name" ) );
 
         PropertyColumn description = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("Description"), "userObject.Description");
-        description.setInitialSize(300);
-        columns.add(description);
+            Model.of( "Description" ), "userObject.Description" );
+        description.setInitialSize( 300 );
+        columns.add( description );
 
         PropertyColumn beginDate = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("Begin Date"), "userObject.BeginDate");
-        beginDate.setInitialSize(80);
-        columns.add(beginDate);
+            Model.of( "Begin Date" ), "userObject.BeginDate" );
+        beginDate.setInitialSize( 80 );
+        columns.add( beginDate );
 
         PropertyColumn endDate = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("End Date"), "userObject.EndDate");
-        endDate.setInitialSize(80);
-        columns.add(endDate);
+            Model.of( "End Date" ), "userObject.EndDate" );
+        endDate.setInitialSize( 80 );
+        columns.add( endDate );
 
         PropertyColumn beginLockDate = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("Begin Lock Dt"), "userObject.BeginLockDate");
-        beginLockDate.setInitialSize(80);
-        columns.add(beginLockDate);
+            Model.of( "Begin Lock Dt" ), "userObject.BeginLockDate" );
+        beginLockDate.setInitialSize( 80 );
+        columns.add( beginLockDate );
 
         PropertyColumn endLockDate = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("End Lock Dt"), "userObject.EndLockDate");
-        endLockDate.setInitialSize(80);
-        columns.add(endLockDate);
+            Model.of( "End Lock Dt" ), "userObject.EndLockDate" );
+        endLockDate.setInitialSize( 80 );
+        columns.add( endLockDate );
 
         PropertyColumn beginTime = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("Begin Tm"), "userObject.BeginTime");
-        beginTime.setInitialSize(70);
-        columns.add(beginTime);
+            Model.of( "Begin Tm" ), "userObject.BeginTime" );
+        beginTime.setInitialSize( 70 );
+        columns.add( beginTime );
 
         PropertyColumn endTime = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("End Tm"), "userObject.EndTime");
-        endTime.setInitialSize(70);
-        columns.add(endTime);
+            Model.of( "End Tm" ), "userObject.EndTime" );
+        endTime.setInitialSize( 70 );
+        columns.add( endTime );
 
         PropertyColumn dayMask = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("DayMask"), "userObject.DayMask");
-        dayMask.setInitialSize(80);
-        columns.add(dayMask);
+            Model.of( "DayMask" ), "userObject.DayMask" );
+        dayMask.setInitialSize( 80 );
+        columns.add( dayMask );
 
         PropertyColumn parents = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("Parents"), "userObject.parents");
-        parents.setInitialSize(250);
-        columns.add(parents);
+            Model.of( "Parents" ), "userObject.parents" );
+        parents.setInitialSize( 250 );
+        columns.add( parents );
 
-        List<T> roles = (List<T>)getDefaultModel().getObject();
-        treeModel = createTreeModel(roles);
-        grid = new TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String>("roletreegrid", treeModel, columns)
+        List<T> roles = ( List<T> ) getDefaultModel().getObject();
+        treeModel = createTreeModel( roles );
+        grid = new TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String>( "roletreegrid", treeModel, columns )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
-            public void selectItem(IModel itemModel, boolean selected)
+            public void selectItem( IModel itemModel, boolean selected )
             {
-                node = (DefaultMutableTreeNode) itemModel.getObject();
-                if(!node.isRoot())
+                node = ( DefaultMutableTreeNode ) itemModel.getObject();
+                if ( !node.isRoot() )
                 {
-                    T role = (T)node.getUserObject();
-                    if (super.isItemSelected(itemModel))
+                    T role = ( T ) node.getUserObject();
+                    if ( super.isItemSelected( itemModel ) )
                     {
-                        log.debug("TreeGrid.addGrid.selectItem item is selected");
-                        super.selectItem(itemModel, false);
+                        log.debug( "TreeGrid.addGrid.selectItem item is selected" );
+                        super.selectItem( itemModel, false );
                     }
                     else
                     {
-                        super.selectItem(itemModel, true);
-                        SelectModelEvent.send(getPage(), this, (FortEntity)role);
+                        super.selectItem( itemModel, true );
+                        SelectModelEvent.send( getPage(), this, ( FortEntity ) role );
                     }
                 }
             }
         };
-        grid.setContentHeight(50, SizeUnit.EM);
-        grid.setAllowSelectMultiple(false);
-        grid.setClickRowToSelect(true);
-        grid.setClickRowToDeselect(false);
-        grid.setSelectToEdit(false);
+        grid.setContentHeight( 50, SizeUnit.EM );
+        grid.setAllowSelectMultiple( false );
+        grid.setClickRowToSelect( true );
+        grid.setClickRowToDeselect( false );
+        grid.setSelectToEdit( false );
         // expand the root node
-        grid.getTreeState().expandNode((TreeNode) treeModel.getRoot());
-        this.listForm = new Form("form");
-        this.listForm.add(grid);
-        grid.setOutputMarkupId(true);
-        TextField searchValFld = new TextField(GlobalIds.SEARCH_VAL, new PropertyModel<String>(this, GlobalIds.SEARCH_VAL));
-        this.listForm.add(searchValFld);
+        grid.getTreeState().expandNode( ( TreeNode ) treeModel.getRoot() );
+        this.listForm = new Form( "form" );
+        this.listForm.add( grid );
+        grid.setOutputMarkupId( true );
+        TextField searchValFld = new TextField( GlobalIds.SEARCH_VAL, new PropertyModel<String>( this,
+            GlobalIds.SEARCH_VAL ) );
+        this.listForm.add( searchValFld );
 
         this.listForm.add( new SecureIndicatingAjaxButton( GlobalIds.SEARCH, GlobalIds.REVIEW_MGR, "findRoles" )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form form)
+            protected void onSubmit( AjaxRequestTarget target, Form form )
             {
-                log.debug(".search onSubmit");
-                info("Searching Roles...");
-                if(!VUtil.isNotNullOrEmpty(searchVal))
+                log.debug( ".search onSubmit" );
+                info( "Searching Roles..." );
+                if ( !VUtil.isNotNullOrEmpty( searchVal ) )
                 {
                     searchVal = "";
                 }
-                
-                Role srchRole = createRole(searchVal);
-                setDefaultModel(new RoleListModel(srchRole, isAdmin, GlobalUtils.getRbacSession( this )));
+
+                Role srchRole = createRole( searchVal );
+                setDefaultModel( new RoleListModel( srchRole, isAdmin, GlobalUtils.getRbacSession( this ) ) );
                 treeModel.reload();
                 rootNode.removeAllChildren();
-                List<Role> roles = (List<Role>) getDefaultModelObject();
-                if(VUtil.isNotNullOrEmpty(roles))
+                List<Role> roles = ( List<Role> ) getDefaultModelObject();
+                if ( VUtil.isNotNullOrEmpty( roles ) )
                 {
-                    for (T role : (List<T>)roles)
-                        rootNode.add(new DefaultMutableTreeNode(role));
-                    info("Search returned " + roles.size() + " matching objects");
+                    for ( T role : ( List<T> ) roles )
+                        rootNode.add( new DefaultMutableTreeNode( role ) );
+                    info( "Search returned " + roles.size() + " matching objects" );
                 }
                 else
                 {
-                    info("No matching objects found");
+                    info( "No matching objects found" );
                 }
-                target.add(grid);
+                target.add( grid );
             }
 
+
             @Override
-            public void onError(AjaxRequestTarget target, Form form)
+            public void onError( AjaxRequestTarget target, Form form )
             {
-                log.warn(".search.onError");
+                log.warn( ".search.onError" );
                 target.add();
             }
+
+
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
             {
                 super.updateAjaxAttributes( attributes );
                 AjaxCallListener ajaxCallListener = new AjaxCallListener()
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     public CharSequence getFailureHandler( Component component )
                     {
@@ -214,20 +235,21 @@ public class RoleListPanel<T extends Serializable> extends FormComponentPanel
                 };
                 attributes.getAjaxCallListeners().add( ajaxCallListener );
             }
-        });
-        add(this.listForm);
+        } );
+        add( this.listForm );
     }
 
+
     @Override
-    public void onEvent(IEvent event)
+    public void onEvent( IEvent event )
     {
-        if (event.getPayload() instanceof SaveModelEvent)
+        if ( event.getPayload() instanceof SaveModelEvent )
         {
-            SaveModelEvent modelEvent = (SaveModelEvent) event.getPayload();
-            switch(modelEvent.getOperation())
+            SaveModelEvent modelEvent = ( SaveModelEvent ) event.getPayload();
+            switch ( modelEvent.getOperation() )
             {
                 case ADD:
-                    add(modelEvent.getEntity());
+                    add( modelEvent.getEntity() );
                     break;
                 case UPDATE:
                     modelChanged();
@@ -238,72 +260,77 @@ public class RoleListPanel<T extends Serializable> extends FormComponentPanel
                 default:
                     break;
             }
-            AjaxRequestTarget target = ((SaveModelEvent) event.getPayload()).getAjaxRequestTarget();
-            target.add(grid);
-            log.debug(".onEvent SaveModelEvent: " + target.toString());
+            AjaxRequestTarget target = ( ( SaveModelEvent ) event.getPayload() ).getAjaxRequestTarget();
+            target.add( grid );
+            log.debug( ".onEvent SaveModelEvent: " + target.toString() );
         }
     }
 
-    public void add(FortEntity entity)
+
+    public void add( FortEntity entity )
     {
-        if (getDefaultModelObject() != null)
+        if ( getDefaultModelObject() != null )
         {
-             List<Role> roles = ((List<Role>) getDefaultModelObject());
-            roles.add((Role) entity);
-            treeModel.insertNodeInto(new DefaultMutableTreeNode(entity), rootNode, roles.size());
+            List<Role> roles = ( ( List<Role> ) getDefaultModelObject() );
+            roles.add( ( Role ) entity );
+            treeModel.insertNodeInto( new DefaultMutableTreeNode( entity ), rootNode, roles.size() );
         }
     }
+
 
     public void prune()
     {
-        removeSelectedItems(grid);
+        removeSelectedItems( grid );
     }
 
-    private void removeSelectedItems(TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String> grid)
+
+    private void removeSelectedItems( TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String> grid )
     {
         Collection<IModel<DefaultMutableTreeNode>> selected = grid.getSelectedItems();
-        for (IModel<DefaultMutableTreeNode> model : selected)
+        for ( IModel<DefaultMutableTreeNode> model : selected )
         {
             DefaultMutableTreeNode node = model.getObject();
-            treeModel.removeNodeFromParent(node);
-            Role role = (Role) node.getUserObject();
-            log.debug(".removeSelectedItems role node: " + role.getName());
-            List<Role> roles = ((List<Role>) getDefaultModel().getObject());
-            roles.remove(role.getName());
+            treeModel.removeNodeFromParent( node );
+            Role role = ( Role ) node.getUserObject();
+            log.debug( ".removeSelectedItems role node: " + role.getName() );
+            List<Role> roles = ( ( List<Role> ) getDefaultModel().getObject() );
+            roles.remove( role.getName() );
         }
     }
 
-    private DefaultTreeModel createTreeModel(List<T> roles)
+
+    private DefaultTreeModel createTreeModel( List<T> roles )
     {
         DefaultTreeModel model;
         Role root = new Role();
         //root.setName("Roles");
-        rootNode = new DefaultMutableTreeNode(root);
-        model = new DefaultTreeModel(rootNode);
-        if (roles == null)
-            log.debug("no Roles found");
+        rootNode = new DefaultMutableTreeNode( root );
+        model = new DefaultTreeModel( rootNode );
+        if ( roles == null )
+            log.debug( "no Roles found" );
         else
         {
-            log.debug("Roles found:" + roles.size());
-            for (T role : roles)
-                rootNode.add(new DefaultMutableTreeNode(role));
+            log.debug( "Roles found:" + roles.size() );
+            for ( T role : roles )
+                rootNode.add( new DefaultMutableTreeNode( role ) );
         }
         return model;
     }
 
-    private Role createRole(String name)
+
+    private Role createRole( String name )
     {
         Role role;
-        
+
         if ( isAdmin )
         {
-            role = new AdminRole(name);
+            role = new AdminRole( name );
         }
         else
         {
-            role = new Role(name);
+            role = new Role( name );
         }
-        
+
         return role;
     }
 }

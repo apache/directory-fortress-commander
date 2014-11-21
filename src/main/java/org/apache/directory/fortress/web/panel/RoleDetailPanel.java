@@ -20,6 +20,7 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import com.googlecode.wicket.kendo.ui.form.button.AjaxButton;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
@@ -59,6 +60,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Created with IntelliJ IDEA.
  * User: kpmckinn
@@ -68,45 +70,52 @@ import java.util.List;
  */
 public class RoleDetailPanel extends Panel
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     @SpringBean
     private AdminMgr adminMgr;
     @SpringBean
     private DelAdminMgr delAdminMgr;
-    private static final Logger log = Logger.getLogger(RoleDetailPanel.class.getName());
+    private static final Logger log = Logger.getLogger( RoleDetailPanel.class.getName() );
     private static final String PARENTS_SELECTION = "parentsSelection";
     private Form editForm;
     private Displayable display;
     private boolean isAdmin;
     private String objName;
 
+
     public Form getForm()
     {
         return this.editForm;
     }
 
-    public RoleDetailPanel(String id, Displayable display, final boolean isAdmin)
+
+    public RoleDetailPanel( String id, Displayable display, final boolean isAdmin )
     {
-        super(id);
+        super( id );
         this.isAdmin = isAdmin;
         this.adminMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
         this.delAdminMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
-        if(isAdmin)
+        if ( isAdmin )
         {
             this.objName = GlobalIds.DEL_ADMIN_MGR;
-            this.editForm = new RoleDetailForm(GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<AdminRole>(new AdminRole()));
+            this.editForm = new RoleDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<AdminRole>(
+                new AdminRole() ) );
         }
         else
         {
             this.objName = GlobalIds.ADMIN_MGR;
-            this.editForm = new RoleDetailForm(GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<Role>(new Role()));
+            this.editForm = new RoleDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<Role>( new Role() ) );
         }
 
         this.display = display;
-        add(editForm);
+        add( editForm );
     }
 
     public class RoleDetailForm<T extends Serializable> extends Form
     {
+        /** Default serialVersionUID */
+        private static final long serialVersionUID = 1L;
         private static final String TEMPORAL_CONSTRAINTS_LABEL = "temporalConstraintsLabel";
         private String temporalConstraintsLabel = "Temporal Constraints";
         private ConstraintPanel constraintPanel;
@@ -118,10 +127,11 @@ public class RoleDetailPanel extends Panel
         private UserRole parentConstraint = new UserRole();
         private RoleAdminDetailPanel auxPanel;
 
-        public RoleDetailForm(String id, final IModel<T> model)
+
+        public RoleDetailForm( String id, final IModel<T> model )
         {
-            super(id, model);
-            if(isAdmin)
+            super( id, model );
+            if ( isAdmin )
             {
                 auxPanel = new RoleAdminDetailPanel( GlobalIds.ROLEAUXPANEL, model );
                 add( auxPanel );
@@ -131,71 +141,84 @@ public class RoleDetailPanel extends Panel
                 add( new WebMarkupContainer( GlobalIds.ROLEAUXPANEL ) );
             }
 
-            this.add(new JQueryBehavior("#accordion", "accordion"));
-            constraintPanel = new ConstraintPanel("constraintpanel", model);
-            add(constraintPanel);
+            this.add( new JQueryBehavior( "#accordion", "accordion" ) );
+            constraintPanel = new ConstraintPanel( "constraintpanel", model );
+            add( constraintPanel );
             add( new Label( TEMPORAL_CONSTRAINTS_LABEL, new PropertyModel<String>( this,
                 TEMPORAL_CONSTRAINTS_LABEL ) ) );
-            TextField name = new TextField("name");
-            add(name);
-            TextField description = new TextField(GlobalIds.DESCRIPTION);
-            description.setRequired(false);
-            add(description);
-            Label iid = new Label("id");
-            add(iid);
-            parentsCB = new ComboBox<String>( GlobalIds.PARENTS, new PropertyModel<String>( this, PARENTS_SELECTION ), parents );
-            add(parentsCB);
+            TextField name = new TextField( "name" );
+            add( name );
+            TextField description = new TextField( GlobalIds.DESCRIPTION );
+            description.setRequired( false );
+            add( description );
+            Label iid = new Label( "id" );
+            add( iid );
+            parentsCB = new ComboBox<String>( GlobalIds.PARENTS, new PropertyModel<String>( this, PARENTS_SELECTION ),
+                parents );
+            add( parentsCB );
 
             add( new SecureIndicatingAjaxButton( GlobalIds.ADD, objName, GlobalIds.ADD_ROLE )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
-                protected void onSubmit(AjaxRequestTarget target, Form form)
+                protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
-                    log.debug(".onSubmit Add");
-                    T role = (T)form.getModel().getObject();
-                    updateEntityWithComboData((Role)role);
+                    log.debug( ".onSubmit Add" );
+                    T role = ( T ) form.getModel().getObject();
+                    updateEntityWithComboData( ( Role ) role );
                     try
                     {
                         String szRoleName;
-                        if(isAdmin)
+                        if ( isAdmin )
                         {
-                            delAdminMgr.addRole((AdminRole)role);
-                            szRoleName = ((AdminRole)role).getName();
+                            delAdminMgr.addRole( ( AdminRole ) role );
+                            szRoleName = ( ( AdminRole ) role ).getName();
                         }
                         else
                         {
-                            adminMgr.addRole((Role)role);
-                            szRoleName = ((Role)role).getName();
+                            adminMgr.addRole( ( Role ) role );
+                            szRoleName = ( ( Role ) role ).getName();
                         }
 
                         parentsSelection = "";
                         parents.add( parentsSelection );
-                        SaveModelEvent.send(getPage(), this, ( FortEntity )role, target, SaveModelEvent.Operations.ADD);
+                        SaveModelEvent.send( getPage(), this, ( FortEntity ) role, target,
+                            SaveModelEvent.Operations.ADD );
                         component = editForm;
                         String msg = "Role: " + szRoleName + " has been added";
-                        display.setMessage(msg);
+                        display.setMessage( msg );
                     }
-                    catch (org.apache.directory.fortress.core.SecurityException se)
+                    catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error(error);
-                        display.setMessage(error);
+                        log.error( error );
+                        display.setMessage( error );
                         display.display();
                     }
                 }
 
+
                 @Override
-                public void onError(AjaxRequestTarget target, Form form)
+                public void onError( AjaxRequestTarget target, Form form )
                 {
-                    log.info("RoleDetailPanel.add.onError caught");
+                    log.info( "RoleDetailPanel.add.onError caught" );
                     target.add();
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -204,54 +227,66 @@ public class RoleDetailPanel extends Panel
                     };
                     attributes.getAjaxCallListeners().add( ajaxCallListener );
                 }
-            });
+            } );
             add( new SecureIndicatingAjaxButton( GlobalIds.COMMIT, objName, GlobalIds.UPDATE_ROLE )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
-                protected void onSubmit(AjaxRequestTarget target, Form form)
+                protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
-                    log.debug(".onSubmit Commit");
-                    T role = (T)form.getModel().getObject();
-                    updateEntityWithComboData((Role)role);
+                    log.debug( ".onSubmit Commit" );
+                    T role = ( T ) form.getModel().getObject();
+                    updateEntityWithComboData( ( Role ) role );
                     try
                     {
                         String szRoleName;
-                        if(isAdmin)
+                        if ( isAdmin )
                         {
-                            delAdminMgr.updateRole((AdminRole)role);
-                            szRoleName = ((AdminRole)role).getName();
+                            delAdminMgr.updateRole( ( AdminRole ) role );
+                            szRoleName = ( ( AdminRole ) role ).getName();
                         }
                         else
                         {
-                            adminMgr.updateRole((Role)role);
-                            szRoleName = ((Role)role).getName();
+                            adminMgr.updateRole( ( Role ) role );
+                            szRoleName = ( ( Role ) role ).getName();
                         }
                         String msg = "Role: " + szRoleName + " has been updated";
-                        SaveModelEvent.send(getPage(), this, ( FortEntity )role, target, SaveModelEvent.Operations.UPDATE);
+                        SaveModelEvent.send( getPage(), this, ( FortEntity ) role, target,
+                            SaveModelEvent.Operations.UPDATE );
                         parentsSelection = "";
                         component = editForm;
-                        display.setMessage(msg);
+                        display.setMessage( msg );
                     }
-                    catch (org.apache.directory.fortress.core.SecurityException se)
+                    catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error(error);
-                        display.setMessage(error);
+                        log.error( error );
+                        display.setMessage( error );
                         display.display();
                     }
                 }
 
+
                 @Override
-                public void onError(AjaxRequestTarget target, Form form)
+                public void onError( AjaxRequestTarget target, Form form )
                 {
-                    log.warn("RoleDetailPanel.update.onError");
+                    log.warn( "RoleDetailPanel.update.onError" );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -260,59 +295,72 @@ public class RoleDetailPanel extends Panel
                     };
                     attributes.getAjaxCallListeners().add( ajaxCallListener );
                 }
-            });
+            } );
             add( new SecureIndicatingAjaxButton( GlobalIds.DELETE, objName, GlobalIds.DELETE_ROLE )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
-                protected void onSubmit(AjaxRequestTarget target, Form form)
+                protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
-                    log.debug(".onSubmit Delete");
-                    T role = (T)form.getModel().getObject();
+                    log.debug( ".onSubmit Delete" );
+                    T role = ( T ) form.getModel().getObject();
                     try
                     {
                         String szRoleName;
-                        if(isAdmin)
+                        if ( isAdmin )
                         {
-                            delAdminMgr.deleteRole((AdminRole)role);
-                            szRoleName = ((AdminRole)role).getName();
+                            delAdminMgr.deleteRole( ( AdminRole ) role );
+                            szRoleName = ( ( AdminRole ) role ).getName();
                             form.setModelObject( new AdminRole() );
                         }
                         else
                         {
-                            adminMgr.deleteRole((Role)role);
-                            szRoleName = ((Role)role).getName();
+                            adminMgr.deleteRole( ( Role ) role );
+                            szRoleName = ( ( Role ) role ).getName();
                             form.setModelObject( new Role() );
                         }
                         parentsSelection = "";
                         parents = new ArrayList<String>();
-                        parentsCB = new ComboBox<String>( GlobalIds.PARENTS, new PropertyModel<String>( form, PARENTS_SELECTION ),parents );
+                        parentsCB = new ComboBox<String>( GlobalIds.PARENTS, new PropertyModel<String>( form,
+                            PARENTS_SELECTION ), parents );
                         editForm.addOrReplace( parentsCB );
                         modelChanged();
                         String msg = "Role: " + szRoleName + " has been deleted";
-                        SaveModelEvent.send(getPage(), this, ( FortEntity )role, target, SaveModelEvent.Operations.DELETE);
+                        SaveModelEvent.send( getPage(), this, ( FortEntity ) role, target,
+                            SaveModelEvent.Operations.DELETE );
                         component = editForm;
-                        display.setMessage(msg);
+                        display.setMessage( msg );
                     }
-                    catch (org.apache.directory.fortress.core.SecurityException se)
+                    catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error(error);
-                        display.setMessage(error);
+                        log.error( error );
+                        display.setMessage( error );
                         display.display();
                     }
                 }
 
+
                 @Override
-                public void onError(AjaxRequestTarget target, Form form)
+                public void onError( AjaxRequestTarget target, Form form )
                 {
-                    log.warn("RoleDetailPanel.delete.onError");
+                    log.warn( "RoleDetailPanel.delete.onError" );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -321,41 +369,53 @@ public class RoleDetailPanel extends Panel
                     };
                     attributes.getAjaxCallListeners().add( ajaxCallListener );
                 }
-            });
-            add(new AjaxSubmitLink(GlobalIds.CANCEL)
+            } );
+            add( new AjaxSubmitLink( GlobalIds.CANCEL )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
-                protected void onSubmit(AjaxRequestTarget target, Form form)
+                protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
-                    if(isAdmin)
+                    if ( isAdmin )
                     {
-                        setModelObject(new AdminRole());
+                        setModelObject( new AdminRole() );
                     }
                     else
                     {
-                        setModelObject(new Role());
+                        setModelObject( new Role() );
                     }
                     parentsSelection = "";
                     parents = new ArrayList<String>();
-                    parentsCB = new ComboBox<String>( GlobalIds.PARENTS, new PropertyModel<String>( form, PARENTS_SELECTION ),parents );
+                    parentsCB = new ComboBox<String>( GlobalIds.PARENTS, new PropertyModel<String>( form,
+                        PARENTS_SELECTION ), parents );
                     modelChanged();
                     editForm.addOrReplace( parentsCB );
                     component = editForm;
                     String msg = "Role cancelled input form";
-                    display.setMessage(msg);
+                    display.setMessage( msg );
                 }
 
+
                 @Override
-                public void onError(AjaxRequestTarget target, Form form)
+                public void onError( AjaxRequestTarget target, Form form )
                 {
-                    log.warn("RoleDetailPanel.cancel.onError");
+                    log.warn( "RoleDetailPanel.cancel.onError" );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -364,9 +424,9 @@ public class RoleDetailPanel extends Panel
                     };
                     attributes.getAjaxCallListeners().add( ajaxCallListener );
                 }
-            });
+            } );
 
-            if(isAdmin)
+            if ( isAdmin )
             {
                 add( new Label( "roleDetailLabel", "Admin Role Detail" ) );
             }
@@ -379,6 +439,7 @@ public class RoleDetailPanel extends Panel
             {
                 private static final long serialVersionUID = 1L;
 
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
@@ -390,7 +451,7 @@ public class RoleDetailPanel extends Panel
                         if ( role.getParents() != null )
                         {
                             role.getParents().remove( parentsSelection );
-                            parents.remove(  parentsSelection );
+                            parents.remove( parentsSelection );
                             parentsSelection = "";
                             component = editForm;
                             msg += ", was removed from local, commit to persist changes on server";
@@ -407,12 +468,18 @@ public class RoleDetailPanel extends Panel
                     display.setMessage( msg );
                     log.debug( msg );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -422,26 +489,33 @@ public class RoleDetailPanel extends Panel
                     attributes.getAjaxCallListeners().add( ajaxCallListener );
                 }
             } );
-            setOutputMarkupId(true);
+            setOutputMarkupId( true );
         }
 
-        private void updateEntityWithComboData(Role role)
+
+        private void updateEntityWithComboData( Role role )
         {
-            if(VUtil.isNotNullOrEmpty(parentsSelection))
+            if ( VUtil.isNotNullOrEmpty( parentsSelection ) )
             {
                 role.setParent( parentsSelection );
                 parents.add( parentsSelection );
             }
         }
 
+
         private void addRoleSearchModal()
         {
             final ModalWindow rolesModalWindow;
             add( rolesModalWindow = new ModalWindow( "parentrolesmodal" ) );
-            final RoleSearchModalPanel roleSearchModalPanel = new RoleSearchModalPanel( rolesModalWindow.getContentId(), rolesModalWindow, isAdmin );
+            final RoleSearchModalPanel roleSearchModalPanel = new RoleSearchModalPanel(
+                rolesModalWindow.getContentId(), rolesModalWindow, isAdmin );
             rolesModalWindow.setContent( roleSearchModalPanel );
             rolesModalWindow.setWindowClosedCallback( new ModalWindow.WindowClosedCallback()
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 public void onClose( AjaxRequestTarget target )
                 {
@@ -449,7 +523,7 @@ public class RoleDetailPanel extends Panel
                     if ( parentConstraint != null )
                     {
                         parentsSelection = parentConstraint.getName();
-                        Role role = (Role)getDefaultModelObject();
+                        Role role = ( Role ) getDefaultModelObject();
                         role.setParent( parentsSelection );
                         target.add( parentsCB );
                         component = editForm;
@@ -460,6 +534,7 @@ public class RoleDetailPanel extends Panel
             add( new AjaxButton( GlobalIds.PARENTROLES_SEARCH )
             {
                 private static final long serialVersionUID = 1L;
+
 
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
@@ -472,12 +547,18 @@ public class RoleDetailPanel extends Panel
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     rolesModalWindow.show( target );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -489,7 +570,7 @@ public class RoleDetailPanel extends Panel
             } );
 
             String modalLabel;
-            if(isAdmin)
+            if ( isAdmin )
             {
                 modalLabel = "Admin Role Selection Modal";
             }
@@ -503,81 +584,85 @@ public class RoleDetailPanel extends Panel
             rolesModalWindow.setCookieName( "role-assign-modal" );
         }
 
+
         @Override
-        public void onEvent(final IEvent<?> event)
+        public void onEvent( final IEvent<?> event )
         {
-            if (event.getPayload() instanceof SelectModelEvent)
+            if ( event.getPayload() instanceof SelectModelEvent )
             {
-                SelectModelEvent modelEvent = (SelectModelEvent) event.getPayload();
-                T role = (T) modelEvent.getEntity();
+                SelectModelEvent modelEvent = ( SelectModelEvent ) event.getPayload();
+                T role = ( T ) modelEvent.getEntity();
                 this.setModelObject( role );
                 parentsSelection = "";
-                if(VUtil.isNotNullOrEmpty(((Role)role).getParents()))
+                if ( VUtil.isNotNullOrEmpty( ( ( Role ) role ).getParents() ) )
                 {
-                    parents = new ArrayList<String>(((Role)role).getParents());
-                    parentsCB = new ComboBox<String>( GlobalIds.PARENTS, new PropertyModel<String>( this, PARENTS_SELECTION ),parents );
+                    parents = new ArrayList<String>( ( ( Role ) role ).getParents() );
+                    parentsCB = new ComboBox<String>( GlobalIds.PARENTS, new PropertyModel<String>( this,
+                        PARENTS_SELECTION ), parents );
                 }
                 else
                 {
                     parents = new ArrayList<String>();
-                    parentsCB = new ComboBox<String>( GlobalIds.PARENTS, new PropertyModel<String>( this, PARENTS_SELECTION ),parents );
+                    parentsCB = new ComboBox<String>( GlobalIds.PARENTS, new PropertyModel<String>( this,
+                        PARENTS_SELECTION ), parents );
                 }
-                editForm.addOrReplace(parentsCB);
-                String msg = "Role: " + ((Role)role).getName() + " has been selected";
-                log.debug(msg);
-                display.setMessage(msg);
+                editForm.addOrReplace( parentsCB );
+                String msg = "Role: " + ( ( Role ) role ).getName() + " has been selected";
+                log.debug( msg );
+                display.setMessage( msg );
                 component = editForm;
             }
-            else if (event.getPayload() instanceof AjaxRequestTarget)
+            else if ( event.getPayload() instanceof AjaxRequestTarget )
             {
                 // only add the form to ajax target if something has changed...
-                if (component != null)
+                if ( component != null )
                 {
-                    AjaxRequestTarget target = ((AjaxRequestTarget) event.getPayload());
-                    log.debug(".onEvent AjaxRequestTarget: " + target.toString());
-                    target.add(component);
+                    AjaxRequestTarget target = ( ( AjaxRequestTarget ) event.getPayload() );
+                    log.debug( ".onEvent AjaxRequestTarget: " + target.toString() );
+                    target.add( component );
                     component = null;
                 }
-                display.display((AjaxRequestTarget) event.getPayload());
+                display.display( ( AjaxRequestTarget ) event.getPayload() );
             }
         }
+
 
         @Override
         protected void onBeforeRender()
         {
-            if(getModel() != null)
+            if ( getModel() != null )
             {
                 // push the 'changed' model down into the constraint panel:
-                constraintPanel.setDefaultModel(getModel());
-                if(isAdmin)
+                constraintPanel.setDefaultModel( getModel() );
+                if ( isAdmin )
                 {
                     // push the 'changed' model down into the admin role detail panel:
                     auxPanel.setDefaultModel( getModel() );
-                    AdminRole role = (AdminRole)getModel().getObject();
-                    if(role != null)
+                    AdminRole role = ( AdminRole ) getModel().getObject();
+                    if ( role != null )
                     {
-                        if(role.getOsP() != null)
+                        if ( role.getOsP() != null )
                         {
-                            auxPanel.setPermous( new ArrayList<String>(role.getOsP() ) );
+                            auxPanel.setPermous( new ArrayList<String>( role.getOsP() ) );
                         }
                         else
                         {
-                            auxPanel.setPermous( new ArrayList<String>( ) );
+                            auxPanel.setPermous( new ArrayList<String>() );
                         }
-                        if(role.getOsU() != null)
+                        if ( role.getOsU() != null )
                         {
-                            auxPanel.setUserous( new ArrayList<String>(role.getOsU() ) );
+                            auxPanel.setUserous( new ArrayList<String>( role.getOsU() ) );
                         }
                         else
                         {
-                            auxPanel.setUserous( new ArrayList<String>( ) );
+                            auxPanel.setUserous( new ArrayList<String>() );
                         }
                     }
                 }
             }
             else
             {
-                log.info(".onBeforeRender null model object");
+                log.info( ".onBeforeRender null model object" );
             }
             super.onBeforeRender();
         }

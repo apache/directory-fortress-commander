@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.web;
 
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
@@ -31,6 +32,7 @@ import org.apache.directory.fortress.core.rbac.Session;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
+
 /**
  * Base class for Commander Web.  This class initializes Fortress RBAC context and so contains a synchronized block.
  *
@@ -39,12 +41,15 @@ import java.security.Principal;
  */
 public abstract class FortressWebBasePage extends WebPage
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     @SpringBean
     private AccessMgr accessMgr;
     @SpringBean
     private DelAccessMgr delAccessMgr;
     private static final String CLS_NM = FortressWebBasePage.class.getName();
     private static final Logger LOG = Logger.getLogger( CLS_NM );
+
 
     public FortressWebBasePage()
     {
@@ -121,6 +126,10 @@ public abstract class FortressWebBasePage extends WebPage
 
         final Link actionLink = new Link( "logout" )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             public void onClick()
             {
@@ -137,18 +146,18 @@ public abstract class FortressWebBasePage extends WebPage
         Principal principal = servletReq.getUserPrincipal();
         // Is this a Java EE secured page && has the User successfully authenticated already?
         boolean isSecured = principal != null;
-        if( isSecured && !isLoggedIn( ) )
+        if ( isSecured && !isLoggedIn() )
         {
             String szPrincipal = principal.toString();
             // Pull the RBAC session from the realm and assert into the Web app's session:
-            Session realmSession = GlobalUtils.deserialize(szPrincipal, Session.class);
+            Session realmSession = GlobalUtils.deserialize( szPrincipal, Session.class );
 
             // If this is null, app in container that cannot share rbac session with app, Must now create session manually:
-            if(realmSession == null)
+            if ( realmSession == null )
             {
                 realmSession = GlobalUtils.createRbacSession( accessMgr, principal.getName() );
             }
-            if(realmSession != null)
+            if ( realmSession != null )
             {
                 synchronized ( ( RbacSession ) RbacSession.get() )
                 {
@@ -163,7 +172,8 @@ public abstract class FortressWebBasePage extends WebPage
         }
     }
 
-    private boolean isLoggedIn( )
+
+    private boolean isLoggedIn()
     {
         boolean isLoggedIn = false;
         if ( GlobalUtils.getRbacSession( this ) != null )

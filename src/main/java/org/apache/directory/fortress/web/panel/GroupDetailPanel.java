@@ -20,6 +20,7 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.kendo.ui.datatable.ColumnButton;
 import com.googlecode.wicket.kendo.ui.datatable.DataTable;
@@ -66,6 +67,8 @@ import java.util.List;
  */
 public class GroupDetailPanel extends FormComponentPanel
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     @SpringBean
     private GroupMgr groupMgr;
     private static final Logger log = Logger.getLogger( GroupDetailPanel.class.getName() );
@@ -73,10 +76,12 @@ public class GroupDetailPanel extends FormComponentPanel
     private Displayable display;
     public static final int ROWS = 5;
 
+
     public Form getForm()
     {
         return this.editForm;
     }
+
 
     public GroupDetailPanel( String id, Displayable display )
     {
@@ -91,6 +96,8 @@ public class GroupDetailPanel extends FormComponentPanel
 
     public class GroupDetailForm extends Form
     {
+        /** Default serialVersionUID */
+        private static final long serialVersionUID = 1L;
         private Component component;
         private DataTable<Member> table;
         private List<IColumn> columns;
@@ -100,6 +107,7 @@ public class GroupDetailPanel extends FormComponentPanel
         private ComboBox<String> memberPropsCB;
         private String memberPropsSelection;
 
+
         public GroupDetailForm( String id, final IModel<Group> model )
         {
             super( id, model );
@@ -107,6 +115,7 @@ public class GroupDetailPanel extends FormComponentPanel
             addGroupButtons();
             setOutputMarkupId( true );
         }
+
 
         private void addGroupDetailFields()
         {
@@ -120,7 +129,8 @@ public class GroupDetailPanel extends FormComponentPanel
             description.setRequired( false );
             add( description );
             protocol.setRequired( true );
-            memberPropsCB = new ComboBox<String>( "memberProps", new PropertyModel<String>( this, "memberPropsSelection" ), new ArrayList<String>() );
+            memberPropsCB = new ComboBox<String>( "memberProps", new PropertyModel<String>( this,
+                "memberPropsSelection" ), new ArrayList<String>() );
             memberPropsCB.setOutputMarkupId( true );
             add( memberPropsCB );
 
@@ -132,8 +142,8 @@ public class GroupDetailPanel extends FormComponentPanel
             // DataTable //
             columns = newColumnList();
             options = new Options();
-            options.set("selectable", Options.asString("single"));
-            options.set("scrollable", "{ virtual: true }"); //infinite scroll
+            options.set( "selectable", Options.asString( "single" ) );
+            options.set( "scrollable", "{ virtual: true }" ); //infinite scroll
             options.set( "height", 300 );
             options.set( "pageable", "{ pageSizes: [ 5, 10, 15, 20 ] }" );
             table = new DataTable<Member>( "memberstable", columns, createDataProvider( null ), ROWS, options );
@@ -141,17 +151,22 @@ public class GroupDetailPanel extends FormComponentPanel
             add( table );
         }
 
+
         private void addGroupButtons()
         {
             add( new SecureIndicatingAjaxButton( GlobalIds.ADD, GlobalIds.GROUP_MGR, "add" )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
                     log.debug( ".onSubmit Add" );
                     Group group = ( Group ) form.getModel().getObject();
                     String msg = null;
-                    if(!VUtil.isNotNullOrEmpty( memberAssign ) && !VUtil.isNotNullOrEmpty( group.getMembers() ))
+                    if ( !VUtil.isNotNullOrEmpty( memberAssign ) && !VUtil.isNotNullOrEmpty( group.getMembers() ) )
                     {
                         msg = "Group name: " + group.getName() + " cannot be added without a member";
                     }
@@ -159,7 +174,7 @@ public class GroupDetailPanel extends FormComponentPanel
                     {
                         try
                         {
-                            if(VUtil.isNotNullOrEmpty( memberAssign ))
+                            if ( VUtil.isNotNullOrEmpty( memberAssign ) )
                             {
                                 group.setMember( memberAssign );
                             }
@@ -179,18 +194,25 @@ public class GroupDetailPanel extends FormComponentPanel
                     display.setMessage( msg );
                 }
 
+
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.info( "GroupDetailPanel.add.onError caught" );
                     target.add();
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -202,6 +224,10 @@ public class GroupDetailPanel extends FormComponentPanel
             } );
             add( new SecureIndicatingAjaxButton( GlobalIds.COMMIT, GlobalIds.GROUP_MGR, "update" )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
@@ -223,17 +249,24 @@ public class GroupDetailPanel extends FormComponentPanel
                     }
                 }
 
+
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "GroupDetailPanel.commit.onError" );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -245,6 +278,10 @@ public class GroupDetailPanel extends FormComponentPanel
             } );
             add( new SecureIndicatingAjaxButton( GlobalIds.DELETE, GlobalIds.GROUP_MGR, "delete" )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
@@ -264,17 +301,24 @@ public class GroupDetailPanel extends FormComponentPanel
                     }
                 }
 
+
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "GroupDetailPanel.delete.onError" );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -286,23 +330,34 @@ public class GroupDetailPanel extends FormComponentPanel
             } );
             add( new AjaxSubmitLink( GlobalIds.CANCEL )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
                     clearDetailFields( "Group cancelled input form", target, form );
                 }
 
+
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "GroupDetailPanel.cancel.onError" );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -317,6 +372,7 @@ public class GroupDetailPanel extends FormComponentPanel
             {
                 private static final long serialVersionUID = 1L;
 
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
@@ -329,17 +385,19 @@ public class GroupDetailPanel extends FormComponentPanel
                         if ( idx != -1 )
                         {
                             String key = memberPropsSelection.substring( 0, idx );
-                            String val = memberPropsSelection.substring( idx  + 1);
+                            String val = memberPropsSelection.substring( idx + 1 );
                             try
                             {
                                 Group newGroup = groupMgr.add( group, key, val );
                                 group.setProperties( newGroup.getProperties() );
-                                memberPropsCB = new ComboBox<String>( "memberProps", new PropertyModel<String>( form, "memberPropsSelection" ), group.getPropList() );
+                                memberPropsCB = new ComboBox<String>( "memberProps", new PropertyModel<String>( form,
+                                    "memberPropsSelection" ), group.getPropList() );
                                 form.addOrReplace( memberPropsCB );
                             }
-                            catch( org.apache.directory.fortress.core.SecurityException se)
+                            catch ( org.apache.directory.fortress.core.SecurityException se )
                             {
-                                String error = "Failed add property: " + memberPropsSelection + ", SecurityException=" + se;
+                                String error = "Failed add property: " + memberPropsSelection + ", SecurityException="
+                                    + se;
                                 log.warn( error );
                                 display.setMessage( error );
                             }
@@ -355,12 +413,18 @@ public class GroupDetailPanel extends FormComponentPanel
                     display.setMessage( msg );
                     log.debug( msg );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -374,6 +438,7 @@ public class GroupDetailPanel extends FormComponentPanel
             add( new SecureIndicatingAjaxButton( "memberProps.delete", GlobalIds.GROUP_MGR, "deleteProperty" )
             {
                 private static final long serialVersionUID = 1L;
+
 
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
@@ -389,17 +454,19 @@ public class GroupDetailPanel extends FormComponentPanel
                             if ( idx != -1 )
                             {
                                 String key = memberPropsSelection.substring( 0, idx );
-                                String val = memberPropsSelection.substring( idx  + 1);
+                                String val = memberPropsSelection.substring( idx + 1 );
                                 try
                                 {
                                     Group newGroup = groupMgr.delete( group, key, val );
                                     group.setProperties( newGroup.getProperties() );
-                                    memberPropsCB = new ComboBox<String>( "memberProps", new PropertyModel<String>( form, "memberPropsSelection" ), group.getPropList() );
+                                    memberPropsCB = new ComboBox<String>( "memberProps", new PropertyModel<String>(
+                                        form, "memberPropsSelection" ), group.getPropList() );
                                     form.addOrReplace( memberPropsCB );
                                 }
-                                catch( org.apache.directory.fortress.core.SecurityException se)
+                                catch ( org.apache.directory.fortress.core.SecurityException se )
                                 {
-                                    String error = "Failed delete property: " + memberPropsSelection + ", SecurityException=" + se;
+                                    String error = "Failed delete property: " + memberPropsSelection
+                                        + ", SecurityException=" + se;
                                     log.warn( error );
                                     display.setMessage( error );
                                 }
@@ -420,12 +487,18 @@ public class GroupDetailPanel extends FormComponentPanel
                     display.setMessage( msg );
                     log.debug( msg );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -440,11 +513,12 @@ public class GroupDetailPanel extends FormComponentPanel
             {
                 private static final long serialVersionUID = 1L;
 
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
                     Group group = ( Group ) form.getModel().getObject();
-                    if( VUtil.isNotNullOrEmpty( memberAssign ) )
+                    if ( VUtil.isNotNullOrEmpty( memberAssign ) )
                     {
                         try
                         {
@@ -453,14 +527,15 @@ public class GroupDetailPanel extends FormComponentPanel
                             Group newGroup = groupMgr.assign( group, userId );
                             group.setMembers( newGroup.getMembers() );
 
-                            String msg = "Group: " + group.getName() + ", member: " + memberAssign + ", has been assigned";
+                            String msg = "Group: " + group.getName() + ", member: " + memberAssign
+                                + ", has been assigned";
                             memberAssign = "";
                             form.add( memberAssignTF );
                             addMemberTable( group );
                             display.setMessage( msg );
                             log.debug( msg );
                         }
-                        catch( org.apache.directory.fortress.core.SecurityException se)
+                        catch ( org.apache.directory.fortress.core.SecurityException se )
                         {
                             String error = "Failed assign user: " + memberAssign + ", SecurityException=" + se;
                             log.warn( error );
@@ -469,18 +544,25 @@ public class GroupDetailPanel extends FormComponentPanel
                     }
                     else
                     {
-                        String msg = "Group: " + group.getName() + ", assign op ignored, no value entered for assignment";
+                        String msg = "Group: " + group.getName()
+                            + ", assign op ignored, no value entered for assignment";
                         display.setMessage( msg );
                         log.debug( msg );
                     }
                     component = editForm;
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -492,10 +574,12 @@ public class GroupDetailPanel extends FormComponentPanel
             } );
         }
 
+
         private void clearDetailFields( String msg, AjaxRequestTarget target, Form form )
         {
             setModelObject( new Group() );
-            memberPropsCB = new ComboBox<String>( "memberProps", new PropertyModel<String>( form, "memberPropsSelection" ), new ArrayList<String>() );
+            memberPropsCB = new ComboBox<String>( "memberProps", new PropertyModel<String>( form,
+                "memberPropsSelection" ), new ArrayList<String>() );
             editForm.addOrReplace( memberPropsCB );
             table.refresh( target );
             table = new DataTable<Member>( "memberstable", columns, createDataProvider( null ), ROWS, options );
@@ -505,24 +589,28 @@ public class GroupDetailPanel extends FormComponentPanel
             display.setMessage( msg );
         }
 
+
         private List<IColumn> newColumnList()
         {
             List<IColumn> columns = new ArrayList<IColumn>();
             columns.add( new PropertyColumn( "#", "index", 30 ) );
             columns.add( new PropertyColumn( "User DN", "userDn", 150 ) );
-            columns.add(new CommandsColumn("", 100) {
+            columns.add( new CommandsColumn( "", 100 )
+            {
 
                 private static final long serialVersionUID = 1L;
+
 
                 @Override
                 public List<ColumnButton> newButtons()
                 {
                     return Arrays.asList( new ColumnButton( "remove", "userDn" ) );
                 }
-            });
+            } );
 
             return columns;
         }
+
 
         private IDataProvider<Member> createDataProvider( List<String> members )
         {
@@ -531,7 +619,7 @@ public class GroupDetailPanel extends FormComponentPanel
             {
                 int ctr = 0;
                 List<Member> tableMembers = new ArrayList<Member>();
-                for(String member : members)
+                for ( String member : members )
                 {
                     Member tableMember = new Member();
                     tableMember.setUserDn( member );
@@ -547,14 +635,20 @@ public class GroupDetailPanel extends FormComponentPanel
             return results;
         }
 
+
         private void addUserSearchModal()
         {
             final ModalWindow membersModalWindow;
             add( membersModalWindow = new ModalWindow( "membersmodal" ) );
-            final UserSearchModalPanel memberSearchModalPanel = new UserSearchModalPanel( membersModalWindow.getContentId(), membersModalWindow );
+            final UserSearchModalPanel memberSearchModalPanel = new UserSearchModalPanel(
+                membersModalWindow.getContentId(), membersModalWindow );
             membersModalWindow.setContent( memberSearchModalPanel );
             membersModalWindow.setWindowClosedCallback( new ModalWindow.WindowClosedCallback()
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 public void onClose( AjaxRequestTarget target )
                 {
@@ -571,6 +665,7 @@ public class GroupDetailPanel extends FormComponentPanel
             {
                 private static final long serialVersionUID = 1L;
 
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
@@ -578,13 +673,14 @@ public class GroupDetailPanel extends FormComponentPanel
                     msg += memberAssign != null ? ": " + memberAssign : "";
                     display.setMessage( msg );
                     log.debug( msg );
-                    if(VUtil.isNotNullOrEmpty( memberAssign ))
+                    if ( VUtil.isNotNullOrEmpty( memberAssign ) )
                     {
-                        memberSearchModalPanel.setSearchVal(memberAssign);
+                        memberSearchModalPanel.setSearchVal( memberAssign );
                     }
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     membersModalWindow.show( target );
                 }
+
 
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
@@ -592,6 +688,10 @@ public class GroupDetailPanel extends FormComponentPanel
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -608,6 +708,7 @@ public class GroupDetailPanel extends FormComponentPanel
             membersModalWindow.setCookieName( "members-modal" );
         }
 
+
         @Override
         public void onEvent( final IEvent<?> event )
         {
@@ -615,12 +716,13 @@ public class GroupDetailPanel extends FormComponentPanel
             {
                 SelectModelEvent modelEvent = ( SelectModelEvent ) event.getPayload();
                 final Group group = ( Group ) modelEvent.getEntity();
-                this.setModelObject(group);
+                this.setModelObject( group );
                 memberPropsSelection = "";
-                if(VUtil.isNotNullOrEmpty(group.getProperties()))
+                if ( VUtil.isNotNullOrEmpty( group.getProperties() ) )
                 {
-                    memberPropsCB = new ComboBox<String>( "memberProps", new PropertyModel<String>( this, "memberPropsSelection" ), group.getPropList() );
-                    editForm.addOrReplace(memberPropsCB);
+                    memberPropsCB = new ComboBox<String>( "memberProps", new PropertyModel<String>( this,
+                        "memberPropsSelection" ), group.getPropList() );
+                    editForm.addOrReplace( memberPropsCB );
                 }
                 addMemberTable( group );
                 String msg = "Group Name: " + group.getName() + " has been selected";
@@ -632,7 +734,7 @@ public class GroupDetailPanel extends FormComponentPanel
             {
                 if ( component != null )
                 {
-                     AjaxRequestTarget target = ( ( AjaxRequestTarget ) event.getPayload() );
+                    AjaxRequestTarget target = ( ( AjaxRequestTarget ) event.getPayload() );
                     log.debug( ".onEvent AjaxRequestTarget: " + target.toString() );
                     target.add( component );
                     component = null;
@@ -642,18 +744,23 @@ public class GroupDetailPanel extends FormComponentPanel
             }
         }
 
+
         private void addMemberTable( final Group group )
         {
             table = new DataTable<Member>( "memberstable", columns, createDataProvider( group.getMembers() ), ROWS,
                 options )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 /**
                  * Triggered when a column button is clicked.
                  */
                 @Override
-                public void onClick(AjaxRequestTarget target, ColumnButton button, String value)
+                public void onClick( AjaxRequestTarget target, ColumnButton button, String value )
                 {
-                    if( VUtil.isNotNullOrEmpty( value ) )
+                    if ( VUtil.isNotNullOrEmpty( value ) )
                     {
                         try
                         {
@@ -666,7 +773,7 @@ public class GroupDetailPanel extends FormComponentPanel
                             display.setMessage( msg );
                             log.debug( msg );
                         }
-                        catch( org.apache.directory.fortress.core.SecurityException se)
+                        catch ( org.apache.directory.fortress.core.SecurityException se )
                         {
                             String error = "Failed deassign user: " + value + ", SecurityException=" + se;
                             log.warn( error );
@@ -679,20 +786,24 @@ public class GroupDetailPanel extends FormComponentPanel
             addOrReplace( table );
         }
 
+
         public String getMemberAssign()
         {
             return memberAssign;
         }
+
 
         public void setMemberAssign( String memberAssign )
         {
             this.memberAssign = memberAssign;
         }
 
+
         public String getMemberPropsSelection()
         {
             return memberPropsSelection;
         }
+
 
         public void setMemberPropsSelection( String memberPropsSelection )
         {

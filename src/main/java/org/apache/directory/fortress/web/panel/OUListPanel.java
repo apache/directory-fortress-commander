@@ -20,6 +20,7 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.SizeUnit;
 import com.inmethod.grid.column.PropertyColumn;
@@ -53,6 +54,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+
 /**
  *
  * @author Shawn McKinney
@@ -60,6 +62,8 @@ import java.util.List;
  */
 public class OUListPanel extends FormComponentPanel
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     private static final Logger log = Logger.getLogger( OUListPanel.class.getName() );
     private Form listForm;
     private DefaultTreeModel treeModel;
@@ -68,6 +72,7 @@ public class OUListPanel extends FormComponentPanel
     private DefaultMutableTreeNode rootNode;
     private String searchVal;
     private String searchLabel;
+
 
     public OUListPanel( String id, final boolean isUser )
     {
@@ -87,10 +92,9 @@ public class OUListPanel extends FormComponentPanel
 
         OUListModel ouListModel = new OUListModel( orgUnit, GlobalUtils.getRbacSession( this ) );
         setDefaultModel( ouListModel );
-        List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode,
-            String>> columns = new ArrayList<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>>();
+        List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>> columns = new ArrayList<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>>();
         PropertyColumn name = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String,
-                    String>( Model.of( searchLabel ), "userObject.name" );
+            String>( Model.of( searchLabel ), "userObject.name" );
         name.setInitialSize( 400 );
         columns.add( name );
 
@@ -109,11 +113,15 @@ public class OUListPanel extends FormComponentPanel
         treeModel = createTreeModel( orgUnits );
         grid = new TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String>( "outreegrid", treeModel, columns )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             public void selectItem( IModel itemModel, boolean selected )
             {
                 node = ( DefaultMutableTreeNode ) itemModel.getObject();
-                if(!node.isRoot())
+                if ( !node.isRoot() )
                 {
                     OrgUnit orgUnit1 = ( OrgUnit ) node.getUserObject();
                     log.debug( "TreeGrid.addGrid.selectItem selected sdSet =" + orgUnit1.getName() );
@@ -140,12 +148,17 @@ public class OUListPanel extends FormComponentPanel
         this.listForm = new Form( "form" );
         this.listForm.add( grid );
         grid.setOutputMarkupId( true );
-        TextField searchValFld = new TextField( GlobalIds.SEARCH_VAL, new PropertyModel<String>( this, GlobalIds.SEARCH_VAL ) );
+        TextField searchValFld = new TextField( GlobalIds.SEARCH_VAL, new PropertyModel<String>( this,
+            GlobalIds.SEARCH_VAL ) );
         this.listForm.add( searchValFld );
 
         //this.listForm.add( new AjaxSubmitLink( "search" )
         this.listForm.add( new SecureIndicatingAjaxButton( GlobalIds.SEARCH, GlobalIds.DEL_REVIEW_MGR, "searchOU" )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             protected void onSubmit( AjaxRequestTarget target, Form form )
             {
@@ -184,18 +197,25 @@ public class OUListPanel extends FormComponentPanel
                 target.add( grid );
             }
 
+
             @Override
             public void onError( AjaxRequestTarget target, Form form )
             {
                 log.warn( ".search.onError" );
                 target.add();
             }
+
+
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
             {
                 super.updateAjaxAttributes( attributes );
                 AjaxCallListener ajaxCallListener = new AjaxCallListener()
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     public CharSequence getFailureHandler( Component component )
                     {
@@ -207,6 +227,7 @@ public class OUListPanel extends FormComponentPanel
         } );
         add( this.listForm );
     }
+
 
     @Override
     public void onEvent( IEvent event )
@@ -234,6 +255,7 @@ public class OUListPanel extends FormComponentPanel
         }
     }
 
+
     private void removeSelectedItems( TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String> grid )
     {
         Collection<IModel<DefaultMutableTreeNode>> selected = grid.getSelectedItems();
@@ -247,6 +269,7 @@ public class OUListPanel extends FormComponentPanel
             orgUnits.remove( orgUnit.getName() );
         }
     }
+
 
     private DefaultTreeModel createTreeModel( List<OrgUnit> orgUnits )
     {
@@ -270,6 +293,7 @@ public class OUListPanel extends FormComponentPanel
         return model;
     }
 
+
     public void add( FortEntity entity )
     {
         if ( getDefaultModelObject() != null )
@@ -279,6 +303,7 @@ public class OUListPanel extends FormComponentPanel
             treeModel.insertNodeInto( new DefaultMutableTreeNode( entity ), rootNode, orgUnits.size() );
         }
     }
+
 
     public void prune()
     {

@@ -20,6 +20,7 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.kendo.ui.datatable.DataTable;
 import com.googlecode.wicket.kendo.ui.datatable.column.IColumn;
@@ -49,6 +50,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * @author Shawn McKinney
  * @version $Rev$
@@ -56,6 +58,8 @@ import java.util.List;
  */
 public class AuditModDetailPanel extends FormComponentPanel
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     public static final int MOD_OFFSET = 3;
     public static final int ROWS = 5;
     @SpringBean
@@ -67,10 +71,12 @@ public class AuditModDetailPanel extends FormComponentPanel
     private Displayable display;
     private UserAuditDetailPanel userPanel;
 
+
     public Form getForm()
     {
         return this.detailForm;
     }
+
 
     public AuditModDetailPanel( String id, Displayable display )
     {
@@ -84,6 +90,8 @@ public class AuditModDetailPanel extends FormComponentPanel
 
     public class AuditAuthzDetailForm extends Form
     {
+        /** Default serialVersionUID */
+        private static final long serialVersionUID = 1L;
         private Component component;
         private String ftModifier;
         private String ftModCode;
@@ -93,6 +101,7 @@ public class AuditModDetailPanel extends FormComponentPanel
         private DataTable<RequestMod> table;
         private List<IColumn> columns;
         private Options options;
+
 
         public AuditAuthzDetailForm( String id, final IModel<Mod> model )
         {
@@ -112,11 +121,13 @@ public class AuditModDetailPanel extends FormComponentPanel
             add( new Label( "reqType" ) );
             add( new Label( GlobalIds.REQ_DN ) );
             add( new Label( GlobalIds.REQ_START ) );
-            userPanel = new UserAuditDetailPanel( GlobalIds.USERAUDITDETAILPANEL, new CompoundPropertyModel<User>( new User()
-            ) );
+            userPanel = new UserAuditDetailPanel( GlobalIds.USERAUDITDETAILPANEL, new CompoundPropertyModel<User>(
+                new User()
+                ) );
             add( userPanel );
             setOutputMarkupId( true );
         }
+
 
         @Override
         public void onEvent( final IEvent<?> event )
@@ -125,7 +136,7 @@ public class AuditModDetailPanel extends FormComponentPanel
             {
                 SelectModelEvent modelEvent = ( SelectModelEvent ) event.getPayload();
                 Mod mod = ( Mod ) modelEvent.getEntity();
-                this.setModelObject(mod);
+                this.setModelObject( mod );
                 String msg = "Mod: " + mod.getReqAuthzID() + " has been selected";
                 LOG.debug( ".onEvent SelectModelEvent: " + mod.getReqAuthzID() );
                 List<RequestMod> modifications = parseRequestMods( mod.getReqMod() );
@@ -179,6 +190,7 @@ public class AuditModDetailPanel extends FormComponentPanel
             }
         }
 
+
         private List<RequestMod> parseRequestMods( List<String> mods )
         {
             List<RequestMod> results = new ArrayList<RequestMod>();
@@ -227,6 +239,7 @@ public class AuditModDetailPanel extends FormComponentPanel
         }
     }
 
+
     private IDataProvider<RequestMod> createDataProvider( List<RequestMod> mods )
     {
         ListDataProvider<RequestMod> results;
@@ -240,6 +253,7 @@ public class AuditModDetailPanel extends FormComponentPanel
         }
         return results;
     }
+
 
     private List<IColumn> newColumnList()
     {

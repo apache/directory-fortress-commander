@@ -20,6 +20,7 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
@@ -67,6 +68,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 
+
 /**
  * Created with IntelliJ IDEA.
  * User: kpmckinn
@@ -76,6 +78,8 @@ import java.util.ArrayList;
 */
 public class UserDetailPanel extends FormComponentPanel
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     @SpringBean
     private AdminMgr adminMgr;
     @SpringBean
@@ -83,6 +87,7 @@ public class UserDetailPanel extends FormComponentPanel
     private static final Logger log = Logger.getLogger( UserDetailPanel.class.getName() );
     private Form editForm;
     private Displayable display;
+
 
     public UserDetailPanel( String id, Displayable display )
     {
@@ -99,6 +104,8 @@ public class UserDetailPanel extends FormComponentPanel
      */
     public class UserDetailForm extends Form
     {
+        /** Default serialVersionUID */
+        private static final long serialVersionUID = 1L;
         // form constants:
         private static final String OU = "ou";
         private static final String ROLES = "roles";
@@ -162,6 +169,7 @@ public class UserDetailPanel extends FormComponentPanel
         private TextField pwPolicyTF;
         private TextField ouTF;
 
+
         public UserDetailForm( String id, final IModel<User> model )
         {
             super( id, model );
@@ -175,12 +183,14 @@ public class UserDetailPanel extends FormComponentPanel
             setOutputMarkupId( true );
         }
 
+
         private void addDetailFields( final IModel<User> model )
         {
             // Add the User page required attributes:
             TextField userId = new TextField( GlobalIds.USER_ID );
             add( userId );
-            PasswordTextField pw = new PasswordTextField( GlobalIds.PSWD_FIELD, new PropertyModel<String>( this, GlobalIds.PSWD_FIELD ) );
+            PasswordTextField pw = new PasswordTextField( GlobalIds.PSWD_FIELD, new PropertyModel<String>( this,
+                GlobalIds.PSWD_FIELD ) );
             pw.setRequired( false );
             add( pw );
             TextField description = new TextField( GlobalIds.DESCRIPTION );
@@ -214,8 +224,9 @@ public class UserDetailPanel extends FormComponentPanel
 
             // Add the adminRole assignment values & temporal constraint panel:
             adminRolesCB = new ComboBox<UserAdminRole>( ADMIN_ROLES, new PropertyModel<String>( this,
-                ADMIN_ROLE_SELECTION ), model.getObject().getAdminRoles(), new ChoiceRenderer<UserAdminRole>( GlobalIds.NAME
-            ) );
+                ADMIN_ROLE_SELECTION ), model.getObject().getAdminRoles(), new ChoiceRenderer<UserAdminRole>(
+                GlobalIds.NAME
+                ) );
             adminRolesCB.setOutputMarkupId( true );
             add( adminRolesCB );
             adminRoleConstraintPanel = new ConstraintAdminRolePanel( ADMINROLECONSTRAINTPANEL,
@@ -249,7 +260,8 @@ public class UserDetailPanel extends FormComponentPanel
             add( name );
 
             // Address ComboBoxes and edit fields
-            addressCB = new ComboBox<String>( GlobalIds.ADDRESSES, new PropertyModel<String>( this, ADDRESS_SELECTION ),
+            addressCB = new ComboBox<String>( GlobalIds.ADDRESSES,
+                new PropertyModel<String>( this, ADDRESS_SELECTION ),
                 model.getObject().getAddress().getAddresses() );
             add( addressCB );
             TextField city = new TextField( GlobalIds.ADDRESS_CITY );
@@ -298,10 +310,15 @@ public class UserDetailPanel extends FormComponentPanel
 
         }
 
+
         private void addButtons()
         {
             add( new SecureIndicatingAjaxButton( GlobalIds.ADD, GlobalIds.ADMIN_MGR, GlobalIds.ADD_USER )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
@@ -335,18 +352,25 @@ public class UserDetailPanel extends FormComponentPanel
                     }
                 }
 
+
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.info( "UserDetailPanel.add.onError" );
                     target.add();
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -358,6 +382,10 @@ public class UserDetailPanel extends FormComponentPanel
             } );
             add( new SecureIndicatingAjaxButton( GlobalIds.COMMIT, GlobalIds.ADMIN_MGR, GlobalIds.UPDATE_USER )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
@@ -393,17 +421,24 @@ public class UserDetailPanel extends FormComponentPanel
                     }
                 }
 
+
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "UserDetailPanel.commit.onError" );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -415,6 +450,10 @@ public class UserDetailPanel extends FormComponentPanel
             } );
             add( new SecureIndicatingAjaxButton( GlobalIds.DELETE, GlobalIds.ADMIN_MGR, GlobalIds.DELETE_USER )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
@@ -436,17 +475,24 @@ public class UserDetailPanel extends FormComponentPanel
                     }
                 }
 
+
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "UserDetailPanel.delete.onError" );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -458,6 +504,10 @@ public class UserDetailPanel extends FormComponentPanel
             } );
             add( new AjaxSubmitLink( GlobalIds.CANCEL )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
@@ -466,17 +516,24 @@ public class UserDetailPanel extends FormComponentPanel
                     display.setMessage( msg );
                 }
 
+
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "UserDetailPanel.cancel.onError" );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -488,6 +545,10 @@ public class UserDetailPanel extends FormComponentPanel
             } );
             add( new AjaxSubmitLink( "save" )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
@@ -502,17 +563,24 @@ public class UserDetailPanel extends FormComponentPanel
                     initAccordionLabels( user );
                 }
 
+
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "save.onError" );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -523,36 +591,41 @@ public class UserDetailPanel extends FormComponentPanel
                 }
             } );
             Label lockBtnLbl = new Label( "lockLabel", new PropertyModel<String>( this, "lockLabel" ) );
-            SecureIndicatingAjaxButton lock = new SecureIndicatingAjaxButton( "lockbtn", GlobalIds.ADMIN_MGR, "lockUserAccount" )
+            SecureIndicatingAjaxButton lock = new SecureIndicatingAjaxButton( "lockbtn", GlobalIds.ADMIN_MGR,
+                "lockUserAccount" )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
                     User user = ( User ) form.getModel().getObject();
-/*
-                    if ( pswdField != null )
-                    {
-                        user.setPassword( pswdField.toCharArray() );
-                    }
-                    else
-                    {
-                        user.setPassword( "".toCharArray() );
-                    }
-*/
+                    /*
+                                        if ( pswdField != null )
+                                        {
+                                            user.setPassword( pswdField.toCharArray() );
+                                        }
+                                        else
+                                        {
+                                            user.setPassword( "".toCharArray() );
+                                        }
+                    */
                     String msg = "User: " + user.getUserId();
                     try
                     {
-                        if(user.isLocked())
+                        if ( user.isLocked() )
                         {
                             adminMgr.unlockUserAccount( user );
                             user.setLocked( false );
-                            msg+= " account has been unlocked";
+                            msg += " account has been unlocked";
                         }
                         else
                         {
                             adminMgr.lockUserAccount( user );
                             user.setLocked( true );
-                            msg+= " account has been locked";
+                            msg += " account has been locked";
                             display.setMessage( msg );
                         }
                     }
@@ -567,17 +640,24 @@ public class UserDetailPanel extends FormComponentPanel
                     initAccordionLabels( user );
                 }
 
+
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "ControlPanel.lock/unlock error" );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -591,6 +671,10 @@ public class UserDetailPanel extends FormComponentPanel
             add( lock );
             add( new SecureIndicatingAjaxButton( "resetbtn", GlobalIds.ADMIN_MGR, "resetPassword" )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
@@ -608,7 +692,7 @@ public class UserDetailPanel extends FormComponentPanel
                     {
                         adminMgr.resetPassword( user, user.getPassword() );
                         user.setReset( true );
-                        msg+= " account has been reset";
+                        msg += " account has been reset";
                         display.setMessage( msg );
                     }
                     catch ( org.apache.directory.fortress.core.SecurityException se )
@@ -621,17 +705,25 @@ public class UserDetailPanel extends FormComponentPanel
                     component = editForm;
                     initAccordionLabels( user );
                 }
+
+
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "ControlPanel.reset error" );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -640,24 +732,28 @@ public class UserDetailPanel extends FormComponentPanel
                     };
                     attributes.getAjaxCallListeners().add( ajaxCallListener );
                 }
-            });
+            } );
             add( new SecureIndicatingAjaxButton( GlobalIds.ASSIGN, GlobalIds.ADMIN_MGR, GlobalIds.ASSIGN_USER )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
                     log.debug( ".onSubmit assign" );
-/*
-                    HttpServletRequest servletReq = ( HttpServletRequest ) getRequest().getContainerRequest();
-                    if ( servletReq.isUserInRole( "rbac_admin" ) )
-                    {
-                        log.debug( "User has RBAC_ADMIN" );
-                    }
-                    else
-                    {
-                        log.debug( "User NOT RBAC_ADMIN" );
-                    }
-*/
+                    /*
+                                        HttpServletRequest servletReq = ( HttpServletRequest ) getRequest().getContainerRequest();
+                                        if ( servletReq.isUserInRole( "rbac_admin" ) )
+                                        {
+                                            log.debug( "User has RBAC_ADMIN" );
+                                        }
+                                        else
+                                        {
+                                            log.debug( "User NOT RBAC_ADMIN" );
+                                        }
+                    */
 
                     User user = ( User ) form.getModel().getObject();
                     if ( assignRole( user, roleSelection ) )
@@ -672,17 +768,24 @@ public class UserDetailPanel extends FormComponentPanel
                     roleConstraint = new UserRole();
                 }
 
+
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "assign.onError" );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -694,6 +797,10 @@ public class UserDetailPanel extends FormComponentPanel
             } );
             add( new SecureIndicatingAjaxButton( "assignAdminRole", GlobalIds.DEL_ADMIN_MGR, GlobalIds.ASSIGN_USER )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
@@ -712,17 +819,24 @@ public class UserDetailPanel extends FormComponentPanel
                     adminRoleConstraint = new UserAdminRole();
                 }
 
+
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "assignAdminRole.onError" );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -734,6 +848,10 @@ public class UserDetailPanel extends FormComponentPanel
             } );
             add( new SecureIndicatingAjaxButton( GlobalIds.DEASSIGN, GlobalIds.ADMIN_MGR, GlobalIds.DEASSIGN_USER )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
@@ -753,17 +871,24 @@ public class UserDetailPanel extends FormComponentPanel
                     roleConstraint = new UserRole();
                 }
 
+
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "deassign.onError" );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -775,6 +900,10 @@ public class UserDetailPanel extends FormComponentPanel
             } );
             add( new SecureIndicatingAjaxButton( "deassignAdminRole", GlobalIds.DEL_ADMIN_MGR, GlobalIds.DEASSIGN_USER )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
@@ -795,17 +924,24 @@ public class UserDetailPanel extends FormComponentPanel
                     adminRoleConstraint = new UserAdminRole();
                 }
 
+
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "ControlPanel.deassignAdminRole.onError" );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -817,7 +953,9 @@ public class UserDetailPanel extends FormComponentPanel
             } );
             add( new AjaxButton( "address.delete" )
             {
+                /** Default serialVersionUID */
                 private static final long serialVersionUID = 1L;
+
 
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
@@ -847,12 +985,18 @@ public class UserDetailPanel extends FormComponentPanel
                     display.setMessage( msg );
                     log.debug( msg );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -865,6 +1009,7 @@ public class UserDetailPanel extends FormComponentPanel
             add( new AjaxButton( "emails.delete" )
             {
                 private static final long serialVersionUID = 1L;
+
 
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
@@ -894,12 +1039,18 @@ public class UserDetailPanel extends FormComponentPanel
                     display.setMessage( msg );
                     log.debug( msg );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -911,7 +1062,9 @@ public class UserDetailPanel extends FormComponentPanel
             } );
             add( new AjaxButton( "phones.delete" )
             {
+                /** Default serialVersionUID */
                 private static final long serialVersionUID = 1L;
+
 
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
@@ -941,12 +1094,18 @@ public class UserDetailPanel extends FormComponentPanel
                     display.setMessage( msg );
                     log.debug( msg );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -959,6 +1118,7 @@ public class UserDetailPanel extends FormComponentPanel
             add( new AjaxButton( "mobiles.delete" )
             {
                 private static final long serialVersionUID = 1L;
+
 
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
@@ -988,12 +1148,18 @@ public class UserDetailPanel extends FormComponentPanel
                     display.setMessage( msg );
                     log.debug( msg );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -1010,14 +1176,20 @@ public class UserDetailPanel extends FormComponentPanel
             addOUSearchModal();
         }
 
+
         private void addRoleSearchModal()
         {
             final ModalWindow rolesModalWindow;
             add( rolesModalWindow = new ModalWindow( "rolesmodal" ) );
-            final RoleSearchModalPanel roleSearchModalPanel = new RoleSearchModalPanel( rolesModalWindow.getContentId(), rolesModalWindow, false );
+            final RoleSearchModalPanel roleSearchModalPanel = new RoleSearchModalPanel(
+                rolesModalWindow.getContentId(), rolesModalWindow, false );
             rolesModalWindow.setContent( roleSearchModalPanel );
             rolesModalWindow.setWindowClosedCallback( new ModalWindow.WindowClosedCallback()
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 public void onClose( AjaxRequestTarget target )
                 {
@@ -1035,6 +1207,7 @@ public class UserDetailPanel extends FormComponentPanel
             {
                 private static final long serialVersionUID = 1L;
 
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
@@ -1046,12 +1219,18 @@ public class UserDetailPanel extends FormComponentPanel
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     rolesModalWindow.show( target );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -1068,14 +1247,20 @@ public class UserDetailPanel extends FormComponentPanel
             rolesModalWindow.setCookieName( "role-assign-modal" );
         }
 
+
         private void addAdminRoleSearchModal()
         {
             final ModalWindow adminRolesModalWindow;
             add( adminRolesModalWindow = new ModalWindow( "adminrolesmodal" ) );
-            final RoleSearchModalPanel adminRoleSearchModalPanel = new RoleSearchModalPanel( adminRolesModalWindow.getContentId(), adminRolesModalWindow, true );
+            final RoleSearchModalPanel adminRoleSearchModalPanel = new RoleSearchModalPanel(
+                adminRolesModalWindow.getContentId(), adminRolesModalWindow, true );
             adminRolesModalWindow.setContent( adminRoleSearchModalPanel );
             adminRolesModalWindow.setWindowClosedCallback( new ModalWindow.WindowClosedCallback()
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 public void onClose( AjaxRequestTarget target )
                 {
@@ -1093,6 +1278,7 @@ public class UserDetailPanel extends FormComponentPanel
             {
                 private static final long serialVersionUID = 1L;
 
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
@@ -1104,12 +1290,18 @@ public class UserDetailPanel extends FormComponentPanel
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     adminRolesModalWindow.show( target );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -1126,14 +1318,20 @@ public class UserDetailPanel extends FormComponentPanel
             adminRolesModalWindow.setCookieName( "adminrole-assign-modal" );
         }
 
+
         private void addPolicySearchModal()
         {
             final ModalWindow policiesModalWindow;
             add( policiesModalWindow = new ModalWindow( "policiesmodal" ) );
-            final PwPolicySearchModalPanel policySearchModalPanel = new PwPolicySearchModalPanel( policiesModalWindow.getContentId(), policiesModalWindow );
+            final PwPolicySearchModalPanel policySearchModalPanel = new PwPolicySearchModalPanel(
+                policiesModalWindow.getContentId(), policiesModalWindow );
             policiesModalWindow.setContent( policySearchModalPanel );
             policiesModalWindow.setWindowClosedCallback( new ModalWindow.WindowClosedCallback()
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 public void onClose( AjaxRequestTarget target )
                 {
@@ -1151,6 +1349,7 @@ public class UserDetailPanel extends FormComponentPanel
             {
                 private static final long serialVersionUID = 1L;
 
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
@@ -1163,12 +1362,18 @@ public class UserDetailPanel extends FormComponentPanel
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     policiesModalWindow.show( target );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -1185,14 +1390,20 @@ public class UserDetailPanel extends FormComponentPanel
             policiesModalWindow.setCookieName( "policy-modal" );
         }
 
+
         private void addOUSearchModal()
         {
             final ModalWindow ousModalWindow;
             add( ousModalWindow = new ModalWindow( "ousmodal" ) );
-            final OUSearchModalPanel ouSearchModalPanel = new OUSearchModalPanel( ousModalWindow.getContentId(), ousModalWindow, true );
+            final OUSearchModalPanel ouSearchModalPanel = new OUSearchModalPanel( ousModalWindow.getContentId(),
+                ousModalWindow, true );
             ousModalWindow.setContent( ouSearchModalPanel );
             ousModalWindow.setWindowClosedCallback( new ModalWindow.WindowClosedCallback()
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 public void onClose( AjaxRequestTarget target )
                 {
@@ -1210,24 +1421,31 @@ public class UserDetailPanel extends FormComponentPanel
             {
                 private static final long serialVersionUID = 1L;
 
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
                     String msg = "clicked on OrgUnits search";
                     User user = ( User ) editForm.getModel().getObject();
                     msg += user.getOu() != null ? ": " + user.getOu() : "";
-                    ouSearchModalPanel.setSearchVal( user.getOu( ) );
+                    ouSearchModalPanel.setSearchVal( user.getOu() );
                     display.setMessage( msg );
                     log.debug( msg );
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     ousModalWindow.show( target );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -1244,6 +1462,7 @@ public class UserDetailPanel extends FormComponentPanel
             ousModalWindow.setCookieName( "userou-modal" );
         }
 
+
         private void info( ComboBox<String> comboBox )
         {
             String choice = comboBox.getModelObject();
@@ -1251,6 +1470,7 @@ public class UserDetailPanel extends FormComponentPanel
             this.debug( msg );
             log.debug( msg );
         }
+
 
         private void clearDetailPanel()
         {
@@ -1271,7 +1491,8 @@ public class UserDetailPanel extends FormComponentPanel
             mobilesCB = new ComboBox<String>( GlobalIds.MOBILES, new PropertyModel<String>( this, MOBILES_SELECTION ),
                 new ArrayList<String>() );
             editForm.addOrReplace( mobilesCB );
-            addressCB = new ComboBox<String>( GlobalIds.ADDRESSES, new PropertyModel<String>( this, ADDRESS_SELECTION ),
+            addressCB = new ComboBox<String>( GlobalIds.ADDRESSES,
+                new PropertyModel<String>( this, ADDRESS_SELECTION ),
                 new ArrayList<String>() );
 
             editForm.addOrReplace( addressCB );
@@ -1280,7 +1501,8 @@ public class UserDetailPanel extends FormComponentPanel
             rolesCB.setOutputMarkupId( true );
             editForm.addOrReplace( rolesCB );
             adminRolesCB = new ComboBox<UserAdminRole>( ADMIN_ROLES, new PropertyModel<String>( this,
-                ADMIN_ROLE_SELECTION ), new ArrayList<UserAdminRole>(), new ChoiceRenderer<UserAdminRole>( GlobalIds.NAME ) );
+                ADMIN_ROLE_SELECTION ), new ArrayList<UserAdminRole>(), new ChoiceRenderer<UserAdminRole>(
+                GlobalIds.NAME ) );
             adminRolesCB.setOutputMarkupId( true );
             editForm.addOrReplace( adminRolesCB );
             modelChanged();
@@ -1288,6 +1510,7 @@ public class UserDetailPanel extends FormComponentPanel
             editForm.setOutputMarkupId( true );
             initAccordionLabels();
         }
+
 
         private void addLabels()
         {
@@ -1304,12 +1527,17 @@ public class UserDetailPanel extends FormComponentPanel
             add( new Label( IMPORT_PHOTO_LABEL, new PropertyModel<String>( this, IMPORT_PHOTO_LABEL ) ) );
         }
 
+
         private void addPhoto()
         {
             this.defaultImage = readJpegFile( DEFAULT_JPG );
             // Add the photograph controls:
             add( new JpegImage( GlobalIds.JPEGPHOTO )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 protected byte[] getPhoto()
                 {
@@ -1325,6 +1553,10 @@ public class UserDetailPanel extends FormComponentPanel
             } );
             add( new JpegImage( GlobalIds.JPEGPHOTO + "2" )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 protected byte[] getPhoto()
                 {
@@ -1341,6 +1573,7 @@ public class UserDetailPanel extends FormComponentPanel
             upload = new FileUploadField( UPLOAD, new Model( UPLOAD ) );
             add( upload );
         }
+
 
         private void updateEntityWithComboData( User user )
         {
@@ -1361,6 +1594,7 @@ public class UserDetailPanel extends FormComponentPanel
                 user.getAddress().setAddress( addressSelection );
             }
         }
+
 
         private boolean assignRole( User user, String szRoleName )
         {
@@ -1398,6 +1632,7 @@ public class UserDetailPanel extends FormComponentPanel
             return success;
         }
 
+
         private boolean deassignRole( User user, UserRole userRole )
         {
             boolean success = false;
@@ -1418,6 +1653,7 @@ public class UserDetailPanel extends FormComponentPanel
             }
             return success;
         }
+
 
         private boolean assignAdminRole( User user, String szAdminRoleName )
         {
@@ -1456,6 +1692,7 @@ public class UserDetailPanel extends FormComponentPanel
             return success;
         }
 
+
         private boolean deassignAdminRole( User user, UserAdminRole userAdminRole )
         {
             boolean success = false;
@@ -1477,6 +1714,7 @@ public class UserDetailPanel extends FormComponentPanel
             return success;
         }
 
+
         @Override
         public void onEvent( final IEvent<?> event )
         {
@@ -1485,7 +1723,7 @@ public class UserDetailPanel extends FormComponentPanel
                 clearDetailPanel();
                 SelectModelEvent modelEvent = ( SelectModelEvent ) event.getPayload();
                 final User user = ( User ) modelEvent.getEntity();
-                this.setModelObject(user);
+                this.setModelObject( user );
                 initAccordionLabels( user );
                 String msg = "User: " + user.getUserId() + " has been selected";
                 log.debug( msg );
@@ -1494,6 +1732,10 @@ public class UserDetailPanel extends FormComponentPanel
                     user.getRoles(), new ChoiceRenderer<UserRole>( GlobalIds.NAME ) );
                 AjaxFormComponentUpdatingBehavior roleAjaxUpdater = new AjaxFormComponentUpdatingBehavior( "onchange" )
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     protected void onUpdate( final AjaxRequestTarget target )
                     {
@@ -1525,6 +1767,10 @@ public class UserDetailPanel extends FormComponentPanel
                 AjaxFormComponentUpdatingBehavior adminRoleAjaxUpdater = new AjaxFormComponentUpdatingBehavior(
                     "onchange" )
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     protected void onUpdate( final AjaxRequestTarget target )
                     {
@@ -1558,10 +1804,12 @@ public class UserDetailPanel extends FormComponentPanel
                 phonesCB = new ComboBox<String>( GlobalIds.PHONES, new PropertyModel<String>( this, PHONES_SELECTION ),
                     user.getPhones() );
                 editForm.addOrReplace( phonesCB );
-                mobilesCB = new ComboBox<String>( GlobalIds.MOBILES, new PropertyModel<String>( this, MOBILES_SELECTION ),
+                mobilesCB = new ComboBox<String>( GlobalIds.MOBILES,
+                    new PropertyModel<String>( this, MOBILES_SELECTION ),
                     user.getMobiles() );
                 editForm.addOrReplace( mobilesCB );
-                addressCB = new ComboBox<String>( GlobalIds.ADDRESSES, new PropertyModel<String>( this, ADDRESS_SELECTION ),
+                addressCB = new ComboBox<String>( GlobalIds.ADDRESSES, new PropertyModel<String>( this,
+                    ADDRESS_SELECTION ),
                     user.getAddress().getAddresses() );
                 editForm.addOrReplace( addressCB );
                 roleConstraint = new UserRole();
@@ -1587,6 +1835,7 @@ public class UserDetailPanel extends FormComponentPanel
             }
         }
 
+
         @Override
         protected void onBeforeRender()
         {
@@ -1602,6 +1851,7 @@ public class UserDetailPanel extends FormComponentPanel
             super.onBeforeRender();
         }
 
+
         private void initAccordionLabels()
         {
             userDetailLabel = "User Detail";
@@ -1611,10 +1861,11 @@ public class UserDetailPanel extends FormComponentPanel
             contactInformationLabel = "Contact Information";
         }
 
+
         private void initAccordionLabels( User user )
         {
             boolean isSet = false;
-            if(user.isLocked())
+            if ( user.isLocked() )
             {
                 lockLabel = "Unlock";
             }
@@ -1684,12 +1935,13 @@ public class UserDetailPanel extends FormComponentPanel
                 }
             }
             String szName = user.getDisplayName();
-            if(!VUtil.isNotNullOrEmpty( szName ))
+            if ( !VUtil.isNotNullOrEmpty( szName ) )
             {
                 szName = user.getCn();
             }
             contactInformationLabel = "Contact Information for: " + szName;
         }
+
 
         private void initSelectionModels()
         {
@@ -1701,6 +1953,7 @@ public class UserDetailPanel extends FormComponentPanel
             emailsSelection = "";
         }
     }
+
 
     private byte[] readJpegFile( String fileName )
     {

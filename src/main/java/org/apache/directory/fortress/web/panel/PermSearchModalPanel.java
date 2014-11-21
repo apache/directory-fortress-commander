@@ -20,6 +20,7 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -38,6 +39,7 @@ import org.apache.directory.fortress.web.GlobalUtils;
 import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.rbac.Permission;
 
+
 /**
  *
  * @author Shawn McKinney
@@ -45,14 +47,17 @@ import org.apache.directory.fortress.core.rbac.Permission;
  */
 public class PermSearchModalPanel extends Panel
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     @SpringBean
     private ReviewMgr reviewMgr;
-    private static final Logger LOG = Logger.getLogger(PermSearchModalPanel.class.getName());
+    private static final Logger LOG = Logger.getLogger( PermSearchModalPanel.class.getName() );
     private ModalWindow window;
     private Permission permSelection;
     private String objectSearchVal;
     private String opSearchVal;
     private boolean isAdmin;
+
 
     /**
      * @param id
@@ -66,6 +71,7 @@ public class PermSearchModalPanel extends Panel
         loadPanel();
     }
 
+
     public void loadPanel()
     {
         LoadableDetachableModel requests = getListViewModel();
@@ -74,10 +80,15 @@ public class PermSearchModalPanel extends Panel
         add( new AjaxPagingNavigator( "navigator", ouView ) );
     }
 
+
     private PageableListView createListView( final LoadableDetachableModel requests )
     {
         final PageableListView listView = new PageableListView( "dataview", requests, 16 )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             protected void populateItem( final ListItem item )
             {
@@ -86,8 +97,9 @@ public class PermSearchModalPanel extends Panel
                 {
                     private static final long serialVersionUID = 1L;
 
+
                     @Override
-                    public void onClick(AjaxRequestTarget target)
+                    public void onClick( AjaxRequestTarget target )
                     {
                         permSelection = modelObject;
                         window.close( target );
@@ -103,10 +115,15 @@ public class PermSearchModalPanel extends Panel
         return listView;
     }
 
+
     private LoadableDetachableModel getListViewModel()
     {
         final LoadableDetachableModel ret = new LoadableDetachableModel()
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             protected Object load()
             {
@@ -114,7 +131,7 @@ public class PermSearchModalPanel extends Panel
                 try
                 {
                     permSelection = null;
-                    if(objectSearchVal == null)
+                    if ( objectSearchVal == null )
                         objectSearchVal = "";
 
                     Permission permission = new Permission( objectSearchVal, "" );
@@ -132,15 +149,18 @@ public class PermSearchModalPanel extends Panel
         return ret;
     }
 
+
     public void setAdmin( boolean admin )
     {
         isAdmin = admin;
     }
 
+
     public Permission getSelection()
     {
         return permSelection;
     }
+
 
     public void setSearchVal( String objectSearchVal )
     {

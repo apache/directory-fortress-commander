@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.web;
 
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.extensions.ajax.markup.html.AjaxLazyLoadPanel;
@@ -31,24 +32,28 @@ import org.apache.directory.fortress.web.panel.NavPanel;
 import org.apache.directory.fortress.web.panel.RoleDetailPanel;
 import org.apache.directory.fortress.web.panel.RoleListPanel;
 
+
 /**
  * @author Shawn McKinney
  * @version $Rev$
  */
 public class RoleAdminPage extends FortressWebBasePage
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     private boolean isAdmin = true;
     private String label = "Admin Role Administration";
     private static final Logger LOG = Logger.getLogger( RoleAdminPage.class.getName() );
+
 
     /**
      * @author Shawn McKinney
      * @version $Rev$
      * @param parameters
      */
-    public RoleAdminPage(PageParameters parameters)
+    public RoleAdminPage( PageParameters parameters )
     {
-        String type = GlobalUtils.getPageType(parameters);
+        String type = GlobalUtils.getPageType( parameters );
         add( new Label( GlobalIds.PAGE_HEADER, label ) );
         WebMarkupContainer container = new WebMarkupContainer( GlobalIds.LAYOUT );
         FourWaySplitter splitter = new FourWaySplitter();
@@ -61,14 +66,18 @@ public class RoleAdminPage extends FortressWebBasePage
         NavPanel navPanel = new NavPanel( GlobalIds.NAVPANEL );
 
         // 2. List Panel:
-        container.add(new AjaxLazyLoadPanel( GlobalIds.ROLELISTPANEL )
-         {
-           @Override
-           public Component getLazyLoadComponent(String id)
-           {
-                return new RoleListPanel(id, isAdmin);
-           }
-         });
+        container.add( new AjaxLazyLoadPanel( GlobalIds.ROLELISTPANEL )
+        {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
+            @Override
+            public Component getLazyLoadComponent( String id )
+            {
+                return new RoleListPanel( id, isAdmin );
+            }
+        } );
 
         // 3. Info Panel:
         InfoPanel infoPanel = new InfoPanel( GlobalIds.INFOPANEL );

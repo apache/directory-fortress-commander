@@ -20,6 +20,7 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import com.googlecode.wicket.kendo.ui.form.datetime.DatePicker;
 import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.SizeUnit;
@@ -63,6 +64,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 /**
  * @author Shawn McKinney
  * @version $Rev$
@@ -70,7 +72,9 @@ import java.util.List;
  */
 public class AuditAuthzListPanel extends FormComponentPanel
 {
-    private static final Logger LOG = Logger.getLogger(AuditAuthzListPanel.class.getName());
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+    private static final Logger LOG = Logger.getLogger( AuditAuthzListPanel.class.getName() );
     private Form listForm;
     private DefaultTreeModel treeModel;
     private DefaultMutableTreeNode node;
@@ -83,50 +87,61 @@ public class AuditAuthzListPanel extends FormComponentPanel
     protected DatePicker endDateDP;
     private Permission permission;
 
-    public AuditAuthzListPanel(String id, UserAudit userAudit )
+
+    public AuditAuthzListPanel( String id, UserAudit userAudit )
     {
-        super(id);
+        super( id );
         init( userAudit );
     }
 
+
     private void init( UserAudit userAudit )
     {
-        AuditAuthzListModel pageModel = new AuditAuthzListModel(userAudit, GlobalUtils.getRbacSession( this ) );
-        setDefaultModel(pageModel);
+        AuditAuthzListModel pageModel = new AuditAuthzListModel( userAudit, GlobalUtils.getRbacSession( this ) );
+        setDefaultModel( pageModel );
         createAndLoadGrid();
-        this.listForm = new Form("authzform");
-        this.listForm.addOrReplace(grid);
+        this.listForm = new Form( "authzform" );
+        this.listForm.addOrReplace( grid );
         this.listForm.setModel( new CompoundPropertyModel<UserAudit>( userAudit ) );
         addEditFields();
         addButtons();
-        add(this.listForm);
+        add( this.listForm );
     }
+
 
     private void addEditFields()
     {
-        userFld = new TextField(GlobalIds.USER_ID);
+        userFld = new TextField( GlobalIds.USER_ID );
         userFld.setOutputMarkupId( true );
         AjaxFormComponentUpdatingBehavior ajaxUpdater = new AjaxFormComponentUpdatingBehavior( GlobalIds.ONBLUR )
         {
-          @Override
-          protected void onUpdate(final AjaxRequestTarget target)
-          {
-              target.add( userFld );
-          }
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
+            @Override
+            protected void onUpdate( final AjaxRequestTarget target )
+            {
+                target.add( userFld );
+            }
         };
         userFld.add( ajaxUpdater );
-        this.listForm.add(userFld);
+        this.listForm.add( userFld );
         addUserSearchModal();
 
         objFld = new TextField( GlobalIds.OBJ_NAME );
         objFld.setOutputMarkupId( true );
         ajaxUpdater = new AjaxFormComponentUpdatingBehavior( GlobalIds.ONBLUR )
         {
-          @Override
-          protected void onUpdate(final AjaxRequestTarget target)
-          {
-              target.add( objFld );
-          }
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
+            @Override
+            protected void onUpdate( final AjaxRequestTarget target )
+            {
+                target.add( objFld );
+            }
         };
         objFld.add( ajaxUpdater );
         this.listForm.add( objFld );
@@ -135,11 +150,15 @@ public class AuditAuthzListPanel extends FormComponentPanel
         opFld.setOutputMarkupId( true );
         ajaxUpdater = new AjaxFormComponentUpdatingBehavior( GlobalIds.ONBLUR )
         {
-          @Override
-          protected void onUpdate(final AjaxRequestTarget target)
-          {
-              target.add( opFld );
-          }
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
+            @Override
+            protected void onUpdate( final AjaxRequestTarget target )
+            {
+                target.add( opFld );
+            }
         };
         opFld.add( ajaxUpdater );
         this.listForm.add( opFld );
@@ -148,11 +167,15 @@ public class AuditAuthzListPanel extends FormComponentPanel
         isAdminCB.setOutputMarkupId( true );
         ajaxUpdater = new AjaxFormComponentUpdatingBehavior( GlobalIds.ONBLUR )
         {
-          @Override
-          protected void onUpdate(final AjaxRequestTarget target)
-          {
-              target.add( isAdminCB );
-          }
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
+            @Override
+            protected void onUpdate( final AjaxRequestTarget target )
+            {
+                target.add( isAdminCB );
+            }
         };
         isAdminCB.add( ajaxUpdater );
         isAdminCB.setRequired( false );
@@ -163,11 +186,15 @@ public class AuditAuthzListPanel extends FormComponentPanel
         failedOnlyCB.setOutputMarkupId( true );
         ajaxUpdater = new AjaxFormComponentUpdatingBehavior( GlobalIds.ONBLUR )
         {
-          @Override
-          protected void onUpdate(final AjaxRequestTarget target)
-          {
-              target.add( failedOnlyCB );
-          }
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
+            @Override
+            protected void onUpdate( final AjaxRequestTarget target )
+            {
+                target.add( failedOnlyCB );
+            }
         };
         failedOnlyCB.add( ajaxUpdater );
         failedOnlyCB.setRequired( false );
@@ -177,68 +204,89 @@ public class AuditAuthzListPanel extends FormComponentPanel
         failedOnlyCB.setEnabled( false );
 
         // Begin Date
-        beginDateDP = new DatePicker(GlobalIds.BEGIN_DATE);
+        beginDateDP = new DatePicker( GlobalIds.BEGIN_DATE );
         beginDateDP.setOutputMarkupId( true );
         ajaxUpdater = new AjaxFormComponentUpdatingBehavior( GlobalIds.ONBLUR )
         {
-          @Override
-          protected void onUpdate(final AjaxRequestTarget target)
-          {
-              target.add( beginDateDP );
-          }
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
+            @Override
+            protected void onUpdate( final AjaxRequestTarget target )
+            {
+                target.add( beginDateDP );
+            }
         };
         beginDateDP.add( ajaxUpdater );
         beginDateDP.setRequired( false );
         this.listForm.add( beginDateDP );
 
         // End Date
-        endDateDP = new DatePicker(GlobalIds.END_DATE);
+        endDateDP = new DatePicker( GlobalIds.END_DATE );
         endDateDP.setOutputMarkupId( true );
         ajaxUpdater = new AjaxFormComponentUpdatingBehavior( GlobalIds.ONBLUR )
         {
-          @Override
-          protected void onUpdate(final AjaxRequestTarget target)
-          {
-              target.add( endDateDP );
-          }
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
+            @Override
+            protected void onUpdate( final AjaxRequestTarget target )
+            {
+                target.add( endDateDP );
+            }
         };
         endDateDP.add( ajaxUpdater );
         endDateDP.setRequired( false );
         this.listForm.add( endDateDP );
     }
 
+
     private void addButtons()
     {
-        this.listForm.add(new SecureIndicatingAjaxButton( GlobalIds.SEARCH, GlobalIds.AUDIT_MGR, GlobalIds.GET_USER_AUTHZS )
+        this.listForm.add( new SecureIndicatingAjaxButton( GlobalIds.SEARCH, GlobalIds.AUDIT_MGR,
+            GlobalIds.GET_USER_AUTHZS )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form form)
+            protected void onSubmit( AjaxRequestTarget target, Form form )
             {
                 LOG.debug( ".search onSubmit" );
-                UserAudit userAudit = (UserAudit)listForm.getModelObject();
-                if(!VUtil.isNotNullOrEmpty(userAudit.getUserId()))
+                UserAudit userAudit = ( UserAudit ) listForm.getModelObject();
+                if ( !VUtil.isNotNullOrEmpty( userAudit.getUserId() ) )
                 {
                     userAudit.setUserId( "" );
                 }
-                if(permission != null)
+                if ( permission != null )
                 {
                     userAudit.setDn( permission.getDn() );
                 }
                 setResponsePage( new AuditAuthzPage( userAudit ) );
             }
 
+
             @Override
-            public void onError(AjaxRequestTarget target, Form form)
+            public void onError( AjaxRequestTarget target, Form form )
             {
                 LOG.warn( ".search.onError" );
                 throw new RuntimeException( "error submitting form" );
             }
+
+
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
             {
                 super.updateAjaxAttributes( attributes );
                 AjaxCallListener ajaxCallListener = new AjaxCallListener()
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     public CharSequence getFailureHandler( Component component )
                     {
@@ -247,26 +295,37 @@ public class AuditAuthzListPanel extends FormComponentPanel
                 };
                 attributes.getAjaxCallListeners().add( ajaxCallListener );
             }
-        });
-        this.listForm.add(new AjaxSubmitLink(GlobalIds.CLEAR)
+        } );
+        this.listForm.add( new AjaxSubmitLink( GlobalIds.CLEAR )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form form)
+            protected void onSubmit( AjaxRequestTarget target, Form form )
             {
                 setResponsePage( new AuditAuthzPage( new UserAudit() ) );
             }
 
+
             @Override
-            public void onError(AjaxRequestTarget target, Form form)
+            public void onError( AjaxRequestTarget target, Form form )
             {
-                LOG.warn("AuditAuthzListPanel.clear.onError");
+                LOG.warn( "AuditAuthzListPanel.clear.onError" );
             }
+
+
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
             {
                 super.updateAjaxAttributes( attributes );
                 AjaxCallListener ajaxCallListener = new AjaxCallListener()
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     public CharSequence getFailureHandler( Component component )
                     {
@@ -275,87 +334,98 @@ public class AuditAuthzListPanel extends FormComponentPanel
                 };
                 attributes.getAjaxCallListeners().add( ajaxCallListener );
             }
-        });
+        } );
     }
+
 
     private void createAndLoadGrid()
     {
         List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>> columns =
             new ArrayList<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>>();
         PropertyColumn reqStart = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("Timestamp"), "userObject.reqStart");
-        reqStart.setInitialSize(200);
-        columns.add(reqStart);
+            Model.of( "Timestamp" ), "userObject.reqStart" );
+        reqStart.setInitialSize( 200 );
+        columns.add( reqStart );
 
         PropertyColumn requAuthzId = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("User ID"), "userObject.reqAuthzID");
-        requAuthzId.setInitialSize(200);
-        columns.add(requAuthzId);
+            Model.of( "User ID" ), "userObject.reqAuthzID" );
+        requAuthzId.setInitialSize( 200 );
+        columns.add( requAuthzId );
 
         PropertyColumn reqAttr = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("Object Name"), "userObject.reqAttr");
-        reqAttr.setInitialSize(300);
-        columns.add(reqAttr);
+            Model.of( "Object Name" ), "userObject.reqAttr" );
+        reqAttr.setInitialSize( 300 );
+        columns.add( reqAttr );
 
         PropertyColumn reqDerefAliases = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("Object ID"), "userObject.reqDerefAliases");
-        reqDerefAliases.setInitialSize(100);
-        columns.add(reqDerefAliases);
+            Model.of( "Object ID" ), "userObject.reqDerefAliases" );
+        reqDerefAliases.setInitialSize( 100 );
+        columns.add( reqDerefAliases );
 
         PropertyColumn reqAttrsOnly = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("Operation"), "userObject.reqAttrsOnly");
-        reqAttrsOnly.setInitialSize(120);
-        columns.add(reqAttrsOnly);
+            Model.of( "Operation" ), "userObject.reqAttrsOnly" );
+        reqAttrsOnly.setInitialSize( 120 );
+        columns.add( reqAttrsOnly );
 
         PropertyColumn reqResult = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("Result"), "userObject.reqResult");
-        reqResult.setInitialSize(80);
-        columns.add(reqResult);
+            Model.of( "Result" ), "userObject.reqResult" );
+        reqResult.setInitialSize( 80 );
+        columns.add( reqResult );
 
-        List<AuthZ> authZs = (List<AuthZ>) getDefaultModel().getObject();
-        treeModel = createTreeModel(authZs);
-        grid = new TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String>("authztreegrid", treeModel, columns)
+        List<AuthZ> authZs = ( List<AuthZ> ) getDefaultModel().getObject();
+        treeModel = createTreeModel( authZs );
+        grid = new TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String>( "authztreegrid", treeModel, columns )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
-            public void selectItem(IModel itemModel, boolean selected)
+            public void selectItem( IModel itemModel, boolean selected )
             {
-                node = (DefaultMutableTreeNode) itemModel.getObject();
-                if(!node.isRoot())
+                node = ( DefaultMutableTreeNode ) itemModel.getObject();
+                if ( !node.isRoot() )
                 {
-                    AuthZ authZ = (AuthZ) node.getUserObject();
+                    AuthZ authZ = ( AuthZ ) node.getUserObject();
                     LOG.debug( "TreeGrid.addGrid.selectItem selected authZ =" + authZ.getReqAuthzID() );
-                    if (super.isItemSelected(itemModel))
+                    if ( super.isItemSelected( itemModel ) )
                     {
                         LOG.debug( "TreeGrid.addGrid.selectItem item is selected" );
-                        super.selectItem(itemModel, false);
+                        super.selectItem( itemModel, false );
                     }
                     else
                     {
-                        super.selectItem(itemModel, true);
-                        SelectModelEvent.send(getPage(), this, authZ);
+                        super.selectItem( itemModel, true );
+                        SelectModelEvent.send( getPage(), this, authZ );
                     }
                 }
             }
         };
 
-        grid.setContentHeight(50, SizeUnit.EM);
-        grid.setAllowSelectMultiple(false);
-        grid.setClickRowToSelect(true);
-        grid.setClickRowToDeselect(false);
-        grid.setSelectToEdit(false);
+        grid.setContentHeight( 50, SizeUnit.EM );
+        grid.setAllowSelectMultiple( false );
+        grid.setClickRowToSelect( true );
+        grid.setClickRowToDeselect( false );
+        grid.setSelectToEdit( false );
         // expand the root node
-        grid.getTreeState().expandNode((TreeNode) treeModel.getRoot());
-        grid.setOutputMarkupId(true);
+        grid.getTreeState().expandNode( ( TreeNode ) treeModel.getRoot() );
+        grid.setOutputMarkupId( true );
     }
+
 
     private void addUserSearchModal()
     {
         final ModalWindow usersModalWindow;
         listForm.add( usersModalWindow = new ModalWindow( "usersearchmodal" ) );
-        final UserSearchModalPanel userSearchModalPanel = new UserSearchModalPanel( usersModalWindow.getContentId(), usersModalWindow );
+        final UserSearchModalPanel userSearchModalPanel = new UserSearchModalPanel( usersModalWindow.getContentId(),
+            usersModalWindow );
         usersModalWindow.setContent( userSearchModalPanel );
         usersModalWindow.setWindowClosedCallback( new ModalWindow.WindowClosedCallback()
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             public void onClose( AjaxRequestTarget target )
             {
@@ -363,7 +433,7 @@ public class AuditAuthzListPanel extends FormComponentPanel
                 if ( userSelection != null )
                 {
                     LOG.debug( "modal selected:" + userSelection.getUserId() );
-                    UserAudit userAudit = (UserAudit)listForm.getModelObject();
+                    UserAudit userAudit = ( UserAudit ) listForm.getModelObject();
                     userAudit.setUserId( userSelection.getUserId() );
                     target.add( userFld );
                 }
@@ -371,9 +441,13 @@ public class AuditAuthzListPanel extends FormComponentPanel
         } );
         listForm.add( new SecureIndicatingAjaxLink( "userAssignLinkLbl", GlobalIds.REVIEW_MGR, GlobalIds.FIND_USERS )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             public void onClick( AjaxRequestTarget target )
             {
-                UserAudit userAudit = (UserAudit)listForm.getModelObject();
+                UserAudit userAudit = ( UserAudit ) listForm.getModelObject();
                 String msg = "clicked on users search";
                 msg += "userSelection: " + userAudit.getUserId();
                 userSearchModalPanel.setSearchVal( userAudit.getUserId() );
@@ -381,12 +455,18 @@ public class AuditAuthzListPanel extends FormComponentPanel
                 target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                 usersModalWindow.show( target );
             }
+
+
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
             {
                 super.updateAjaxAttributes( attributes );
                 AjaxCallListener ajaxCallListener = new AjaxCallListener()
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     public CharSequence getFailureHandler( Component component )
                     {
@@ -402,22 +482,28 @@ public class AuditAuthzListPanel extends FormComponentPanel
         usersModalWindow.setCookieName( "user-search-modal" );
     }
 
+
     private void addPermSearchModal()
     {
         final ModalWindow permsModalWindow;
-        UserAudit userAudit = (UserAudit)listForm.getModelObject();
+        UserAudit userAudit = ( UserAudit ) listForm.getModelObject();
         listForm.add( permsModalWindow = new ModalWindow( "permsearchmodal" ) );
-        final PermSearchModalPanel permSearchModalPanel = new PermSearchModalPanel( permsModalWindow.getContentId(), permsModalWindow, userAudit.isAdmin() );
+        final PermSearchModalPanel permSearchModalPanel = new PermSearchModalPanel( permsModalWindow.getContentId(),
+            permsModalWindow, userAudit.isAdmin() );
         permsModalWindow.setContent( permSearchModalPanel );
         permsModalWindow.setWindowClosedCallback( new ModalWindow.WindowClosedCallback()
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             public void onClose( AjaxRequestTarget target )
             {
                 Permission permSelection = permSearchModalPanel.getSelection();
                 if ( permSelection != null )
                 {
-                    UserAudit userAudit = (UserAudit)listForm.getModelObject();
+                    UserAudit userAudit = ( UserAudit ) listForm.getModelObject();
                     LOG.debug( "modal selected:" + permSelection.getAbstractName() );
                     permission = permSelection;
                     userAudit.setObjName( permSelection.getObjName() );
@@ -429,9 +515,13 @@ public class AuditAuthzListPanel extends FormComponentPanel
         } );
         listForm.add( new SecureIndicatingAjaxLink( "permLinkLbl", GlobalIds.REVIEW_MGR, GlobalIds.FIND_PERMISSIONS )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             public void onClick( AjaxRequestTarget target )
             {
-                UserAudit userAudit = (UserAudit)listForm.getModelObject();
+                UserAudit userAudit = ( UserAudit ) listForm.getModelObject();
                 String msg = "clicked on perms search";
                 msg += "permSelection: " + permission;
                 permSearchModalPanel.setSearchVal( userAudit.getObjName() );
@@ -440,12 +530,18 @@ public class AuditAuthzListPanel extends FormComponentPanel
                 target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                 permsModalWindow.show( target );
             }
+
+
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
             {
                 super.updateAjaxAttributes( attributes );
                 AjaxCallListener ajaxCallListener = new AjaxCallListener()
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     public CharSequence getFailureHandler( Component component )
                     {
@@ -456,7 +552,7 @@ public class AuditAuthzListPanel extends FormComponentPanel
             }
         } );
         String title;
-        if(userAudit.isAdmin())
+        if ( userAudit.isAdmin() )
             title = "Admin Permission Search Modal";
         else
             title = "RBAC Permission Search Modal";
@@ -467,58 +563,60 @@ public class AuditAuthzListPanel extends FormComponentPanel
         permsModalWindow.setCookieName( "perm-search-modal" );
     }
 
-    private DefaultTreeModel createTreeModel(List<AuthZ> authZs)
+
+    private DefaultTreeModel createTreeModel( List<AuthZ> authZs )
     {
         DefaultTreeModel model;
         AuthZ root = new AuthZ();
         //root.setReqStart( "Authorizations" );
-        rootNode = new DefaultMutableTreeNode(root);
-        model = new DefaultTreeModel(rootNode);
-        if (authZs == null)
-            LOG.debug("no Authorizations found");
+        rootNode = new DefaultMutableTreeNode( root );
+        model = new DefaultTreeModel( rootNode );
+        if ( authZs == null )
+            LOG.debug( "no Authorizations found" );
         else
         {
-            LOG.debug("AuthZ found:" + authZs.size());
-            info("Loading " + authZs.size() + " objects into list panel");
+            LOG.debug( "AuthZ found:" + authZs.size() );
+            info( "Loading " + authZs.size() + " objects into list panel" );
             loadTree( authZs );
         }
         return model;
     }
 
-    private void loadTree(List<AuthZ> authZs)
+
+    private void loadTree( List<AuthZ> authZs )
     {
-        for (AuthZ authZ : authZs)
+        for ( AuthZ authZ : authZs )
         {
             Date start = null;
             try
             {
                 start = AttrHelper.decodeGeneralizedTime( authZ.getReqStart() );
             }
-            catch (ParseException pe)
+            catch ( ParseException pe )
             {
                 LOG.warn( "ParseException=" + pe.getMessage() );
             }
-            if(start != null)
+            if ( start != null )
             {
                 SimpleDateFormat formatter = new SimpleDateFormat( GlobalIds.AUDIT_TIMESTAMP_FORMAT );
-                String formattedDate = formatter.format(start);
+                String formattedDate = formatter.format( start );
                 authZ.setReqStart( formattedDate );
             }
             authZ.setReqResult( GlobalIds.FAILURE );
-/*
-            TODO: On RC40 - Replace above line with the following:
-            if(VUtil.isNotNullOrEmpty( authZ.getReqAssertion() ) && (authZ.getReqAssertion().equals( org.apache.directory.fortress.core.GlobalIds.AUTH_Z_FAILED_VALUE ) ) )
-            {
-                authZ.setReqResult( GlobalIds.FAILURE );
-            }
-            else
-            {
-                authZ.setReqResult( GlobalIds.SUCCESS );
-            }
-*/
+            /*
+                        TODO: On RC40 - Replace above line with the following:
+                        if(VUtil.isNotNullOrEmpty( authZ.getReqAssertion() ) && (authZ.getReqAssertion().equals( org.apache.directory.fortress.core.GlobalIds.AUTH_Z_FAILED_VALUE ) ) )
+                        {
+                            authZ.setReqResult( GlobalIds.FAILURE );
+                        }
+                        else
+                        {
+                            authZ.setReqResult( GlobalIds.SUCCESS );
+                        }
+            */
             authZ.setReqAuthzID( GlobalUtils.getAuthZId( authZ.getReqAuthzID() ) );
             GlobalUtils.mapAuthZPerm( authZ );
-            rootNode.add(new DefaultMutableTreeNode(authZ));
+            rootNode.add( new DefaultMutableTreeNode( authZ ) );
         }
     }
 }

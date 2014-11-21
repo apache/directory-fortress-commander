@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.web;
 
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
@@ -32,13 +33,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
+
 /**
  * @author Shawn McKinney
  * @version $Rev$
  */
 public final class LoginPage extends FortressWebBasePage
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger( LoginPage.class.getName() );
+
 
     public LoginPage()
     {
@@ -48,8 +53,11 @@ public final class LoginPage extends FortressWebBasePage
 
     public class LoginPageForm extends Form
     {
+        /** Default serialVersionUID */
+        private static final long serialVersionUID = 1L;
         private String pswdField;
         private String userId;
+
 
         public LoginPageForm( String id )
         {
@@ -68,6 +76,7 @@ public final class LoginPage extends FortressWebBasePage
             pw.setRequired( false );
             add( pw );
         }
+
 
         @Override
         protected void onSubmit()
@@ -88,7 +97,7 @@ public final class LoginPage extends FortressWebBasePage
                     {
                         String error = "Login form caught ServletException=" + se;
                         LOG.error( error );
-                        getRequestCycle().replaceAllRequestHandlers(new RedirectRequestHandler("/login/error.html"));
+                        getRequestCycle().replaceAllRequestHandlers( new RedirectRequestHandler( "/login/error.html" ) );
                     }
                 }
                 else

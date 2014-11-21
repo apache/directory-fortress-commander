@@ -20,6 +20,7 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.Form;
@@ -36,14 +37,18 @@ import org.apache.wicket.markup.html.basic.Label;
  */
 public class InfoPanel extends FormComponentPanel
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     private static final String CLS_NM = InfoPanel.class.getName();
     private static final Logger log = Logger.getLogger( CLS_NM );
     private Form infoForm;
+
 
     public Displayable getDisplay()
     {
         return ( Displayable ) this.infoForm;
     }
+
 
     public InfoPanel( String id )
     {
@@ -51,11 +56,13 @@ public class InfoPanel extends FormComponentPanel
         init( "ready to accept input" );
     }
 
+
     public InfoPanel( String id, String msg )
     {
         super( id );
         init( msg );
     }
+
 
     private void init( String msg )
     {
@@ -66,9 +73,12 @@ public class InfoPanel extends FormComponentPanel
 
     public class InfoForm extends Form implements Displayable
     {
+        /** Default serialVersionUID */
+        private static final long serialVersionUID = 1L;
         private Label infoTextField;
         private FeedbackPanel feedbackPanel;
         private String infoField;
+
 
         @Override
         public void onError()
@@ -76,11 +86,13 @@ public class InfoPanel extends FormComponentPanel
             log.debug( "InfoPanel.onError" );
         }
 
+
         @Override
         public void onSubmit()
         {
             log.debug( "InfoPanel.onSubmit message: " + infoField );
         }
+
 
         public InfoForm( String id, final String message )
         {
@@ -95,11 +107,13 @@ public class InfoPanel extends FormComponentPanel
             add( feedbackPanel );
         }
 
+
         @Override
         public void setMessage( String message )
         {
             infoField = message;
         }
+
 
         @Override
         public void display()
@@ -108,6 +122,7 @@ public class InfoPanel extends FormComponentPanel
             add( infoTextField );
             add( feedbackPanel );
         }
+
 
         @Override
         public void display( AjaxRequestTarget target )

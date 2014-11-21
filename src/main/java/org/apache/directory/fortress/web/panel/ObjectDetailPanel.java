@@ -20,6 +20,7 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import com.googlecode.wicket.kendo.ui.form.button.AjaxButton;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
@@ -53,6 +54,8 @@ import org.apache.directory.fortress.core.rbac.PermObj;
  */
 public class ObjectDetailPanel extends FormComponentPanel
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     @SpringBean
     private AdminMgr adminMgr;
     private static final Logger log = Logger.getLogger( ObjectDetailPanel.class.getName() );
@@ -61,16 +64,18 @@ public class ObjectDetailPanel extends FormComponentPanel
     private boolean isAdmin;
     private String objName;
 
+
     public Form getForm()
     {
         return this.editForm;
     }
 
+
     public ObjectDetailPanel( String id, Displayable display, boolean isAdmin )
     {
         super( id );
         this.isAdmin = isAdmin;
-        if(isAdmin)
+        if ( isAdmin )
             objName = GlobalIds.DEL_ADMIN_MGR;
         else
             objName = GlobalIds.ADMIN_MGR;
@@ -83,14 +88,21 @@ public class ObjectDetailPanel extends FormComponentPanel
 
     public class ObjectDetailForm extends Form
     {
+        /** Default serialVersionUID */
+        private static final long serialVersionUID = 1L;
         private Component component;
         private TextField ouTF;
+
 
         public ObjectDetailForm( String id, final IModel<PermObj> model )
         {
             super( id, model );
             add( new SecureIndicatingAjaxButton( GlobalIds.ADD, GlobalIds.ADMIN_MGR, "addPermObj" )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
@@ -114,18 +126,25 @@ public class ObjectDetailPanel extends FormComponentPanel
                     }
                 }
 
+
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.info( "ObjectDetailPanel.add.onError caught" );
                     target.add();
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -137,6 +156,10 @@ public class ObjectDetailPanel extends FormComponentPanel
             } );
             add( new SecureIndicatingAjaxButton( GlobalIds.COMMIT, GlobalIds.ADMIN_MGR, "updatePermObj" )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
@@ -160,17 +183,24 @@ public class ObjectDetailPanel extends FormComponentPanel
                     }
                 }
 
+
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "ObjectDetailPanel.commit.onError" );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -182,6 +212,10 @@ public class ObjectDetailPanel extends FormComponentPanel
             } );
             add( new SecureIndicatingAjaxButton( GlobalIds.DELETE, GlobalIds.ADMIN_MGR, "deletePermObj" )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
@@ -207,17 +241,24 @@ public class ObjectDetailPanel extends FormComponentPanel
                     }
                 }
 
+
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "ObjectDetailPanel.delete.onError" );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -229,6 +270,10 @@ public class ObjectDetailPanel extends FormComponentPanel
             } );
             add( new AjaxSubmitLink( GlobalIds.CANCEL )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
@@ -239,17 +284,24 @@ public class ObjectDetailPanel extends FormComponentPanel
                     display.setMessage( msg );
                 }
 
+
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "ObjectDetailPanel.cancel.onError" );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -260,7 +312,7 @@ public class ObjectDetailPanel extends FormComponentPanel
                 }
             } );
 
-            if(isAdmin)
+            if ( isAdmin )
             {
                 add( new Label( "objAssignmentsLabel", "Administrative Permission Object Detail" ) );
             }
@@ -298,6 +350,10 @@ public class ObjectDetailPanel extends FormComponentPanel
             ousModalWindow.setContent( ouSearchModalPanel );
             ousModalWindow.setWindowClosedCallback( new ModalWindow.WindowClosedCallback()
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 public void onClose( AjaxRequestTarget target )
                 {
@@ -315,6 +371,7 @@ public class ObjectDetailPanel extends FormComponentPanel
             {
                 private static final long serialVersionUID = 1L;
 
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
@@ -327,12 +384,18 @@ public class ObjectDetailPanel extends FormComponentPanel
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     ousModalWindow.show( target );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -357,7 +420,7 @@ public class ObjectDetailPanel extends FormComponentPanel
             {
                 SelectModelEvent modelEvent = ( SelectModelEvent ) event.getPayload();
                 PermObj permObj = ( PermObj ) modelEvent.getEntity();
-                this.setModelObject(permObj);
+                this.setModelObject( permObj );
                 String msg = "PermObject Name: " + permObj.getObjName() + " has been selected";
                 log.debug( msg );
                 component = editForm;

@@ -20,7 +20,9 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import java.io.Serializable;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,23 +33,29 @@ import java.io.Serializable;
  */
 public class Member implements Serializable
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     private String userDn;
     private int index;
+
 
     public String getUserDn()
     {
         return userDn;
     }
 
+
     public void setUserDn( String userDn )
     {
         this.userDn = userDn;
     }
 
+
     public int getIndex()
     {
         return index;
     }
+
 
     public void setIndex( int index )
     {

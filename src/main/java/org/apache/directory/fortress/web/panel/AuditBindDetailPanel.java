@@ -20,6 +20,7 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import org.apache.directory.fortress.web.GlobalUtils;
 import org.apache.directory.fortress.web.SelectModelEvent;
 import org.apache.log4j.Logger;
@@ -38,6 +39,7 @@ import org.apache.directory.fortress.core.rbac.Bind;
 import org.apache.directory.fortress.core.rbac.User;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
+
 /**
  * @author Shawn McKinney
  * @version $Rev$
@@ -45,72 +47,83 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  */
 public class AuditBindDetailPanel extends FormComponentPanel
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     @SpringBean
     private AuditMgr auditMgr;
     @SpringBean
     private ReviewMgr reviewMgr;
-    private static final Logger LOG = Logger.getLogger(AuditBindDetailPanel.class.getName());
+    private static final Logger LOG = Logger.getLogger( AuditBindDetailPanel.class.getName() );
     private Form detailForm;
     private Displayable display;
     private UserAuditDetailPanel userPanel;
+
 
     public Form getForm()
     {
         return this.detailForm;
     }
 
+
     public AuditBindDetailPanel( String id, Displayable display )
     {
-        super(id);
+        super( id );
         this.auditMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
         this.reviewMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
-        this.detailForm = new AuditBindDetailForm( GlobalIds.DETAIL_FIELDS, new CompoundPropertyModel<Bind>(new Bind()));
+        this.detailForm = new AuditBindDetailForm( GlobalIds.DETAIL_FIELDS,
+            new CompoundPropertyModel<Bind>( new Bind() ) );
         this.display = display;
         add( detailForm );
     }
 
     public class AuditBindDetailForm extends Form
     {
+        /** Default serialVersionUID */
+        private static final long serialVersionUID = 1L;
         private Component component;
 
-        public AuditBindDetailForm(String id, final IModel<Bind> model)
+
+        public AuditBindDetailForm( String id, final IModel<Bind> model )
         {
-            super(id, model);
+            super( id, model );
             add( new Label( GlobalIds.REQ_DN ) );
             add( new Label( GlobalIds.REQ_RESULT ) );
-            add(  new Label( GlobalIds.REQ_START ) );
-            userPanel = new UserAuditDetailPanel( GlobalIds.USERAUDITDETAILPANEL, new CompoundPropertyModel<User>(new User()) );
+            add( new Label( GlobalIds.REQ_START ) );
+            userPanel = new UserAuditDetailPanel( GlobalIds.USERAUDITDETAILPANEL, new CompoundPropertyModel<User>(
+                new User() ) );
             add( userPanel );
             setOutputMarkupId( true );
         }
 
+
         @Override
-        public void onEvent(final IEvent<?> event)
+        public void onEvent( final IEvent<?> event )
         {
-            if (event.getPayload() instanceof SelectModelEvent )
+            if ( event.getPayload() instanceof SelectModelEvent )
             {
-                SelectModelEvent modelEvent = (SelectModelEvent) event.getPayload();
-                Bind bind = (Bind) modelEvent.getEntity();
-                this.setModelObject(bind);
+                SelectModelEvent modelEvent = ( SelectModelEvent ) event.getPayload();
+                Bind bind = ( Bind ) modelEvent.getEntity();
+                this.setModelObject( bind );
                 String msg = "Bind: " + bind.getReqDN() + " has been selected";
                 LOG.debug( ".onEvent SelectModelEvent: " + bind.getReqDN() );
-                display.setMessage(msg);
+                display.setMessage( msg );
                 component = detailForm;
 
             }
-            else if (event.getPayload() instanceof AjaxRequestTarget)
+            else if ( event.getPayload() instanceof AjaxRequestTarget )
             {
                 // only add the form to ajax target if something has changed...
-                if (component != null)
+                if ( component != null )
                 {
-                    AjaxRequestTarget target = ((AjaxRequestTarget) event.getPayload());
+                    AjaxRequestTarget target = ( ( AjaxRequestTarget ) event.getPayload() );
                     LOG.debug( ".onEvent AjaxRequestTarget: " + target.toString() );
-                    target.add(component);
+                    target.add( component );
                     component = null;
                 }
-                display.display((AjaxRequestTarget) event.getPayload());
+                display.display( ( AjaxRequestTarget ) event.getPayload() );
             }
         }
+
 
         @Override
         protected void onBeforeRender()
@@ -119,16 +132,16 @@ public class AuditBindDetailPanel extends FormComponentPanel
             {
                 User user = null;
                 // necessary to push the 'changed' model down into the aggregated panel:
-                Bind bind = (Bind)detailForm.getModelObject();
-                if( VUtil.isNotNullOrEmpty( bind.getReqDN() ))
+                Bind bind = ( Bind ) detailForm.getModelObject();
+                if ( VUtil.isNotNullOrEmpty( bind.getReqDN() ) )
                 {
-                    user = GlobalUtils.getUser(reviewMgr, bind.getReqDN());
+                    user = GlobalUtils.getUser( reviewMgr, bind.getReqDN() );
                 }
-                if(user == null)
+                if ( user == null )
                 {
                     user = new User();
                 }
-                IModel<User> userModel = new CompoundPropertyModel<User>(user);
+                IModel<User> userModel = new CompoundPropertyModel<User>( user );
                 userPanel.setDefaultModel( userModel );
             }
             else

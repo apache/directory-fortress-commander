@@ -19,10 +19,12 @@
  */
 package org.apache.directory.fortress.web;
 
+
 import com.googlecode.wicket.jquery.ui.form.button.IndicatingAjaxButton;
 import org.apache.directory.fortress.core.rbac.Permission;
 
 import javax.servlet.http.HttpServletRequest;
+
 
 /**
  * ...
@@ -33,18 +35,23 @@ import javax.servlet.http.HttpServletRequest;
 @Authorizable
 public class SecureIndicatingAjaxButton extends IndicatingAjaxButton
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+
+
     public SecureIndicatingAjaxButton( String id, String objName, String opName )
     {
         super( id );
-        if(!GlobalUtils.isFound( new Permission(objName, opName), this ))
+        if ( !GlobalUtils.isFound( new Permission( objName, opName ), this ) )
             setVisible( false );
     }
+
 
     public SecureIndicatingAjaxButton( String id, String roleName )
     {
         super( id );
         HttpServletRequest servletReq = ( HttpServletRequest ) getRequest().getContainerRequest();
-        if( ! GlobalUtils.isAuthorized( roleName, servletReq ) )
+        if ( !GlobalUtils.isAuthorized( roleName, servletReq ) )
             setVisible( false );
     }
 }

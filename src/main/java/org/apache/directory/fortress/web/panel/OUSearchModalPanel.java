@@ -20,6 +20,7 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -38,6 +39,7 @@ import org.apache.directory.fortress.web.GlobalUtils;
 import org.apache.directory.fortress.core.DelReviewMgr;
 import org.apache.directory.fortress.core.rbac.OrgUnit;
 
+
 /**
  *
  * @author Shawn McKinney
@@ -45,18 +47,21 @@ import org.apache.directory.fortress.core.rbac.OrgUnit;
  */
 public class OUSearchModalPanel extends Panel
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     @SpringBean
     private DelReviewMgr delReviewMgr;
-    private static final Logger LOG = Logger.getLogger(OUSearchModalPanel.class.getName());
+    private static final Logger LOG = Logger.getLogger( OUSearchModalPanel.class.getName() );
     private ModalWindow window;
     private OrgUnit ouSelection;
     private String ouSearchVal;
     private boolean isUser;
 
+
     /**
      * @param id
      */
-    public OUSearchModalPanel( String id, ModalWindow window, boolean isUser)
+    public OUSearchModalPanel( String id, ModalWindow window, boolean isUser )
     {
         super( id );
         this.delReviewMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
@@ -64,6 +69,7 @@ public class OUSearchModalPanel extends Panel
         this.isUser = isUser;
         loadPanel();
     }
+
 
     public void loadPanel()
     {
@@ -73,10 +79,15 @@ public class OUSearchModalPanel extends Panel
         add( new AjaxPagingNavigator( "navigator", ouView ) );
     }
 
+
     private PageableListView createListView( final LoadableDetachableModel requests )
     {
         final PageableListView listView = new PageableListView( "dataview", requests, 16 )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             protected void populateItem( final ListItem item )
             {
@@ -85,8 +96,9 @@ public class OUSearchModalPanel extends Panel
                 {
                     private static final long serialVersionUID = 1L;
 
+
                     @Override
-                    public void onClick(AjaxRequestTarget target)
+                    public void onClick( AjaxRequestTarget target )
                     {
                         ouSelection = modelObject;
                         window.close( target );
@@ -99,10 +111,15 @@ public class OUSearchModalPanel extends Panel
         return listView;
     }
 
+
     private LoadableDetachableModel getListViewModel()
     {
         final LoadableDetachableModel ret = new LoadableDetachableModel()
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             protected Object load()
             {
@@ -110,9 +127,9 @@ public class OUSearchModalPanel extends Panel
                 try
                 {
                     ouSelection = null;
-                    if(ouSearchVal == null)
+                    if ( ouSearchVal == null )
                         ouSearchVal = "";
-                    if(isUser)
+                    if ( isUser )
                         ous = delReviewMgr.search( OrgUnit.Type.USER, ouSearchVal );
                     else
                         ous = delReviewMgr.search( OrgUnit.Type.PERM, ouSearchVal );
@@ -128,10 +145,12 @@ public class OUSearchModalPanel extends Panel
         return ret;
     }
 
+
     public OrgUnit getSelection()
     {
         return ouSelection;
     }
+
 
     public void setSearchVal( String ouSearchVal )
     {

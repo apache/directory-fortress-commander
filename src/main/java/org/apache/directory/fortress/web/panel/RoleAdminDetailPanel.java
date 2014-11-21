@@ -20,6 +20,7 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import com.googlecode.wicket.kendo.ui.form.button.AjaxButton;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
 import org.apache.log4j.Logger;
@@ -42,6 +43,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
 
 import java.util.List;
 
+
 /**
  * @author Shawn McKinney
  * @version $Rev$
@@ -49,6 +51,8 @@ import java.util.List;
  */
 public class RoleAdminDetailPanel extends Panel
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger( RoleAdminDetailPanel.class.getName() );
     public static final String PERMOU_SELECTION = "permouSelection";
     public static final String USEROU_SELECTION = "userouSelection";
@@ -61,6 +65,7 @@ public class RoleAdminDetailPanel extends Panel
     private TextField endRangeTF;
     private String userouSelection;
     private String permouSelection;
+
 
     public RoleAdminDetailPanel( String id, final IModel roleModel )
     {
@@ -99,6 +104,7 @@ public class RoleAdminDetailPanel extends Panel
         setOutputMarkupId( true );
     }
 
+
     private void addPermOUSearchModal()
     {
         final ModalWindow permousModalWindow;
@@ -108,6 +114,10 @@ public class RoleAdminDetailPanel extends Panel
         permousModalWindow.setContent( permouSearchModalPanel );
         permousModalWindow.setWindowClosedCallback( new ModalWindow.WindowClosedCallback()
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             public void onClose( AjaxRequestTarget target )
             {
@@ -115,7 +125,7 @@ public class RoleAdminDetailPanel extends Panel
                 if ( ou != null )
                 {
                     permouSelection = ou.getName();
-                    AdminRole adminRole = (AdminRole)getDefaultModelObject();
+                    AdminRole adminRole = ( AdminRole ) getDefaultModelObject();
                     adminRole.setOsP( permouSelection );
                     target.add( permouCB );
                 }
@@ -124,6 +134,10 @@ public class RoleAdminDetailPanel extends Panel
 
         add( new AjaxButton( GlobalIds.PERMOU_SEARCH )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             protected void onSubmit( AjaxRequestTarget target, Form<?> form )
             {
@@ -135,12 +149,17 @@ public class RoleAdminDetailPanel extends Panel
                 permousModalWindow.show( target );
             }
 
+
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
             {
                 super.updateAjaxAttributes( attributes );
                 AjaxCallListener ajaxCallListener = new AjaxCallListener()
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     public CharSequence getFailureHandler( Component component )
                     {
@@ -158,6 +177,10 @@ public class RoleAdminDetailPanel extends Panel
 
         add( new AjaxButton( "permou.delete" )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             protected void onSubmit( AjaxRequestTarget target, Form<?> form )
             {
@@ -186,12 +209,17 @@ public class RoleAdminDetailPanel extends Panel
                 LOG.debug( msg );
             }
 
+
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
             {
                 super.updateAjaxAttributes( attributes );
                 AjaxCallListener ajaxCallListener = new AjaxCallListener()
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     public CharSequence getFailureHandler( Component component )
                     {
@@ -203,6 +231,7 @@ public class RoleAdminDetailPanel extends Panel
         } );
     }
 
+
     private void addUserOUSearchModal()
     {
         final ModalWindow userousModalWindow;
@@ -212,6 +241,10 @@ public class RoleAdminDetailPanel extends Panel
         userousModalWindow.setContent( userouSearchModalPanel );
         userousModalWindow.setWindowClosedCallback( new ModalWindow.WindowClosedCallback()
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             public void onClose( AjaxRequestTarget target )
             {
@@ -219,7 +252,7 @@ public class RoleAdminDetailPanel extends Panel
                 if ( ou != null )
                 {
                     userouSelection = ou.getName();
-                    AdminRole adminRole = (AdminRole)getDefaultModelObject();
+                    AdminRole adminRole = ( AdminRole ) getDefaultModelObject();
                     adminRole.setOsU( userouSelection );
                     target.add( userouCB );
                 }
@@ -228,6 +261,10 @@ public class RoleAdminDetailPanel extends Panel
 
         add( new AjaxButton( GlobalIds.USEROU_SEARCH )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             protected void onSubmit( AjaxRequestTarget target, Form<?> form )
             {
@@ -239,12 +276,17 @@ public class RoleAdminDetailPanel extends Panel
                 userousModalWindow.show( target );
             }
 
+
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
             {
                 super.updateAjaxAttributes( attributes );
                 AjaxCallListener ajaxCallListener = new AjaxCallListener()
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     public CharSequence getFailureHandler( Component component )
                     {
@@ -262,6 +304,10 @@ public class RoleAdminDetailPanel extends Panel
 
         add( new AjaxButton( "userou.delete" )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             protected void onSubmit( AjaxRequestTarget target, Form<?> form )
             {
@@ -290,12 +336,17 @@ public class RoleAdminDetailPanel extends Panel
                 LOG.debug( msg );
             }
 
+
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
             {
                 super.updateAjaxAttributes( attributes );
                 AjaxCallListener ajaxCallListener = new AjaxCallListener()
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     public CharSequence getFailureHandler( Component component )
                     {
@@ -307,14 +358,20 @@ public class RoleAdminDetailPanel extends Panel
         } );
     }
 
+
     private void addBeginRoleSearchModal()
     {
         final ModalWindow beginRoleModalWindow;
         add( beginRoleModalWindow = new ModalWindow( "beginrolesmodal" ) );
-        final RoleSearchModalPanel beginRoleSearchModalPanel = new RoleSearchModalPanel( beginRoleModalWindow.getContentId(), beginRoleModalWindow, false );
+        final RoleSearchModalPanel beginRoleSearchModalPanel = new RoleSearchModalPanel(
+            beginRoleModalWindow.getContentId(), beginRoleModalWindow, false );
         beginRoleModalWindow.setContent( beginRoleSearchModalPanel );
         beginRoleModalWindow.setWindowClosedCallback( new ModalWindow.WindowClosedCallback()
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             public void onClose( AjaxRequestTarget target )
             {
@@ -330,6 +387,10 @@ public class RoleAdminDetailPanel extends Panel
 
         add( new AjaxButton( GlobalIds.BEGIN_RANGE_SEARCH )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             protected void onSubmit( AjaxRequestTarget target, Form<?> form )
             {
@@ -339,12 +400,17 @@ public class RoleAdminDetailPanel extends Panel
                 beginRoleModalWindow.show( target );
             }
 
+
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
             {
                 super.updateAjaxAttributes( attributes );
                 AjaxCallListener ajaxCallListener = new AjaxCallListener()
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     public CharSequence getFailureHandler( Component component )
                     {
@@ -361,14 +427,20 @@ public class RoleAdminDetailPanel extends Panel
         beginRoleModalWindow.setCookieName( ROLE_ASSIGN_MODAL );
     }
 
+
     private void addEndRoleSearchModal()
     {
         final ModalWindow endRoleModalWindow;
         add( endRoleModalWindow = new ModalWindow( "endrolesmodal" ) );
-        final RoleSearchModalPanel endRoleSearchModalPanel = new RoleSearchModalPanel( endRoleModalWindow.getContentId(), endRoleModalWindow, false );
+        final RoleSearchModalPanel endRoleSearchModalPanel = new RoleSearchModalPanel(
+            endRoleModalWindow.getContentId(), endRoleModalWindow, false );
         endRoleModalWindow.setContent( endRoleSearchModalPanel );
         endRoleModalWindow.setWindowClosedCallback( new ModalWindow.WindowClosedCallback()
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             public void onClose( AjaxRequestTarget target )
             {
@@ -384,6 +456,10 @@ public class RoleAdminDetailPanel extends Panel
 
         add( new AjaxButton( GlobalIds.END_RANGE_SEARCH )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             protected void onSubmit( AjaxRequestTarget target, Form<?> form )
             {
@@ -394,12 +470,17 @@ public class RoleAdminDetailPanel extends Panel
                 endRoleModalWindow.show( target );
             }
 
+
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
             {
                 super.updateAjaxAttributes( attributes );
                 AjaxCallListener ajaxCallListener = new AjaxCallListener()
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     public CharSequence getFailureHandler( Component component )
                     {
@@ -416,6 +497,7 @@ public class RoleAdminDetailPanel extends Panel
         endRoleModalWindow.setCookieName( ROLE_ASSIGN_MODAL );
     }
 
+
     /**
      * This api is needed for this class {@link org.apache.directory.fortress.web.panel.RoleDetailPanel} to 'push' its model value into this panel's combo box.
      *
@@ -428,6 +510,7 @@ public class RoleAdminDetailPanel extends Panel
         permouSelection = "";
         addOrReplace( permouCB );
     }
+
 
     /**
      * This api is needed for this class {@link org.apache.directory.fortress.web.panel.RoleDetailPanel} to 'push' its model value into this panel's combo box.

@@ -20,12 +20,14 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.FormComponentPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.directory.fortress.web.GlobalIds;
 import org.apache.directory.fortress.core.rbac.User;
+
 
 /**
  * @author Shawn McKinney
@@ -34,11 +36,14 @@ import org.apache.directory.fortress.core.rbac.User;
  */
 public class UserAuditDetailPanel extends FormComponentPanel
 {
-    private static final Logger LOG = Logger.getLogger(UserAuditDetailPanel.class.getName());
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+    private static final Logger LOG = Logger.getLogger( UserAuditDetailPanel.class.getName() );
 
-    public UserAuditDetailPanel(String id, final IModel userModel)
+
+    public UserAuditDetailPanel( String id, final IModel userModel )
     {
-        super(id, userModel);
+        super( id, userModel );
         add( new Label( GlobalIds.USER_ID ) );
         add( new Label( GlobalIds.DESCRIPTION ) );
         add( new Label( GlobalIds.NAME ) );
@@ -50,10 +55,14 @@ public class UserAuditDetailPanel extends FormComponentPanel
         add( new Label( GlobalIds.ADDRESS_COUNTRY ) );
         add( new JpegImage( GlobalIds.JPEGPHOTO )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             protected byte[] getPhoto()
             {
-                User user = (User)getModelObject();
+                User user = ( User ) getModelObject();
                 return user.getJpegPhoto();
             }
         } );

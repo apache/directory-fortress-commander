@@ -36,8 +36,11 @@ import java.util.List;
  */
 public class RbacSession extends WebSession
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     private Session session;
     private List<Permission> permissions;
+
 
     /**
      * Constructor. Note that {@link org.apache.wicket.request.cycle.RequestCycle} is not available until this
@@ -50,20 +53,24 @@ public class RbacSession extends WebSession
         super( request );
     }
 
+
     public Session getRbacSession()
     {
         return session;
     }
+
 
     public void setSession( Session session )
     {
         this.session = session;
     }
 
+
     public List<Permission> getPermissions()
     {
         return permissions;
     }
+
 
     public void setPermissions( List<Permission> permissions )
     {

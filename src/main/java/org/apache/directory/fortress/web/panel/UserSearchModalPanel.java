@@ -20,6 +20,7 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -39,6 +40,7 @@ import org.apache.directory.fortress.web.GlobalUtils;
 import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.rbac.User;
 
+
 /**
  *
  * @author Shawn McKinney
@@ -46,17 +48,20 @@ import org.apache.directory.fortress.core.rbac.User;
  */
 public class UserSearchModalPanel extends Panel
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     @SpringBean
     private ReviewMgr reviewMgr;
-    private static final Logger LOG = Logger.getLogger(UserSearchModalPanel.class.getName());
+    private static final Logger LOG = Logger.getLogger( UserSearchModalPanel.class.getName() );
     private ModalWindow window;
     private User userSelection;
     private String userSearchVal;
 
+
     /**
      * @param id
      */
-    public UserSearchModalPanel( String id, ModalWindow window)
+    public UserSearchModalPanel( String id, ModalWindow window )
     {
         super( id );
         // TODO: add later:
@@ -64,6 +69,7 @@ public class UserSearchModalPanel extends Panel
         this.window = window;
         loadPanel();
     }
+
 
     public void loadPanel()
     {
@@ -73,10 +79,15 @@ public class UserSearchModalPanel extends Panel
         add( new AjaxPagingNavigator( "usernavigator", policyView ) );
     }
 
+
     private PageableListView createListView( final LoadableDetachableModel requests )
     {
         final PageableListView listView = new PageableListView( "userdataview", requests, 10 )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             protected void populateItem( final ListItem item )
             {
@@ -85,8 +96,9 @@ public class UserSearchModalPanel extends Panel
                 {
                     private static final long serialVersionUID = 1L;
 
+
                     @Override
-                    public void onClick(AjaxRequestTarget target)
+                    public void onClick( AjaxRequestTarget target )
                     {
                         userSelection = modelObject;
                         window.close( target );
@@ -99,6 +111,10 @@ public class UserSearchModalPanel extends Panel
                 item.add( new Label( GlobalIds.TITLE, new PropertyModel( item.getModel(), GlobalIds.TITLE ) ) );
                 item.add( new JpegImage( GlobalIds.JPEGPHOTO )
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     protected byte[] getPhoto()
                     {
@@ -112,10 +128,15 @@ public class UserSearchModalPanel extends Panel
         return listView;
     }
 
+
     private LoadableDetachableModel getListViewModel()
     {
         final LoadableDetachableModel ret = new LoadableDetachableModel()
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             protected Object load()
             {
@@ -123,7 +144,7 @@ public class UserSearchModalPanel extends Panel
                 try
                 {
                     userSelection = null;
-                    if(userSearchVal == null)
+                    if ( userSearchVal == null )
                         userSearchVal = "";
                     users = reviewMgr.findUsers( new User( userSearchVal ) );
                 }
@@ -138,10 +159,12 @@ public class UserSearchModalPanel extends Panel
         return ret;
     }
 
+
     public User getUserSelection()
     {
         return userSelection;
     }
+
 
     public void setSearchVal( String searchVal )
     {

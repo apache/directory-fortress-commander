@@ -20,6 +20,7 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import com.googlecode.wicket.kendo.ui.form.button.AjaxButton;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
 import org.apache.log4j.Logger;
@@ -54,6 +55,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Created with IntelliJ IDEA.
  * User: kpmckinn
@@ -63,10 +65,12 @@ import java.util.List;
  */
 public class PermDetailPanel extends FormComponentPanel
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     @SpringBean
     private AdminMgr adminMgr;
     private static final String ROLES_SELECTION = "rolesSelection";
-    private static final Logger log = Logger.getLogger(PermDetailPanel.class.getName());
+    private static final Logger log = Logger.getLogger( PermDetailPanel.class.getName() );
     private Form editForm;
     private Displayable display;
     private boolean isAdmin;
@@ -74,23 +78,28 @@ public class PermDetailPanel extends FormComponentPanel
     @SpringBean
     private DelAdminMgr delAdminMgr;
 
+
     public Form getForm()
     {
         return this.editForm;
     }
 
-    public PermDetailPanel(String id, Displayable display, final boolean isAdmin)
+
+    public PermDetailPanel( String id, Displayable display, final boolean isAdmin )
     {
-        super(id);
+        super( id );
         this.isAdmin = isAdmin;
         this.adminMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
-        this.editForm = new PermDetailForm(GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<Permission>(new Permission()));
+        this.editForm = new PermDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<Permission>(
+            new Permission() ) );
         this.display = display;
-        add(editForm);
+        add( editForm );
     }
 
     public class PermDetailForm extends Form
     {
+        /** Default serialVersionUID */
+        private static final long serialVersionUID = 1L;
         private ComboBox<String> rolesCB;
         private Component component;
         private String rolesSelection;
@@ -99,49 +108,61 @@ public class PermDetailPanel extends FormComponentPanel
         private TextField objectTF;
 
 
-        public PermDetailForm(String id, final IModel<Permission> model)
+        public PermDetailForm( String id, final IModel<Permission> model )
         {
-            super(id, model);
+            super( id, model );
             add( new SecureIndicatingAjaxButton( GlobalIds.ADD, GlobalIds.ADMIN_MGR, "addPermission" )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
-                protected void onSubmit(AjaxRequestTarget target, Form form)
+                protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
-                    log.debug(".onSubmit Add");
-                    Permission perm = (Permission)form.getModel().getObject();
+                    log.debug( ".onSubmit Add" );
+                    Permission perm = ( Permission ) form.getModel().getObject();
                     perm.setAdmin( isAdmin );
-                    updateEntityWithComboData(perm);
+                    updateEntityWithComboData( perm );
                     try
                     {
-                        adminMgr.addPermission(perm);
+                        adminMgr.addPermission( perm );
                         roles.add( rolesSelection );
                         rolesSelection = "";
                         component = editForm;
-                        SaveModelEvent.send(getPage(), this, perm, target, SaveModelEvent.Operations.ADD);
-                        String msg = "Perm objName: " + perm.getObjName() + " opName: " + perm.getOpName() + " has been added";
-                        display.setMessage(msg);
+                        SaveModelEvent.send( getPage(), this, perm, target, SaveModelEvent.Operations.ADD );
+                        String msg = "Perm objName: " + perm.getObjName() + " opName: " + perm.getOpName()
+                            + " has been added";
+                        display.setMessage( msg );
                     }
-                    catch (org.apache.directory.fortress.core.SecurityException se)
+                    catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error(error);
-                        display.setMessage(error);
+                        log.error( error );
+                        display.setMessage( error );
                         display.display();
                     }
                 }
 
+
                 @Override
-                public void onError(AjaxRequestTarget target, Form form)
+                public void onError( AjaxRequestTarget target, Form form )
                 {
-                    log.info("PermDetailPanel.add.onError caught");
+                    log.info( "PermDetailPanel.add.onError caught" );
                     target.add();
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -150,60 +171,72 @@ public class PermDetailPanel extends FormComponentPanel
                     };
                     attributes.getAjaxCallListeners().add( ajaxCallListener );
                 }
-            });
+            } );
             add( new SecureIndicatingAjaxButton( GlobalIds.COMMIT, GlobalIds.ADMIN_MGR, "updatePermission" )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
-                protected void onSubmit(AjaxRequestTarget target, Form form)
+                protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
-                    log.debug(".onSubmit Commit");
-                    Permission perm = (Permission)form.getModel().getObject();
+                    log.debug( ".onSubmit Commit" );
+                    Permission perm = ( Permission ) form.getModel().getObject();
                     perm.setAdmin( isAdmin );
-                    updateEntityWithComboData(perm);
+                    updateEntityWithComboData( perm );
                     try
                     {
-                        if(isAdmin )
+                        if ( isAdmin )
                         {
-                            if(VUtil.isNotNullOrEmpty( rolesSelection ) )
+                            if ( VUtil.isNotNullOrEmpty( rolesSelection ) )
                             {
-                                delAdminMgr.grantPermission( perm, new AdminRole(rolesSelection) );
+                                delAdminMgr.grantPermission( perm, new AdminRole( rolesSelection ) );
                             }
                             else
                             {
-                                delAdminMgr.updatePermission(perm);
+                                delAdminMgr.updatePermission( perm );
                             }
                         }
                         else
                         {
-                            adminMgr.updatePermission(perm);
+                            adminMgr.updatePermission( perm );
                         }
                         roles.add( rolesSelection );
-                        String msg = "Perm objName: " + perm.getObjName() + " opName: " + perm.getOpName() + " has been updated";
-                        SaveModelEvent.send(getPage(), this, perm, target, SaveModelEvent.Operations.UPDATE);
+                        String msg = "Perm objName: " + perm.getObjName() + " opName: " + perm.getOpName()
+                            + " has been updated";
+                        SaveModelEvent.send( getPage(), this, perm, target, SaveModelEvent.Operations.UPDATE );
                         rolesSelection = "";
                         component = editForm;
-                        display.setMessage(msg);
+                        display.setMessage( msg );
                     }
-                    catch (org.apache.directory.fortress.core.SecurityException se)
+                    catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error(error);
-                        display.setMessage(error);
+                        log.error( error );
+                        display.setMessage( error );
                         display.display();
                     }
                 }
 
+
                 @Override
-                public void onError(AjaxRequestTarget target, Form form)
+                public void onError( AjaxRequestTarget target, Form form )
                 {
-                    log.warn("PermDetailPanel.commit.onError");
+                    log.warn( "PermDetailPanel.commit.onError" );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -212,49 +245,62 @@ public class PermDetailPanel extends FormComponentPanel
                     };
                     attributes.getAjaxCallListeners().add( ajaxCallListener );
                 }
-            });
+            } );
             add( new SecureIndicatingAjaxButton( GlobalIds.DELETE, GlobalIds.ADMIN_MGR, "deletePermission" )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
-                protected void onSubmit(AjaxRequestTarget target, Form form)
+                protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
-                    log.debug(".onSubmit Delete");
-                    Permission perm = (Permission)form.getModel().getObject();
+                    log.debug( ".onSubmit Delete" );
+                    Permission perm = ( Permission ) form.getModel().getObject();
                     perm.setAdmin( isAdmin );
                     try
                     {
-                        adminMgr.deletePermission(perm);
+                        adminMgr.deletePermission( perm );
                         form.setModelObject( new Permission() );
                         rolesSelection = "";
                         roles = new ArrayList<String>();
-                        rolesCB = new ComboBox<String>( "roles", new PropertyModel<String>( editForm, ROLES_SELECTION ),roles );
-                        editForm.addOrReplace(rolesCB);
+                        rolesCB = new ComboBox<String>( "roles",
+                            new PropertyModel<String>( editForm, ROLES_SELECTION ), roles );
+                        editForm.addOrReplace( rolesCB );
                         modelChanged();
-                        String msg = "Perm objName: " + perm.getObjName() + " opName: " + perm.getOpName() + " has been deleted";
-                        SaveModelEvent.send(getPage(), this, perm, target, SaveModelEvent.Operations.DELETE);
+                        String msg = "Perm objName: " + perm.getObjName() + " opName: " + perm.getOpName()
+                            + " has been deleted";
+                        SaveModelEvent.send( getPage(), this, perm, target, SaveModelEvent.Operations.DELETE );
                         component = editForm;
-                        display.setMessage(msg);
+                        display.setMessage( msg );
                     }
-                    catch (org.apache.directory.fortress.core.SecurityException se)
+                    catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error(error);
-                        display.setMessage(error);
+                        log.error( error );
+                        display.setMessage( error );
                         display.display();
                     }
                 }
 
+
                 @Override
-                public void onError(AjaxRequestTarget target, Form form)
+                public void onError( AjaxRequestTarget target, Form form )
                 {
-                    log.warn("ControlPanel.delete.onError");
+                    log.warn( "ControlPanel.delete.onError" );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -263,34 +309,46 @@ public class PermDetailPanel extends FormComponentPanel
                     };
                     attributes.getAjaxCallListeners().add( ajaxCallListener );
                 }
-            });
-            add(new AjaxSubmitLink(GlobalIds.CANCEL)
+            } );
+            add( new AjaxSubmitLink( GlobalIds.CANCEL )
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
-                protected void onSubmit(AjaxRequestTarget target, Form form)
+                protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
-                    setModelObject(new Permission());
+                    setModelObject( new Permission() );
                     modelChanged();
                     rolesSelection = "";
                     roles = new ArrayList<String>();
-                    rolesCB = new ComboBox<String>( "roles", new PropertyModel<String>( editForm, ROLES_SELECTION ),roles );
-                    editForm.addOrReplace(rolesCB);
+                    rolesCB = new ComboBox<String>( "roles", new PropertyModel<String>( editForm, ROLES_SELECTION ),
+                        roles );
+                    editForm.addOrReplace( rolesCB );
                     String msg = "Perm cancelled input form";
                     component = editForm;
-                    display.setMessage(msg);
+                    display.setMessage( msg );
                 }
 
+
                 @Override
-                public void onError(AjaxRequestTarget target, Form form)
+                public void onError( AjaxRequestTarget target, Form form )
                 {
-                    log.warn("ControlPanel.cancel.onError");
+                    log.warn( "ControlPanel.cancel.onError" );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -299,7 +357,7 @@ public class PermDetailPanel extends FormComponentPanel
                     };
                     attributes.getAjaxCallListeners().add( ajaxCallListener );
                 }
-            });
+            } );
 
             objectTF = new TextField( GlobalIds.OBJ_NAME );
             // making this required prevents the object modal from opening when field empty:
@@ -308,7 +366,7 @@ public class PermDetailPanel extends FormComponentPanel
             add( objectTF );
             addObjectSearchModal();
 
-            if(isAdmin)
+            if ( isAdmin )
             {
                 add( new Label( "permDetailLabel", "Administrative Permission Operation Detail" ) );
             }
@@ -317,20 +375,21 @@ public class PermDetailPanel extends FormComponentPanel
                 add( new Label( "permDetailLabel", "RBAC Permission Operation Detail" ) );
             }
 
-            TextField opName = new TextField(GlobalIds.OP_NAME);
-            add(opName);
-            opName.setRequired(false);
+            TextField opName = new TextField( GlobalIds.OP_NAME );
+            add( opName );
+            opName.setRequired( false );
             TextField objId = new TextField( GlobalIds.OBJECT_ID );
-            add(objId);
-            Label internalId = new Label("internalId");
-            add(internalId);
+            add( objId );
+            Label internalId = new Label( "internalId" );
+            add( internalId );
             rolesCB = new ComboBox<String>( "roles", new PropertyModel<String>( this, ROLES_SELECTION ), roles );
-            add(rolesCB);
-            setOutputMarkupId(true);
+            add( rolesCB );
+            setOutputMarkupId( true );
             addRoleSearchModal();
             add( new AjaxButton( "roles.delete" )
             {
                 private static final long serialVersionUID = 1L;
+
 
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
@@ -343,7 +402,7 @@ public class PermDetailPanel extends FormComponentPanel
                         if ( perm.getRoles() != null )
                         {
                             perm.getRoles().remove( rolesSelection );
-                            roles.remove(  rolesSelection );
+                            roles.remove( rolesSelection );
                             rolesSelection = "";
                             component = editForm;
                             msg += ", was removed from local, commit to persist changes on server";
@@ -360,12 +419,18 @@ public class PermDetailPanel extends FormComponentPanel
                     display.setMessage( msg );
                     log.debug( msg );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -377,14 +442,20 @@ public class PermDetailPanel extends FormComponentPanel
             } );
         }
 
+
         private void addObjectSearchModal()
         {
             final ModalWindow objectsModalWindow;
             add( objectsModalWindow = new ModalWindow( "objectsmodal" ) );
-            final ObjectSearchModalPanel objectSearchModalPanel = new ObjectSearchModalPanel( objectsModalWindow.getContentId(), objectsModalWindow, isAdmin );
+            final ObjectSearchModalPanel objectSearchModalPanel = new ObjectSearchModalPanel(
+                objectsModalWindow.getContentId(), objectsModalWindow, isAdmin );
             objectsModalWindow.setContent( objectSearchModalPanel );
             objectsModalWindow.setWindowClosedCallback( new ModalWindow.WindowClosedCallback()
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 public void onClose( AjaxRequestTarget target )
                 {
@@ -402,6 +473,7 @@ public class PermDetailPanel extends FormComponentPanel
             {
                 private static final long serialVersionUID = 1L;
 
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
@@ -415,12 +487,18 @@ public class PermDetailPanel extends FormComponentPanel
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     objectsModalWindow.show( target );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -432,7 +510,7 @@ public class PermDetailPanel extends FormComponentPanel
             } );
 
             String modalLabel;
-            if(isAdmin)
+            if ( isAdmin )
             {
                 modalLabel = "Admin Permission Object Selection Modal";
             }
@@ -446,14 +524,20 @@ public class PermDetailPanel extends FormComponentPanel
             objectsModalWindow.setCookieName( "objects-modal" );
         }
 
+
         private void addRoleSearchModal()
         {
             final ModalWindow rolesModalWindow;
             add( rolesModalWindow = new ModalWindow( "permrolesmodal" ) );
-            final RoleSearchModalPanel roleSearchModalPanel = new RoleSearchModalPanel( rolesModalWindow.getContentId(), rolesModalWindow, isAdmin );
+            final RoleSearchModalPanel roleSearchModalPanel = new RoleSearchModalPanel(
+                rolesModalWindow.getContentId(), rolesModalWindow, isAdmin );
             rolesModalWindow.setContent( roleSearchModalPanel );
             rolesModalWindow.setWindowClosedCallback( new ModalWindow.WindowClosedCallback()
             {
+                /** Default serialVersionUID */
+                private static final long serialVersionUID = 1L;
+
+
                 @Override
                 public void onClose( AjaxRequestTarget target )
                 {
@@ -470,6 +554,7 @@ public class PermDetailPanel extends FormComponentPanel
             {
                 private static final long serialVersionUID = 1L;
 
+
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
@@ -481,12 +566,18 @@ public class PermDetailPanel extends FormComponentPanel
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     rolesModalWindow.show( target );
                 }
+
+
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
@@ -498,7 +589,7 @@ public class PermDetailPanel extends FormComponentPanel
             } );
 
             String modalLabel;
-            if(isAdmin)
+            if ( isAdmin )
             {
                 modalLabel = "Admin Role Selection Modal";
             }
@@ -512,50 +603,53 @@ public class PermDetailPanel extends FormComponentPanel
             rolesModalWindow.setCookieName( "role-assign-modal" );
         }
 
-        private void updateEntityWithComboData(Permission perm)
+
+        private void updateEntityWithComboData( Permission perm )
         {
             String szValue = rolesCB.getModelObject();
-            if(VUtil.isNotNullOrEmpty(szValue))
+            if ( VUtil.isNotNullOrEmpty( szValue ) )
             {
-                perm.setRole(szValue);
+                perm.setRole( szValue );
             }
         }
 
+
         @Override
-        public void onEvent(final IEvent<?> event)
+        public void onEvent( final IEvent<?> event )
         {
-            if (event.getPayload() instanceof SelectModelEvent)
+            if ( event.getPayload() instanceof SelectModelEvent )
             {
-                SelectModelEvent modelEvent = (SelectModelEvent) event.getPayload();
-                Permission perm = (Permission) modelEvent.getEntity();
-                this.setModelObject(perm);
+                SelectModelEvent modelEvent = ( SelectModelEvent ) event.getPayload();
+                Permission perm = ( Permission ) modelEvent.getEntity();
+                this.setModelObject( perm );
                 rolesSelection = "";
-                if(VUtil.isNotNullOrEmpty(perm.getRoles()))
+                if ( VUtil.isNotNullOrEmpty( perm.getRoles() ) )
                 {
-                    roles = new ArrayList<String>(perm.getRoles());
-                    rolesCB = new ComboBox<String>( "roles", new PropertyModel<String>( this, ROLES_SELECTION ),roles );
+                    roles = new ArrayList<String>( perm.getRoles() );
+                    rolesCB = new ComboBox<String>( "roles", new PropertyModel<String>( this, ROLES_SELECTION ), roles );
                 }
                 else
                 {
                     roles = new ArrayList<String>();
-                    rolesCB = new ComboBox<String>( "roles", new PropertyModel<String>( this, ROLES_SELECTION ),roles );
+                    rolesCB = new ComboBox<String>( "roles", new PropertyModel<String>( this, ROLES_SELECTION ), roles );
                 }
-                editForm.addOrReplace(rolesCB);
-                String msg = "Perm objName: " + perm.getObjName() + " opName: " + perm.getOpName() + " has been selected";
-                log.debug(msg);
+                editForm.addOrReplace( rolesCB );
+                String msg = "Perm objName: " + perm.getObjName() + " opName: " + perm.getOpName()
+                    + " has been selected";
+                log.debug( msg );
                 component = editForm;
             }
-            else if (event.getPayload() instanceof AjaxRequestTarget)
+            else if ( event.getPayload() instanceof AjaxRequestTarget )
             {
-                if (component != null)
+                if ( component != null )
                 {
-                    AjaxRequestTarget target = ((AjaxRequestTarget) event.getPayload());
-                    log.debug(".onEvent AjaxRequestTarget: " + target.toString());
-                    target.add(component);
+                    AjaxRequestTarget target = ( ( AjaxRequestTarget ) event.getPayload() );
+                    log.debug( ".onEvent AjaxRequestTarget: " + target.toString() );
+                    target.add( component );
                     component = null;
                 }
 
-                display.display((AjaxRequestTarget) event.getPayload());
+                display.display( ( AjaxRequestTarget ) event.getPayload() );
             }
         }
     }

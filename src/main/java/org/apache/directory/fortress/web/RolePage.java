@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.web;
 
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.extensions.ajax.markup.html.AjaxLazyLoadPanel;
@@ -31,17 +32,21 @@ import org.apache.directory.fortress.web.panel.NavPanel;
 import org.apache.directory.fortress.web.panel.RoleDetailPanel;
 import org.apache.directory.fortress.web.panel.RoleListPanel;
 
+
 /**
  * @author Shawn McKinney
  * @version $Rev$
  */
 public class RolePage extends FortressWebBasePage
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     private boolean isAdmin = false;
     private String label = "RBAC Role Administration";
     private static final Logger LOG = Logger.getLogger( RolePage.class.getName() );
 
-    public RolePage(PageParameters parameters)
+
+    public RolePage( PageParameters parameters )
     {
         add( new Label( GlobalIds.PAGE_HEADER, label ) );
         WebMarkupContainer container = new WebMarkupContainer( GlobalIds.LAYOUT );
@@ -55,14 +60,18 @@ public class RolePage extends FortressWebBasePage
         NavPanel navPanel = new NavPanel( GlobalIds.NAVPANEL );
 
         // 2. List Panel:
-        container.add(new AjaxLazyLoadPanel(GlobalIds.ROLELISTPANEL)
-         {
-           @Override
-           public Component getLazyLoadComponent(String id)
-           {
-                return new RoleListPanel(id, isAdmin);
-           }
-         });
+        container.add( new AjaxLazyLoadPanel( GlobalIds.ROLELISTPANEL )
+        {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
+            @Override
+            public Component getLazyLoadComponent( String id )
+            {
+                return new RoleListPanel( id, isAdmin );
+            }
+        } );
 
         // 3. Info Panel:
         InfoPanel infoPanel = new InfoPanel( GlobalIds.INFOPANEL );

@@ -20,6 +20,7 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.SizeUnit;
 import com.inmethod.grid.column.PropertyColumn;
@@ -59,6 +60,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+
 /**
  *
  * @author Shawn McKinney
@@ -66,7 +68,9 @@ import java.util.List;
  */
 public class SDListPanel extends FormComponentPanel
 {
-    private static final Logger log = Logger.getLogger(SDListPanel.class.getName());
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+    private static final Logger log = Logger.getLogger( SDListPanel.class.getName() );
     private Form listForm;
     private DefaultTreeModel treeModel;
     private DefaultMutableTreeNode node;
@@ -81,166 +85,186 @@ public class SDListPanel extends FormComponentPanel
     private static final char NAMES = 'N';
     private static final char ROLES = 'R';
 
-    public SDListPanel(String id, final boolean isStatic)
+
+    public SDListPanel( String id, final boolean isStatic )
     {
-        super(id);
+        super( id );
         SDSet sdSet = new SDSet();
-        sdSet.setName("");
-        if(isStatic)
+        sdSet.setName( "" );
+        if ( isStatic )
         {
-            sdSet.setType(SDSet.SDType.STATIC);
+            sdSet.setType( SDSet.SDType.STATIC );
             searchLabel = "SSD Name";
             opName = "ssdRoleSets";
         }
         else
         {
-            sdSet.setType(SDSet.SDType.DYNAMIC);
+            sdSet.setType( SDSet.SDType.DYNAMIC );
             searchLabel = "DSD Name";
             opName = "dsdRoleSets";
         }
-        SDListModel sdListModel = new SDListModel(sdSet, GlobalUtils.getRbacSession( this ));
-        setDefaultModel(sdListModel);
+        SDListModel sdListModel = new SDListModel( sdSet, GlobalUtils.getRbacSession( this ) );
+        setDefaultModel( sdListModel );
         List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>> columns =
             new ArrayList<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>>();
-        columns.add(new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-            Model.of(searchLabel), "userObject.name"));
+        columns.add( new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+            Model.of( searchLabel ), "userObject.name" ) );
 
         PropertyColumn description = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("Description"), "userObject.Description");
+            Model.of( "Description" ), "userObject.Description" );
 
-        description.setInitialSize(300);
-        columns.add(description);
+        description.setInitialSize( 300 );
+        columns.add( description );
 
         PropertyColumn cardinality = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("Cardinality"), "userObject.Cardinality");
-        cardinality.setInitialSize(100);
-        columns.add(cardinality);
+            Model.of( "Cardinality" ), "userObject.Cardinality" );
+        cardinality.setInitialSize( 100 );
+        columns.add( cardinality );
 
         PropertyColumn members = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("Members"), "userObject.members");
-        members.setInitialSize(600);
-        columns.add(members);
+            Model.of( "Members" ), "userObject.members" );
+        members.setInitialSize( 600 );
+        columns.add( members );
 
-        List<SDSet> sdSets = (List<SDSet>) getDefaultModel().getObject();
-        treeModel = createTreeModel(sdSets);
-        grid = new TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String>("sdtreegrid", treeModel, columns)
+        List<SDSet> sdSets = ( List<SDSet> ) getDefaultModel().getObject();
+        treeModel = createTreeModel( sdSets );
+        grid = new TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String>( "sdtreegrid", treeModel, columns )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
-            public void selectItem(IModel itemModel, boolean selected)
+            public void selectItem( IModel itemModel, boolean selected )
             {
-                node = (DefaultMutableTreeNode) itemModel.getObject();
-                if(!node.isRoot())
+                node = ( DefaultMutableTreeNode ) itemModel.getObject();
+                if ( !node.isRoot() )
                 {
-                    SDSet sdSet = (SDSet) node.getUserObject();
-                    log.debug("TreeGrid.addGrid.selectItem selected sdSet =" + sdSet.getName());
-                    if (super.isItemSelected(itemModel))
+                    SDSet sdSet = ( SDSet ) node.getUserObject();
+                    log.debug( "TreeGrid.addGrid.selectItem selected sdSet =" + sdSet.getName() );
+                    if ( super.isItemSelected( itemModel ) )
                     {
-                        log.debug("TreeGrid.addGrid.selectItem item is selected");
-                        super.selectItem(itemModel, false);
+                        log.debug( "TreeGrid.addGrid.selectItem item is selected" );
+                        super.selectItem( itemModel, false );
                     }
                     else
                     {
-                        super.selectItem(itemModel, true);
-                        SelectModelEvent.send(getPage(), this, sdSet);
+                        super.selectItem( itemModel, true );
+                        SelectModelEvent.send( getPage(), this, sdSet );
                     }
                 }
             }
         };
-        grid.setContentHeight(50, SizeUnit.EM);
-        grid.setAllowSelectMultiple(false);
-        grid.setClickRowToSelect(true);
-        grid.setClickRowToDeselect(false);
-        grid.setSelectToEdit(false);
+        grid.setContentHeight( 50, SizeUnit.EM );
+        grid.setAllowSelectMultiple( false );
+        grid.setClickRowToSelect( true );
+        grid.setClickRowToDeselect( false );
+        grid.setSelectToEdit( false );
         // expand the root node
-        grid.getTreeState().expandNode((TreeNode) treeModel.getRoot());
-        this.listForm = new Form("form");
-        this.listForm.add(grid);
-        grid.setOutputMarkupId(true);
+        grid.getTreeState().expandNode( ( TreeNode ) treeModel.getRoot() );
+        this.listForm = new Form( "form" );
+        this.listForm.add( grid );
+        grid.setOutputMarkupId( true );
 
-        radioGroup = new RadioGroup("searchOptions",  new PropertyModel(this, "selectedRadioButton"));
-        add(radioGroup);
-        Radio nameRb = new Radio("nameRb", new Model(new Character(NAMES)));
-        radioGroup.add(nameRb);
-        Radio roleRb = new Radio("roleRb", new Model(new Character(ROLES)));
-        radioGroup.add(roleRb);
-        addRoleSearchModal(roleRb);
+        radioGroup = new RadioGroup( "searchOptions", new PropertyModel( this, "selectedRadioButton" ) );
+        add( radioGroup );
+        Radio nameRb = new Radio( "nameRb", new Model( new Character( NAMES ) ) );
+        radioGroup.add( nameRb );
+        Radio roleRb = new Radio( "roleRb", new Model( new Character( ROLES ) ) );
+        radioGroup.add( roleRb );
+        addRoleSearchModal( roleRb );
         radioGroup.setOutputMarkupId( true );
         radioGroup.setRenderBodyOnly( false );
-        searchValFld = new TextField(GlobalIds.SEARCH_VAL, new PropertyModel<String>(this, GlobalIds.SEARCH_VAL));
+        searchValFld = new TextField( GlobalIds.SEARCH_VAL, new PropertyModel<String>( this, GlobalIds.SEARCH_VAL ) );
         searchValFld.setOutputMarkupId( true );
-        AjaxFormComponentUpdatingBehavior ajaxUpdater = new AjaxFormComponentUpdatingBehavior(GlobalIds.ONBLUR)
+        AjaxFormComponentUpdatingBehavior ajaxUpdater = new AjaxFormComponentUpdatingBehavior( GlobalIds.ONBLUR )
         {
-          @Override
-          protected void onUpdate(final AjaxRequestTarget target)
-          {
-              target.add( searchValFld );
-          }
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
+            @Override
+            protected void onUpdate( final AjaxRequestTarget target )
+            {
+                target.add( searchValFld );
+            }
         };
-        searchValFld.add(ajaxUpdater);
+        searchValFld.add( ajaxUpdater );
         radioGroup.add( searchValFld );
-        this.listForm.add(radioGroup);
+        this.listForm.add( radioGroup );
         selectedRadioButton = NAMES;
         this.listForm.add( new SecureIndicatingAjaxButton( GlobalIds.SEARCH, GlobalIds.REVIEW_MGR, opName )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form form)
+            protected void onSubmit( AjaxRequestTarget target, Form form )
             {
-                log.debug(".search onSubmit");
-                info("Searching SDSets...");
-                if(!VUtil.isNotNullOrEmpty(searchVal))
+                log.debug( ".search onSubmit" );
+                info( "Searching SDSets..." );
+                if ( !VUtil.isNotNullOrEmpty( searchVal ) )
                 {
                     searchVal = "";
                 }
                 final SDSet srchSd = new SDSet();
-                if(isStatic)
+                if ( isStatic )
                 {
-                    srchSd.setType(SDSet.SDType.STATIC);
+                    srchSd.setType( SDSet.SDType.STATIC );
                 }
                 else
                 {
-                    srchSd.setType(SDSet.SDType.DYNAMIC);
+                    srchSd.setType( SDSet.SDType.DYNAMIC );
                 }
-                switch(selectedRadioButton)
+                switch ( selectedRadioButton )
                 {
                     case NAMES:
-                        log.debug(".onSubmit NAMES RB selected");
-                        srchSd.setName(searchVal);
+                        log.debug( ".onSubmit NAMES RB selected" );
+                        srchSd.setName( searchVal );
                         break;
                     case ROLES:
-                        log.debug(".onSubmit ROLES RB selected");
-                        srchSd.setMember(searchVal);
+                        log.debug( ".onSubmit ROLES RB selected" );
+                        srchSd.setMember( searchVal );
                         break;
                 }
 
-                setDefaultModel(new SDListModel(srchSd, GlobalUtils.getRbacSession( this )));
+                setDefaultModel( new SDListModel( srchSd, GlobalUtils.getRbacSession( this ) ) );
                 treeModel.reload();
                 rootNode.removeAllChildren();
-                List<SDSet> sdSets = (List<SDSet>) getDefaultModelObject();
-                if(VUtil.isNotNullOrEmpty(sdSets))
+                List<SDSet> sdSets = ( List<SDSet> ) getDefaultModelObject();
+                if ( VUtil.isNotNullOrEmpty( sdSets ) )
                 {
-                    for (SDSet sdSet : sdSets)
-                        rootNode.add(new DefaultMutableTreeNode(sdSet));
-                    info("Search returned " + sdSets.size() + " matching objects");
+                    for ( SDSet sdSet : sdSets )
+                        rootNode.add( new DefaultMutableTreeNode( sdSet ) );
+                    info( "Search returned " + sdSets.size() + " matching objects" );
                 }
                 else
                 {
-                    info("No matching objects found");
+                    info( "No matching objects found" );
                 }
-                target.add(grid);
+                target.add( grid );
             }
 
+
             @Override
-            public void onError(AjaxRequestTarget target, Form form)
+            public void onError( AjaxRequestTarget target, Form form )
             {
-                log.warn(".search.onError");
+                log.warn( ".search.onError" );
                 target.add();
             }
+
+
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
             {
                 super.updateAjaxAttributes( attributes );
                 AjaxCallListener ajaxCallListener = new AjaxCallListener()
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     public CharSequence getFailureHandler( Component component )
                     {
@@ -249,25 +273,31 @@ public class SDListPanel extends FormComponentPanel
                 };
                 attributes.getAjaxCallListeners().add( ajaxCallListener );
             }
-        });
-        add(this.listForm);
+        } );
+        add( this.listForm );
     }
 
-    private void addRoleSearchModal(Radio roleRb)
+
+    private void addRoleSearchModal( Radio roleRb )
     {
         final ModalWindow rolesModalWindow;
         listForm.add( rolesModalWindow = new ModalWindow( "rolesearchmodal" ) );
-        final RoleSearchModalPanel roleSearchModalPanel = new RoleSearchModalPanel( rolesModalWindow.getContentId(), rolesModalWindow, false );
+        final RoleSearchModalPanel roleSearchModalPanel = new RoleSearchModalPanel( rolesModalWindow.getContentId(),
+            rolesModalWindow, false );
         rolesModalWindow.setContent( roleSearchModalPanel );
         rolesModalWindow.setWindowClosedCallback( new ModalWindow.WindowClosedCallback()
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             public void onClose( AjaxRequestTarget target )
             {
                 UserRole roleConstraint = roleSearchModalPanel.getRoleSelection();
                 if ( roleConstraint != null )
                 {
-                    log.debug( "modal selected:" + roleConstraint.getName());
+                    log.debug( "modal selected:" + roleConstraint.getName() );
                     searchVal = roleConstraint.getName();
                     selectedRadioButton = ROLES;
                     target.add( radioGroup );
@@ -277,7 +307,11 @@ public class SDListPanel extends FormComponentPanel
 
         roleRb.add( new SecureIndicatingAjaxLink( "roleAssignLinkLbl", GlobalIds.REVIEW_MGR, "findRoles" )
         {
-            public void onClick(AjaxRequestTarget target)
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
+            public void onClick( AjaxRequestTarget target )
             {
                 String msg = "clicked on roles search";
                 msg += "roleSelection: " + searchVal;
@@ -286,12 +320,18 @@ public class SDListPanel extends FormComponentPanel
                 target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                 rolesModalWindow.show( target );
             }
+
+
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
             {
                 super.updateAjaxAttributes( attributes );
                 AjaxCallListener ajaxCallListener = new AjaxCallListener()
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     public CharSequence getFailureHandler( Component component )
                     {
@@ -300,7 +340,7 @@ public class SDListPanel extends FormComponentPanel
                 };
                 attributes.getAjaxCallListeners().add( ajaxCallListener );
             }
-        });
+        } );
 
         rolesModalWindow.setTitle( "RBAC Role Search Modal" );
         rolesModalWindow.setInitialWidth( 700 );
@@ -308,16 +348,17 @@ public class SDListPanel extends FormComponentPanel
         rolesModalWindow.setCookieName( "role-assign-modal" );
     }
 
+
     @Override
-    public void onEvent(IEvent event)
+    public void onEvent( IEvent event )
     {
-        if (event.getPayload() instanceof SaveModelEvent)
+        if ( event.getPayload() instanceof SaveModelEvent )
         {
-            SaveModelEvent modelEvent = (SaveModelEvent) event.getPayload();
-            switch(modelEvent.getOperation())
+            SaveModelEvent modelEvent = ( SaveModelEvent ) event.getPayload();
+            switch ( modelEvent.getOperation() )
             {
                 case ADD:
-                    add(modelEvent.getEntity());
+                    add( modelEvent.getEntity() );
                     break;
                 case UPDATE:
                     modelChanged();
@@ -328,56 +369,60 @@ public class SDListPanel extends FormComponentPanel
                 default:
                     break;
             }
-            AjaxRequestTarget target = ((SaveModelEvent) event.getPayload()).getAjaxRequestTarget();
-            target.add(grid);
-            log.debug(".onEvent SaveModelEvent: " + target.toString());
+            AjaxRequestTarget target = ( ( SaveModelEvent ) event.getPayload() ).getAjaxRequestTarget();
+            target.add( grid );
+            log.debug( ".onEvent SaveModelEvent: " + target.toString() );
         }
     }
 
-    private void removeSelectedItems(TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String> grid)
+
+    private void removeSelectedItems( TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String> grid )
     {
         Collection<IModel<DefaultMutableTreeNode>> selected = grid.getSelectedItems();
-        for (IModel<DefaultMutableTreeNode> model : selected)
+        for ( IModel<DefaultMutableTreeNode> model : selected )
         {
             DefaultMutableTreeNode node = model.getObject();
-            treeModel.removeNodeFromParent(node);
-            SDSet sdSet = (SDSet) node.getUserObject();
-            log.debug(".removeSelectedItems sdset node: " + sdSet.getName());
-            List<SDSet> sdSets = ((List<SDSet>) getDefaultModel().getObject());
-            sdSets.remove(sdSet.getName());
+            treeModel.removeNodeFromParent( node );
+            SDSet sdSet = ( SDSet ) node.getUserObject();
+            log.debug( ".removeSelectedItems sdset node: " + sdSet.getName() );
+            List<SDSet> sdSets = ( ( List<SDSet> ) getDefaultModel().getObject() );
+            sdSets.remove( sdSet.getName() );
         }
     }
 
-    private DefaultTreeModel createTreeModel(List<SDSet> sdSets)
+
+    private DefaultTreeModel createTreeModel( List<SDSet> sdSets )
     {
         DefaultTreeModel model;
         SDSet root = new SDSet();
         //root.setName(searchLabel);
-        rootNode = new DefaultMutableTreeNode(root);
-        model = new DefaultTreeModel(rootNode);
-        if (sdSets == null)
-            log.debug("no SDSets found");
+        rootNode = new DefaultMutableTreeNode( root );
+        model = new DefaultTreeModel( rootNode );
+        if ( sdSets == null )
+            log.debug( "no SDSets found" );
         else
         {
-            log.debug("SDSets found:" + sdSets.size());
-            for (SDSet sdSet : sdSets)
-                rootNode.add(new DefaultMutableTreeNode(sdSet));
+            log.debug( "SDSets found:" + sdSets.size() );
+            for ( SDSet sdSet : sdSets )
+                rootNode.add( new DefaultMutableTreeNode( sdSet ) );
         }
         return model;
     }
 
-    public void add(FortEntity entity)
+
+    public void add( FortEntity entity )
     {
-        if (getDefaultModelObject() != null)
+        if ( getDefaultModelObject() != null )
         {
-            List<SDSet> sdSets = ((List<SDSet>) getDefaultModelObject());
-            sdSets.add((SDSet) entity);
-            treeModel.insertNodeInto(new DefaultMutableTreeNode(entity), rootNode, sdSets.size());
+            List<SDSet> sdSets = ( ( List<SDSet> ) getDefaultModelObject() );
+            sdSets.add( ( SDSet ) entity );
+            treeModel.insertNodeInto( new DefaultMutableTreeNode( entity ), rootNode, sdSets.size() );
         }
     }
 
+
     public void prune()
     {
-        removeSelectedItems(grid);
+        removeSelectedItems( grid );
     }
 }

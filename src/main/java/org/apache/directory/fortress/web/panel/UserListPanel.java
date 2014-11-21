@@ -20,6 +20,7 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.SizeUnit;
 import com.inmethod.grid.column.PropertyColumn;
@@ -67,12 +68,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+
 /**
  * @author Shawn McKinney
  * @version $Rev$
  */
 public class UserListPanel extends FormComponentPanel
 {
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger( UserListPanel.class.getName() );
     private Form listForm;
     private DefaultTreeModel treeModel;
@@ -110,6 +114,7 @@ public class UserListPanel extends FormComponentPanel
     private static String OU_SEARCH_LABEL = "Search By User Organization";
     private static String PERM_SEARCH_LABEL = "Search By Permission";
 
+
     public UserListPanel( String id )
     {
         super( id );
@@ -124,11 +129,16 @@ public class UserListPanel extends FormComponentPanel
         addButtons();
     }
 
+
     private void addRadioButtons()
     {
         radioGroup = new RadioGroup( "searchOptions", new PropertyModel( this, "selectedRadioButton" ) );
         AjaxFormComponentUpdatingBehavior ajaxRadioUpdater = new AjaxFormChoiceComponentUpdatingBehavior()
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             protected void onUpdate( final AjaxRequestTarget target )
             {
@@ -159,6 +169,7 @@ public class UserListPanel extends FormComponentPanel
         addPermSearchModal( permRb );
     }
 
+
     private void addSearchFields()
     {
         searchFields = new WebMarkupContainer( "searchfields" );
@@ -173,6 +184,10 @@ public class UserListPanel extends FormComponentPanel
         f1Fld.setOutputMarkupId( true );
         AjaxFormComponentUpdatingBehavior ajaxUpdater = new AjaxFormComponentUpdatingBehavior( GlobalIds.ONBLUR )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             protected void onUpdate( final AjaxRequestTarget target )
             {
@@ -186,6 +201,10 @@ public class UserListPanel extends FormComponentPanel
         f2Fld.setOutputMarkupId( true );
         ajaxUpdater = new AjaxFormComponentUpdatingBehavior( GlobalIds.ONBLUR )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             protected void onUpdate( final AjaxRequestTarget target )
             {
@@ -199,11 +218,16 @@ public class UserListPanel extends FormComponentPanel
         userformsearchfields.add( searchFields );
     }
 
+
     private void addButtons()
     {
         userformsearchfields.add( new SecureIndicatingAjaxButton( GlobalIds.SEARCH, GlobalIds.REVIEW_MGR,
             GlobalIds.FIND_USERS )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             protected void onSubmit( AjaxRequestTarget target, Form form )
             {
@@ -271,6 +295,7 @@ public class UserListPanel extends FormComponentPanel
                 target.add( grid );
             }
 
+
             @Override
             public void onError( AjaxRequestTarget target, Form form )
             {
@@ -280,11 +305,16 @@ public class UserListPanel extends FormComponentPanel
         } );
         userformsearchfields.add( new AjaxSubmitLink( GlobalIds.CLEAR )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             protected void onSubmit( AjaxRequestTarget target, Form form )
             {
                 setResponsePage( new UserPage() );
             }
+
 
             @Override
             public void onError( AjaxRequestTarget target, Form form )
@@ -292,12 +322,17 @@ public class UserListPanel extends FormComponentPanel
                 LOG.warn( "UserListPanel.clear.onError" );
             }
 
+
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
             {
                 super.updateAjaxAttributes( attributes );
                 AjaxCallListener ajaxCallListener = new AjaxCallListener()
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     public CharSequence getFailureHandler( Component component )
                     {
@@ -309,6 +344,7 @@ public class UserListPanel extends FormComponentPanel
         } );
     }
 
+
     private void addRoleSearchModal( Radio roleRb )
     {
         final ModalWindow rolesModalWindow;
@@ -318,6 +354,10 @@ public class UserListPanel extends FormComponentPanel
         rolesModalWindow.setContent( roleSearchModalPanel );
         rolesModalWindow.setWindowClosedCallback( new ModalWindow.WindowClosedCallback()
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             public void onClose( AjaxRequestTarget target )
             {
@@ -336,6 +376,10 @@ public class UserListPanel extends FormComponentPanel
 
         roleRb.add( new SecureIndicatingAjaxLink( "roleAssignLinkLbl", GlobalIds.REVIEW_MGR, GlobalIds.FIND_ROLES )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             public void onClick( AjaxRequestTarget target )
             {
                 String msg = "clicked on roles search";
@@ -346,12 +390,17 @@ public class UserListPanel extends FormComponentPanel
                 rolesModalWindow.show( target );
             }
 
+
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
             {
                 super.updateAjaxAttributes( attributes );
                 AjaxCallListener ajaxCallListener = new AjaxCallListener()
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     public CharSequence getFailureHandler( Component component )
                     {
@@ -367,6 +416,7 @@ public class UserListPanel extends FormComponentPanel
         rolesModalWindow.setCookieName( "role-assign-modal" );
     }
 
+
     private void addAdminRoleSearchModal( Radio adminRoleRb )
     {
         final ModalWindow adminRolesModalWindow;
@@ -376,6 +426,10 @@ public class UserListPanel extends FormComponentPanel
         adminRolesModalWindow.setContent( adminRoleSearchModalPanel );
         adminRolesModalWindow.setWindowClosedCallback( new ModalWindow.WindowClosedCallback()
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             public void onClose( AjaxRequestTarget target )
             {
@@ -394,6 +448,10 @@ public class UserListPanel extends FormComponentPanel
         adminRoleRb.add( new SecureIndicatingAjaxLink( "adminRoleAssignLinkLbl", GlobalIds.DEL_REVIEW_MGR,
             GlobalIds.FIND_ROLES )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             public void onClick( AjaxRequestTarget target )
             {
                 String msg = "clicked on admin roles search";
@@ -405,12 +463,17 @@ public class UserListPanel extends FormComponentPanel
                 adminRolesModalWindow.show( target );
             }
 
+
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
             {
                 super.updateAjaxAttributes( attributes );
                 AjaxCallListener ajaxCallListener = new AjaxCallListener()
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     public CharSequence getFailureHandler( Component component )
                     {
@@ -426,6 +489,7 @@ public class UserListPanel extends FormComponentPanel
         adminRolesModalWindow.setCookieName( "role-assign-modal" );
     }
 
+
     private void addOUSearchModal( Radio ouRb )
     {
         final ModalWindow ousModalWindow;
@@ -435,6 +499,10 @@ public class UserListPanel extends FormComponentPanel
         ousModalWindow.setContent( ouSearchModalPanel );
         ousModalWindow.setWindowClosedCallback( new ModalWindow.WindowClosedCallback()
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             public void onClose( AjaxRequestTarget target )
             {
@@ -451,6 +519,10 @@ public class UserListPanel extends FormComponentPanel
         } );
         ouRb.add( new SecureIndicatingAjaxLink( "ouAssignLinkLbl", GlobalIds.DEL_REVIEW_MGR, "searchOU" )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             public void onClick( AjaxRequestTarget target )
             {
                 String msg = "clicked on ou search";
@@ -460,12 +532,17 @@ public class UserListPanel extends FormComponentPanel
                 ousModalWindow.show( target );
             }
 
+
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
             {
                 super.updateAjaxAttributes( attributes );
                 AjaxCallListener ajaxCallListener = new AjaxCallListener()
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     public CharSequence getFailureHandler( Component component )
                     {
@@ -481,6 +558,7 @@ public class UserListPanel extends FormComponentPanel
         ousModalWindow.setInitialHeight( 450 );
         ousModalWindow.setCookieName( "userou-modal" );
     }
+
 
     @Override
     public void onEvent( IEvent event )
@@ -509,6 +587,7 @@ public class UserListPanel extends FormComponentPanel
         }
     }
 
+
     private void addPermSearchModal( Radio permRb )
     {
         final ModalWindow permsModalWindow;
@@ -518,6 +597,10 @@ public class UserListPanel extends FormComponentPanel
         permsModalWindow.setContent( permSearchModalPanel );
         permsModalWindow.setWindowClosedCallback( new ModalWindow.WindowClosedCallback()
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             public void onClose( AjaxRequestTarget target )
             {
@@ -535,6 +618,10 @@ public class UserListPanel extends FormComponentPanel
         } );
         permRb.add( new SecureIndicatingAjaxLink( "permLinkLbl", GlobalIds.REVIEW_MGR, GlobalIds.FIND_PERMISSIONS )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             public void onClick( AjaxRequestTarget target )
             {
                 String msg = "clicked on perms search";
@@ -550,12 +637,17 @@ public class UserListPanel extends FormComponentPanel
                 permsModalWindow.show( target );
             }
 
+
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
             {
                 super.updateAjaxAttributes( attributes );
                 AjaxCallListener ajaxCallListener = new AjaxCallListener()
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     public CharSequence getFailureHandler( Component component )
                     {
@@ -571,6 +663,7 @@ public class UserListPanel extends FormComponentPanel
         permsModalWindow.setCookieName( "perm-search-modal" );
     }
 
+
     private void removeSelectedItems( TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String> grid )
     {
         Collection<IModel<DefaultMutableTreeNode>> selected = grid.getSelectedItems();
@@ -584,6 +677,7 @@ public class UserListPanel extends FormComponentPanel
             users.remove( user.getUserId() );
         }
     }
+
 
     private DefaultTreeModel createTreeModel( List<User> users )
     {
@@ -607,16 +701,16 @@ public class UserListPanel extends FormComponentPanel
         return model;
     }
 
+
     private void addGrid()
     {
-        List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode,
-            String>> columns = new ArrayList<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>>();
+        List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>> columns = new ArrayList<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>>();
         columns.add( new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String,
             String>( Model.of( "UserId" ), "userObject.UserId" ) );
-/*
-        columns.add( new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String,
-            String>( Model.of( "Name" ), "userObject.Name" ) );
-*/
+        /*
+                columns.add( new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String,
+                    String>( Model.of( "Name" ), "userObject.Name" ) );
+        */
         PropertyColumn ou = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String,
             String>( Model.of( "User Organization" ), "userObject.Ou" );
         ou.setInitialSize( 150 );
@@ -631,16 +725,16 @@ public class UserListPanel extends FormComponentPanel
             String>( Model.of( "State" ), "userObject.Address.State" );
         state.setInitialSize( 50 );
         columns.add( state );
-/*
-        PropertyColumn locked = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("Lock"), "userObject.locked");
-        locked.setInitialSize(40);
-        columns.add(locked);
-        PropertyColumn reset = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("Reset"), "userObject.reset");
-        reset.setInitialSize(40);
-        columns.add(reset);
-*/
+        /*
+                PropertyColumn locked = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+                            Model.of("Lock"), "userObject.locked");
+                locked.setInitialSize(40);
+                columns.add(locked);
+                PropertyColumn reset = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+                            Model.of("Reset"), "userObject.reset");
+                reset.setInitialSize(40);
+                columns.add(reset);
+        */
         PropertyColumn roles = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String,
             String>( Model.of( "RBAC Role Assignments" ), "userObject.Roles" );
         roles.setInitialSize( 400 );
@@ -654,6 +748,10 @@ public class UserListPanel extends FormComponentPanel
         treeModel = createTreeModel( users );
         grid = new TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String>( "usertreegrid", treeModel, columns )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             public void selectItem( IModel itemModel, boolean selected )
             {
@@ -688,6 +786,7 @@ public class UserListPanel extends FormComponentPanel
         grid.setOutputMarkupId( true );
     }
 
+
     public void add( FortEntity entity )
     {
         if ( getDefaultModelObject() != null )
@@ -700,10 +799,12 @@ public class UserListPanel extends FormComponentPanel
         }
     }
 
+
     public void prune()
     {
         removeSelectedItems( grid );
     }
+
 
     private void enableOuSearch()
     {
@@ -713,6 +814,7 @@ public class UserListPanel extends FormComponentPanel
         searchFieldsLabel = OU_SEARCH_LABEL;
     }
 
+
     private void enableAdminSearch()
     {
         f2Fld.setVisible( false );
@@ -720,6 +822,7 @@ public class UserListPanel extends FormComponentPanel
         field1Label = ADMIN_LABEL;
         searchFieldsLabel = ADMIN_SEARCH_LABEL;
     }
+
 
     private void enableRoleSearch()
     {
@@ -729,6 +832,7 @@ public class UserListPanel extends FormComponentPanel
         searchFieldsLabel = ROLE_SEARCH_LABEL;
     }
 
+
     private void enableUserSearch()
     {
         f2Fld.setVisible( false );
@@ -736,6 +840,7 @@ public class UserListPanel extends FormComponentPanel
         field1Label = USER_LABEL;
         searchFieldsLabel = USER_SEARCH_LABEL;
     }
+
 
     private void enablePermSearch()
     {
@@ -745,6 +850,7 @@ public class UserListPanel extends FormComponentPanel
         field2Label = PERM_OP_LABEL;
         searchFieldsLabel = PERM_SEARCH_LABEL;
     }
+
 
     private void processRadioButton( AjaxRequestTarget target )
     {
@@ -775,34 +881,42 @@ public class UserListPanel extends FormComponentPanel
 
     class SearchFields implements Serializable
     {
+        /** Default serialVersionUID */
+        private static final long serialVersionUID = 1L;
         private String field1;
         private String field2;
         private String field3;
+
 
         String getField1()
         {
             return field1;
         }
 
+
         void setField1( String field1 )
         {
             this.field1 = field1;
         }
+
 
         String getField2()
         {
             return field2;
         }
 
+
         void setField2( String field2 )
         {
             this.field2 = field2;
         }
 
+
         String getField3()
         {
             return field3;
         }
+
 
         void setField3( String field3 )
         {

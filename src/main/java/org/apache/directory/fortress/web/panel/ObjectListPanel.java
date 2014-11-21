@@ -20,6 +20,7 @@
 
 package org.apache.directory.fortress.web.panel;
 
+
 import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.SizeUnit;
 import com.inmethod.grid.column.PropertyColumn;
@@ -59,6 +60,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+
 /**
  *
  * @author Shawn McKinney
@@ -66,7 +68,9 @@ import java.util.List;
  */
 public class ObjectListPanel extends FormComponentPanel
 {
-    private static final Logger log = Logger.getLogger(ObjectListPanel.class.getName());
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+    private static final Logger log = Logger.getLogger( ObjectListPanel.class.getName() );
     private Form listForm;
     private DefaultTreeModel treeModel;
     private DefaultMutableTreeNode node;
@@ -80,40 +84,50 @@ public class ObjectListPanel extends FormComponentPanel
     private static final char OUS = 'O';
     private boolean isAdmin;
 
-    public ObjectListPanel(String id, final boolean isAdmin)
+
+    public ObjectListPanel( String id, final boolean isAdmin )
     {
         super( id );
         this.isAdmin = isAdmin;
-        ObjectListModel objectListModel = new ObjectListModel( new PermObj( "" ), isAdmin, GlobalUtils.getRbacSession( this ) );
-        setDefaultModel(objectListModel);
+        ObjectListModel objectListModel = new ObjectListModel( new PermObj( "" ), isAdmin,
+            GlobalUtils.getRbacSession( this ) );
+        setDefaultModel( objectListModel );
         addGrid();
-        radioGroup = new RadioGroup("searchOptions",  new PropertyModel(this, "selectedRadioButton"));
+        radioGroup = new RadioGroup( "searchOptions", new PropertyModel( this, "selectedRadioButton" ) );
         add( radioGroup );
-        Radio objectRb = new Radio("objectRb", new Model(new Character(NAMES)));
-        radioGroup.add(objectRb);
-        Radio ouRb = new Radio("ouRb", new Model(new Character(OUS)));
-        radioGroup.add(ouRb);
-        addOUSearchModal(ouRb);
+        Radio objectRb = new Radio( "objectRb", new Model( new Character( NAMES ) ) );
+        radioGroup.add( objectRb );
+        Radio ouRb = new Radio( "ouRb", new Model( new Character( OUS ) ) );
+        radioGroup.add( ouRb );
+        addOUSearchModal( ouRb );
         radioGroup.setOutputMarkupId( true );
         radioGroup.setRenderBodyOnly( false );
-        searchValFld = new TextField(GlobalIds.SEARCH_VAL, new PropertyModel<String>(this, GlobalIds.SEARCH_VAL));
+        searchValFld = new TextField( GlobalIds.SEARCH_VAL, new PropertyModel<String>( this, GlobalIds.SEARCH_VAL ) );
         searchValFld.setOutputMarkupId( true );
-        AjaxFormComponentUpdatingBehavior ajaxUpdater = new AjaxFormComponentUpdatingBehavior(GlobalIds.ONBLUR)
+        AjaxFormComponentUpdatingBehavior ajaxUpdater = new AjaxFormComponentUpdatingBehavior( GlobalIds.ONBLUR )
         {
-          @Override
-          protected void onUpdate(final AjaxRequestTarget target)
-          {
-              target.add( searchValFld );
-          }
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
+            @Override
+            protected void onUpdate( final AjaxRequestTarget target )
+            {
+                target.add( searchValFld );
+            }
         };
-        searchValFld.add(ajaxUpdater);
+        searchValFld.add( ajaxUpdater );
         radioGroup.add( searchValFld );
 
-        this.listForm.add(radioGroup);
+        this.listForm.add( radioGroup );
         selectedRadioButton = NAMES;
 
         this.listForm.add( new SecureIndicatingAjaxButton( GlobalIds.SEARCH, GlobalIds.REVIEW_MGR, "findPermObjs" )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             protected void onSubmit( AjaxRequestTarget target, Form form )
             {
@@ -153,18 +167,25 @@ public class ObjectListPanel extends FormComponentPanel
                 target.add( grid );
             }
 
+
             @Override
             public void onError( AjaxRequestTarget target, Form form )
             {
                 log.warn( ".search.onError" );
                 target.add();
             }
+
+
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
             {
                 super.updateAjaxAttributes( attributes );
                 AjaxCallListener ajaxCallListener = new AjaxCallListener()
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     public CharSequence getFailureHandler( Component component )
                     {
@@ -176,16 +197,17 @@ public class ObjectListPanel extends FormComponentPanel
         } );
     }
 
+
     @Override
-    public void onEvent(IEvent event)
+    public void onEvent( IEvent event )
     {
-        if (event.getPayload() instanceof SaveModelEvent)
+        if ( event.getPayload() instanceof SaveModelEvent )
         {
-            SaveModelEvent modelEvent = (SaveModelEvent) event.getPayload();
-            switch (modelEvent.getOperation())
+            SaveModelEvent modelEvent = ( SaveModelEvent ) event.getPayload();
+            switch ( modelEvent.getOperation() )
             {
                 case ADD:
-                    add(modelEvent.getEntity());
+                    add( modelEvent.getEntity() );
                     break;
                 case UPDATE:
                     modelChanged();
@@ -197,114 +219,126 @@ public class ObjectListPanel extends FormComponentPanel
                     log.error( "onEvent caught invalid operation" );
                     break;
             }
-            AjaxRequestTarget target = ((SaveModelEvent) event.getPayload()).getAjaxRequestTarget();
-            log.debug(".onEvent AJAX - ObjectListPanel - SaveModelEvent: " + target.toString());
+            AjaxRequestTarget target = ( ( SaveModelEvent ) event.getPayload() ).getAjaxRequestTarget();
+            log.debug( ".onEvent AJAX - ObjectListPanel - SaveModelEvent: " + target.toString() );
         }
     }
 
-    private void removeSelectedItems(TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String> grid)
+
+    private void removeSelectedItems( TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String> grid )
     {
         Collection<IModel<DefaultMutableTreeNode>> selected = grid.getSelectedItems();
-        for (IModel<DefaultMutableTreeNode> model : selected)
+        for ( IModel<DefaultMutableTreeNode> model : selected )
         {
             DefaultMutableTreeNode node = model.getObject();
-            treeModel.removeNodeFromParent(node);
-            PermObj permObj = (PermObj) node.getUserObject();
-            log.debug(".removeSelectedItems user node: " + permObj.getObjName());
-            List<PermObj> permObjs = ((List<PermObj>) getDefaultModel().getObject());
-            permObjs.remove(permObj.getObjName());
+            treeModel.removeNodeFromParent( node );
+            PermObj permObj = ( PermObj ) node.getUserObject();
+            log.debug( ".removeSelectedItems user node: " + permObj.getObjName() );
+            List<PermObj> permObjs = ( ( List<PermObj> ) getDefaultModel().getObject() );
+            permObjs.remove( permObj.getObjName() );
         }
     }
 
-    private DefaultTreeModel createTreeModel(List<PermObj> permObjs)
+
+    private DefaultTreeModel createTreeModel( List<PermObj> permObjs )
     {
         DefaultTreeModel model;
-        PermObj rootObject = new PermObj(  );
+        PermObj rootObject = new PermObj();
         //rootObject.setObjName( "Permission Objects" );
-        rootNode = new DefaultMutableTreeNode(rootObject);
-        model = new DefaultTreeModel(rootNode);
-        if (permObjs == null)
-            log.debug("no Permission Objects found");
+        rootNode = new DefaultMutableTreeNode( rootObject );
+        model = new DefaultTreeModel( rootNode );
+        if ( permObjs == null )
+            log.debug( "no Permission Objects found" );
         else
         {
-            log.debug(".createTreeModel Permission Objects found:" + permObjs.size());
-            for (PermObj permObj : permObjs)
-                rootNode.add(new DefaultMutableTreeNode(permObj));
+            log.debug( ".createTreeModel Permission Objects found:" + permObjs.size() );
+            for ( PermObj permObj : permObjs )
+                rootNode.add( new DefaultMutableTreeNode( permObj ) );
         }
         return model;
     }
+
 
     private void addGrid()
     {
         List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>> columns =
             new ArrayList<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>>();
 
-
         PropertyColumn objName = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("Object Name"), "userObject.ObjName");
+            Model.of( "Object Name" ), "userObject.ObjName" );
         objName.setInitialSize( 300 );
-        columns.add(objName);
+        columns.add( objName );
 
         PropertyColumn ou = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("Perm Organization"), "userObject.Ou");
-        ou.setInitialSize(200);
-        columns.add(ou);
+            Model.of( "Perm Organization" ), "userObject.Ou" );
+        ou.setInitialSize( 200 );
+        columns.add( ou );
 
         PropertyColumn description = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
-                    Model.of("Description"), "userObject.Description");
+            Model.of( "Description" ), "userObject.Description" );
         description.setInitialSize( 500 );
-        columns.add(description);
+        columns.add( description );
 
-        PropertyColumn type = new PropertyColumn(new Model("Type"), "userObject.Type");
+        PropertyColumn type = new PropertyColumn( new Model( "Type" ), "userObject.Type" );
         type.setInitialSize( 200 );
-        columns.add(type);
+        columns.add( type );
 
-        List<PermObj> permObjs = (List<PermObj>) getDefaultModel().getObject();
-        treeModel = createTreeModel(permObjs);
-        grid = new TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String>("objecttreegrid", treeModel, columns)
+        List<PermObj> permObjs = ( List<PermObj> ) getDefaultModel().getObject();
+        treeModel = createTreeModel( permObjs );
+        grid = new TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String>( "objecttreegrid", treeModel, columns )
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
-            public void selectItem(IModel itemModel, boolean selected)
+            public void selectItem( IModel itemModel, boolean selected )
             {
-                node = (DefaultMutableTreeNode) itemModel.getObject();
-                if(!node.isRoot())
+                node = ( DefaultMutableTreeNode ) itemModel.getObject();
+                if ( !node.isRoot() )
                 {
-                    PermObj permObj = (PermObj) node.getUserObject();
-                    log.debug("TreeGrid.addGrid.selectItem selected permission object =" + permObj.getObjName());
-                    if (super.isItemSelected(itemModel))
+                    PermObj permObj = ( PermObj ) node.getUserObject();
+                    log.debug( "TreeGrid.addGrid.selectItem selected permission object =" + permObj.getObjName() );
+                    if ( super.isItemSelected( itemModel ) )
                     {
-                        log.debug("TreeGrid.addGrid.selectItem item is selected");
-                        super.selectItem(itemModel, false);
+                        log.debug( "TreeGrid.addGrid.selectItem item is selected" );
+                        super.selectItem( itemModel, false );
                     }
                     else
                     {
-                        super.selectItem(itemModel, true);
-                        SelectModelEvent.send(getPage(), this, permObj);
+                        super.selectItem( itemModel, true );
+                        SelectModelEvent.send( getPage(), this, permObj );
                     }
                 }
             }
         };
-        grid.setContentHeight(50, SizeUnit.EM);
-        grid.setAllowSelectMultiple(false);
-        grid.setClickRowToSelect(true);
-        grid.setClickRowToDeselect(false);
-        grid.setSelectToEdit(false);
+        grid.setContentHeight( 50, SizeUnit.EM );
+        grid.setAllowSelectMultiple( false );
+        grid.setClickRowToSelect( true );
+        grid.setClickRowToDeselect( false );
+        grid.setSelectToEdit( false );
         // expand the root node
-        grid.getTreeState().expandNode((TreeNode) treeModel.getRoot());
-        this.listForm = new Form("objectlistform");
-        this.listForm.add(grid);
-        add(this.listForm);
-        grid.setOutputMarkupId(true);
+        grid.getTreeState().expandNode( ( TreeNode ) treeModel.getRoot() );
+        this.listForm = new Form( "objectlistform" );
+        this.listForm.add( grid );
+        add( this.listForm );
+        grid.setOutputMarkupId( true );
     }
 
-    private void addOUSearchModal(Radio ouRb)
+
+    private void addOUSearchModal( Radio ouRb )
     {
         final ModalWindow ousModalWindow;
         listForm.add( ousModalWindow = new ModalWindow( "ousearchmodal" ) );
-        final OUSearchModalPanel ouSearchModalPanel = new OUSearchModalPanel( ousModalWindow.getContentId(), ousModalWindow, false );
+        final OUSearchModalPanel ouSearchModalPanel = new OUSearchModalPanel( ousModalWindow.getContentId(),
+            ousModalWindow, false );
         ousModalWindow.setContent( ouSearchModalPanel );
         ousModalWindow.setWindowClosedCallback( new ModalWindow.WindowClosedCallback()
         {
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
             @Override
             public void onClose( AjaxRequestTarget target )
             {
@@ -320,7 +354,11 @@ public class ObjectListPanel extends FormComponentPanel
 
         ouRb.add( new SecureIndicatingAjaxLink( "ouAssignLinkLbl", GlobalIds.DEL_REVIEW_MGR, "searchOU" )
         {
-            public void onClick(AjaxRequestTarget target)
+            /** Default serialVersionUID */
+            private static final long serialVersionUID = 1L;
+
+
+            public void onClick( AjaxRequestTarget target )
             {
                 String msg = "clicked on ou search";
                 msg += "ouSelection: " + searchVal;
@@ -329,12 +367,18 @@ public class ObjectListPanel extends FormComponentPanel
                 target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                 ousModalWindow.show( target );
             }
+
+
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
             {
                 super.updateAjaxAttributes( attributes );
                 AjaxCallListener ajaxCallListener = new AjaxCallListener()
                 {
+                    /** Default serialVersionUID */
+                    private static final long serialVersionUID = 1L;
+
+
                     @Override
                     public CharSequence getFailureHandler( Component component )
                     {
@@ -343,7 +387,7 @@ public class ObjectListPanel extends FormComponentPanel
                 };
                 attributes.getAjaxCallListeners().add( ajaxCallListener );
             }
-        });
+        } );
 
         ousModalWindow.setTitle( "Permission Object Organizational Unit Search Modal" );
         ousModalWindow.setInitialWidth( 450 );
@@ -351,19 +395,21 @@ public class ObjectListPanel extends FormComponentPanel
         ousModalWindow.setCookieName( "permou-modal" );
     }
 
-    public void add(FortEntity entity)
+
+    public void add( FortEntity entity )
     {
-        if (getDefaultModelObject() != null)
+        if ( getDefaultModelObject() != null )
         {
-            List<PermObj> permObjs = ((List<PermObj>) getDefaultModelObject());
+            List<PermObj> permObjs = ( ( List<PermObj> ) getDefaultModelObject() );
             permObjs.add( ( PermObj ) entity );
-            treeModel.insertNodeInto(new DefaultMutableTreeNode(entity), rootNode, 0);
+            treeModel.insertNodeInto( new DefaultMutableTreeNode( entity ), rootNode, 0 );
             //treeModel.insertNodeInto(new DefaultMutableTreeNode(entity), rootNode, permObjs.size());
         }
     }
 
+
     public void prune()
     {
-        removeSelectedItems(grid);
+        removeSelectedItems( grid );
     }
 }
