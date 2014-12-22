@@ -28,7 +28,7 @@ import org.apache.wicket.request.resource.IResource;
 
 /**
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @version $Rev$
  */
 public abstract class JpegImage extends Image

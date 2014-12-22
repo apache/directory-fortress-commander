@@ -36,7 +36,7 @@ import java.security.Principal;
 /**
  * Base class for Commander Web.  This class initializes Fortress RBAC context and so contains a synchronized block.
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @version $Rev$
  */
 public abstract class FortressWebBasePage extends WebPage

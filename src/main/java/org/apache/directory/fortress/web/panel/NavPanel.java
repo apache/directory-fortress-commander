@@ -49,7 +49,7 @@ import org.apache.directory.fortress.web.UserPage;
 
 
 /**
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @version $Rev$
  *          Date: 5/21/13
  */

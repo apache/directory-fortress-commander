@@ -31,7 +31,7 @@ import org.apache.directory.fortress.web.panel.NavPanel;
 import org.apache.directory.fortress.core.rbac.UserAudit;
 
 /**
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @version $Rev$
  * Date: 8/10/13
  */

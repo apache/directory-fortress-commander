@@ -21,7 +21,7 @@
 package org.apache.directory.fortress.web.panel;
 
 /**
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @version $Rev$
  * Date: 5/16/13
  */

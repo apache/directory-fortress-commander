@@ -62,7 +62,7 @@ import java.util.List;
 
 
 /**
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @version $Rev$
  */
 public class GroupDetailPanel extends FormComponentPanel

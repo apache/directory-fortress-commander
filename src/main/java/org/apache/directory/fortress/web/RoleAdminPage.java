@@ -34,7 +34,7 @@ import org.apache.directory.fortress.web.panel.RoleListPanel;
 
 
 /**
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @version $Rev$
  */
 public class RoleAdminPage extends FortressWebBasePage
@@ -47,7 +47,7 @@ public class RoleAdminPage extends FortressWebBasePage
 
 
     /**
-     * @author Shawn McKinney
+     * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
      * @version $Rev$
      * @param parameters
      */

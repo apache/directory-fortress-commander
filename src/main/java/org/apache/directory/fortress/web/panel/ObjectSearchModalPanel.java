@@ -42,7 +42,7 @@ import org.apache.directory.fortress.core.rbac.PermObj;
 
 /**
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @version $Rev$
  */
 public class ObjectSearchModalPanel extends Panel

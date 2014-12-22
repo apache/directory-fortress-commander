@@ -27,7 +27,7 @@ import java.security.Principal;
 
 
 /**
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @version $Rev$
  */
 public class LaunchPage extends FortressWebBasePage

@@ -22,7 +22,7 @@ package org.apache.directory.fortress.web;
 import org.apache.wicket.Page;
 
 /**
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @version $Rev$
  */
 public class HomePageApplication extends ApplicationContext

@@ -43,7 +43,7 @@ import org.apache.directory.fortress.core.rbac.User;
 
 /**
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @version $Rev$
  */
 public class UserSearchModalPanel extends Panel

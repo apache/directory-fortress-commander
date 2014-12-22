@@ -70,11 +70,8 @@ import java.util.ArrayList;
 
 
 /**
- * Created with IntelliJ IDEA.
- * User: kpmckinn
- * Date: 2/26/13
- * Time: 9:27 PM
- * To change this template use File | Settings | File Templates.
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
+ * @version $Rev$
 */
 public class UserDetailPanel extends FormComponentPanel
 {

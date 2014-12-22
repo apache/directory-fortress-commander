@@ -21,7 +21,7 @@ package org.apache.directory.fortress.web;
 
 /**
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @version $Rev$
  */
 public class GlobalIds

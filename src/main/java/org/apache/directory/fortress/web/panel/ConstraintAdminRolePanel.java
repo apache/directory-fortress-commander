@@ -32,7 +32,7 @@ import java.util.Date;
 
 
 /**
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @version $Rev$
  * Date: 5/24/13
  */

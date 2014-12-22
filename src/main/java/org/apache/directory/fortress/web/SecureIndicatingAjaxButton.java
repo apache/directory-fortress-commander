@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * ...
  *
- * @author Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @version $Rev$
  */
 @Authorizable
