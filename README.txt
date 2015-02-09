@@ -34,7 +34,8 @@ d. LDAP server installed.  (see README in Apache Fortress Core)
 
 e. Apache Tomcat 7 or greater installed to local machine.
 
-f. directory-fortress-realm proxy jar loaded into Tomcat server's /lib folder.
+f. directory-fortress-realm proxy jar loaded into Tomcat server's /lib folder -
+    The README.txt from directory-fortress-realm package provides instructions for obtaining.
 _________________________________________________________________________________
 ###################################################################################
 # SECTION 1:  Instructions to clone source from Fortress Web Git Repo:
@@ -104,7 +105,7 @@ Where [directory-fortress-realm] is base folder of the fortress realm source pac
 
 c. Restart Tomcat server.
 
-Note: The 'Ten Minute Guide', located in directory-fortress-core documentation describes the Tomcat/Fortress Realm setup in detail.
+Note: REALM_CONTEXT_SETUP.txt and REALM_HOST_SETUP.txt, located in directory-fortress-realm package describes the Tomcat setup in more detail.
 
 d. Enter maven command to deploy to Tomcat:
 # $M2_HOME/bin/mvn tomcat:deploy
