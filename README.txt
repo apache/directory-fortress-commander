@@ -19,12 +19,12 @@
 ___________________________________________________________________________________
 ###################################################################################
 README for Fortress Web Application Installation
-Last updated: February 5, 2015
+Last updated: February 10, 2015
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 0.  Prerequisites for Fortress Web installation and usage
 ###################################################################################
-a. Internet access to retrieve source code from Apache Fortress Web GIT and binary dependencies from online Maven repo.
+a. Internet access to retrieve source code from Apache Fortress Rest GIT and binary dependencies from online Maven repo.
 
 b. Git installed to target machine.
 
@@ -32,17 +32,21 @@ c. Java SDK Version 7 or beyond installed to target machine.
 
 d. Apache Maven 3 installed to target machine.
 
-e. LDAP server installed to target environment.  (as described in README.txt located in the Apache Fortress Core package)
+e. Fortress Core installed to target machine.
+(as described in README.txt located in the Apache Fortress Core package)
 
-f. Apache Tomcat 7 or greater installed to target environment.
+f. Fortress Realm installed to target machine.
+(as described in README.txt located in the Apache Fortress Realm package)
 
-g. directory-fortress-realm proxy jar loaded into Apache Tomcat server's /lib folder -
-    The README.txt located in the Apache Fortress Realm package describes instructions to build.
+g. Fortress enabled LDAP server installed to target environment.
+(as described in README.txt located in the Apache Fortress Core package)
+
+h. Apache Tomcat 7 or greater installed to target environment and Realm enabled.
+(as described in REALM_CONTEXT_SETUP.txt or REALM_HOST_SETUP.txt located in the Apache Fortress Realm package).
 _________________________________________________________________________________
 ###################################################################################
 # SECTION 1:  Instructions to clone source from Fortress Web Git Repo:
 ###################################################################################
-
 a. Clone the directory-fortress-commander from apache git repo:
 # git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
 
@@ -52,7 +56,6 @@ ________________________________________________________________________________
 ###################################################################################
 # SECTION 2:  Instructions to build Fortress Web
 ###################################################################################
-
 a. Open a command prompt on target machine in the root folder of the directory-fortress-commander package
 
 b. Set java home:
@@ -67,8 +70,7 @@ ________________________________________________________________________________
 ###################################################################################
 # SECTION 3:  Obtain the fortress.properties
 ###################################################################################
-
-Copy the fortress.properties, created during [directory-fortress-core] setup, to this package's resource folder.
+Copy the fortress.properties, created during Fortress Core setup, to this package's resource folder.
 
 # cp [directory-fortress-core]/config/fortress.properties [directory-fortress-commander]/src/main/resources
 
@@ -77,14 +79,12 @@ ________________________________________________________________________________
 ###################################################################################
 # SECTION 4:  Load Fortress Web Security Policy
 ###################################################################################
-
 Run maven install with load file:
 # $M2_HOME/bin/mvn install -Dload.file=./src/main/resources/FortressWebDemoUsers.xml -DskipTests=true
 
 ###################################################################################
 # SECTION 5:  Instructions to Deploy Fortress Web application to Tomcat
 ###################################################################################
-
 a. If Tomcat has global security enabled you must add credentials to pom.xml:
 
       <plugin>
@@ -112,16 +112,12 @@ Note: REALM_CONTEXT_SETUP.txt and REALM_HOST_SETUP.txt, located in directory-for
 d. Enter maven command to deploy to Tomcat:
 # $M2_HOME/bin/mvn tomcat:deploy
 
-e. Enter maven command to deploy to Tomcat:
-# $M2_HOME/bin/mvn tomcat:deploy
-
-f. To redeploy:
+e. To redeploy:
 # $M2_HOME/bin/mvn tomcat:redeploy
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 6:  Instructions to test Fortress Web application using Solenium
 ###################################################################################
-
 Run the Selenium Web driver integration tests:
 # $M2_HOME/bin/mvn verify -DskipTests=false -Dnoload
 
