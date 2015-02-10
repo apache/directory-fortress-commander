@@ -26,16 +26,18 @@ ________________________________________________________________________________
 ###################################################################################
 a. Internet access to retrieve source code from Apache Fortress Web GIT and binary dependencies from online Maven repo.
 
-b. Java SDK Version 7 or beyond installed to target environment
+b. Git installed to target machine.
 
-c. Apache Maven installed to target environment
+c. Java SDK Version 7 or beyond installed to target machine.
 
-d. LDAP server installed.  (see README in Apache Fortress Core)
+d. Apache Maven 3 installed to target machine.
 
-e. Apache Tomcat 7 or greater installed to local machine.
+e. LDAP server installed to target environment.  (as described in README.txt located in the Apache Fortress Core package)
 
-f. directory-fortress-realm proxy jar loaded into Tomcat server's /lib folder -
-    The README.txt from directory-fortress-realm package provides instructions for obtaining.
+f. Apache Tomcat 7 or greater installed to target environment.
+
+g. directory-fortress-realm proxy jar loaded into Apache Tomcat server's /lib folder -
+    The README.txt located in the Apache Fortress Realm package describes instructions to build.
 _________________________________________________________________________________
 ###################################################################################
 # SECTION 1:  Instructions to clone source from Fortress Web Git Repo:
@@ -73,7 +75,7 @@ Copy the fortress.properties, created during [directory-fortress-core] setup, to
 Where [directory-fortress-core] is base folder of the fortress core source package and [directory-fortress-commander] is the current package's home folder.
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 4:  Load Test Users
+# SECTION 4:  Load Fortress Web Security Policy
 ###################################################################################
 
 Run maven install with load file:
@@ -105,7 +107,7 @@ Where [directory-fortress-realm] is base folder of the fortress realm source pac
 
 c. Restart Tomcat server.
 
-Note: REALM_CONTEXT_SETUP.txt and REALM_HOST_SETUP.txt, located in directory-fortress-realm package describes the Tomcat setup in more detail.
+Note: REALM_CONTEXT_SETUP.txt and REALM_HOST_SETUP.txt, located in directory-fortress-realm package describes the Tomcat Realm setup in more detail.
 
 d. Enter maven command to deploy to Tomcat:
 # $M2_HOME/bin/mvn tomcat:deploy
@@ -117,17 +119,17 @@ f. To redeploy:
 # $M2_HOME/bin/mvn tomcat:redeploy
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 6:  Instructions to test Fortress Rest application
+# SECTION 6:  Instructions to test Fortress Web application using Solenium
 ###################################################################################
 
 Run the Selenium Web driver integration tests:
-# $M2_HOME/bin/mvn verify -DskipTests=false
+# $M2_HOME/bin/mvn verify -DskipTests=false -Dnoload
 
 Note: This test case depends on:
 
 a. SECTION 8 in directory-fortress-core README, 'Instructions to integration test using 'FortressJUnitTest'' has been executed.
-This step loads test data into the ldap server.
+This step needs test data loaded into the ldap server.
 
-b. Test data loaded from SECTION 4 of this document
+b. Sample Fortress Web security policy loaded in SECTION 4 of this document
 
-c. Firefox is loaded on target machine
+c. Firefox is installed to target machine
