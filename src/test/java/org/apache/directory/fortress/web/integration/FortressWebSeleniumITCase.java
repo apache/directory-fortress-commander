@@ -96,11 +96,11 @@ public class FortressWebSeleniumITCase
             admrles();
             admobjs();
             admperms();
-            plcys();
+            //plcys();
             //groups();
-            binds();
-            authzs();
-            mods();
+            //binds();
+            //authzs();
+            //mods();
         }
 
 
