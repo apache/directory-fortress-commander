@@ -155,7 +155,7 @@ public class SDListPanel extends FormComponentPanel
                 }
             }
         };
-        grid.setContentHeight( 50, SizeUnit.EM );
+        //grid.setContentHeight( 50, SizeUnit.EM );
         grid.setAllowSelectMultiple( false );
         grid.setClickRowToSelect( true );
         grid.setClickRowToDeselect( false );

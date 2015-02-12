@@ -101,7 +101,8 @@ public class FourWaySplitter implements IBorderLayout
         //return "[ { collapsible: true, resizable: false, size: '50px', min: '50px', max: '50px', scrollable: false }, { resizable: true, size: '80%' }, { collapsible: true, size: '5%', min: '50px'} ]";
         //return "vertical";
         //return "[ { collapsible: true, resizable: false, size: '50px', min: '50px', max: '50px', scrollable: false }, { resizable: true, size: '80%' }, { collapsible: true, size: '5%', min: '50px'} ]";
-        return "[ { collapsible: true, size: '92%' }, { collapsible: true, size: '8%'} ]";
+        //return "[ { collapsible: true, size: '92%' }, { collapsible: true, size: '8%'} ]";
+        return "[ { collapsible: true, size: '80%' }, { collapsible: true, size: '5%'} ]";
     }
 
     @Override
@@ -112,7 +113,7 @@ public class FourWaySplitter implements IBorderLayout
         //return "[ { collapsible: true, size: '78%' }, { collapsible: true, size: '20%', min: '200px', max: '300px' } ]";
         //return "[ { collapsible: true, size: '80%' }, { collapsible: true, size: '18%'} ]";
         //return "[ { collapsible: true, resizable: false, size: '85px', min: '85x', max: '85px'}, { collapsible: true, size: '65%' }, { collapsible: true, size: '26%'} ]";
-        //return "[ { collapsible: true, resizable: false, size: '85px', min: '85x', max: '85px'}, { collapsible: true, size: '" + this.listPercentage + "%' }, { collapsible: true, size: '" + this.detailPercentage + "%'} ]";
-        return "[ { collapsible: true, resizable: false, size: '105px', min: '105x', max: '105px'}, { collapsible: true, size: '" + this.listPercentage + "%' }, { collapsible: true, size: '" + this.detailPercentage + "%'} ]";
+        return "[ { collapsible: true, resizable: false, size: '85px', min: '85x', max: '85px'}, { collapsible: true, size: '" + this.listPercentage + "%' }, { collapsible: true, size: '" + this.detailPercentage + "%'} ]";
+        //return "[ { collapsible: true, resizable: false, size: '105px', min: '105x', max: '105px'}, { collapsible: true, size: '" + this.listPercentage + "%' }, { collapsible: true, size: '" + this.detailPercentage + "%'} ]";
     }
 }
