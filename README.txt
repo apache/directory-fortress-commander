@@ -72,7 +72,7 @@ ________________________________________________________________________________
 ###################################################################################
 Copy the fortress.properties, created during Fortress Core setup, to this package's resource folder.
 
-# cp [directory-fortress-core]/config/fortress.properties [directory-fortress-commander]/src/main/resources
+# cp [directory-fortress-core]/src/test/resources/fortress.properties [directory-fortress-commander]/src/main/resources
 
 Where [directory-fortress-core] is base folder of the fortress core source package and [directory-fortress-commander] is the current package's home folder.
 ___________________________________________________________________________________
