@@ -58,21 +58,17 @@ ________________________________________________________________________________
 ###################################################################################
 a. Open a command prompt on target machine in the root folder of the directory-fortress-commander package
 
-b. Set java home:
-# export JAVA_HOME=...
+b. Set java home and maven home.
 
-c. Set maven home:
-# export M2_HOME=...
-
-d. Run maven install:
-# $M2_HOME/bin/mvn clean install -DskipTests
+c. Run maven install:
+# mvn clean install -DskipTests
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 3:  Obtain the fortress.properties
 ###################################################################################
 Copy the fortress.properties, created during Fortress Core setup, to this package's resource folder.
 
-# cp [directory-fortress-core]/src/test/resources/fortress.properties [directory-fortress-commander]/src/main/resources
+# cp [directory-fortress-core]/config/fortress.properties [directory-fortress-commander]/src/main/resources
 
 Where [directory-fortress-core] is base folder of the fortress core source package and [directory-fortress-commander] is the current package's home folder.
 ___________________________________________________________________________________
@@ -80,7 +76,7 @@ ________________________________________________________________________________
 # SECTION 4:  Load Fortress Web Security Policy
 ###################################################################################
 Run maven install with load file:
-# $M2_HOME/bin/mvn install -Dload.file=./src/main/resources/FortressWebDemoUsers.xml -DskipTests=true
+# mvn install -Dload.file=./src/main/resources/FortressWebDemoUsers.xml -DskipTests=true
 
 ###################################################################################
 # SECTION 5:  Instructions to Deploy Fortress Web application to Tomcat
@@ -110,16 +106,16 @@ c. Restart Tomcat server.
 Note: REALM_CONTEXT_SETUP.txt and REALM_HOST_SETUP.txt, located in directory-fortress-realm package describes the Tomcat Realm setup in more detail.
 
 d. Enter maven command to deploy to Tomcat:
-# $M2_HOME/bin/mvn tomcat:deploy
+# mvn tomcat:deploy
 
 e. To redeploy:
-# $M2_HOME/bin/mvn tomcat:redeploy
+# mvn tomcat:redeploy
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 6:  Instructions to test Fortress Web application using Solenium
 ###################################################################################
 Run the Selenium Web driver integration tests:
-# $M2_HOME/bin/mvn verify -DskipTests=false -Dnoload
+# mvn verify -DskipTests=false -Dnoload
 
 Note: This test case depends on:
 
