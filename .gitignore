@@ -13,6 +13,6 @@ config
 dist
 .externalToolBuilders
 apache-ant-1.9.1
-
+fortress.properties
 maven-eclipse.xml
 
