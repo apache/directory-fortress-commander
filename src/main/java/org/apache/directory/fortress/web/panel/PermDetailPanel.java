@@ -380,6 +380,8 @@ public class PermDetailPanel extends FormComponentPanel
             opName.setRequired( false );
             TextField objId = new TextField( GlobalIds.OBJECT_ID );
             add( objId );
+            TextField description = new TextField( GlobalIds.DESCRIPTION );
+            add( description );
             Label internalId = new Label( "internalId" );
             add( internalId );
             rolesCB = new ComboBox<String>( "roles", new PropertyModel<String>( this, ROLES_SELECTION ), roles );

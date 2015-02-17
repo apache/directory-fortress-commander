@@ -91,12 +91,17 @@ public class PermListPanel extends FormComponentPanel
         List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>> columns =
             new ArrayList<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>>();
         PropertyColumn objName = new PropertyColumn( new Model( "Object Name" ), "userObject.ObjName" );
-        objName.setInitialSize( 250 );
+        objName.setInitialSize( 350 );
         columns.add( objName );
         columns.add( new PropertyColumn( new Model( "Object Id" ), "userObject.ObjId" ) );
         columns.add( new PropertyColumn( new Model( "Operation Name" ), "userObject.OpName" ) );
-        String roleAssignLabel;
 
+        PropertyColumn description = new PropertyColumn( new Model( "Description" ),
+            "userObject.Description" );
+        description.setInitialSize( 300 );
+        columns.add( description );
+
+        String roleAssignLabel;
         if ( isAdmin )
         {
             roleAssignLabel = "Admin Role Assignments";
@@ -105,14 +110,9 @@ public class PermListPanel extends FormComponentPanel
         {
             roleAssignLabel = "RBAC Role Assignments";
         }
-
         PropertyColumn roles = new PropertyColumn( new Model( roleAssignLabel ), "userObject.Roles" );
         roles.setInitialSize( 500 );
         columns.add( roles );
-        PropertyColumn abstractPermName = new PropertyColumn( new Model( "Abstract Perm Name" ),
-            "userObject.AbstractName" );
-        abstractPermName.setInitialSize( 300 );
-        columns.add( abstractPermName );
 
         List<Permission> perms = ( List<Permission> ) getDefaultModel().getObject();
         treeModel = createTreeModel( perms );
