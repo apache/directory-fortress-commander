@@ -144,7 +144,7 @@ public class OUListPanel extends FormComponentPanel
         grid.setClickRowToDeselect( false );
         grid.setSelectToEdit( false );
         // expand the root node
-        grid.getTreeState().expandNode( ( TreeNode ) treeModel.getRoot() );
+        grid.getTreeState().expandAll();;
         this.listForm = new Form( "form" );
         this.listForm.add( grid );
         grid.setOutputMarkupId( true );
@@ -274,9 +274,7 @@ public class OUListPanel extends FormComponentPanel
     private DefaultTreeModel createTreeModel( List<OrgUnit> orgUnits )
     {
         DefaultTreeModel model;
-        OrgUnit root = new OrgUnit();
-        //root.setName( searchLabel );
-        rootNode = new DefaultMutableTreeNode( root );
+        rootNode = new DefaultMutableTreeNode( null );
         model = new DefaultTreeModel( rootNode );
         if ( orgUnits == null )
         {

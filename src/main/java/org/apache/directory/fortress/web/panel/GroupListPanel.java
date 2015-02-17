@@ -240,8 +240,7 @@ public class GroupListPanel extends FormComponentPanel
     private DefaultTreeModel createTreeModel( List<Group> groups )
     {
         DefaultTreeModel model;
-        Group rootObject = new Group();
-        rootNode = new DefaultMutableTreeNode( rootObject );
+        rootNode = new DefaultMutableTreeNode( null );
         model = new DefaultTreeModel( rootNode );
         if ( groups == null )
             log.debug( "no Groups found" );
@@ -309,7 +308,7 @@ public class GroupListPanel extends FormComponentPanel
         grid.setClickRowToDeselect( false );
         grid.setSelectToEdit( false );
         // expand the root node
-        grid.getTreeState().expandNode( ( TreeNode ) treeModel.getRoot() );
+        grid.getTreeState().expandAll();;
         this.listForm = new Form( "grouplistform" );
         this.listForm.add( grid );
         add( this.listForm );

@@ -166,7 +166,7 @@ public class RoleListPanel<T extends Serializable> extends FormComponentPanel
         grid.setClickRowToDeselect( false );
         grid.setSelectToEdit( false );
         // expand the root node
-        grid.getTreeState().expandNode( ( TreeNode ) treeModel.getRoot() );
+        grid.getTreeState().expandAll();;
         this.listForm = new Form( "form" );
         this.listForm.add( grid );
         grid.setOutputMarkupId( true );
@@ -302,9 +302,7 @@ public class RoleListPanel<T extends Serializable> extends FormComponentPanel
     private DefaultTreeModel createTreeModel( List<T> roles )
     {
         DefaultTreeModel model;
-        Role root = new Role();
-        //root.setName("Roles");
-        rootNode = new DefaultMutableTreeNode( root );
+        rootNode = new DefaultMutableTreeNode( null );
         model = new DefaultTreeModel( rootNode );
         if ( roles == null )
             log.debug( "no Roles found" );

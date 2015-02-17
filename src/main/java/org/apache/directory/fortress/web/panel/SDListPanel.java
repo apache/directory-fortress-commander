@@ -161,7 +161,7 @@ public class SDListPanel extends FormComponentPanel
         grid.setClickRowToDeselect( false );
         grid.setSelectToEdit( false );
         // expand the root node
-        grid.getTreeState().expandNode( ( TreeNode ) treeModel.getRoot() );
+        grid.getTreeState().expandAll();;
         this.listForm = new Form( "form" );
         this.listForm.add( grid );
         grid.setOutputMarkupId( true );
@@ -394,9 +394,7 @@ public class SDListPanel extends FormComponentPanel
     private DefaultTreeModel createTreeModel( List<SDSet> sdSets )
     {
         DefaultTreeModel model;
-        SDSet root = new SDSet();
-        //root.setName(searchLabel);
-        rootNode = new DefaultMutableTreeNode( root );
+        rootNode = new DefaultMutableTreeNode( null );
         model = new DefaultTreeModel( rootNode );
         if ( sdSets == null )
             log.debug( "no SDSets found" );

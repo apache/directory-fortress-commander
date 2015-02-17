@@ -355,7 +355,7 @@ public class AuditModListPanel extends FormComponentPanel
         grid.setClickRowToDeselect( false );
         grid.setSelectToEdit( false );
         // expand the root node
-        grid.getTreeState().expandNode( ( TreeNode ) treeModel.getRoot() );
+        grid.getTreeState().expandAll();;
         grid.setOutputMarkupId( true );
     }
 
@@ -508,9 +508,7 @@ public class AuditModListPanel extends FormComponentPanel
     private DefaultTreeModel createTreeModel( List<Mod> mods )
     {
         DefaultTreeModel model;
-        Mod root = new Mod();
-        //root.setReqAuthzID( "Modifications" );
-        rootNode = new DefaultMutableTreeNode( root );
+        rootNode = new DefaultMutableTreeNode( null );
         model = new DefaultTreeModel( rootNode );
         if ( mods == null )
             LOG.debug( "no Modifications found" );

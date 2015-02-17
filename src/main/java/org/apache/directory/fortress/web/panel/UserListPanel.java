@@ -681,10 +681,8 @@ public class UserListPanel extends FormComponentPanel
 
     private DefaultTreeModel createTreeModel( List<User> users )
     {
-        DefaultTreeModel model;
-        User rootUser = new User();
-        rootUser.setAddress( null );
-        rootNode = new DefaultMutableTreeNode( rootUser );
+        DefaultTreeModel model = null;
+        rootNode = new DefaultMutableTreeNode( null );
         model = new DefaultTreeModel( rootNode );
         if ( users == null )
         {
@@ -695,7 +693,7 @@ public class UserListPanel extends FormComponentPanel
             LOG.debug( ".createTreeModel Users found:" + users.size() );
             for ( User user : users )
             {
-                rootNode.add( new DefaultMutableTreeNode( user ) );
+                    rootNode.add( new DefaultMutableTreeNode( user ) );
             }
         }
         return model;
@@ -779,7 +777,8 @@ public class UserListPanel extends FormComponentPanel
         grid.setClickRowToDeselect( false );
         grid.setSelectToEdit( false );
         // expand the root node
-        grid.getTreeState().expandNode( ( TreeNode ) treeModel.getRoot() );
+        //grid.getTreeState().expandAll();;
+        grid.getTreeState().expandAll();
         this.listForm = new Form( "userlistform" );
         this.listForm.add( grid );
         add( this.listForm );

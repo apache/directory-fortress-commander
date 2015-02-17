@@ -332,7 +332,7 @@ public class AuditBindListPanel extends FormComponentPanel
         grid.setClickRowToDeselect( false );
         grid.setSelectToEdit( false );
         // expand the root node
-        grid.getTreeState().expandNode( ( TreeNode ) treeModel.getRoot() );
+        grid.getTreeState().expandAll();;
         grid.setOutputMarkupId( true );
     }
 
@@ -410,9 +410,7 @@ public class AuditBindListPanel extends FormComponentPanel
     private DefaultTreeModel createTreeModel( List<Bind> binds )
     {
         DefaultTreeModel model;
-        Bind root = new Bind();
-        //root.setReqAuthzID( "Authentications" );
-        rootNode = new DefaultMutableTreeNode( root );
+        rootNode = new DefaultMutableTreeNode( null );
         model = new DefaultTreeModel( rootNode );
         if ( binds == null )
             LOG.debug( "no Authentications found" );

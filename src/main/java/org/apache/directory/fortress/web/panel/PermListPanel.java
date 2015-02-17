@@ -154,7 +154,7 @@ public class PermListPanel extends FormComponentPanel
         grid.setClickRowToDeselect( false );
         grid.setSelectToEdit( false );
         // expand the root node
-        grid.getTreeState().expandNode( ( TreeNode ) treeModel.getRoot() );
+        grid.getTreeState().expandAll();;
         listForm = new Form( "form" );
         listForm.add( grid );
         grid.setOutputMarkupId( true );
@@ -413,9 +413,7 @@ public class PermListPanel extends FormComponentPanel
     private DefaultTreeModel createTreeModel( List<Permission> perms )
     {
         DefaultTreeModel model;
-        //Permission root = new Permission("Perms");
-        Permission root = new Permission();
-        rootNode = new DefaultMutableTreeNode( root );
+        rootNode = new DefaultMutableTreeNode( null );
         model = new DefaultTreeModel( rootNode );
 
         if ( perms == null )

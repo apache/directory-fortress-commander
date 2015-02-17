@@ -190,7 +190,7 @@ public class PwPolicyListPanel extends FormComponentPanel
         grid.setClickRowToDeselect( false );
         grid.setSelectToEdit( false );
         // expand the root node
-        grid.getTreeState().expandNode( ( TreeNode ) treeModel.getRoot() );
+        grid.getTreeState().expandAll();;
         this.listForm = new Form( "form" );
         this.listForm.add( grid );
         grid.setOutputMarkupId( true );
@@ -308,9 +308,7 @@ public class PwPolicyListPanel extends FormComponentPanel
     private DefaultTreeModel createTreeModel( List<PwPolicy> policies )
     {
         DefaultTreeModel model;
-        PwPolicy root = new PwPolicy();
-        //root.setName("Policies");
-        rootNode = new DefaultMutableTreeNode( root );
+        rootNode = new DefaultMutableTreeNode( null );
         model = new DefaultTreeModel( rootNode );
         if ( policies == null )
             log.debug( "no Policies found" );

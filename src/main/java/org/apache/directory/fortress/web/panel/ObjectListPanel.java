@@ -243,9 +243,7 @@ public class ObjectListPanel extends FormComponentPanel
     private DefaultTreeModel createTreeModel( List<PermObj> permObjs )
     {
         DefaultTreeModel model;
-        PermObj rootObject = new PermObj();
-        //rootObject.setObjName( "Permission Objects" );
-        rootNode = new DefaultMutableTreeNode( rootObject );
+        rootNode = new DefaultMutableTreeNode( null );
         model = new DefaultTreeModel( rootNode );
         if ( permObjs == null )
             log.debug( "no Permission Objects found" );
@@ -318,7 +316,7 @@ public class ObjectListPanel extends FormComponentPanel
         grid.setClickRowToDeselect( false );
         grid.setSelectToEdit( false );
         // expand the root node
-        grid.getTreeState().expandNode( ( TreeNode ) treeModel.getRoot() );
+        grid.getTreeState().expandAll();;
         this.listForm = new Form( "objectlistform" );
         this.listForm.add( grid );
         add( this.listForm );
