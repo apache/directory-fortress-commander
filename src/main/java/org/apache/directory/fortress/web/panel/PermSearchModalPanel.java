@@ -21,8 +21,11 @@
 package org.apache.directory.fortress.web.panel;
 
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -137,6 +140,18 @@ public class PermSearchModalPanel extends Panel
                     Permission permission = new Permission( objectSearchVal, "" );
                     permission.setAdmin( isAdmin );
                     objects = reviewMgr.findPermissions( permission );
+                    // sort list by abstract name:
+                    if( VUtil.isNotNullOrEmpty( objects ))
+                    {
+                        Collections.sort( ( List<Permission> ) objects, new Comparator<Permission>()
+                        {
+                            @Override
+                            public int compare(Permission p1, Permission p2)
+                            {
+                                return p1.getAbstractName().compareToIgnoreCase( p2.getAbstractName() );
+                            }
+                        } );
+                    }
                 }
                 catch ( org.apache.directory.fortress.core.SecurityException se )
                 {

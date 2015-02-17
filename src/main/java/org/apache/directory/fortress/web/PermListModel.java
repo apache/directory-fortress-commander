@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.web;
 
+import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
@@ -29,6 +30,8 @@ import org.apache.directory.fortress.core.rbac.Session;
 import org.apache.directory.fortress.core.SecurityException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -128,6 +131,18 @@ public class PermListModel extends Model<SerializableList<Permission>>
             LOG.debug( ".getList objectNm: " + szObjectNm + " opNm: " + szOpNm );
             perm.setAdmin( isAdmin );
             permsList = reviewMgr.findPermissions( perm );
+            // sort list by abstract name:
+            if( VUtil.isNotNullOrEmpty( permsList ))
+            {
+                Collections.sort( ( List<Permission> ) permsList, new Comparator<Permission>()
+                {
+                    @Override
+                    public int compare(Permission p1, Permission p2)
+                    {
+                        return p1.getAbstractName().compareToIgnoreCase( p2.getAbstractName() );
+                    }
+                } );
+            }
         }
         catch ( SecurityException se )
         {

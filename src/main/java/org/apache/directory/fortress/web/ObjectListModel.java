@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.web;
 
+import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
@@ -31,6 +32,8 @@ import org.apache.directory.fortress.core.rbac.Session;
 import org.apache.directory.fortress.core.SecurityException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -144,6 +147,18 @@ public class ObjectListModel extends Model<SerializableList<PermObj>>
             {
                 // TODO: make this work with administrative permissions:
                 permObjList = reviewMgr.findPermObjs( new OrgUnit( ou ) );
+            }
+            // sort list by objName:
+            if( VUtil.isNotNullOrEmpty( permObjList ))
+            {
+                Collections.sort( ( List<PermObj> ) permObjList, new Comparator<PermObj>()
+                {
+                    @Override
+                    public int compare(PermObj p1, PermObj p2)
+                    {
+                        return p1.getObjName().compareToIgnoreCase( p2.getObjName() );
+                    }
+                } );
             }
         }
         catch ( SecurityException se )

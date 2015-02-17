@@ -21,8 +21,12 @@
 package org.apache.directory.fortress.web.panel;
 
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import org.apache.directory.fortress.core.rbac.Role;
+import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -147,6 +151,19 @@ public class UserSearchModalPanel extends Panel
                     if ( userSearchVal == null )
                         userSearchVal = "";
                     users = reviewMgr.findUsers( new User( userSearchVal ) );
+                    // sort list by userId:
+                    if( VUtil.isNotNullOrEmpty( users ))
+                    {
+                        Collections.sort( ( List<User> ) users, new Comparator<User>()
+                        {
+                            @Override
+                            public int compare(User u1, User u2)
+                            {
+                                return u1.getUserId().compareToIgnoreCase( u2.getUserId() );
+                            }
+                        } );
+                    }
+
                 }
                 catch ( org.apache.directory.fortress.core.SecurityException se )
                 {

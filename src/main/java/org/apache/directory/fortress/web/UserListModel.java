@@ -36,6 +36,8 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.directory.fortress.core.SecurityException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
@@ -176,6 +178,18 @@ public class UserListModel extends Model<SerializableList<User>>
             else
             {
                 usersList = reviewMgr.findUsers( user );
+            }
+            // sort list by userId:
+            if( VUtil.isNotNullOrEmpty( usersList ))
+            {
+                Collections.sort( ( List<User> ) usersList, new Comparator<User>()
+                {
+                    @Override
+                    public int compare(User u1, User u2)
+                    {
+                        return u1.getUserId().compareToIgnoreCase( u2.getUserId() );
+                    }
+                } );
             }
         }
         catch ( SecurityException se )

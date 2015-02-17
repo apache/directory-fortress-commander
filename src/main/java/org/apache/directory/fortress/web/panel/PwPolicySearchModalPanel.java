@@ -21,8 +21,11 @@
 package org.apache.directory.fortress.web.panel;
 
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -143,6 +146,18 @@ public class PwPolicySearchModalPanel extends Panel
                     if ( policySearchVal == null )
                         policySearchVal = "";
                     policies = pwPolicyMgr.search( policySearchVal );
+                    // sort list by name:
+                    if( VUtil.isNotNullOrEmpty( policies ))
+                    {
+                        Collections.sort( ( List<PwPolicy> ) policies, new Comparator<PwPolicy>()
+                        {
+                            @Override
+                            public int compare(PwPolicy p1, PwPolicy p2)
+                            {
+                                return p1.getName().compareToIgnoreCase( p2.getName() );
+                            }
+                        } );
+                    }
                 }
                 catch ( org.apache.directory.fortress.core.SecurityException se )
                 {

@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.web;
 
+import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
@@ -29,6 +30,8 @@ import org.apache.directory.fortress.core.rbac.Session;
 import org.apache.directory.fortress.core.SecurityException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -125,6 +128,18 @@ public class PwPolicyListModel extends Model<SerializableList<PwPolicy>>
             String szPolicyNm = policy != null ? policy.getName() : "";
             LOG.debug( ".getList policyNm: " + szPolicyNm );
             policiesList = pwPolicyMgr.search( szPolicyNm );
+            // sort list by policy name:
+            if( VUtil.isNotNullOrEmpty( policiesList ))
+            {
+                Collections.sort( ( List<PwPolicy> ) policiesList, new Comparator<PwPolicy>()
+                {
+                    @Override
+                    public int compare(PwPolicy p1, PwPolicy p2)
+                    {
+                        return p1.getName().compareToIgnoreCase( p2.getName() );
+                    }
+                } );
+            }
         }
         catch ( SecurityException se )
         {

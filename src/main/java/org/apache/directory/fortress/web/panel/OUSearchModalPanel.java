@@ -21,8 +21,11 @@
 package org.apache.directory.fortress.web.panel;
 
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -133,6 +136,19 @@ public class OUSearchModalPanel extends Panel
                         ous = delReviewMgr.search( OrgUnit.Type.USER, ouSearchVal );
                     else
                         ous = delReviewMgr.search( OrgUnit.Type.PERM, ouSearchVal );
+                    // sort list by name:
+                    if( VUtil.isNotNullOrEmpty( ous ))
+                    {
+                        Collections.sort( ( List<OrgUnit> ) ous, new Comparator<OrgUnit>()
+                        {
+                            @Override
+                            public int compare(OrgUnit o1, OrgUnit o2)
+                            {
+                                return o1.getName().compareToIgnoreCase( o2.getName() );
+                            }
+                        } );
+                    }
+
                 }
                 catch ( org.apache.directory.fortress.core.SecurityException se )
                 {

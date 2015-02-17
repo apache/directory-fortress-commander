@@ -22,12 +22,16 @@ package org.apache.directory.fortress.web.panel;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.navigation.paging.AjaxPagingNavigator;
+import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -174,12 +178,24 @@ public class RoleSearchModalPanel extends Panel
                     String error = "loadPanel caught SecurityException=" + se;
                     LOG.error( error );
                 }
+
+                // sort list by name:
+                if( VUtil.isNotNullOrEmpty( roles ))
+                {
+                    Collections.sort( (List<Role>)roles, new Comparator<Role>()
+                    {
+                        @Override
+                        public int compare(Role r1, Role r2)
+                        {
+                            return r1.getName().compareToIgnoreCase( r2.getName() );
+                        }
+                    } );
+                }
                 return roles;
             }
         };
         return ret;
     }
-
 
     public UserRole getRoleSelection()
     {

@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.web;
 
+import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
@@ -31,6 +32,8 @@ import org.apache.directory.fortress.core.rbac.Session;
 import org.apache.directory.fortress.core.SecurityException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -136,6 +139,18 @@ public class RoleListModel extends Model<SerializableList<? extends Role>>
         {
             LOG.debug( ".getList roleNm: " + szRoleNm );
             rolesList = reviewMgr.findRoles( szRoleNm );
+            // sort list by role name:
+            if( VUtil.isNotNullOrEmpty( rolesList ))
+            {
+                Collections.sort( ( List<Role> ) rolesList, new Comparator<Role>()
+                {
+                    @Override
+                    public int compare(Role r1, Role r2)
+                    {
+                        return r1.getName().compareToIgnoreCase( r2.getName() );
+                    }
+                } );
+            }
         }
         catch ( org.apache.directory.fortress.core.SecurityException se )
         {
@@ -155,6 +170,17 @@ public class RoleListModel extends Model<SerializableList<? extends Role>>
         {
             LOG.debug( ".getList roleNm: " + szRoleNm );
             rolesList = (List<AdminRole>)delReviewMgr.findRoles( szRoleNm );
+            if( VUtil.isNotNullOrEmpty( rolesList ))
+            {
+                Collections.sort( ( List<AdminRole> ) rolesList, new Comparator<AdminRole>()
+                {
+                    @Override
+                    public int compare(AdminRole r1, AdminRole r2)
+                    {
+                        return r1.getName().compareToIgnoreCase( r2.getName() );
+                    }
+                } );
+            }
         }
         catch ( SecurityException se )
         {

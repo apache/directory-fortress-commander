@@ -21,8 +21,11 @@
 package org.apache.directory.fortress.web.panel;
 
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -134,6 +137,19 @@ public class ObjectSearchModalPanel extends Panel
                     PermObj permObj = new PermObj( objectSearchVal );
                     permObj.setAdmin( isAdmin );
                     objects = reviewMgr.findPermObjs( permObj );
+                    // sort list by objName:
+                    if( VUtil.isNotNullOrEmpty( objects ))
+                    {
+                        Collections.sort( ( List<PermObj> ) objects, new Comparator<PermObj>()
+                        {
+                            @Override
+                            public int compare(PermObj p1, PermObj p2)
+                            {
+                                return p1.getObjName().compareToIgnoreCase( p2.getObjName() );
+                            }
+                        } );
+                    }
+
                 }
                 catch ( org.apache.directory.fortress.core.SecurityException se )
                 {

@@ -31,6 +31,8 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.directory.fortress.core.SecurityException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -151,6 +153,18 @@ public class SDListModel extends Model<SerializableList<SDSet>>
                 {
                     sdSetList = reviewMgr.dsdSets( sdSet );
                 }
+            }
+            // sort list by set name:
+            if( VUtil.isNotNullOrEmpty( sdSetList ))
+            {
+                Collections.sort( ( List<SDSet> ) sdSetList, new Comparator<SDSet>()
+                {
+                    @Override
+                    public int compare(SDSet s1, SDSet s2)
+                    {
+                        return s1.getName().compareToIgnoreCase( s2.getName() );
+                    }
+                } );
             }
         }
         catch ( SecurityException se )

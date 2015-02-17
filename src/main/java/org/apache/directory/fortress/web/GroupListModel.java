@@ -31,6 +31,8 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.directory.fortress.core.SecurityException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -132,6 +134,18 @@ public class GroupListModel extends Model<SerializableList<Group>>
             {
                 LOG.debug( ".getList group name: " + group != null ? group.getName() : "null" );
                 groupList = groupMgr.find( group );
+            }
+            // sort list by name:
+            if( VUtil.isNotNullOrEmpty( groupList ))
+            {
+                Collections.sort( ( List<Group> ) groupList, new Comparator<Group>()
+                {
+                    @Override
+                    public int compare(Group g1, Group g2)
+                    {
+                        return g1.getName().compareToIgnoreCase( g2.getName() );
+                    }
+                } );
             }
         }
         catch ( SecurityException se )

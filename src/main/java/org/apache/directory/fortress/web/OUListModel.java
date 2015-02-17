@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.web;
 
+import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
@@ -29,6 +30,8 @@ import org.apache.directory.fortress.core.rbac.Session;
 import org.apache.directory.fortress.core.SecurityException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -124,6 +127,18 @@ public class OUListModel extends Model<SerializableList<OrgUnit>>
             String szOrgUnitNm = orgUnit != null && orgUnit.getName() != null ? orgUnit.getName() : "";
             LOG.debug( ".getList orgUnitNm: " + szOrgUnitNm );
             orgUnitList = delReviewMgr.search( orgUnit.getType(), orgUnit.getName() );
+            // sort list by name:
+            if( VUtil.isNotNullOrEmpty( orgUnitList ))
+            {
+                Collections.sort( ( List<OrgUnit> ) orgUnitList, new Comparator<OrgUnit>()
+                {
+                    @Override
+                    public int compare(OrgUnit o1, OrgUnit o2)
+                    {
+                        return o1.getName().compareToIgnoreCase( o2.getName() );
+                    }
+                } );
+            }
         }
         catch ( SecurityException se )
         {
