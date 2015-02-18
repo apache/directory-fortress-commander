@@ -638,6 +638,7 @@ public class PermDetailPanel extends FormComponentPanel
                 editForm.addOrReplace( rolesCB );
                 String msg = "Perm objName: " + perm.getObjName() + " opName: " + perm.getOpName()
                     + " has been selected";
+                display.setMessage( msg );
                 log.debug( msg );
                 component = editForm;
             }

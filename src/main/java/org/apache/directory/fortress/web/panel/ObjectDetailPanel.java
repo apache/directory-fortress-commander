@@ -422,6 +422,7 @@ public class ObjectDetailPanel extends FormComponentPanel
                 PermObj permObj = ( PermObj ) modelEvent.getEntity();
                 this.setModelObject( permObj );
                 String msg = "PermObject Name: " + permObj.getObjName() + " has been selected";
+                display.setMessage( msg );
                 log.debug( msg );
                 component = editForm;
             }

@@ -777,7 +777,6 @@ public class UserListPanel extends FormComponentPanel
         grid.setClickRowToDeselect( false );
         grid.setSelectToEdit( false );
         // expand the root node
-        //grid.getTreeState().expandAll();;
         grid.getTreeState().expandAll();
         this.listForm = new Form( "userlistform" );
         this.listForm.add( grid );

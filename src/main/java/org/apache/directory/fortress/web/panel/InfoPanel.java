@@ -53,7 +53,7 @@ public class InfoPanel extends FormComponentPanel
     public InfoPanel( String id )
     {
         super( id );
-        init( "ready to accept input" );
+        init( "" );
     }
 
 
