@@ -41,7 +41,7 @@ public class ApplicationContext extends WebApplication
     @Override
     public Session newSession( Request request, Response response )
     {
-        return new RbacSession( request );
+        return new WicketSession( request );
     }
 
     @Override

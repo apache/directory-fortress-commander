@@ -25,7 +25,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.apache.directory.fortress.core.rbac.Role;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -40,7 +39,7 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.web.GlobalIds;
-import org.apache.directory.fortress.web.GlobalUtils;
+import org.apache.directory.fortress.web.SecUtils;
 import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.rbac.User;
 
@@ -69,7 +68,7 @@ public class UserSearchModalPanel extends Panel
     {
         super( id );
         // TODO: add later:
-        this.reviewMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
+        this.reviewMgr.setAdmin( SecUtils.getSession( this ) );
         this.window = window;
         loadPanel();
     }

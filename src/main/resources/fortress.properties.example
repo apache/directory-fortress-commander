@@ -17,6 +17,9 @@
 #   under the License.
 #
 
+# Used by application security components:
+perms.cached=true
+
 # Host name and port of LDAP DIT:
 host=localhost
 #host=localhost
@@ -48,7 +51,6 @@ debug.ldap.pool=true
 enable.pool.reconnect=true
 
 ehcache.config.file=ehcache.xml
-perms.cached=true
 
 # This will override default LDAP manager implementations for the RESTful ones:
 #enable.mgr.impl.rest=true

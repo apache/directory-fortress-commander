@@ -38,7 +38,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.RangeValidator;
 import org.apache.directory.fortress.web.GlobalIds;
-import org.apache.directory.fortress.web.GlobalUtils;
+import org.apache.directory.fortress.web.SecUtils;
 import org.apache.directory.fortress.web.SaveModelEvent;
 import org.apache.directory.fortress.web.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.SelectModelEvent;
@@ -71,7 +71,7 @@ public class PwPolicyDetailPanel extends FormComponentPanel
     public PwPolicyDetailPanel( String id, Displayable display )
     {
         super( id );
-        this.pwPolicyMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
+        this.pwPolicyMgr.setAdmin( SecUtils.getSession( this ) );
         this.editForm = new PwPolicyDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<PwPolicy>(
             new PwPolicy() ) );
         this.display = display;

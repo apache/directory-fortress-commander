@@ -38,7 +38,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.apache.directory.fortress.web.GlobalUtils;
+import org.apache.directory.fortress.web.SecUtils;
 import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.rbac.Permission;
 
@@ -68,7 +68,7 @@ public class PermSearchModalPanel extends Panel
     public PermSearchModalPanel( String id, ModalWindow window, final boolean isAdmin )
     {
         super( id );
-        this.reviewMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
+        this.reviewMgr.setAdmin( SecUtils.getSession( this ) );
         this.isAdmin = isAdmin;
         this.window = window;
         loadPanel();

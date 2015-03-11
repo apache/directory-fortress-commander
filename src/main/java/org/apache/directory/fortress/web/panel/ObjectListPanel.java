@@ -22,7 +22,6 @@ package org.apache.directory.fortress.web.panel;
 
 
 import com.inmethod.grid.IGridColumn;
-import com.inmethod.grid.SizeUnit;
 import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
 import org.apache.log4j.Logger;
@@ -40,7 +39,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.directory.fortress.web.GlobalIds;
-import org.apache.directory.fortress.web.GlobalUtils;
+import org.apache.directory.fortress.web.SecUtils;
 import org.apache.directory.fortress.web.ObjectListModel;
 import org.apache.directory.fortress.web.SaveModelEvent;
 import org.apache.directory.fortress.web.SecureIndicatingAjaxButton;
@@ -55,7 +54,6 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -90,7 +88,7 @@ public class ObjectListPanel extends FormComponentPanel
         super( id );
         this.isAdmin = isAdmin;
         ObjectListModel objectListModel = new ObjectListModel( new PermObj( "" ), isAdmin,
-            GlobalUtils.getRbacSession( this ) );
+            SecUtils.getSession( this ) );
         setDefaultModel( objectListModel );
         addGrid();
         radioGroup = new RadioGroup( "searchOptions", new PropertyModel( this, "selectedRadioButton" ) );
@@ -150,7 +148,7 @@ public class ObjectListPanel extends FormComponentPanel
                         break;
                 }
                 setDefaultModel( new ObjectListModel( srchObject, isAdmin,
-                    GlobalUtils.getRbacSession( this ) ) );
+                    SecUtils.getSession( this ) ) );
                 treeModel.reload();
                 rootNode.removeAllChildren();
                 List<PermObj> permObjs = ( List<PermObj> ) getDefaultModelObject();

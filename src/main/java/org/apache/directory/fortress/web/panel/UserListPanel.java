@@ -22,7 +22,6 @@ package org.apache.directory.fortress.web.panel;
 
 
 import com.inmethod.grid.IGridColumn;
-import com.inmethod.grid.SizeUnit;
 import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
 import org.apache.log4j.Logger;
@@ -46,7 +45,7 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.Model;
 import org.apache.directory.fortress.web.GlobalIds;
-import org.apache.directory.fortress.web.GlobalUtils;
+import org.apache.directory.fortress.web.SecUtils;
 import org.apache.directory.fortress.web.SaveModelEvent;
 import org.apache.directory.fortress.web.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.SecureIndicatingAjaxLink;
@@ -62,7 +61,6 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -118,7 +116,7 @@ public class UserListPanel extends FormComponentPanel
     public UserListPanel( String id )
     {
         super( id );
-        UserListModel userListModel = new UserListModel( new User(), GlobalUtils.getRbacSession( this ) );
+        UserListModel userListModel = new UserListModel( new User(), SecUtils.getSession( this ) );
         setDefaultModel( userListModel );
         addGrid();
         userformsearchfields = new WebMarkupContainer( "userformsearchfields" );
@@ -245,7 +243,7 @@ public class UserListPanel extends FormComponentPanel
                     Permission srchPerm = new Permission();
                     srchPerm.setObjName( searchData.getField1() );
                     srchPerm.setOpName( searchData.getField2() );
-                    setDefaultModel( new UserListModel( srchPerm, GlobalUtils.getRbacSession( this ) ) );
+                    setDefaultModel( new UserListModel( srchPerm, SecUtils.getSession( this ) ) );
                 }
                 else
                 {
@@ -274,7 +272,7 @@ public class UserListPanel extends FormComponentPanel
                     {
                         LOG.debug( ".onSubmit PERMS RB selected" );
                     }
-                    setDefaultModel( new UserListModel( srchUser, GlobalUtils.getRbacSession( this ) ) );
+                    setDefaultModel( new UserListModel( srchUser, SecUtils.getSession( this ) ) );
                 }
 
                 treeModel.reload();

@@ -66,7 +66,7 @@ public class PwPolicySearchModalPanel extends Panel
     {
         super( id );
         // TODO: add later:
-        //this.pwPolicyMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
+        //this.pwPolicyMgr.setAdmin( GlobalUtils.getSession( this ) );
         this.window = window;
         loadPanel();
     }

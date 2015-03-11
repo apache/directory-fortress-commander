@@ -23,10 +23,10 @@ package org.apache.directory.fortress.web.panel;
 
 import com.googlecode.wicket.kendo.ui.form.datetime.DatePicker;
 import com.inmethod.grid.IGridColumn;
-import com.inmethod.grid.SizeUnit;
 import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
 
+import org.apache.directory.fortress.web.AuditUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -43,7 +43,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.directory.fortress.web.AuditBindListModel;
 import org.apache.directory.fortress.web.AuditBindPage;
 import org.apache.directory.fortress.web.GlobalIds;
-import org.apache.directory.fortress.web.GlobalUtils;
+import org.apache.directory.fortress.web.SecUtils;
 import org.apache.directory.fortress.web.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.SecureIndicatingAjaxLink;
 import org.apache.directory.fortress.web.SelectModelEvent;
@@ -58,7 +58,6 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -97,7 +96,7 @@ public class AuditBindListPanel extends FormComponentPanel
 
     private void init( UserAudit userAudit )
     {
-        pageModel = new AuditBindListModel( userAudit, GlobalUtils.getRbacSession( this ) );
+        pageModel = new AuditBindListModel( userAudit, SecUtils.getSession( this ) );
         setDefaultModel( pageModel );
         createAndLoadGrid();
         this.listForm = new Form( "bindform" );
@@ -451,7 +450,7 @@ public class AuditBindListPanel extends FormComponentPanel
             {
                 bind.setReqResult( GlobalIds.FAILURE );
             }
-            bind.setReqDN( GlobalUtils.getAuthZId( bind.getReqDN() ) );
+            bind.setReqDN( AuditUtils.getAuthZId( bind.getReqDN() ) );
             rootNode.add( new DefaultMutableTreeNode( bind ) );
         }
     }

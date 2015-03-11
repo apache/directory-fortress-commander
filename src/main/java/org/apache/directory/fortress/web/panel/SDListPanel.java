@@ -22,7 +22,6 @@ package org.apache.directory.fortress.web.panel;
 
 
 import com.inmethod.grid.IGridColumn;
-import com.inmethod.grid.SizeUnit;
 import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
 import org.apache.log4j.Logger;
@@ -40,7 +39,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.directory.fortress.web.GlobalIds;
-import org.apache.directory.fortress.web.GlobalUtils;
+import org.apache.directory.fortress.web.SecUtils;
 import org.apache.directory.fortress.web.SDListModel;
 import org.apache.directory.fortress.web.SaveModelEvent;
 import org.apache.directory.fortress.web.SecureIndicatingAjaxButton;
@@ -55,7 +54,6 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -103,7 +101,7 @@ public class SDListPanel extends FormComponentPanel
             searchLabel = "DSD Name";
             opName = "dsdRoleSets";
         }
-        SDListModel sdListModel = new SDListModel( sdSet, GlobalUtils.getRbacSession( this ) );
+        SDListModel sdListModel = new SDListModel( sdSet, SecUtils.getSession( this ) );
         setDefaultModel( sdListModel );
         List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>> columns =
             new ArrayList<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>>();
@@ -229,7 +227,7 @@ public class SDListPanel extends FormComponentPanel
                         break;
                 }
 
-                setDefaultModel( new SDListModel( srchSd, GlobalUtils.getRbacSession( this ) ) );
+                setDefaultModel( new SDListModel( srchSd, SecUtils.getSession( this ) ) );
                 treeModel.reload();
                 rootNode.removeAllChildren();
                 List<SDSet> sdSets = ( List<SDSet> ) getDefaultModelObject();

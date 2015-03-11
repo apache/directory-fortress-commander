@@ -29,12 +29,13 @@ import java.util.List;
 
 
 /**
- * ...
+ * This object is managed by wicket framework.  It is used to cache a copy of a user's session and permissions.
+ *
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @version $Rev$
  */
-public class RbacSession extends WebSession
+public class WicketSession extends WebSession
 {
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
@@ -48,19 +49,19 @@ public class RbacSession extends WebSession
      *
      * @param request The current request
      */
-    public RbacSession( Request request )
+    public WicketSession(Request request)
     {
         super( request );
     }
 
 
-    public Session getRbacSession()
+    public Session getSession()
     {
         return session;
     }
 
 
-    public void setSession( Session session )
+    public void setSession(Session session)
     {
         this.session = session;
     }

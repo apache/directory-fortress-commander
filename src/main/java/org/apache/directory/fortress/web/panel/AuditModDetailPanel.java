@@ -25,6 +25,7 @@ import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.kendo.ui.datatable.DataTable;
 import com.googlecode.wicket.kendo.ui.datatable.column.IColumn;
 import com.googlecode.wicket.kendo.ui.datatable.column.PropertyColumn;
+import org.apache.directory.fortress.web.AuditUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -39,7 +40,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.web.GlobalIds;
-import org.apache.directory.fortress.web.GlobalUtils;
+import org.apache.directory.fortress.web.SecUtils;
 import org.apache.directory.fortress.web.SelectModelEvent;
 import org.apache.directory.fortress.core.AuditMgr;
 import org.apache.directory.fortress.core.ReviewMgr;
@@ -81,8 +82,8 @@ public class AuditModDetailPanel extends FormComponentPanel
     public AuditModDetailPanel( String id, Displayable display )
     {
         super( id );
-        this.auditMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
-        this.reviewMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
+        this.auditMgr.setAdmin( SecUtils.getSession( this ) );
+        this.reviewMgr.setAdmin( SecUtils.getSession( this ) );
         this.detailForm = new AuditAuthzDetailForm( GlobalIds.DETAIL_FIELDS, new CompoundPropertyModel<Mod>( new Mod() ) );
         this.display = display;
         add( detailForm );
@@ -150,7 +151,7 @@ public class AuditModDetailPanel extends FormComponentPanel
                     ftModifier = modifications.get( indx ).getValue();
                     if ( VUtil.isNotNullOrEmpty( ftModifier ) )
                     {
-                        user = GlobalUtils.getUserByInternalId( reviewMgr, ftModifier );
+                        user = AuditUtils.getUserByInternalId( reviewMgr, ftModifier );
                         userId = user.getUserId();
                     }
                 }

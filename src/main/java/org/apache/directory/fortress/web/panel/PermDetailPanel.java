@@ -40,7 +40,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.web.GlobalIds;
-import org.apache.directory.fortress.web.GlobalUtils;
+import org.apache.directory.fortress.web.SecUtils;
 import org.apache.directory.fortress.web.SaveModelEvent;
 import org.apache.directory.fortress.web.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.SelectModelEvent;
@@ -89,7 +89,7 @@ public class PermDetailPanel extends FormComponentPanel
     {
         super( id );
         this.isAdmin = isAdmin;
-        this.adminMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
+        this.adminMgr.setAdmin( SecUtils.getSession( this ) );
         this.editForm = new PermDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<Permission>(
             new Permission() ) );
         this.display = display;

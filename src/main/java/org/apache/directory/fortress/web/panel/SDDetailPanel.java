@@ -41,7 +41,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.web.GlobalIds;
-import org.apache.directory.fortress.web.GlobalUtils;
+import org.apache.directory.fortress.web.SecUtils;
 import org.apache.directory.fortress.web.SaveModelEvent;
 import org.apache.directory.fortress.web.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.SelectModelEvent;
@@ -81,7 +81,7 @@ public class SDDetailPanel extends FormComponentPanel
     public SDDetailPanel( String id, Displayable display, boolean isStatic )
     {
         super( id );
-        this.adminMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
+        this.adminMgr.setAdmin( SecUtils.getSession( this ) );
         this.isStatic = isStatic;
         this.editForm = new SDDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<SDSet>( new SDSet() ) );
         this.display = display;

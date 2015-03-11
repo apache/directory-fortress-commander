@@ -38,7 +38,7 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.web.GlobalIds;
-import org.apache.directory.fortress.web.GlobalUtils;
+import org.apache.directory.fortress.web.SecUtils;
 import org.apache.directory.fortress.web.SaveModelEvent;
 import org.apache.directory.fortress.web.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.SelectModelEvent;
@@ -80,7 +80,7 @@ public class ObjectDetailPanel extends FormComponentPanel
         else
             objName = GlobalIds.ADMIN_MGR;
 
-        this.adminMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
+        this.adminMgr.setAdmin( SecUtils.getSession( this ) );
         this.editForm = new ObjectDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<PermObj>( new PermObj() ) );
         this.display = display;
         add( editForm );

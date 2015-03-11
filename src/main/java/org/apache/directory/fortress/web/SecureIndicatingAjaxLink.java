@@ -40,7 +40,7 @@ public class SecureIndicatingAjaxLink extends IndicatingAjaxLink
     public SecureIndicatingAjaxLink( String id, String objName, String opName )
     {
         super( id );
-        if ( !GlobalUtils.isFound( new Permission( objName, opName ), this ) )
+        if ( !SecUtils.isFound( new Permission( objName, opName ), this ) )
             setEnabled( false );
     }
 

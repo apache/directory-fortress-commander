@@ -28,6 +28,9 @@ import com.googlecode.wicket.kendo.ui.datatable.column.CommandsColumn;
 import com.googlecode.wicket.kendo.ui.datatable.column.IColumn;
 import com.googlecode.wicket.kendo.ui.datatable.column.PropertyColumn;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
+import org.apache.directory.api.ldap.model.exception.LdapInvalidDnException;
+import org.apache.directory.api.ldap.model.name.Dn;
+import org.apache.directory.api.ldap.model.name.Rdn;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -47,7 +50,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.web.GlobalIds;
-import org.apache.directory.fortress.web.GlobalUtils;
+import org.apache.directory.fortress.web.SecUtils;
 import org.apache.directory.fortress.web.SaveModelEvent;
 import org.apache.directory.fortress.web.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.SelectModelEvent;
@@ -76,7 +79,6 @@ public class GroupDetailPanel extends FormComponentPanel
     private Displayable display;
     public static final int ROWS = 5;
 
-
     public Form getForm()
     {
         return this.editForm;
@@ -87,7 +89,7 @@ public class GroupDetailPanel extends FormComponentPanel
     {
         super( id );
 
-        this.groupMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
+        this.groupMgr.setAdmin( SecUtils.getSession( this ) );
         this.editForm = new GroupDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<Group>( new Group() ) );
         editForm.setOutputMarkupId( true );
         this.display = display;
@@ -523,7 +525,7 @@ public class GroupDetailPanel extends FormComponentPanel
                         try
                         {
                             // TODO: figure out how to get the table to refresh its values here:
-                            String userId = GlobalUtils.getRdn( memberAssign );
+                            String userId = getRdn( memberAssign );
                             Group newGroup = groupMgr.assign( group, userId );
                             group.setMembers( newGroup.getMembers() );
 
@@ -765,7 +767,7 @@ public class GroupDetailPanel extends FormComponentPanel
                         try
                         {
                             // TODO: figure out how to get the table to refresh its values here:
-                            String userId = GlobalUtils.getRdn( value );
+                            String userId = getRdn( value );
                             Group newGroup = groupMgr.deassign( group, userId );
                             group.setMembers( newGroup.getMembers() );
                             table.refresh( target );
@@ -785,6 +787,31 @@ public class GroupDetailPanel extends FormComponentPanel
 
             addOrReplace( table );
         }
+
+        /**
+         * Method will retrieve the relative distinguished name from a distinguished name variable.
+         *
+         * @param szDn contains ldap distinguished name.
+         * @return rDn as string.
+         */
+        private String getRdn( String szDn )
+        {
+            String szRdn = null;
+            try
+            {
+                Dn dn = new Dn( szDn );
+                Rdn rDn = dn.getRdn();
+                szRdn = rDn.getName();
+            }
+            catch ( LdapInvalidDnException e )
+            {
+                String error = "GlobalUtils.getRdn dn: " + szDn + ", caught LdapInvalidDnException:" + e;
+                throw new RuntimeException( error );
+
+            }
+            return szRdn;
+        }
+
 
 
         public String getMemberAssign()

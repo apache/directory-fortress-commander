@@ -48,7 +48,7 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.web.GlobalIds;
-import org.apache.directory.fortress.web.GlobalUtils;
+import org.apache.directory.fortress.web.SecUtils;
 import org.apache.directory.fortress.web.SaveModelEvent;
 import org.apache.directory.fortress.web.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.SelectModelEvent;
@@ -91,8 +91,8 @@ public class UserDetailPanel extends FormComponentPanel
         super( id );
         this.editForm = new UserDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<User>( new User() ) );
         this.display = display;
-        this.adminMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
-        this.delAdminMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
+        this.adminMgr.setAdmin( SecUtils.getSession( this ) );
+        this.delAdminMgr.setAdmin( SecUtils.getSession( this ) );
         add( editForm );
     }
 

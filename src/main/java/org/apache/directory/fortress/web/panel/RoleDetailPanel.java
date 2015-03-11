@@ -24,8 +24,6 @@ package org.apache.directory.fortress.web.panel;
 import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import com.googlecode.wicket.kendo.ui.form.button.AjaxButton;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
-import org.apache.directory.fortress.web.panel.ConstraintPanel;
-import org.apache.directory.fortress.web.panel.Displayable;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -44,7 +42,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.web.GlobalIds;
-import org.apache.directory.fortress.web.GlobalUtils;
+import org.apache.directory.fortress.web.SecUtils;
 import org.apache.directory.fortress.web.SaveModelEvent;
 import org.apache.directory.fortress.web.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.SelectModelEvent;
@@ -91,8 +89,8 @@ public class RoleDetailPanel extends Panel
     {
         super( id );
         this.isAdmin = isAdmin;
-        this.adminMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
-        this.delAdminMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
+        this.adminMgr.setAdmin( SecUtils.getSession( this ) );
+        this.delAdminMgr.setAdmin( SecUtils.getSession( this ) );
         if ( isAdmin )
         {
             this.objName = GlobalIds.DEL_ADMIN_MGR;

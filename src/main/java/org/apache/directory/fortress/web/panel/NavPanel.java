@@ -662,7 +662,7 @@ public class NavPanel extends FormComponentPanel
                             try
                             {
                                 TestAuthorization testSecurity = new TestAuthorization();
-                                boolean result = testSecurity.checkAccess( GlobalUtils.getRbacSession( this ), "foo", "fighters" );
+                                boolean result = testSecurity.checkAccess( GlobalUtils.getSession( this ), "foo", "fighters" );
                                 Thread.sleep( 1000 );
                             }
                             catch ( InterruptedException e )

@@ -21,7 +21,8 @@
 package org.apache.directory.fortress.web.panel;
 
 
-import org.apache.directory.fortress.web.GlobalUtils;
+import org.apache.directory.fortress.web.AuditUtils;
+import org.apache.directory.fortress.web.SecUtils;
 import org.apache.directory.fortress.web.SelectModelEvent;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
@@ -68,8 +69,8 @@ public class AuditBindDetailPanel extends FormComponentPanel
     public AuditBindDetailPanel( String id, Displayable display )
     {
         super( id );
-        this.auditMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
-        this.reviewMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
+        this.auditMgr.setAdmin( SecUtils.getSession( this ) );
+        this.reviewMgr.setAdmin( SecUtils.getSession( this ) );
         this.detailForm = new AuditBindDetailForm( GlobalIds.DETAIL_FIELDS,
             new CompoundPropertyModel<Bind>( new Bind() ) );
         this.display = display;
@@ -135,7 +136,7 @@ public class AuditBindDetailPanel extends FormComponentPanel
                 Bind bind = ( Bind ) detailForm.getModelObject();
                 if ( VUtil.isNotNullOrEmpty( bind.getReqDN() ) )
                 {
-                    user = GlobalUtils.getUser( reviewMgr, bind.getReqDN() );
+                    user = AuditUtils.getUser( reviewMgr, bind.getReqDN() );
                 }
                 if ( user == null )
                 {

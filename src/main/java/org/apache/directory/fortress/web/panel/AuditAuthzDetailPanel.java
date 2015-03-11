@@ -21,7 +21,8 @@
 package org.apache.directory.fortress.web.panel;
 
 
-import org.apache.directory.fortress.web.GlobalUtils;
+import org.apache.directory.fortress.web.AuditUtils;
+import org.apache.directory.fortress.web.SecUtils;
 import org.apache.directory.fortress.web.SelectModelEvent;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
@@ -68,8 +69,8 @@ public class AuditAuthzDetailPanel extends FormComponentPanel
     public AuditAuthzDetailPanel( String id, Displayable display )
     {
         super( id );
-        this.auditMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
-        this.reviewMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
+        this.auditMgr.setAdmin( SecUtils.getSession( this ) );
+        this.reviewMgr.setAdmin( SecUtils.getSession( this ) );
         this.detailForm = new AuditAuthzDetailForm( GlobalIds.DETAIL_FIELDS, new CompoundPropertyModel<AuthZ>(
             new AuthZ() ) );
         this.display = display;
@@ -108,7 +109,7 @@ public class AuditAuthzDetailPanel extends FormComponentPanel
                 this.setModelObject( authZ );
                 String msg = "AuthZ: " + authZ.getReqAuthzID() + " has been selected";
                 LOG.debug( ".onEvent SelectModelEvent: " + authZ.getReqAuthzID() );
-                GlobalUtils.getAuthZPerm( authZ.getReqDN() );
+                AuditUtils.getAuthZPerm( authZ.getReqDN() );
                 display.setMessage( msg );
                 component = detailForm;
 
@@ -138,7 +139,7 @@ public class AuditAuthzDetailPanel extends FormComponentPanel
                 AuthZ authZ = ( AuthZ ) detailForm.getModelObject();
                 if ( VUtil.isNotNullOrEmpty( authZ.getReqAuthzID() ) )
                 {
-                    user = GlobalUtils.getUser( reviewMgr, authZ.getReqAuthzID() );
+                    user = AuditUtils.getUser( reviewMgr, authZ.getReqAuthzID() );
                 }
                 if ( user == null )
                 {

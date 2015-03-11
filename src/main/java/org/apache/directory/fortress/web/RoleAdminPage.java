@@ -31,6 +31,9 @@ import org.apache.directory.fortress.web.panel.InfoPanel;
 import org.apache.directory.fortress.web.panel.NavPanel;
 import org.apache.directory.fortress.web.panel.RoleDetailPanel;
 import org.apache.directory.fortress.web.panel.RoleListPanel;
+import org.apache.wicket.util.string.StringValue;
+
+import java.util.List;
 
 
 /**
@@ -53,7 +56,7 @@ public class RoleAdminPage extends FortressWebBasePage
      */
     public RoleAdminPage( PageParameters parameters )
     {
-        String type = GlobalUtils.getPageType( parameters );
+        String type = getPageType( parameters );
         add( new Label( GlobalIds.PAGE_HEADER, label ) );
         WebMarkupContainer container = new WebMarkupContainer( GlobalIds.LAYOUT );
         FourWaySplitter splitter = new FourWaySplitter();
@@ -90,5 +93,24 @@ public class RoleAdminPage extends FortressWebBasePage
 
         container.add( navPanel );
         this.add( container );
+    }
+
+    /**
+     *
+     * @param parameters
+     * @return
+     */
+    private String getPageType( PageParameters parameters )
+    {
+        String pageType = null;
+        if ( parameters != null )
+        {
+            List<StringValue> values = parameters.getValues( GlobalIds.PAGE_TYPE );
+            if ( values != null && values.size() > 0 )
+            {
+                pageType = values.get( 0 ).toString();
+            }
+        }
+        return pageType;
     }
 }

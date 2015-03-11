@@ -63,6 +63,6 @@ public class SecureBookmarkablePageLink extends BookmarkablePageLink
     private boolean isAuthorized( String roleName )
     {
         HttpServletRequest servletReq = ( HttpServletRequest ) getRequest().getContainerRequest();
-        return GlobalUtils.isAuthorized( roleName, servletReq );
+        return SecUtils.isAuthorized( roleName, servletReq );
     }
 }

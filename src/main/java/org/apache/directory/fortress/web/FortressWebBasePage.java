@@ -20,6 +20,8 @@
 package org.apache.directory.fortress.web;
 
 
+import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.realm.J2eePolicyMgr;
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
@@ -47,6 +49,8 @@ public abstract class FortressWebBasePage extends WebPage
     private AccessMgr accessMgr;
     @SpringBean
     private DelAccessMgr delAccessMgr;
+    @SpringBean
+    private J2eePolicyMgr j2eePolicyMgr;
     private static final String CLS_NM = FortressWebBasePage.class.getName();
     private static final Logger LOG = Logger.getLogger( CLS_NM );
 
@@ -148,20 +152,31 @@ public abstract class FortressWebBasePage extends WebPage
         boolean isSecured = principal != null;
         if ( isSecured && !isLoggedIn() )
         {
+            // Here the principal was created by fortress realm and is a serialized instance of {@link Session}.
             String szPrincipal = principal.toString();
-            // Pull the RBAC session from the realm and assert into the Web app's session:
-            Session realmSession = GlobalUtils.deserialize( szPrincipal, Session.class );
-
-            // If this is null, app in container that cannot share rbac session with app, Must now create session manually:
-            if ( realmSession == null )
+            Session session = null;
+            try
             {
-                realmSession = GlobalUtils.createRbacSession( accessMgr, principal.getName() );
+                // Deserialize the principal string into a fortress session:
+                session = j2eePolicyMgr.deserialize( szPrincipal );
             }
-            if ( realmSession != null )
+            catch(SecurityException se)
             {
-                synchronized ( ( RbacSession ) RbacSession.get() )
+                // Can't recover....
+                throw new RuntimeException( se );
+            }
+
+            // If this is null, it means this app cannot share an rbac session with container and must now (re)create session here:
+            if ( session == null )
+            {
+                session = SecUtils.createSession( accessMgr, principal.getName() );
+            }
+            // Now load the fortress session into the Wicket session and let wicket hold onto that for us.  Also retreive the arbac perms from server and cache those too.
+            if ( session != null )
+            {
+                synchronized ( ( WicketSession ) WicketSession.get() )
                 {
-                    GlobalUtils.loadPermissionsIntoSession( delAccessMgr, realmSession );
+                    SecUtils.loadPermissionsIntoSession( delAccessMgr, session );
                 }
             }
             // give up
@@ -176,7 +191,7 @@ public abstract class FortressWebBasePage extends WebPage
     private boolean isLoggedIn()
     {
         boolean isLoggedIn = false;
-        if ( GlobalUtils.getRbacSession( this ) != null )
+        if ( SecUtils.getSession( this ) != null )
         {
             isLoggedIn = true;
         }

@@ -40,7 +40,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.web.GlobalIds;
-import org.apache.directory.fortress.web.GlobalUtils;
+import org.apache.directory.fortress.web.SecUtils;
 import org.apache.directory.fortress.web.SaveModelEvent;
 import org.apache.directory.fortress.web.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.SelectModelEvent;
@@ -78,7 +78,7 @@ public class OUDetailPanel extends FormComponentPanel
     public OUDetailPanel( String id, Displayable display, boolean isUser )
     {
         super( id );
-        this.delAdminMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
+        this.delAdminMgr.setAdmin( SecUtils.getSession( this ) );
         this.isUser = isUser;
         OrgUnit ou = new OrgUnit();
         if ( isUser )

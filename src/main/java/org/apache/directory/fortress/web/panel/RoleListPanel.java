@@ -22,7 +22,6 @@ package org.apache.directory.fortress.web.panel;
 
 
 import com.inmethod.grid.IGridColumn;
-import com.inmethod.grid.SizeUnit;
 import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
 import org.apache.log4j.Logger;
@@ -36,7 +35,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.directory.fortress.web.GlobalIds;
-import org.apache.directory.fortress.web.GlobalUtils;
+import org.apache.directory.fortress.web.SecUtils;
 import org.apache.directory.fortress.web.RoleListModel;
 import org.apache.directory.fortress.web.SaveModelEvent;
 import org.apache.directory.fortress.web.SecureIndicatingAjaxButton;
@@ -50,7 +49,6 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -80,7 +78,7 @@ public class RoleListPanel<T extends Serializable> extends FormComponentPanel
     {
         super( id );
         this.isAdmin = isAdmin;
-        RoleListModel roleListModel = new RoleListModel( createRole( "" ), isAdmin, GlobalUtils.getRbacSession( this ) );
+        RoleListModel roleListModel = new RoleListModel( createRole( "" ), isAdmin, SecUtils.getSession( this ) );
         setDefaultModel( roleListModel );
         List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>> columns =
             new ArrayList<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>>();
@@ -191,7 +189,7 @@ public class RoleListPanel<T extends Serializable> extends FormComponentPanel
                 }
 
                 Role srchRole = createRole( searchVal );
-                setDefaultModel( new RoleListModel( srchRole, isAdmin, GlobalUtils.getRbacSession( this ) ) );
+                setDefaultModel( new RoleListModel( srchRole, isAdmin, SecUtils.getSession( this ) ) );
                 treeModel.reload();
                 rootNode.removeAllChildren();
                 List<Role> roles = ( List<Role> ) getDefaultModelObject();

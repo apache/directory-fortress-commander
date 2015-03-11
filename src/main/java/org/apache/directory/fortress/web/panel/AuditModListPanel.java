@@ -23,7 +23,6 @@ package org.apache.directory.fortress.web.panel;
 
 import com.googlecode.wicket.kendo.ui.form.datetime.DatePicker;
 import com.inmethod.grid.IGridColumn;
-import com.inmethod.grid.SizeUnit;
 import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
 
@@ -42,7 +41,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.directory.fortress.web.AuditModListModel;
 import org.apache.directory.fortress.web.AuditModPage;
 import org.apache.directory.fortress.web.GlobalIds;
-import org.apache.directory.fortress.web.GlobalUtils;
+import org.apache.directory.fortress.web.SecUtils;
 import org.apache.directory.fortress.web.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.SecureIndicatingAjaxLink;
 import org.apache.directory.fortress.web.SelectModelEvent;
@@ -58,7 +57,6 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -100,7 +98,7 @@ public class AuditModListPanel extends FormComponentPanel
 
     private void init( UserAudit userAudit )
     {
-        pageModel = new AuditModListModel( userAudit, GlobalUtils.getRbacSession( this ) );
+        pageModel = new AuditModListModel( userAudit, SecUtils.getSession( this ) );
         setDefaultModel( pageModel );
         createAndLoadGrid();
         this.listForm = new Form( "modform" );

@@ -38,7 +38,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.apache.directory.fortress.web.GlobalUtils;
+import org.apache.directory.fortress.web.SecUtils;
 import org.apache.directory.fortress.core.DelReviewMgr;
 import org.apache.directory.fortress.core.rbac.OrgUnit;
 
@@ -67,7 +67,7 @@ public class OUSearchModalPanel extends Panel
     public OUSearchModalPanel( String id, ModalWindow window, boolean isUser )
     {
         super( id );
-        this.delReviewMgr.setAdmin( GlobalUtils.getRbacSession( this ) );
+        this.delReviewMgr.setAdmin( SecUtils.getSession( this ) );
         this.window = window;
         this.isUser = isUser;
         loadPanel();

@@ -356,6 +356,7 @@
       </resource>
     </resources>
     <plugins>
+<!--
         <plugin>
           <groupId>org.apache.rat</groupId>
           <artifactId>apache-rat-plugin</artifactId>
@@ -363,7 +364,7 @@
           <configuration>
             <excludeSubProjects>false</excludeSubProjects>
             <excludes>
-              <!-- project excludes -->
+              &lt;!&ndash; project excludes &ndash;&gt;
               <exclude>**/jquery-ui.css</exclude>
               <exclude>**/kendo.common.min.css</exclude>
               <exclude>**/kendo.default.min.css</exclude>
@@ -386,8 +387,10 @@
             </execution>
           </executions>
         </plugin>
+-->
 
       <!-- Assemble a commander distro archive -->
+<!--
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <executions>
@@ -407,7 +410,8 @@
           </execution>
         </executions>
       </plugin>
-      
+-->
+
       <!-- Deploy the finished war -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -453,9 +457,10 @@
               <!-- this is relative to the pom.xml directory -->
               <directory>${project.basedir}/src/main/resources
               </directory>
-
             </resource>
           </webResources>
+          <!--<archiveClasses>true</archiveClasses>-->
+          <attachClasses>true</attachClasses>
         </configuration>
       </plugin>
       
