@@ -22,6 +22,8 @@ package org.apache.directory.fortress.web;
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.cfg.Config;
+import org.apache.directory.fortress.core.rbac.UserRole;
+import org.apache.directory.fortress.core.rbac.Warning;
 import org.apache.directory.fortress.realm.J2eePolicyMgr;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
@@ -29,6 +31,7 @@ import org.apache.directory.fortress.core.rbac.Permission;
 import org.apache.directory.fortress.core.rbac.Session;
 import org.apache.directory.fortress.core.rbac.User;
 import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.wicket.ajax.AjaxRequestTarget;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -221,5 +224,100 @@ public class SecUtils
                 }
             }
         }
+    }
+
+    /**
+     * Call RBAC addActiveRole to active role into session.
+     *
+     * @param target
+     * @param roleName
+     * @return
+     */
+    public static boolean addActiveRole( Component component, AjaxRequestTarget target, AccessMgr accessMgr, String roleName )
+    {
+        boolean isSuccessful = false;
+        try
+        {
+            WicketSession session = ( WicketSession ) component.getSession();
+            session.getSession().setWarnings( null );
+            accessMgr.addActiveRole( session.getSession(), new UserRole( roleName ) );
+            List<Warning> warnings = session.getSession().getWarnings();
+            if ( VUtil.isNotNullOrEmpty( warnings ) )
+            {
+                for ( Warning warning : warnings )
+                {
+                    LOG.info( "Warning: " + warning.getMsg() + " errCode: " + warning.getId() + " name: " + warning
+                        .getName() + " type: " + warning.getType().toString() );
+                    if ( warning.getType() == Warning.Type.ROLE && warning.getName().equalsIgnoreCase( roleName ) )
+                    {
+                        String error = warning.getMsg() + " code: " + warning.getId();
+                        LOG.error( error );
+                        target.appendJavaScript( ";alert('" + error + "');" );
+                        return false;
+                    }
+                }
+            }
+
+            // User's active role set changed so refresh their permissions:
+            SecUtils.getPermissions( component, accessMgr );
+            isSuccessful = true;
+            String message = "Activate role name: " + roleName + " successful";
+            LOG.info( message );
+        }
+        catch ( org.apache.directory.fortress.core.SecurityException se )
+        {
+            String msg = "Role selection " + roleName + " activation failed because of ";
+            if ( se.getErrorId() == GlobalErrIds.DSD_VALIDATION_FAILED )
+            {
+                msg += "Dynamic SoD rule violation";
+            }
+            else if ( se.getErrorId() == GlobalErrIds.URLE_ALREADY_ACTIVE )
+            {
+                msg += "Role already active in Session";
+            }
+            else
+            {
+                msg += "System error: " + se + ", " + "errId=" + se.getErrorId();
+            }
+            LOG.error( msg );
+            target.appendJavaScript( ";alert('" + msg + "');" );
+        }
+        return isSuccessful;
+    }
+
+    /**
+     * Call RBAC dropActiveRole to deactivate role from session.
+     *
+     * @param target
+     * @param roleName
+     * @return
+     */
+    public static boolean dropActiveRole( Component component, AjaxRequestTarget target, AccessMgr accessMgr, String roleName )
+    {
+        boolean isSuccessful = false;
+        try
+        {
+            WicketSession session = ( WicketSession ) component.getSession();
+            accessMgr.dropActiveRole( session.getSession(), new UserRole( roleName ) );
+            // User's active role set changed so refresh their permissions:
+            SecUtils.getPermissions( component, accessMgr );
+            isSuccessful = true;
+            LOG.info( "Fortress dropActiveRole roleName: " + roleName + " was successful" );
+        }
+        catch ( SecurityException se )
+        {
+            String msg = "Role selection " + roleName + " deactivation failed because of ";
+            if ( se.getErrorId() == GlobalErrIds.URLE_NOT_ACTIVE )
+            {
+                msg += "Role not active in session";
+            }
+            else
+            {
+                msg += "System error: " + se + ", " + "errId=" + se.getErrorId();
+            }
+            LOG.error( msg );
+            target.appendJavaScript( ";alert('" + msg + "');" );
+        }
+        return isSuccessful;
     }
 }
