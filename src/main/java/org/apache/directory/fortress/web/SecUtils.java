@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * Common static utils used by Wicket web apps to make security calls using Fortress apis.
+ * Common static utils and wrappers used by Wicket web apps to make fortress style security calls.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @version $Rev$
@@ -180,12 +180,13 @@ public class SecUtils
 
     /**
      * Wrapper to fortress checkAccess api.
+     *
      * @param component contains the wicket session handle.
      * @param accessMgr has the checkAccess api
      * @param objName string value
      * @param opName string value
      * @param objId string value
-     * @return
+     * @return true if success, false otherwise.
      * @throws org.apache.directory.fortress.core.SecurityException checked exception for system errors.
      */
     public static boolean checkAccess(Component component, AccessMgr accessMgr, String objName, String opName, String objId ) throws org.apache.directory.fortress.core.SecurityException
@@ -195,10 +196,13 @@ public class SecUtils
         return accessMgr.checkAccess( session.getSession(), permission );
     }
 
-
     /**
      * Convert the principal into fortress session and load into wicket session along with perms.
      *
+     * @param component contains handle to wicket session.
+     * @param j2eePolicyMgr used to call deserize api
+     * @param accessMgr used to call fortress api for role op
+     * @param szPrincipal contains the instance of fortress session deserialized.
      */
     public static void initializeSession(Component component, J2eePolicyMgr j2eePolicyMgr, AccessMgr accessMgr, String szPrincipal )
     {
@@ -227,11 +231,17 @@ public class SecUtils
     }
 
     /**
-     * Call RBAC addActiveRole to active role into session.
+     * Call RBAC addActiveRole to activate a new role into user's session.
+     * This routine must first retrieves the wicket session.
+     * It is needed because it contains the fortress session which is required for api.
+     * Next it invokes the fortress addActiveRole method.
+     * If all successful refresh user's perms cached as they've changed.
      *
-     * @param target
-     * @param roleName
-     * @return
+     * @param component contains handle to wicket session.
+     * @param target used to display modal if something goes wrong
+     * @param accessMgr used to call fortress api for role op
+     * @param roleName contains the role name target
+     * @return true if success, false otherwise.
      */
     public static boolean addActiveRole( Component component, AjaxRequestTarget target, AccessMgr accessMgr, String roleName )
     {
@@ -286,11 +296,17 @@ public class SecUtils
     }
 
     /**
-     * Call RBAC dropActiveRole to deactivate role from session.
+     * Call RBAC dropActiveRole to deactivate a new role from user's session.
+     * This routine must first retrieves the wicket session.
+     * It is needed because it contains the fortress session which is required for api.
+     * Next it invokes the fortress dropActiveRole method.
+     * If all successful refresh user's perms cached as they've changed.
      *
-     * @param target
-     * @param roleName
-     * @return
+     * @param component contains handle to wicket session.
+     * @param target used to display modal if something goes wrong
+     * @param accessMgr used to call fortress api for role op
+     * @param roleName contains the role name target
+     * @return true if success, false otherwise.
      */
     public static boolean dropActiveRole( Component component, AjaxRequestTarget target, AccessMgr accessMgr, String roleName )
     {
