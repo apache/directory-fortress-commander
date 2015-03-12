@@ -371,4 +371,17 @@ public class SecUtils
         return isLoggedIn;
     }
 
+    public static Permission getPermFromId( String id )
+    {
+        Permission perm = null;
+        String[] parts = id.split( "\\." );
+        if(parts != null && parts.length > 1)
+        {
+            String objName = parts[0];
+            String opName = parts[1];
+            perm = new Permission( objName, opName );
+        }
+        return perm;
+    }
+
 }
