@@ -44,6 +44,6 @@ public class LaunchPage extends FortressWebBasePage
         {
             setResponsePage( LoginPage.class );
         }
-        add( new Label( "label1", "Click on a link above for RBAC administration." ) );
+        add( new Label( "label1", "Click on a link above." ) );
     }
 }

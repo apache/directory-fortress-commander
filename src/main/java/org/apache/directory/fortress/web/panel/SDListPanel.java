@@ -340,7 +340,7 @@ public class SDListPanel extends FormComponentPanel
             }
         } );
 
-        rolesModalWindow.setTitle( "RBAC Role Search Modal" );
+        rolesModalWindow.setTitle( "Role Search Modal" );
         rolesModalWindow.setInitialWidth( 700 );
         rolesModalWindow.setInitialHeight( 450 );
         rolesModalWindow.setCookieName( "role-assign-modal" );

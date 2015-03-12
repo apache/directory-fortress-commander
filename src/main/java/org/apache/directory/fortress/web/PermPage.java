@@ -41,7 +41,7 @@ public class PermPage extends FortressWebBasePage
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
     private boolean isAdmin = false;
-    private String label = "RBAC Permission Operation Page";
+    private String label = "Permission Operation Page";
 
 
     public PermPage( PageParameters parameters )

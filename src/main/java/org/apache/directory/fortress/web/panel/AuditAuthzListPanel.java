@@ -554,7 +554,7 @@ public class AuditAuthzListPanel extends FormComponentPanel
         if ( userAudit.isAdmin() )
             title = "Admin Permission Search Modal";
         else
-            title = "RBAC Permission Search Modal";
+            title = "Permission Search Modal";
 
         permsModalWindow.setTitle( title );
         permsModalWindow.setInitialWidth( 650 );

@@ -514,7 +514,7 @@ public class SDDetailPanel extends FormComponentPanel
                 }
             } );
 
-            rolesModalWindow.setTitle( "RBAC Role Selection Modal" );
+            rolesModalWindow.setTitle( "Role Selection Modal" );
             rolesModalWindow.setInitialWidth( 700 );
             rolesModalWindow.setInitialHeight( 450 );
             rolesModalWindow.setCookieName( "role-assign-modal" );

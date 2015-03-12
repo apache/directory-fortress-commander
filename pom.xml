@@ -429,7 +429,7 @@
         </configuration>
       </plugin>
       
-      <!-- Compile the commander source -->
+      <!-- Compile the fortress web source -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>

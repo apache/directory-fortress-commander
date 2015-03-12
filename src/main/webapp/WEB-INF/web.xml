@@ -21,7 +21,7 @@
         "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-    <display-name>Commander Web Admin</display-name>
+    <display-name>Fortress Web Admin</display-name>
 
     <servlet>
         <servlet-name>wicket</servlet-name>
@@ -107,7 +107,7 @@
     </security-constraint>
 
     <security-constraint>
-        <display-name>Commander Security Constraint</display-name>
+        <display-name>Fortress Web Security Constraints</display-name>
         <web-resource-collection>
             <web-resource-name>Protected Area</web-resource-name>
             <!-- Define the context-relative URL(s) to be protected -->

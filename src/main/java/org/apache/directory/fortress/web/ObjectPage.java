@@ -41,7 +41,7 @@ public class ObjectPage extends FortressWebBasePage
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
     private boolean isAdmin = false;
-    private String label = "RBAC Permission Object Page";
+    private String label = "Permission Object Page";
 
 
     public ObjectPage( PageParameters parameters )
