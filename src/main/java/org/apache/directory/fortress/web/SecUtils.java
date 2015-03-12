@@ -24,7 +24,8 @@ import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.cfg.Config;
 import org.apache.directory.fortress.core.rbac.UserRole;
 import org.apache.directory.fortress.core.rbac.Warning;
-import org.apache.directory.fortress.realm.J2eePolicyMgr;
+import org.apache.directory.fortress.realm.*;
+import org.apache.directory.fortress.realm.GlobalIds;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.directory.fortress.core.rbac.Permission;
@@ -205,12 +206,18 @@ public class SecUtils
      * @param accessMgr used to call fortress api for role op
      * @param szPrincipal contains the instance of fortress session deserialized.
      */
-    public static void initializeSession(Component component, J2eePolicyMgr j2eePolicyMgr, AccessMgr accessMgr, String szPrincipal )
+    public static void initializeSession(Component component, J2eePolicyMgr j2eePolicyMgr, AccessMgr accessMgr, String szPrincipal ) throws SecurityException
     {
         Session realmSession = null;
+
+        if(j2eePolicyMgr == null || accessMgr == null)
+        {
+            throw new SecurityException( GlobalIds.SESSION_INITIALIZATION_FAILED, "initializeSession failed - verify the injection of fortress spring beans into your application" );
+        }
         try
         {
-            realmSession = j2eePolicyMgr.deserialize( szPrincipal );
+            if(VUtil.isNotNullOrEmpty( szPrincipal ))
+                realmSession = j2eePolicyMgr.deserialize( szPrincipal );
         }
         catch( SecurityException se )
         {
@@ -338,7 +345,16 @@ public class SecUtils
         return isSuccessful;
     }
 
-    public static void enableFortress( Component component, HttpServletRequest servletReq, J2eePolicyMgr j2eePolicyMgr, AccessMgr accessMgr )
+    /**
+     * Enables fortress session on behalf of a java.security.Principal retrieved from the container.
+     *
+     * @param component
+     * @param servletReq
+     * @param j2eePolicyMgr
+     * @param accessMgr
+     * @throws SecurityException
+     */
+    public static void enableFortress( Component component, HttpServletRequest servletReq, J2eePolicyMgr j2eePolicyMgr, AccessMgr accessMgr ) throws SecurityException
     {
         // Get the principal from the container:
         Principal principal = servletReq.getUserPrincipal();
