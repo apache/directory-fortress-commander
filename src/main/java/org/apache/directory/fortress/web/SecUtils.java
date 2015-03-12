@@ -34,6 +34,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.List;
 
 /**
@@ -336,4 +337,38 @@ public class SecUtils
         }
         return isSuccessful;
     }
+
+    public static void enableFortress( Component component, HttpServletRequest servletReq, J2eePolicyMgr j2eePolicyMgr, AccessMgr accessMgr )
+    {
+        // Get the principal from the container:
+        Principal principal = servletReq.getUserPrincipal();
+        // Is this a Java EE secured page && has the User successfully authenticated already?
+        boolean isSecured = principal != null;
+        if(isSecured)
+        {
+            //linksLabel += " for " + principal.getName();
+            if( !isLoggedIn( component ) )
+            {
+                String szPrincipal = principal.toString();
+                // Pull the fortress session from the realm and assert into the Web app's session along with user's perms:
+                SecUtils.initializeSession( component, j2eePolicyMgr, accessMgr, szPrincipal );
+            }
+        }
+    }
+
+    /**
+     * If user has a wicket session then considered logged in.
+     *
+     * @return true if wicket session is not null
+     */
+    public static boolean isLoggedIn( Component component )
+    {
+        boolean isLoggedIn = false;
+        if ( getSession( component ) != null )
+        {
+            isLoggedIn = true;
+        }
+        return isLoggedIn;
+    }
+
 }

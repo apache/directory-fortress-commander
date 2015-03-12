@@ -133,14 +133,10 @@ public abstract class FortressWebBasePage extends WebPage
             /** Default serialVersionUID */
             private static final long serialVersionUID = 1L;
 
-
             @Override
             public void onClick()
             {
-                HttpServletRequest servletReq = ( HttpServletRequest ) getRequest().getContainerRequest();
-                servletReq.getSession().invalidate();
-                getSession().invalidate();
-                setResponsePage( LaunchPage.class );
+                setResponsePage( LogoutPage.class );
             }
         };
         add( actionLink );
