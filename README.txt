@@ -61,7 +61,7 @@ a. Open a command prompt on target machine in the root folder of the directory-f
 b. Set java home and maven home.
 
 c. Run maven install:
-# mvn clean install -DskipTests
+# mvn clean install
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 3:  Obtain the fortress.properties
@@ -76,7 +76,7 @@ ________________________________________________________________________________
 # SECTION 4:  Load Fortress Web Security Policy
 ###################################################################################
 Run maven install with load file:
-# mvn install -Dload.file=./src/main/resources/FortressWebDemoUsers.xml -DskipTests=true
+# mvn install -Dload.file=./src/main/resources/FortressWebDemoUsers.xml
 
 ###################################################################################
 # SECTION 5:  Instructions to Deploy Fortress Web application to Tomcat
@@ -115,7 +115,7 @@ ________________________________________________________________________________
 # SECTION 6:  Instructions to test Fortress Web application using Solenium
 ###################################################################################
 Run the Selenium Web driver integration tests:
-# mvn verify -DskipTests=false -Dnoload
+# mvn test -Dtest=FortressWebSeleniumITCase
 
 Note: This test case depends on:
 

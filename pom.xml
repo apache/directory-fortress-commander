@@ -72,11 +72,6 @@
     </developer>
 
     <developer>
-      <id>kmckinney</id>
-      <name>Kevin McKinney</name>
-    </developer>
-
-    <developer>
       <id>elecharny</id>
       <name>Emmanuel Lecharny</name>
       <email>elecharny@apache.org</email>
@@ -97,7 +92,6 @@
     <jetty.stopKey>stopJetty</jetty.stopKey>
     <jetty.stopPort>9081</jetty.stopPort>
     <jetty.port>9080</jetty.port>
-    <skipTests>true</skipTests>
   </properties>
 
   <dependencies>
@@ -494,22 +488,25 @@
           </execution>
         </executions>
       </plugin>
-      
-      <!-- Integration Test -->
+
+      <!-- Fires on 'mvn test -Dtest=ClassName' where ClassName is junit test class name, for this project: -->
+      <!-- mvn test -Dtest=FortressWebSeleniumITCase -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-failsafe-plugin</artifactId>
+        <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
-          <skipTests>${skipTests}</skipTests>
+          <systemPropertyVariables>
+            <version>${project.version}</version>
+          </systemPropertyVariables>
+          <excludes>
+            <exclude>${exclude.tests}</exclude>
+          </excludes>
+          <includes>
+            <include>${include.tests}</include>
+          </includes>
+          <groups>${testcase.groups}</groups>
+          <runOrder>random</runOrder>
         </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>integration-test</goal>
-              <goal>verify</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
       
       <!-- this works for embedded testing with Jetty -->
@@ -536,10 +533,9 @@
           <execution>
             <phase>test</phase>
             <configuration>
-              <target name="fortress-load"
-                  unless="noload"
-                  description="Loads fortress web rbac policy into ldap">
-                <echo message="###############  Run Fortress Ant script to load demo policy  ###############"/>
+              <target name="fortress-load"  if="load.file"
+                      description="Loads fortress rbac policy files into ldap">
+                <echo message="###############  Run Fortress Policy Load  ###############"/>
                 <java
                     classname="org.apache.tools.ant.launch.Launcher"
                     fork="true"
@@ -573,7 +569,8 @@
                   <sysproperty key="version" value="${project.version}"/>
                   <sysproperty key="tenant" value="HOME"/>
                   <arg value="-buildfile"/>
-                  <arg file="./src/main/resources/FortressWebDemoUsers.xml"/>
+                  <arg file="./${load.file}" />
+                  <!--<arg file="./src/main/resources/FortressWebDemoUsers.xml"/>-->
                 </java>
               </target>
             </configuration>
