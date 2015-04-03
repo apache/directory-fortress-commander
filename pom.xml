@@ -23,7 +23,7 @@
   <groupId>org.apache.directory</groupId>
   <artifactId>fortress-web</artifactId>
   <packaging>war</packaging>
-  <version>1.0-RC40-SNAPSHOT</version>
+  <version>1.0-RC41-SNAPSHOT</version>
   <name>Apache Fortress Web</name>
   <url>http://directory.apache.org/foress/</url>
   <description>Fortress Web is an ANSI RBAC INCITS 359 compliant administrative UI</description>
