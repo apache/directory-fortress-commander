@@ -360,13 +360,18 @@ public class ConstraintBasePanel extends FormComponentPanel
 
     protected Date renderTime( Date date, String szTime )
     {
-        if ( szTime != null && !szTime.equalsIgnoreCase( "0000" ) )
+        if ( szTime != null )
         {
             Calendar calendar = Calendar.getInstance();
             try
             {
                 int hours = new Integer( szTime.substring( 0, 2 ) );
                 int minutes = new Integer( szTime.substring( 2, 4 ) );
+                // zero hours convert to 24 for calendar:
+                if(hours == 0)
+                {
+                    hours = 24;
+                }
                 calendar.set( 0, 0, 0, hours, minutes );
                 date = calendar.getTime();
             }
