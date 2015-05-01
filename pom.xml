@@ -82,9 +82,9 @@
 
   <properties>
     <title>${project.name} ${project.version}</title>
-    <wicket.version>6.16.0</wicket.version>
-    <wicket.jquery.version>6.16.0</wicket.jquery.version>
-    <wicket.kendo-ui.version>6.14.0</wicket.kendo-ui.version>
+    <wicket.version>6.18.0</wicket.version>
+    <wicket.jquery.version>6.18.0</wicket.jquery.version>
+    <wicket.kendo-ui.version>6.18.0</wicket.kendo-ui.version>
     <version.log4j>1.2.17</version.log4j>
     <version.slf4j.log4j12>1.7.7</version.slf4j.log4j12>
     <spring.version>3.2.3.RELEASE</spring.version>
