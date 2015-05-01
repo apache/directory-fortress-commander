@@ -655,7 +655,7 @@ public class UserListPanel extends FormComponentPanel
                 attributes.getAjaxCallListeners().add( ajaxCallListener );
             }
         } );
-        permsModalWindow.setTitle( "Admin Permission Search Modal" );
+        permsModalWindow.setTitle( "Permission Search Modal" );
         permsModalWindow.setInitialWidth( 650 );
         permsModalWindow.setInitialHeight( 450 );
         permsModalWindow.setCookieName( "perm-search-modal" );
