@@ -394,6 +394,8 @@ public class ConstraintBasePanel extends FormComponentPanel
             {
                 int years = new Integer( szDate.substring( 0, 4 ) );
                 int months = new Integer( szDate.substring( 4, 6 ) );
+                // Convert months because the Calendar uses 0 - 11:
+                months = months - 1;
                 int days = new Integer( szDate.substring( 6, 8 ) );
                 calendar.set( years, months, days, 0, 0 );
                 date = calendar.getTime();
