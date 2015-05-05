@@ -259,27 +259,16 @@ public class SDDetailPanel extends FormComponentPanel
 
                     try
                     {
-                        SDSet newSdSet = new SDSet();
                         if ( isStatic )
                         {
                             adminMgr.deleteSsdSet( sdSet );
-                            newSdSet.setType( SDSet.SDType.STATIC );
                         }
                         else
                         {
                             adminMgr.deleteDsdSet( sdSet );
-                            newSdSet.setType( SDSet.SDType.DYNAMIC );
                         }
-                        form.setModelObject( newSdSet );
-                        modelChanged();
+                        clearDetailFields();
                         String msg = "SDSet: " + sdSet.getName() + " has been deleted";
-                        membersSelection = "";
-                        members = new ArrayList<String>();
-                        membersCB = new ComboBox<String>( "members", new PropertyModel<String>( editForm,
-                            MEMBERS_SELECTION ), members );
-                        nameTF.setEnabled( true );
-                        addPB.setEnabled( true );
-                        editForm.addOrReplace( membersCB );
                         component = editForm;
                         SaveModelEvent.send( getPage(), this, sdSet, target, SaveModelEvent.Operations.DELETE );
                         display.setMessage( msg );
@@ -330,19 +319,7 @@ public class SDDetailPanel extends FormComponentPanel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
-                    SDSet sdSet = new SDSet();
-                    if ( isStatic )
-                        sdSet.setType( SDSet.SDType.STATIC );
-                    else
-                        sdSet.setType( SDSet.SDType.DYNAMIC );
-                    setModelObject( sdSet );
-                    membersSelection = "";
-                    members = new ArrayList<String>();
-                    membersCB = new ComboBox<String>( "members", new PropertyModel<String>( form, MEMBERS_SELECTION ),
-                        members );
-                    nameTF.setEnabled( true );
-                    addPB.setEnabled( true );
-                    editForm.addOrReplace( membersCB );
+                    clearDetailFields();
                     component = editForm;
                     String msg = "SDSet cancelled input form";
                     display.setMessage( msg );
@@ -577,6 +554,23 @@ public class SDDetailPanel extends FormComponentPanel
 
                 display.display( ( AjaxRequestTarget ) event.getPayload() );
             }
+        }
+
+        private void clearDetailFields()
+        {
+            SDSet sdSet = new SDSet();
+            if ( isStatic )
+                sdSet.setType( SDSet.SDType.STATIC );
+            else
+                sdSet.setType( SDSet.SDType.DYNAMIC );
+            setModelObject( sdSet );
+            membersSelection = "";
+            members = new ArrayList<String>();
+            membersCB = new ComboBox<String>( "members", new PropertyModel<String>( this, MEMBERS_SELECTION ),
+                members );
+            nameTF.setEnabled( true );
+            addPB.setEnabled( true );
+            editForm.addOrReplace( membersCB );
         }
     }
 }

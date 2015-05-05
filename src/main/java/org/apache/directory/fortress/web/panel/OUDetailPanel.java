@@ -243,26 +243,8 @@ public class OUDetailPanel extends FormComponentPanel
                     try
                     {
                         delAdminMgr.delete( orgUnit );
-                        OrgUnit newOrgUnit = new OrgUnit();
-
-                        if ( isUser )
-                        {
-                            newOrgUnit.setType( OrgUnit.Type.USER );
-                        }
-                        else
-                        {
-                            newOrgUnit.setType( OrgUnit.Type.PERM );
-                        }
-                        form.setModelObject( newOrgUnit );
-                        modelChanged();
+                        clearDetailFields();
                         String msg = "OrgUnit: " + orgUnit.getName() + " has been deleted";
-                        parentsSelection = "";
-                        parents = new ArrayList<String>();
-                        parentsCB = new ComboBox<String>( PARENTS, new PropertyModel<String>( form,
-                            PARENTS_SELECTION ), parents );
-                        nameTF.setEnabled( true );
-                        addPB.setEnabled( true );
-                        editForm.addOrReplace( parentsCB );
                         component = editForm;
                         SaveModelEvent.send( getPage(), this, orgUnit, target, SaveModelEvent.Operations.DELETE );
                         display.setMessage( msg );
@@ -312,20 +294,7 @@ public class OUDetailPanel extends FormComponentPanel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
-                    OrgUnit ou = new OrgUnit();
-                    if ( isUser )
-                        ou.setType( OrgUnit.Type.USER );
-                    else
-                        ou.setType( OrgUnit.Type.PERM );
-
-                    setModelObject( ou );
-                    parentsSelection = "";
-                    parents = new ArrayList<String>();
-                    parentsCB = new ComboBox<String>( PARENTS, new PropertyModel<String>( form, PARENTS_SELECTION ),
-                        parents );
-                    nameTF.setEnabled( true );
-                    addPB.setEnabled( true );
-                    editForm.addOrReplace( parentsCB );
+                    clearDetailFields();
                     component = editForm;
                     String msg = "OU Detail cancelled input form";
                     display.setMessage( msg );
@@ -561,6 +530,24 @@ public class OUDetailPanel extends FormComponentPanel
 
                 display.display( ( AjaxRequestTarget ) event.getPayload() );
             }
+        }
+
+        private void clearDetailFields()
+        {
+            OrgUnit ou = new OrgUnit();
+            if ( isUser )
+                ou.setType( OrgUnit.Type.USER );
+            else
+                ou.setType( OrgUnit.Type.PERM );
+
+            setModelObject( ou );
+            parentsSelection = "";
+            parents = new ArrayList<String>();
+            parentsCB = new ComboBox<String>( PARENTS, new PropertyModel<String>( this, PARENTS_SELECTION ),
+                parents );
+            nameTF.setEnabled( true );
+            addPB.setEnabled( true );
+            editForm.addOrReplace( parentsCB );
         }
     }
 }

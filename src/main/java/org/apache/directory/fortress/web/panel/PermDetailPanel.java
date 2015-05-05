@@ -265,17 +265,7 @@ public class PermDetailPanel extends FormComponentPanel
                     try
                     {
                         adminMgr.deletePermission( perm );
-                        form.setModelObject( new Permission() );
-                        rolesSelection = "";
-                        roles = new ArrayList<String>();
-                        rolesCB = new ComboBox<String>( "roles",
-                            new PropertyModel<String>( editForm, ROLES_SELECTION ), roles );
-                        editForm.addOrReplace( rolesCB );
-                        addPB.setEnabled( true );
-                        objectTF.setEnabled( true );
-                        opNameTF.setEnabled( true );
-                        objIdTF.setEnabled( true );
-                        modelChanged();
+                        clearDetailFields();
                         String msg = "Perm objName: " + perm.getObjName() + " opName: " + perm.getOpName()
                             + " has been deleted";
                         SaveModelEvent.send( getPage(), this, perm, target, SaveModelEvent.Operations.DELETE );
@@ -327,17 +317,7 @@ public class PermDetailPanel extends FormComponentPanel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
-                    setModelObject( new Permission() );
-                    modelChanged();
-                    rolesSelection = "";
-                    roles = new ArrayList<String>();
-                    rolesCB = new ComboBox<String>( "roles", new PropertyModel<String>( editForm, ROLES_SELECTION ),
-                        roles );
-                    editForm.addOrReplace( rolesCB );
-                    addPB.setEnabled( true );
-                    objectTF.setEnabled( true );
-                    opNameTF.setEnabled( true );
-                    objIdTF.setEnabled( true );
+                    clearDetailFields();
                     String msg = "Perm cancelled input form";
                     component = editForm;
                     display.setMessage( msg );
@@ -670,6 +650,20 @@ public class PermDetailPanel extends FormComponentPanel
 
                 display.display( ( AjaxRequestTarget ) event.getPayload() );
             }
+        }
+
+        private void clearDetailFields()
+        {
+            this.setModelObject( new Permission() );
+            rolesSelection = "";
+            roles = new ArrayList<String>();
+            rolesCB = new ComboBox<String>( "roles", new PropertyModel<String>( editForm, ROLES_SELECTION ), roles );
+            editForm.addOrReplace( rolesCB );
+            addPB.setEnabled( true );
+            objectTF.setEnabled( true );
+            opNameTF.setEnabled( true );
+            objIdTF.setEnabled( true );
+            modelChanged();
         }
     }
 }

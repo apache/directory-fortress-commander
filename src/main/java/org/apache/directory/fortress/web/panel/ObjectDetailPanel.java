@@ -227,10 +227,7 @@ public class ObjectDetailPanel extends FormComponentPanel
                     try
                     {
                         adminMgr.deletePermObj( permObj );
-                        form.setModelObject( new PermObj() );
-                        objNameTF.setEnabled( true );
-                        addPB.setEnabled( true );
-                        modelChanged();
+                        clearDetailFields();
                         String msg = "PermObject objName: " + permObj.getObjName() + " has been deleted";
                         SaveModelEvent.send( getPage(), this, permObj, target, SaveModelEvent.Operations.DELETE );
                         component = editForm;
@@ -281,11 +278,8 @@ public class ObjectDetailPanel extends FormComponentPanel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
-                    setModelObject( new PermObj() );
-                    objNameTF.setEnabled( true );
-                    addPB.setEnabled( true );
-                    modelChanged();
-                    String msg = "Perm cancelled input form";
+                    clearDetailFields();
+                    String msg = "Object cancelled input form";
                     component = editForm;
                     display.setMessage( msg );
                 }
@@ -446,6 +440,14 @@ public class ObjectDetailPanel extends FormComponentPanel
 
                 display.display( ( AjaxRequestTarget ) event.getPayload() );
             }
+        }
+
+        private void clearDetailFields()
+        {
+            this.setModelObject( new PermObj() );
+            objNameTF.setEnabled( true );
+            addPB.setEnabled( true );
+            modelChanged();
         }
     }
 }

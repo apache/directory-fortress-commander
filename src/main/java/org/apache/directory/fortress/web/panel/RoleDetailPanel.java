@@ -310,22 +310,13 @@ public class RoleDetailPanel extends Panel
                         {
                             delAdminMgr.deleteRole( ( AdminRole ) role );
                             szRoleName = ( ( AdminRole ) role ).getName();
-                            form.setModelObject( new AdminRole() );
                         }
                         else
                         {
                             adminMgr.deleteRole( ( Role ) role );
                             szRoleName = ( ( Role ) role ).getName();
-                            form.setModelObject( new Role() );
                         }
-                        parentsSelection = "";
-                        parents = new ArrayList<String>();
-                        parentsCB = new ComboBox<String>( GlobalIds.PARENTS, new PropertyModel<String>( form,
-                            PARENTS_SELECTION ), parents );
-                        nameTF.setEnabled( true );
-                        addPB.setEnabled( true );
-                        editForm.addOrReplace( parentsCB );
-                        modelChanged();
+                        clearDetailFields();
                         String msg = "Role: " + szRoleName + " has been deleted";
                         SaveModelEvent.send( getPage(), this, ( FortEntity ) role, target,
                             SaveModelEvent.Operations.DELETE );
@@ -376,22 +367,7 @@ public class RoleDetailPanel extends Panel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
-                    if ( isAdmin )
-                    {
-                        setModelObject( new AdminRole() );
-                    }
-                    else
-                    {
-                        setModelObject( new Role() );
-                    }
-                    parentsSelection = "";
-                    parents = new ArrayList<String>();
-                    parentsCB = new ComboBox<String>( GlobalIds.PARENTS, new PropertyModel<String>( form,
-                        PARENTS_SELECTION ), parents );
-                    modelChanged();
-                    nameTF.setEnabled( true );
-                    addPB.setEnabled( true );
-                    editForm.addOrReplace( parentsCB );
+                    clearDetailFields();
                     component = editForm;
                     String msg = "Role cancelled input form";
                     display.setMessage( msg );
@@ -663,6 +639,26 @@ public class RoleDetailPanel extends Panel
                 log.info( ".onBeforeRender null model object" );
             }
             super.onBeforeRender();
+        }
+
+        private void clearDetailFields()
+        {
+            if ( isAdmin )
+            {
+                setModelObject( new AdminRole() );
+            }
+            else
+            {
+                setModelObject( new Role() );
+            }
+            parentsSelection = "";
+            parents = new ArrayList<String>();
+            parentsCB = new ComboBox<String>( GlobalIds.PARENTS, new PropertyModel<String>( this,
+                PARENTS_SELECTION ), parents );
+            modelChanged();
+            nameTF.setEnabled( true );
+            addPB.setEnabled( true );
+            editForm.addOrReplace( parentsCB );
         }
     }
 }
