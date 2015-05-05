@@ -102,6 +102,8 @@ public class OUDetailPanel extends FormComponentPanel
         private Component component;
         private List<String> parents = new ArrayList<String>();
         private OrgUnit parent = new OrgUnit();
+        private TextField nameTF;
+        private SecureIndicatingAjaxButton addPB;
 
 
         public OUDetailForm( String id, final IModel<OrgUnit> model )
@@ -113,7 +115,7 @@ public class OUDetailPanel extends FormComponentPanel
             else
                 parent.setType( OrgUnit.Type.PERM );
 
-            add( new SecureIndicatingAjaxButton( GlobalIds.ADD, GlobalIds.DEL_ADMIN_MGR, "addOU" )
+            add( addPB = new SecureIndicatingAjaxButton( GlobalIds.ADD, GlobalIds.DEL_ADMIN_MGR, "addOU" )
             {
                 /** Default serialVersionUID */
                 private static final long serialVersionUID = 1L;
@@ -258,6 +260,8 @@ public class OUDetailPanel extends FormComponentPanel
                         parents = new ArrayList<String>();
                         parentsCB = new ComboBox<String>( PARENTS, new PropertyModel<String>( form,
                             PARENTS_SELECTION ), parents );
+                        nameTF.setEnabled( true );
+                        addPB.setEnabled( true );
                         editForm.addOrReplace( parentsCB );
                         component = editForm;
                         SaveModelEvent.send( getPage(), this, orgUnit, target, SaveModelEvent.Operations.DELETE );
@@ -319,6 +323,8 @@ public class OUDetailPanel extends FormComponentPanel
                     parents = new ArrayList<String>();
                     parentsCB = new ComboBox<String>( PARENTS, new PropertyModel<String>( form, PARENTS_SELECTION ),
                         parents );
+                    nameTF.setEnabled( true );
+                    addPB.setEnabled( true );
                     editForm.addOrReplace( parentsCB );
                     component = editForm;
                     String msg = "OU Detail cancelled input form";
@@ -362,8 +368,8 @@ public class OUDetailPanel extends FormComponentPanel
                 add( new Label( "ouAssignmentsLabel", "Permission Organizational Detail" ) );
             }
 
-            TextField name = new TextField( "name" );
-            add( name );
+            nameTF = new TextField( "name" );
+            add( nameTF );
             TextField description = new TextField( "description" );
             description.setRequired( false );
             add( description );
@@ -534,6 +540,8 @@ public class OUDetailPanel extends FormComponentPanel
                     parentsCB = new ComboBox<String>( PARENTS, new PropertyModel<String>( this, PARENTS_SELECTION ),
                         parents );
                 }
+                nameTF.setEnabled( false );
+                addPB.setEnabled( false );
                 editForm.addOrReplace( parentsCB );
                 String msg = "OrgUnit: " + orgUnit.getName() + " has been selected";
                 log.debug( ".onEvent SelectModelEvent: " + orgUnit.getName() );

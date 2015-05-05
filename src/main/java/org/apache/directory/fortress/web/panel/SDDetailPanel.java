@@ -98,7 +98,8 @@ public class SDDetailPanel extends FormComponentPanel
         private Component component;
         private List<String> members = new ArrayList<String>();
         private UserRole roleConstraint = new UserRole();
-
+        private TextField nameTF;
+        private SecureIndicatingAjaxButton addPB;
 
         public SDDetailForm( String id, final IModel<SDSet> model )
         {
@@ -119,7 +120,7 @@ public class SDDetailPanel extends FormComponentPanel
                 opNameDelete = "deleteDsdSet";
             }
 
-            add( new SecureIndicatingAjaxButton( GlobalIds.ADD, GlobalIds.ADMIN_MGR, opNameAdd )
+            add( addPB = new SecureIndicatingAjaxButton( GlobalIds.ADD, GlobalIds.ADMIN_MGR, opNameAdd )
             {
                 /** Default serialVersionUID */
                 private static final long serialVersionUID = 1L;
@@ -276,6 +277,8 @@ public class SDDetailPanel extends FormComponentPanel
                         members = new ArrayList<String>();
                         membersCB = new ComboBox<String>( "members", new PropertyModel<String>( editForm,
                             MEMBERS_SELECTION ), members );
+                        nameTF.setEnabled( true );
+                        addPB.setEnabled( true );
                         editForm.addOrReplace( membersCB );
                         component = editForm;
                         SaveModelEvent.send( getPage(), this, sdSet, target, SaveModelEvent.Operations.DELETE );
@@ -337,6 +340,8 @@ public class SDDetailPanel extends FormComponentPanel
                     members = new ArrayList<String>();
                     membersCB = new ComboBox<String>( "members", new PropertyModel<String>( form, MEMBERS_SELECTION ),
                         members );
+                    nameTF.setEnabled( true );
+                    addPB.setEnabled( true );
                     editForm.addOrReplace( membersCB );
                     component = editForm;
                     String msg = "SDSet cancelled input form";
@@ -380,8 +385,8 @@ public class SDDetailPanel extends FormComponentPanel
                 add( new Label( "sdAssignmentsLabel", "Dynamic Separation of Duties Detail" ) );
             }
 
-            TextField name = new TextField( "name" );
-            add( name );
+            nameTF = new TextField( "name" );
+            add( nameTF );
             TextField description = new TextField( "description" );
             description.setRequired( false );
             add( description );
@@ -551,6 +556,8 @@ public class SDDetailPanel extends FormComponentPanel
                     membersCB = new ComboBox<String>( "members", new PropertyModel<String>( this, MEMBERS_SELECTION ),
                         members );
                 }
+                nameTF.setEnabled( false );
+                addPB.setEnabled( false );
                 editForm.addOrReplace( membersCB );
                 String msg = "SDSet: " + sdSet.getName() + " has been selected";
                 log.debug( msg );

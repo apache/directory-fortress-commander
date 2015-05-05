@@ -106,12 +106,16 @@ public class PermDetailPanel extends FormComponentPanel
         private List<String> roles = new ArrayList<String>();
         private UserRole roleConstraint = new UserRole();
         private TextField objectTF;
+        private TextField opNameTF;
+        private TextField objIdTF;
+        private SecureIndicatingAjaxButton addPB;
+
 
 
         public PermDetailForm( String id, final IModel<Permission> model )
         {
             super( id, model );
-            add( new SecureIndicatingAjaxButton( GlobalIds.ADD, GlobalIds.ADMIN_MGR, "addPermission" )
+            add( addPB = new SecureIndicatingAjaxButton( GlobalIds.ADD, GlobalIds.ADMIN_MGR, "addPermission" )
             {
                 /** Default serialVersionUID */
                 private static final long serialVersionUID = 1L;
@@ -267,6 +271,10 @@ public class PermDetailPanel extends FormComponentPanel
                         rolesCB = new ComboBox<String>( "roles",
                             new PropertyModel<String>( editForm, ROLES_SELECTION ), roles );
                         editForm.addOrReplace( rolesCB );
+                        addPB.setEnabled( true );
+                        objectTF.setEnabled( true );
+                        opNameTF.setEnabled( true );
+                        objIdTF.setEnabled( true );
                         modelChanged();
                         String msg = "Perm objName: " + perm.getObjName() + " opName: " + perm.getOpName()
                             + " has been deleted";
@@ -326,6 +334,10 @@ public class PermDetailPanel extends FormComponentPanel
                     rolesCB = new ComboBox<String>( "roles", new PropertyModel<String>( editForm, ROLES_SELECTION ),
                         roles );
                     editForm.addOrReplace( rolesCB );
+                    addPB.setEnabled( true );
+                    objectTF.setEnabled( true );
+                    opNameTF.setEnabled( true );
+                    objIdTF.setEnabled( true );
                     String msg = "Perm cancelled input form";
                     component = editForm;
                     display.setMessage( msg );
@@ -375,11 +387,11 @@ public class PermDetailPanel extends FormComponentPanel
                 add( new Label( "permDetailLabel", "RBAC Permission Operation Detail" ) );
             }
 
-            TextField opName = new TextField( GlobalIds.OP_NAME );
-            add( opName );
-            opName.setRequired( false );
-            TextField objId = new TextField( GlobalIds.OBJECT_ID );
-            add( objId );
+            opNameTF = new TextField( GlobalIds.OP_NAME );
+            add( opNameTF );
+            opNameTF.setRequired( false );
+            objIdTF = new TextField( GlobalIds.OBJECT_ID );
+            add( objIdTF );
             TextField description = new TextField( GlobalIds.DESCRIPTION );
             add( description );
             Label internalId = new Label( "internalId" );
@@ -636,6 +648,10 @@ public class PermDetailPanel extends FormComponentPanel
                     rolesCB = new ComboBox<String>( "roles", new PropertyModel<String>( this, ROLES_SELECTION ), roles );
                 }
                 editForm.addOrReplace( rolesCB );
+                objectTF.setEnabled( false );
+                opNameTF.setEnabled( false );
+                objIdTF.setEnabled( false );
+                addPB.setEnabled( false );
                 String msg = "Perm objName: " + perm.getObjName() + " opName: " + perm.getOpName()
                     + " has been selected";
                 display.setMessage( msg );

@@ -438,7 +438,7 @@ public class PermListPanel extends FormComponentPanel
         {
             List<Permission> perms = ( ( List<Permission> ) getDefaultModelObject() );
             perms.add( ( Permission ) entity );
-            treeModel.insertNodeInto( new DefaultMutableTreeNode( entity ), rootNode, perms.size() );
+            treeModel.insertNodeInto( new DefaultMutableTreeNode( entity ), rootNode, 0 );
         }
     }
 

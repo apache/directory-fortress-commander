@@ -580,7 +580,7 @@ public class UserListPanel extends FormComponentPanel
                     break;
             }
             AjaxRequestTarget target = ( ( SaveModelEvent ) event.getPayload() ).getAjaxRequestTarget();
-            //target.add(grid);
+            target.add(grid);
             LOG.debug( ".onEvent AJAX - UserListPanel - SaveModelEvent: " + target.toString() );
         }
     }

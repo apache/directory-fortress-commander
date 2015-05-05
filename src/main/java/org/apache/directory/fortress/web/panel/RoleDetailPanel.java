@@ -121,7 +121,8 @@ public class RoleDetailPanel extends Panel
         private List<String> parents = new ArrayList<String>();
         private UserRole parentConstraint = new UserRole();
         private RoleAdminDetailPanel auxPanel;
-
+        private TextField nameTF;
+        private SecureIndicatingAjaxButton addPB;
 
         public RoleDetailForm( String id, final IModel<T> model )
         {
@@ -141,8 +142,8 @@ public class RoleDetailPanel extends Panel
             add( constraintPanel );
             add( new Label( TEMPORAL_CONSTRAINTS_LABEL, new PropertyModel<String>( this,
                 TEMPORAL_CONSTRAINTS_LABEL ) ) );
-            TextField name = new TextField( "name" );
-            add( name );
+            nameTF = new TextField( "name" );
+            add( nameTF );
             TextField description = new TextField( GlobalIds.DESCRIPTION );
             description.setRequired( false );
             add( description );
@@ -152,7 +153,7 @@ public class RoleDetailPanel extends Panel
                 parents );
             add( parentsCB );
 
-            add( new SecureIndicatingAjaxButton( GlobalIds.ADD, objName, GlobalIds.ADD_ROLE )
+            add( addPB = new SecureIndicatingAjaxButton( GlobalIds.ADD, objName, GlobalIds.ADD_ROLE )
             {
                 /** Default serialVersionUID */
                 private static final long serialVersionUID = 1L;
@@ -321,6 +322,8 @@ public class RoleDetailPanel extends Panel
                         parents = new ArrayList<String>();
                         parentsCB = new ComboBox<String>( GlobalIds.PARENTS, new PropertyModel<String>( form,
                             PARENTS_SELECTION ), parents );
+                        nameTF.setEnabled( true );
+                        addPB.setEnabled( true );
                         editForm.addOrReplace( parentsCB );
                         modelChanged();
                         String msg = "Role: " + szRoleName + " has been deleted";
@@ -370,7 +373,6 @@ public class RoleDetailPanel extends Panel
                 /** Default serialVersionUID */
                 private static final long serialVersionUID = 1L;
 
-
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
@@ -387,6 +389,8 @@ public class RoleDetailPanel extends Panel
                     parentsCB = new ComboBox<String>( GlobalIds.PARENTS, new PropertyModel<String>( form,
                         PARENTS_SELECTION ), parents );
                     modelChanged();
+                    nameTF.setEnabled( true );
+                    addPB.setEnabled( true );
                     editForm.addOrReplace( parentsCB );
                     component = editForm;
                     String msg = "Role cancelled input form";
@@ -497,7 +501,6 @@ public class RoleDetailPanel extends Panel
             }
         }
 
-
         private void addRoleSearchModal()
         {
             final ModalWindow rolesModalWindow;
@@ -579,7 +582,6 @@ public class RoleDetailPanel extends Panel
             rolesModalWindow.setCookieName( "role-assign-modal" );
         }
 
-
         @Override
         public void onEvent( final IEvent<?> event )
         {
@@ -601,6 +603,8 @@ public class RoleDetailPanel extends Panel
                     parentsCB = new ComboBox<String>( GlobalIds.PARENTS, new PropertyModel<String>( this,
                         PARENTS_SELECTION ), parents );
                 }
+                nameTF.setEnabled( false );
+                addPB.setEnabled( false );
                 editForm.addOrReplace( parentsCB );
                 String msg = "Role: " + ( ( Role ) role ).getName() + " has been selected";
                 log.debug( msg );
@@ -620,7 +624,6 @@ public class RoleDetailPanel extends Panel
                 display.display( ( AjaxRequestTarget ) event.getPayload() );
             }
         }
-
 
         @Override
         protected void onBeforeRender()

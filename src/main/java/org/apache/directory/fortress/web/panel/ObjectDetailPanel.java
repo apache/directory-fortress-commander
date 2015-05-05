@@ -63,6 +63,8 @@ public class ObjectDetailPanel extends FormComponentPanel
     private Displayable display;
     private boolean isAdmin;
     private String objName;
+    private TextField objNameTF;
+    private SecureIndicatingAjaxButton addPB;
 
 
     public Form getForm()
@@ -97,7 +99,7 @@ public class ObjectDetailPanel extends FormComponentPanel
         public ObjectDetailForm( String id, final IModel<PermObj> model )
         {
             super( id, model );
-            add( new SecureIndicatingAjaxButton( GlobalIds.ADD, GlobalIds.ADMIN_MGR, "addPermObj" )
+            add( addPB = new SecureIndicatingAjaxButton( GlobalIds.ADD, GlobalIds.ADMIN_MGR, "addPermObj" )
             {
                 /** Default serialVersionUID */
                 private static final long serialVersionUID = 1L;
@@ -226,6 +228,8 @@ public class ObjectDetailPanel extends FormComponentPanel
                     {
                         adminMgr.deletePermObj( permObj );
                         form.setModelObject( new PermObj() );
+                        objNameTF.setEnabled( true );
+                        addPB.setEnabled( true );
                         modelChanged();
                         String msg = "PermObject objName: " + permObj.getObjName() + " has been deleted";
                         SaveModelEvent.send( getPage(), this, permObj, target, SaveModelEvent.Operations.DELETE );
@@ -278,6 +282,8 @@ public class ObjectDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
                     setModelObject( new PermObj() );
+                    objNameTF.setEnabled( true );
+                    addPB.setEnabled( true );
                     modelChanged();
                     String msg = "Perm cancelled input form";
                     component = editForm;
@@ -321,9 +327,9 @@ public class ObjectDetailPanel extends FormComponentPanel
                 add( new Label( "objAssignmentsLabel", "RBAC Permission Object Detail" ) );
             }
 
-            TextField objName = new TextField( "objName" );
-            add( objName );
-            objName.setRequired( false );
+            objNameTF = new TextField( "objName" );
+            add( objNameTF );
+            objNameTF.setRequired( false );
             TextField type = new TextField( "type" );
             add( type );
             TextField description = new TextField( "description" );
@@ -421,6 +427,8 @@ public class ObjectDetailPanel extends FormComponentPanel
                 SelectModelEvent modelEvent = ( SelectModelEvent ) event.getPayload();
                 PermObj permObj = ( PermObj ) modelEvent.getEntity();
                 this.setModelObject( permObj );
+                objNameTF.setEnabled( false );
+                addPB.setEnabled( false );
                 String msg = "PermObject Name: " + permObj.getObjName() + " has been selected";
                 display.setMessage( msg );
                 log.debug( msg );

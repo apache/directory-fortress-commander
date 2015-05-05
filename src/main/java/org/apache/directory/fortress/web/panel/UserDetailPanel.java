@@ -165,6 +165,8 @@ public class UserDetailPanel extends FormComponentPanel
         private FileUploadField upload;
         private TextField pwPolicyTF;
         private TextField ouTF;
+        private TextField userIdTF;
+        private SecureIndicatingAjaxButton addPB;
 
 
         public UserDetailForm( String id, final IModel<User> model )
@@ -184,26 +186,26 @@ public class UserDetailPanel extends FormComponentPanel
         private void addDetailFields( final IModel<User> model )
         {
             // Add the User page required attributes:
-            TextField userId = new TextField( GlobalIds.USER_ID );
-            add( userId );
+            userIdTF = new TextField( GlobalIds.USER_ID );
+            add( userIdTF );
             PasswordTextField pw = new PasswordTextField( GlobalIds.PSWD_FIELD, new PropertyModel<String>( this,
                 GlobalIds.PSWD_FIELD ) );
             pw.setRequired( false );
             add( pw );
-            TextField description = new TextField( GlobalIds.DESCRIPTION );
-            description.setRequired( false );
-            add( description );
+            TextField descriptionTF = new TextField( GlobalIds.DESCRIPTION );
+            descriptionTF.setRequired( false );
+            add( descriptionTF );
             ouTF = new TextField( OU );
             // making this required prevents the modals from opening:
             //ouTF.setRequired( true );
             ouTF.setOutputMarkupId( true );
             add( ouTF );
-            CheckBox reset = new CheckBox( "reset" );
-            reset.setEnabled( false );
-            add( reset );
-            CheckBox locked = new CheckBox( "locked" );
-            locked.setEnabled( false );
-            add( locked );
+            CheckBox resetCB = new CheckBox( "reset" );
+            resetCB.setEnabled( false );
+            add( resetCB );
+            CheckBox lockedCB = new CheckBox( "locked" );
+            lockedCB.setEnabled( false );
+            add( lockedCB );
             pwPolicyTF = new TextField( "pwPolicy" );
             pwPolicyTF.setRequired( false );
             pwPolicyTF.setOutputMarkupId( true );
@@ -310,7 +312,8 @@ public class UserDetailPanel extends FormComponentPanel
 
         private void addButtons()
         {
-            add( new SecureIndicatingAjaxButton( GlobalIds.ADD, GlobalIds.ADMIN_MGR, GlobalIds.ADD_USER )
+
+            add( addPB = new SecureIndicatingAjaxButton( GlobalIds.ADD, GlobalIds.ADMIN_MGR, GlobalIds.ADD_USER )
             {
                 /** Default serialVersionUID */
                 private static final long serialVersionUID = 1L;
@@ -1479,6 +1482,9 @@ public class UserDetailPanel extends FormComponentPanel
             roleConstraint = new UserRole();
             adminRoleConstraint = new UserAdminRole();
 
+            userIdTF.setEnabled( true );
+            addPB.setEnabled( true );
+
             emailsCB = new ComboBox<String>( GlobalIds.EMAILS, new PropertyModel<String>( this, EMAILS_SELECTION ),
                 new ArrayList<String>() );
             editForm.addOrReplace( emailsCB );
@@ -1725,6 +1731,8 @@ public class UserDetailPanel extends FormComponentPanel
                 String msg = "User: " + user.getUserId() + " has been selected";
                 log.debug( msg );
                 display.setMessage( msg );
+                userIdTF.setEnabled( false );
+                addPB.setEnabled( false );
                 rolesCB = new ComboBox<UserRole>( ROLES, new PropertyModel<String>( this, ROLE_SELECTION ),
                     user.getRoles(), new ChoiceRenderer<UserRole>( GlobalIds.NAME ) );
                 AjaxFormComponentUpdatingBehavior roleAjaxUpdater = new AjaxFormComponentUpdatingBehavior( "onchange" )
