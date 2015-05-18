@@ -259,17 +259,19 @@ public class GroupListPanel extends FormComponentPanel
 
         PropertyColumn groupName = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
             Model.of( "Group Name" ), "userObject.Name" );
-        groupName.setInitialSize( 400 );
+        groupName.setInitialSize( 250 );
         columns.add( groupName );
 
         PropertyColumn description = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
             Model.of( "Description" ), "userObject.Description" );
-        description.setInitialSize( 400 );
+        description.setInitialSize( 300 );
         columns.add( description );
 
+/*
         PropertyColumn protocol = new PropertyColumn( new Model( "Protocol" ), "userObject.Protocol" );
         protocol.setInitialSize( 400 );
         columns.add( protocol );
+*/
 
         List<Group> groups = ( List<Group> ) getDefaultModel().getObject();
         treeModel = createTreeModel( groups );

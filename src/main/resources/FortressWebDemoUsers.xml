@@ -133,6 +133,7 @@
                 <relationship child="fortress-web-super-user" parent="ROLE_ADMINROLES"/>
                 <relationship child="fortress-web-super-user" parent="ROLE_ADMINOBJS"/>
                 <relationship child="fortress-web-super-user" parent="ROLE_ADMINPERMS"/>
+                <relationship child="fortress-web-super-user" parent="ROLE_GROUPS"/>
 
                 <relationship child="fortress-web-group-admin-user" parent="ROLE_GROUPS"/>
                 <relationship child="fortress-web-group-admin-user" parent="ROLE_POLICIES"/>

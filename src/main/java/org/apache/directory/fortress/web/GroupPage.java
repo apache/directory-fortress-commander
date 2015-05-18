@@ -47,7 +47,7 @@ public class GroupPage extends FortressWebBasePage
     {
         add( new Label( GlobalIds.PAGE_HEADER, label ) );
         WebMarkupContainer container = new WebMarkupContainer( GlobalIds.LAYOUT );
-        FourWaySplitter splitter = new FourWaySplitter();
+        FourWaySplitter splitter = new FourWaySplitter( "40", "60" );
         splitter.addBorderLayout( container );
 
         // Add the four necessary panels for Commander Page: 1. Nav,, 2. List, 3. Info, 4. Detail

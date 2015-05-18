@@ -61,6 +61,8 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -392,7 +394,7 @@ public class GroupDetailPanel extends FormComponentPanel
                             {
                                 Group newGroup = groupMgr.add( group, key, val );
                                 group.setProperties( newGroup.getProperties() );
-                                memberPropsCB = new ComboBox<String>( "memberProps", new PropertyModel<String>( form,
+                                memberPropsCB = new ComboBox<>( "memberProps", new PropertyModel<String>( form,
                                     "memberPropsSelection" ), group.getPropList() );
                                 form.addOrReplace( memberPropsCB );
                             }
@@ -525,17 +527,20 @@ public class GroupDetailPanel extends FormComponentPanel
                         try
                         {
                             // TODO: figure out how to get the table to refresh its values here:
-                            String userId = getRdn( memberAssign );
-                            Group newGroup = groupMgr.assign( group, userId );
-                            group.setMembers( newGroup.getMembers() );
+                            String userId = getUserId( memberAssign );
+                            if( userId != null )
+                            {
+                                Group newGroup = groupMgr.assign( group, userId );
+                                group.setMembers( newGroup.getMembers() );
 
-                            String msg = "Group: " + group.getName() + ", member: " + memberAssign
-                                + ", has been assigned";
-                            memberAssign = "";
-                            form.add( memberAssignTF );
-                            addMemberTable( group );
-                            display.setMessage( msg );
-                            log.debug( msg );
+                                String msg = "Group: " + group.getName() + ", member: " + memberAssign
+                                    + ", has been assigned";
+                                memberAssign = "";
+                                form.add( memberAssignTF );
+                                addMemberTable( group );
+                                display.setMessage( msg );
+                                log.debug( msg );
+                            }
                         }
                         catch ( org.apache.directory.fortress.core.SecurityException se )
                         {
@@ -574,12 +579,80 @@ public class GroupDetailPanel extends FormComponentPanel
                     attributes.getAjaxCallListeners().add( ajaxCallListener );
                 }
             } );
+
+            add( new SecureIndicatingAjaxButton( "member.deassign", GlobalIds.GROUP_MGR, "deassign" )
+            {
+                private static final long serialVersionUID = 1L;
+
+
+                @Override
+                protected void onSubmit( AjaxRequestTarget target, Form<?> form )
+                {
+                    Group group = ( Group ) form.getModel().getObject();
+                    if ( VUtil.isNotNullOrEmpty( memberAssign ) )
+                    {
+                        try
+                        {
+                            // TODO: figure out how to get the table to refresh its values here:
+                            String userId = getUserId( memberAssign );
+                            if( userId != null )
+                            {
+                                Group newGroup = groupMgr.deassign( group, userId );
+                                group.setMembers( newGroup.getMembers() );
+
+                                String msg = "Group: " + group.getName() + ", member: " + memberAssign
+                                    + ", has been deassigned";
+                                memberAssign = "";
+                                form.add( memberAssignTF );
+                                addMemberTable( group );
+                                display.setMessage( msg );
+                                log.debug( msg );
+                            }
+                        }
+                        catch ( org.apache.directory.fortress.core.SecurityException se )
+                        {
+                            String error = "Failed assign user: " + memberAssign + ", SecurityException=" + se;
+                            log.warn( error );
+                            display.setMessage( error );
+                        }
+                    }
+                    else
+                    {
+                        String msg = "Group: " + group.getName()
+                            + ", assign op ignored, no value entered for deassignment";
+                        display.setMessage( msg );
+                        log.debug( msg );
+                    }
+                    component = editForm;
+                }
+
+
+                @Override
+                protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
+                {
+                    super.updateAjaxAttributes( attributes );
+                    AjaxCallListener ajaxCallListener = new AjaxCallListener()
+                    {
+                        /** Default serialVersionUID */
+                        private static final long serialVersionUID = 1L;
+
+
+                        @Override
+                        public CharSequence getFailureHandler( Component component )
+                        {
+                            return GlobalIds.WINDOW_LOCATION_REPLACE_COMMANDER_HOME_HTML;
+                        }
+                    };
+                    attributes.getAjaxCallListeners().add( ajaxCallListener );
+                }
+            } );
         }
 
 
         private void clearDetailFields( String msg, AjaxRequestTarget target, Form form )
         {
             setModelObject( new Group() );
+            memberAssign = "";
             memberPropsCB = new ComboBox<String>( "memberProps", new PropertyModel<String>( form,
                 "memberPropsSelection" ), new ArrayList<String>() );
             editForm.addOrReplace( memberPropsCB );
@@ -619,8 +692,17 @@ public class GroupDetailPanel extends FormComponentPanel
             ListDataProvider<Member> results;
             if ( VUtil.isNotNullOrEmpty( members ) )
             {
+                Collections.sort( members, new Comparator<String>()
+                {
+                    @Override
+                    public int compare(String m1, String m2)
+                    {
+                        return m1.compareToIgnoreCase( m2 );
+                    }
+                } );
+
                 int ctr = 0;
-                List<Member> tableMembers = new ArrayList<Member>();
+                List<Member> tableMembers = new ArrayList<>();
                 for ( String member : members )
                 {
                     Member tableMember = new Member();
@@ -755,7 +837,6 @@ public class GroupDetailPanel extends FormComponentPanel
                 /** Default serialVersionUID */
                 private static final long serialVersionUID = 1L;
 
-
                 /**
                  * Triggered when a column button is clicked.
                  */
@@ -767,13 +848,16 @@ public class GroupDetailPanel extends FormComponentPanel
                         try
                         {
                             // TODO: figure out how to get the table to refresh its values here:
-                            String userId = getRdn( value );
-                            Group newGroup = groupMgr.deassign( group, userId );
-                            group.setMembers( newGroup.getMembers() );
-                            table.refresh( target );
-                            String msg = "User: " + userId + ", deassigned from group: " + group.getName();
-                            display.setMessage( msg );
-                            log.debug( msg );
+                            String userId = getUserId( value );
+                            if( userId != null )
+                            {
+                                Group newGroup = groupMgr.deassign( group, userId );
+                                group.setMembers( newGroup.getMembers() );
+                                table.refresh( target );
+                                String msg = "User: " + userId + ", deassigned from group: " + group.getName();
+                                display.setMessage( msg );
+                                log.debug( msg );
+                            }
                         }
                         catch ( org.apache.directory.fortress.core.SecurityException se )
                         {
@@ -789,29 +873,31 @@ public class GroupDetailPanel extends FormComponentPanel
         }
 
         /**
-         * Method will retrieve the relative distinguished name from a distinguished name variable.
+         * Method will retrieve the userId from a distinguished name variable.
          *
          * @param szDn contains ldap distinguished name.
-         * @return rDn as string.
+         * @return userId as string.
          */
-        private String getRdn( String szDn )
+        private String getUserId(String szDn)
         {
-            String szRdn = null;
+            String szUserId = null;
             try
             {
                 Dn dn = new Dn( szDn );
                 Rdn rDn = dn.getRdn();
-                szRdn = rDn.getName();
+                String szRdn = rDn.getName();
+                int indexEquals = szRdn.indexOf( '=' ) + 1;
+                if (indexEquals != -1)
+                    szUserId = szRdn.substring( indexEquals );
             }
             catch ( LdapInvalidDnException e )
             {
-                String error = "GlobalUtils.getRdn dn: " + szDn + ", caught LdapInvalidDnException:" + e;
-                throw new RuntimeException( error );
-
+                String error = "User DN: " + szDn + ", incorrect format: " + e;
+                log.warn( error );
+                display.setMessage( error );
             }
-            return szRdn;
+            return szUserId;
         }
-
 
 
         public String getMemberAssign()
