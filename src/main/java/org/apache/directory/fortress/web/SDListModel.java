@@ -83,19 +83,19 @@ public class SDListModel extends Model<SerializableList<SDSet>>
     {
         if ( sdSets != null )
         {
-            LOG.debug( ".getObject count: " + sdSet != null ? sdSets.size() : "null" );
+            LOG.debug( ".getObject count: " + sdSets.size() );
             return sdSets;
         }
         
         if ( sdSet == null )
         {
             LOG.debug( ".getObject null" );
-            sdSets = new SerializableList<SDSet>( new ArrayList<SDSet>() );
+            sdSets = new SerializableList<>( new ArrayList<SDSet>() );
         }
         else
         {
-            LOG.debug( ".getObject sdSetNm: " + sdSet != null ? sdSet.getName() : "null" );
-            sdSets = new SerializableList<SDSet>( getList( sdSet ) );
+            LOG.debug( ".getObject sdSetNm: " + sdSet.getName() );
+            sdSets = new SerializableList<>( getList( sdSet ) );
         }
         
         return sdSets;
@@ -105,7 +105,7 @@ public class SDListModel extends Model<SerializableList<SDSet>>
     @Override
     public void setObject( SerializableList<SDSet> object )
     {
-        LOG.debug( ".setObject count: " + object != null ? object.size() : "null" );
+        LOG.debug( ".setObject count: " + object.size() );
         sdSets = object;
     }
     
@@ -127,7 +127,7 @@ public class SDListModel extends Model<SerializableList<SDSet>>
         {
             String szSdSetNm = sdSet != null && sdSet.getName() != null ? sdSet.getName() : "";
             LOG.debug( ".getList sdSetNm: " + szSdSetNm );
-        
+
             if ( VUtil.isNotNullOrEmpty( sdSet.getMembers() ) )
             {
                 Object[] roleNms = sdSet.getMembers().toArray();
@@ -157,7 +157,7 @@ public class SDListModel extends Model<SerializableList<SDSet>>
             // sort list by set name:
             if( VUtil.isNotNullOrEmpty( sdSetList ))
             {
-                Collections.sort( ( List<SDSet> ) sdSetList, new Comparator<SDSet>()
+                Collections.sort( sdSetList, new Comparator<SDSet>()
                 {
                     @Override
                     public int compare(SDSet s1, SDSet s2)

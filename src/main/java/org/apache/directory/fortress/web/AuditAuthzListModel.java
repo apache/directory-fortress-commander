@@ -85,7 +85,7 @@ public class AuditAuthzListModel extends Model<SerializableList<AuthZ>>
     {
         if (authZs != null)
         {
-            LOG.debug( ".getObject count: " + userAudit != null ? authZs.size() : "null" );
+            LOG.debug( ".getObject count: " + authZs.size() );
             return authZs;
         }
         
@@ -140,7 +140,7 @@ public class AuditAuthzListModel extends Model<SerializableList<AuthZ>>
     @Override
     public void setObject( SerializableList<AuthZ> object )
     {
-        LOG.debug( ".setObject count: " + object != null ? object.size() : "null" );
+        LOG.debug( ".setObject count: " + object.size() );
         authZs = object;
     }
     

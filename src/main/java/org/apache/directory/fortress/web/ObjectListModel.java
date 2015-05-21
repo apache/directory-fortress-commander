@@ -88,19 +88,19 @@ public class ObjectListModel extends Model<SerializableList<PermObj>>
     {
         if (permObjs != null)
         {
-            LOG.debug(".getObject count: " + permObj != null ? permObjs.size() : "null");
+            LOG.debug(".getObject count: " + permObjs.size() );
             return permObjs;
         }
         
         if (permObj == null)
         {
             LOG.debug(".getObject null");
-            permObjs = new SerializableList<PermObj>( new ArrayList<PermObj>());
+            permObjs = new SerializableList<>( new ArrayList<PermObj>());
         }
         else
         {
             LOG.debug(".getObject userId: " + permObj != null ? permObj.getObjName() : "null");
-            permObjs = new SerializableList<PermObj>( getList(permObj) );
+            permObjs = new SerializableList<>( getList(permObj) );
         }
         
         return permObjs;
@@ -110,7 +110,7 @@ public class ObjectListModel extends Model<SerializableList<PermObj>>
     @Override
     public void setObject(SerializableList<PermObj> object)
     {
-        LOG.debug(".setObject count: " + object != null ? object.size() : "null");
+        LOG.debug(".setObject count: " + object.size() );
         this.permObjs = object;
     }
 
@@ -130,7 +130,7 @@ public class ObjectListModel extends Model<SerializableList<PermObj>>
         
         try
         {
-            LOG.debug( ".getList permObjectName:" + permObj != null ? permObj.getObjName() : "null" );
+            LOG.debug( ".getList permObjectName:" + permObj.getObjName() );
             
             String ou = permObj.getOu();
             
@@ -151,7 +151,7 @@ public class ObjectListModel extends Model<SerializableList<PermObj>>
             // sort list by objName:
             if( VUtil.isNotNullOrEmpty( permObjList ))
             {
-                Collections.sort( ( List<PermObj> ) permObjList, new Comparator<PermObj>()
+                Collections.sort( permObjList, new Comparator<PermObj>()
                 {
                     @Override
                     public int compare(PermObj p1, PermObj p2)

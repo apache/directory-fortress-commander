@@ -87,26 +87,26 @@ public class RoleListModel extends Model<SerializableList<? extends Role>>
     {
         if ( roles != null )
         {
-            LOG.debug(".getObject count: " + role != null ? roles.size() : "null");
+            LOG.debug(".getObject count: " + roles.size() );
             return roles;
         }
         
         if ( role == null )
         {
             LOG.debug(".getObject null");
-            roles = new SerializableList<Role>( new ArrayList<Role>() );
+            roles = new SerializableList<>( new ArrayList<Role>() );
         }
         else
         {
-            LOG.debug(".getObject roleNm: " + role != null ? role.getName() : "null");
+            LOG.debug(".getObject roleNm: " + role.getName() );
             
             if ( isAdmin )
             {
-                roles = new SerializableList<AdminRole>( getAdminList( ( (AdminRole)role ).getName() ) );
+                roles = new SerializableList<>( getAdminList( ( role ).getName() ) );
             }
             else
             {
-                roles = new SerializableList<Role>( getList( role.getName() ) );
+                roles = new SerializableList<>( getList( role.getName() ) );
             }
         }
         
@@ -117,7 +117,7 @@ public class RoleListModel extends Model<SerializableList<? extends Role>>
     @Override
     public void setObject( SerializableList<? extends Role> object )
     {
-        LOG.debug(".setObject count: " + object != null ? object.size() : "null");
+        LOG.debug(".setObject count: " + object.size() );
         this.roles = object;
     }
     
@@ -142,7 +142,7 @@ public class RoleListModel extends Model<SerializableList<? extends Role>>
             // sort list by role name:
             if( VUtil.isNotNullOrEmpty( rolesList ))
             {
-                Collections.sort( ( List<Role> ) rolesList, new Comparator<Role>()
+                Collections.sort( rolesList, new Comparator<Role>()
                 {
                     @Override
                     public int compare(Role r1, Role r2)
@@ -169,10 +169,10 @@ public class RoleListModel extends Model<SerializableList<? extends Role>>
         try
         {
             LOG.debug( ".getList roleNm: " + szRoleNm );
-            rolesList = (List<AdminRole>)delReviewMgr.findRoles( szRoleNm );
+            rolesList = delReviewMgr.findRoles( szRoleNm );
             if( VUtil.isNotNullOrEmpty( rolesList ))
             {
-                Collections.sort( ( List<AdminRole> ) rolesList, new Comparator<AdminRole>()
+                Collections.sort( rolesList, new Comparator<AdminRole>()
                 {
                     @Override
                     public int compare(AdminRole r1, AdminRole r2)

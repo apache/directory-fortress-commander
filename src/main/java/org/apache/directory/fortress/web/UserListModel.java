@@ -77,7 +77,7 @@ public class UserListModel extends Model<SerializableList<User>>
     {
         this.user = user;
         init( session );
-        log.debug( "constructor userId: " + user != null ? user.getUserId() : "null" );
+        log.debug( "constructor userId: " + user.getUserId() );
     }
 
     
@@ -85,7 +85,7 @@ public class UserListModel extends Model<SerializableList<User>>
     {
         this.perm = perm;
         init( session );
-        log.debug( "constructor perm: " + perm != null ? perm.getObjName() : "null" );
+        log.debug( "constructor perm: " + perm.getObjName() );
     }
     
 
@@ -106,19 +106,19 @@ public class UserListModel extends Model<SerializableList<User>>
     {
         if (users != null)
         {
-            log.debug( ".getObject count: " + user != null ? users.size() : "null" );
+            log.debug( ".getObject count: " + users.size() );
             return users;
         }
         
         if ( ( user == null ) && ( perm == null  ))
         {
             log.debug( ".getObject null" );
-            users = new SerializableList<User>( new ArrayList<User>() );
+            users = new SerializableList<>( new ArrayList<User>() );
         }
         else
         {
             //log.debug(".getObject userId: " + user != null ? user.getUserId() : "null");
-            users = new SerializableList<User>( getList( user ) );
+            users = new SerializableList<>( getList( user ) );
         }
         
         return users;
@@ -128,7 +128,7 @@ public class UserListModel extends Model<SerializableList<User>>
     @Override
     public void setObject( SerializableList<User> object )
     {
-        log.debug(".setObject count: " + object != null ? object.size() : "null");
+        log.debug(".setObject count: " + object.size() );
         users = object;
     }
     
@@ -154,7 +154,7 @@ public class UserListModel extends Model<SerializableList<User>>
                 
                 if ( VUtil.isNotNullOrEmpty( users ) )
                 {
-                    usersList = new ArrayList<User>();
+                    usersList = new ArrayList<>();
                     
                     for(String userId : users)
                     {
@@ -182,7 +182,7 @@ public class UserListModel extends Model<SerializableList<User>>
             // sort list by userId:
             if( VUtil.isNotNullOrEmpty( usersList ))
             {
-                Collections.sort( ( List<User> ) usersList, new Comparator<User>()
+                Collections.sort( usersList, new Comparator<User>()
                 {
                     @Override
                     public int compare(User u1, User u2)

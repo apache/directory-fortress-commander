@@ -82,7 +82,7 @@ public class AuditBindListModel extends Model<SerializableList<Bind>>
     {
         if ( binds != null )
         {
-            LOG.debug( ".getObject count: " + userAudit != null ? binds.size() : "null" );
+            LOG.debug( ".getObject count: " + binds.size() );
             return binds;
         }
         
@@ -96,12 +96,12 @@ public class AuditBindListModel extends Model<SerializableList<Bind>>
            )
         {
             LOG.debug(".getObject null");
-            binds = new SerializableList<Bind>( new ArrayList<Bind>() );
+            binds = new SerializableList<>( new ArrayList<Bind>() );
         }
         else
         {
             // get the list of matching bind records from fortress:
-            binds = new SerializableList<Bind>( getList(userAudit) );
+            binds = new SerializableList<>( getList(userAudit) );
         }
         
         return binds;
@@ -111,7 +111,7 @@ public class AuditBindListModel extends Model<SerializableList<Bind>>
     @Override
     public void setObject( SerializableList<Bind> object )
     {
-        LOG.debug( ".setObject count: " + object != null ? object.size() : "null" );
+        LOG.debug( ".setObject count: " + object.size() );
         this.binds = object;
     }
     

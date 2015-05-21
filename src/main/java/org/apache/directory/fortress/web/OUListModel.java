@@ -82,19 +82,19 @@ public class OUListModel extends Model<SerializableList<OrgUnit>>
     {
         if ( orgUnits != null )
         {
-            LOG.debug( ".getObject count: " + orgUnit != null ? orgUnits.size() : "null" );
+            LOG.debug( ".getObject count: " + orgUnits.size() );
             return orgUnits;
         }
         
         if ( orgUnit == null )
         {
             LOG.debug( ".getObject null" );
-            orgUnits = new SerializableList<OrgUnit>( new ArrayList<OrgUnit>() );
+            orgUnits = new SerializableList<>( new ArrayList<OrgUnit>() );
         }
         else
         {
-            LOG.debug( ".getObject orgUnitNm: " + orgUnit != null ? orgUnit.getName() : "null" );
-            orgUnits = new SerializableList<OrgUnit>( getList( orgUnit ) );
+            LOG.debug( ".getObject orgUnitNm: " + orgUnit.getName() );
+            orgUnits = new SerializableList<>( getList( orgUnit ) );
         }
         
         return orgUnits;
@@ -104,7 +104,7 @@ public class OUListModel extends Model<SerializableList<OrgUnit>>
     @Override
     public void setObject( SerializableList<OrgUnit> object )
     {
-        LOG.debug( ".setObject count: " + object != null ? ( ( List<OrgUnit> ) object ).size() : "null" );
+        LOG.debug( ".setObject count: " + ( object ).size() );
         orgUnits = object;
     }
     
@@ -130,7 +130,7 @@ public class OUListModel extends Model<SerializableList<OrgUnit>>
             // sort list by name:
             if( VUtil.isNotNullOrEmpty( orgUnitList ))
             {
-                Collections.sort( ( List<OrgUnit> ) orgUnitList, new Comparator<OrgUnit>()
+                Collections.sort( ( orgUnitList ), new Comparator<OrgUnit>()
                 {
                     @Override
                     public int compare(OrgUnit o1, OrgUnit o2)

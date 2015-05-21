@@ -84,19 +84,19 @@ public class PwPolicyListModel extends Model<SerializableList<PwPolicy>>
     {
         if ( policies != null )
         {
-            LOG.debug( ".getObject count: " + policy != null ? policies.size() : "null" );
+            LOG.debug( ".getObject count: " + policies.size() );
             return policies;
         }
         
         if ( policy == null )
         {
             LOG.debug( ".getObject null" );
-            policies = new SerializableList<PwPolicy>( new ArrayList<PwPolicy>() );
+            policies = new SerializableList<>( new ArrayList<PwPolicy>() );
         }
         else
         {
-            LOG.debug( ".getObject policyNm: " + policy != null ? policy.getName() : "null" );
-            policies = new SerializableList<PwPolicy>( getList( policy ) );
+            LOG.debug( ".getObject policyNm: " + policy.getName() );
+            policies = new SerializableList<>( getList( policy ) );
         }
         
         return policies;
@@ -106,7 +106,7 @@ public class PwPolicyListModel extends Model<SerializableList<PwPolicy>>
     @Override
     public void setObject( SerializableList<PwPolicy> object )
     {
-        LOG.debug( ".setObject count: " + object != null ? ((List<PwPolicy>)object).size() : "null" );
+        LOG.debug( ".setObject count: " + (object).size() );
         policies = object;
     }
     
@@ -131,7 +131,7 @@ public class PwPolicyListModel extends Model<SerializableList<PwPolicy>>
             // sort list by policy name:
             if( VUtil.isNotNullOrEmpty( policiesList ))
             {
-                Collections.sort( ( List<PwPolicy> ) policiesList, new Comparator<PwPolicy>()
+                Collections.sort( policiesList, new Comparator<PwPolicy>()
                 {
                     @Override
                     public int compare(PwPolicy p1, PwPolicy p2)

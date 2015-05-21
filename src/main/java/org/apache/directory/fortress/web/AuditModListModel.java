@@ -84,7 +84,7 @@ public class AuditModListModel extends Model<SerializableList<Mod>>
     {
         if (mods != null)
         {
-            LOG.debug( ".getObject count: " + userAudit != null ? mods.size() : "null" );
+            LOG.debug( ".getObject count: " + mods.size() );
             return mods;
         }
         
@@ -100,7 +100,7 @@ public class AuditModListModel extends Model<SerializableList<Mod>>
            )
         {
             LOG.debug( ".getObject null" );
-            mods = new SerializableList<Mod>( new ArrayList<Mod>() );
+            mods = new SerializableList<>( new ArrayList<Mod>() );
         }
         else
         {
@@ -119,7 +119,7 @@ public class AuditModListModel extends Model<SerializableList<Mod>>
                 userAudit.setInternalUserId( user.getInternalId() );
             }
             
-            mods = new SerializableList<Mod>( getList( userAudit ) );
+            mods = new SerializableList<>( getList( userAudit ) );
         }
         
         return mods;
@@ -129,7 +129,7 @@ public class AuditModListModel extends Model<SerializableList<Mod>>
     @Override
     public void setObject( SerializableList<Mod> object )
     {
-        LOG.debug(".setObject count: " + object != null ? object.size() : "null");
+        LOG.debug(".setObject count: " + object.size() );
         this.mods = object;
     }
 

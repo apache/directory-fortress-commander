@@ -82,7 +82,7 @@ public class PermListModel extends Model<SerializableList<Permission>>
     {
         if ( perms != null )
         {
-            LOG.debug( ".getObject count: " + perms != null ? perms.size() : "null" );
+            LOG.debug( ".getObject count: " + perms.size() );
             
             return perms;
         }
@@ -90,13 +90,13 @@ public class PermListModel extends Model<SerializableList<Permission>>
         if (perm == null)
         {
             LOG.debug( ".getObject null ");
-            perms = new SerializableList<Permission>( new ArrayList<Permission>() );
+            perms = new SerializableList<>( new ArrayList<Permission>() );
         }
         else
         {
-            LOG.debug( " .getObject perm objectNm: " + perm != null ? perm.getObjName() : "null" );
-            LOG.debug( " .getObject perm opNm: " + perm != null ? perm.getOpName() : "null" );
-            perms = new SerializableList<Permission>( getList( perm ) );
+            LOG.debug( " .getObject perm objectNm: " + perm.getObjName() );
+            LOG.debug( " .getObject perm opNm: " + perm.getOpName() );
+            perms = new SerializableList<>( getList( perm ) );
         }
         
         return perms;
@@ -106,7 +106,7 @@ public class PermListModel extends Model<SerializableList<Permission>>
     @Override
     public void setObject( SerializableList<Permission> object )
     {
-        LOG.debug( ".setObject count: " + perms != null ? object.size() : "null" );
+        LOG.debug( ".setObject count: " + object.size() );
         this.perms = object;
     }
     
@@ -134,7 +134,7 @@ public class PermListModel extends Model<SerializableList<Permission>>
             // sort list by abstract name:
             if( VUtil.isNotNullOrEmpty( permsList ))
             {
-                Collections.sort( ( List<Permission> ) permsList, new Comparator<Permission>()
+                Collections.sort( permsList, new Comparator<Permission>()
                 {
                     @Override
                     public int compare(Permission p1, Permission p2)

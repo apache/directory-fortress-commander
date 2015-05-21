@@ -83,19 +83,27 @@ public class GroupListModel extends Model<SerializableList<Group>>
     {
         if ( groups != null )
         {
-            LOG.debug( ".getObject count: " + group != null ? groups.size() : "null" );
+            LOG.debug( ".getObject count: " + groups.size() );
             return groups;
         }
         
         if ( group == null )
         {
             LOG.debug( ".getObject null" );
-            groups = new SerializableList<Group>( new ArrayList<Group>() );
+            groups = new SerializableList<>( new ArrayList<Group>() );
         }
         else
         {
-            LOG.debug( ".getObject group name: " + group != null ? group.getName() : "null" );
-            groups = new SerializableList<Group>( getList( group ) );
+            LOG.debug( ".getObject group name: " + group.getName() );
+            List<Group> foundGroups = getList( group );
+            if(VUtil.isNotNullOrEmpty( foundGroups ))
+            {
+                groups = new SerializableList<>( foundGroups );
+            }
+            else
+            {
+                groups = new SerializableList<>( new ArrayList<Group>() );
+            }
         }
         return groups;
     }
@@ -104,7 +112,7 @@ public class GroupListModel extends Model<SerializableList<Group>>
     @Override
     public void setObject( SerializableList<Group> object )
     {
-        LOG.debug(".setObject count: " + object != null ? object.size() : "null");
+        LOG.debug(".setObject count: " + object.size() );
         groups = object;
     }
     
@@ -127,18 +135,18 @@ public class GroupListModel extends Model<SerializableList<Group>>
             if ( VUtil.isNotNullOrEmpty( group.getMembers() ) )
             {
                 String userId = group.getMembers().get( 0 );
-                LOG.debug( ".getList group name: " + group != null ? group.getName() : "null" );
+                LOG.debug( ".getList userId name: " + userId );
                 groupList = groupMgr.find( new User( userId ) );
             }
             else
             {
-                LOG.debug( ".getList group name: " + group != null ? group.getName() : "null" );
+                LOG.debug( ".getList group name: " + group.getName() );
                 groupList = groupMgr.find( group );
             }
             // sort list by name:
             if( VUtil.isNotNullOrEmpty( groupList ))
             {
-                Collections.sort( ( List<Group> ) groupList, new Comparator<Group>()
+                Collections.sort( groupList, new Comparator<Group>()
                 {
                     @Override
                     public int compare(Group g1, Group g2)
