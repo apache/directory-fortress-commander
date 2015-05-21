@@ -122,10 +122,15 @@ public class SDListModel extends Model<SerializableList<SDSet>>
     private List<SDSet> getList( SDSet sdSet )
     {
         List<SDSet> sdSetList = null;
+
+        if( sdSet == null )
+        {
+            throw new RuntimeException( "Invalid SDSet State" );
+        }
         
         try
         {
-            String szSdSetNm = sdSet != null && sdSet.getName() != null ? sdSet.getName() : "";
+            String szSdSetNm = sdSet.getName();
             LOG.debug( ".getList sdSetNm: " + szSdSetNm );
 
             if ( VUtil.isNotNullOrEmpty( sdSet.getMembers() ) )

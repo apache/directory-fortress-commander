@@ -123,11 +123,15 @@ public class PermListModel extends Model<SerializableList<Permission>>
     private List<Permission> getList( Permission perm )
     {
         List<Permission> permsList = null;
+        if( perm == null )
+        {
+            throw new RuntimeException( "Invalid permission state");
+        }
         
         try
         {
-            String szObjectNm = perm != null ? perm.getObjName() : "";
-            String szOpNm = perm != null ? perm.getOpName() : "";
+            String szObjectNm = perm.getObjName();
+            String szOpNm = perm.getOpName();
             LOG.debug( ".getList objectNm: " + szObjectNm + " opNm: " + szOpNm );
             perm.setAdmin( isAdmin );
             permsList = reviewMgr.findPermissions( perm );

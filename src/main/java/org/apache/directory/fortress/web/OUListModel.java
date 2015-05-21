@@ -121,10 +121,13 @@ public class OUListModel extends Model<SerializableList<OrgUnit>>
     private List<OrgUnit> getList( OrgUnit orgUnit )
     {
         List<OrgUnit> orgUnitList = null;
-        
+        if( orgUnit == null || orgUnit.getType() == null )
+        {
+            throw new RuntimeException( "Orgunit invalid state" );
+        }
         try
         {
-            String szOrgUnitNm = orgUnit != null && orgUnit.getName() != null ? orgUnit.getName() : "";
+            String szOrgUnitNm = orgUnit.getName();
             LOG.debug( ".getList orgUnitNm: " + szOrgUnitNm );
             orgUnitList = delReviewMgr.search( orgUnit.getType(), orgUnit.getName() );
             // sort list by name:
