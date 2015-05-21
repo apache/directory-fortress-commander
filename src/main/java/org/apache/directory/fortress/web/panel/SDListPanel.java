@@ -166,9 +166,9 @@ public class SDListPanel extends FormComponentPanel
 
         radioGroup = new RadioGroup( "searchOptions", new PropertyModel( this, "selectedRadioButton" ) );
         add( radioGroup );
-        Radio nameRb = new Radio( "nameRb", new Model( new Character( NAMES ) ) );
+        Radio nameRb = new Radio( "nameRb", new Model( Character.valueOf( NAMES ) ) );
         radioGroup.add( nameRb );
-        Radio roleRb = new Radio( "roleRb", new Model( new Character( ROLES ) ) );
+        Radio roleRb = new Radio( "roleRb", new Model( Character.valueOf( ROLES ) ) );
         radioGroup.add( roleRb );
         addRoleSearchModal( roleRb );
         radioGroup.setOutputMarkupId( true );

@@ -365,8 +365,8 @@ public class ConstraintBasePanel extends FormComponentPanel
             Calendar calendar = Calendar.getInstance();
             try
             {
-                int hours = new Integer( szTime.substring( 0, 2 ) );
-                int minutes = new Integer( szTime.substring( 2, 4 ) );
+                int hours = Integer.valueOf( szTime.substring( 0, 2 ) );
+                int minutes = Integer.valueOf( szTime.substring( 2, 4 ) );
                 // zero hours convert to 24 for calendar:
                 if(hours == 0)
                 {

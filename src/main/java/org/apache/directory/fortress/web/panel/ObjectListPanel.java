@@ -93,7 +93,7 @@ public class ObjectListPanel extends FormComponentPanel
         addGrid();
         radioGroup = new RadioGroup( "searchOptions", new PropertyModel( this, "selectedRadioButton" ) );
         add( radioGroup );
-        Radio objectRb = new Radio( "objectRb", new Model( new Character( NAMES ) ) );
+        Radio objectRb = new Radio( "objectRb", new Model( Character.valueOf( NAMES ) ) );
         radioGroup.add( objectRb );
         Radio ouRb = new Radio( "ouRb", new Model( new Character( OUS ) ) );
         radioGroup.add( ouRb );
