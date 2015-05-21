@@ -377,17 +377,13 @@ public class UserListPanel extends FormComponentPanel
             /** Default serialVersionUID */
             private static final long serialVersionUID = 1L;
 
-
             public void onClick( AjaxRequestTarget target )
             {
-                String msg = "clicked on roles search";
-                msg += "roleSelection: " + searchData.getField1();
                 roleSearchModalPanel.setRoleSearchVal( searchData.getField1() );
                 roleSearchModalPanel.setAdmin( false );
                 target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                 rolesModalWindow.show( target );
             }
-
 
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
@@ -520,17 +516,13 @@ public class UserListPanel extends FormComponentPanel
             /** Default serialVersionUID */
             private static final long serialVersionUID = 1L;
 
-
             public void onClick( AjaxRequestTarget target )
             {
-                String msg = "clicked on ou search";
-                msg += "ouSelection: " + searchData.getField1();
                 ouSearchModalPanel.setSearchVal( searchData.getField1() );
                 target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                 ousModalWindow.show( target );
             }
-
-
+            
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
             {

@@ -626,8 +626,8 @@ public class UserDetailPanel extends FormComponentPanel
                             adminMgr.lockUserAccount( user );
                             user.setLocked( true );
                             msg += " account has been locked";
-                            display.setMessage( msg );
                         }
+                        display.setMessage( msg );
                     }
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {

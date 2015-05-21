@@ -56,7 +56,6 @@ public class RoleAdminPage extends FortressWebBasePage
      */
     public RoleAdminPage( PageParameters parameters )
     {
-        String type = getPageType( parameters );
         add( new Label( GlobalIds.PAGE_HEADER, label ) );
         WebMarkupContainer container = new WebMarkupContainer( GlobalIds.LAYOUT );
         FourWaySplitter splitter = new FourWaySplitter();
