@@ -167,18 +167,11 @@ public abstract class FortressWebBasePage extends WebPage
             {
                 session = SecUtils.createSession( accessMgr, principal.getName() );
             }
+
             // Now load the fortress session into the Wicket session and let wicket hold onto that for us.  Also retreive the arbac perms from server and cache those too.
-            if ( session != null )
+            synchronized ( ( WicketSession ) WicketSession.get() )
             {
-                synchronized ( ( WicketSession ) WicketSession.get() )
-                {
-                    SecUtils.loadPermissionsIntoSession( delAccessMgr, session );
-                }
-            }
-            // give up
-            else
-            {
-                throw new RuntimeException( "cannot create RBAC session for user: " + principal.getName() );
+                SecUtils.loadPermissionsIntoSession( delAccessMgr, session );
             }
         }
     }

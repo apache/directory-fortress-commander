@@ -522,7 +522,7 @@ public class UserListPanel extends FormComponentPanel
                 target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                 ousModalWindow.show( target );
             }
-            
+
             @Override
             protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
             {

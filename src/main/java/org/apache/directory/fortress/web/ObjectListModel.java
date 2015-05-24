@@ -99,7 +99,7 @@ public class ObjectListModel extends Model<SerializableList<PermObj>>
         }
         else
         {
-            LOG.debug(".getObject userId: " + permObj != null ? permObj.getObjName() : "null");
+            LOG.debug(".getObject userId: " + permObj.getObjName());
             permObjs = new SerializableList<>( getList(permObj) );
         }
         
