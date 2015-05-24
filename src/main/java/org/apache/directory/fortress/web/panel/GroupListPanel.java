@@ -90,9 +90,9 @@ public class GroupListPanel extends FormComponentPanel
         addGrid();
         radioGroup = new RadioGroup( "searchOptions", new PropertyModel( this, "selectedRadioButton" ) );
         add( radioGroup );
-        Radio groupRb = new Radio( "groupRb", new Model( new Character( NAMES ) ) );
+        Radio groupRb = new Radio( "groupRb", new Model( Character.valueOf( NAMES ) ) );
         radioGroup.add( groupRb );
-        Radio memberRb = new Radio( "memberRb", new Model( new Character( MEMBERS ) ) );
+        Radio memberRb = new Radio( "memberRb", new Model( Character.valueOf( MEMBERS ) ) );
         radioGroup.add( memberRb );
         addMemberSearchModal( memberRb );
         radioGroup.setOutputMarkupId( true );

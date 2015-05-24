@@ -95,7 +95,7 @@ public class ObjectListPanel extends FormComponentPanel
         add( radioGroup );
         Radio objectRb = new Radio( "objectRb", new Model( Character.valueOf( NAMES ) ) );
         radioGroup.add( objectRb );
-        Radio ouRb = new Radio( "ouRb", new Model( new Character( OUS ) ) );
+        Radio ouRb = new Radio( "ouRb", new Model( Character.valueOf( OUS ) ) );
         radioGroup.add( ouRb );
         addOUSearchModal( ouRb );
         radioGroup.setOutputMarkupId( true );
