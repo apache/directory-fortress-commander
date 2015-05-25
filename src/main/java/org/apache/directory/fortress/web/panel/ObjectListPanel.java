@@ -233,7 +233,7 @@ public class ObjectListPanel extends FormComponentPanel
             PermObj permObj = ( PermObj ) node.getUserObject();
             log.debug( ".removeSelectedItems user node: " + permObj.getObjName() );
             List<PermObj> permObjs = ( ( List<PermObj> ) getDefaultModel().getObject() );
-            permObjs.remove( permObj.getObjName() );
+            permObjs.remove( permObj );
         }
     }
 

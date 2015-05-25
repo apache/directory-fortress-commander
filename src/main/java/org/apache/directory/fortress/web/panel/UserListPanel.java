@@ -664,7 +664,7 @@ public class UserListPanel extends FormComponentPanel
             User user = ( User ) node.getUserObject();
             LOG.debug( ".removeSelectedItems user node: " + user.getUserId() );
             List<User> users = ( ( List<User> ) getDefaultModel().getObject() );
-            users.remove( user.getUserId() );
+            users.remove( user );
         }
     }
 

@@ -264,7 +264,7 @@ public class OUListPanel extends FormComponentPanel
             OrgUnit orgUnit = ( OrgUnit ) node.getUserObject();
             log.debug( ".removeSelectedItems ou node: " + orgUnit.getName() );
             List<OrgUnit> orgUnits = ( ( List<OrgUnit> ) getDefaultModel().getObject() );
-            orgUnits.remove( orgUnit.getName() );
+            orgUnits.remove( orgUnit );
         }
     }
 

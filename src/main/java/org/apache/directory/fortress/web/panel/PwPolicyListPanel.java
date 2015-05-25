@@ -298,7 +298,7 @@ public class PwPolicyListPanel extends FormComponentPanel
             PwPolicy policy = ( PwPolicy ) node.getUserObject();
             log.debug( ".removeSelectedItems policy node: " + policy.getName() );
             List<PwPolicy> policies = ( ( List<PwPolicy> ) getDefaultModel().getObject() );
-            policies.remove( policy.getName() );
+            policies.remove( policy );
         }
     }
 

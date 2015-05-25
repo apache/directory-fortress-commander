@@ -292,7 +292,7 @@ public class RoleListPanel<T extends Serializable> extends FormComponentPanel
             Role role = ( Role ) node.getUserObject();
             log.debug( ".removeSelectedItems role node: " + role.getName() );
             List<Role> roles = ( ( List<Role> ) getDefaultModel().getObject() );
-            roles.remove( role.getName() );
+            roles.remove( role );
         }
     }
 

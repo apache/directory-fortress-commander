@@ -384,7 +384,7 @@ public class SDListPanel extends FormComponentPanel
             SDSet sdSet = ( SDSet ) node.getUserObject();
             log.debug( ".removeSelectedItems sdset node: " + sdSet.getName() );
             List<SDSet> sdSets = ( ( List<SDSet> ) getDefaultModel().getObject() );
-            sdSets.remove( sdSet.getName() );
+            sdSets.remove( sdSet );
         }
     }
 
