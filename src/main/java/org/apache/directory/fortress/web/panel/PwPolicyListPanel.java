@@ -35,11 +35,11 @@ import org.apache.wicket.markup.html.form.FormComponentPanel;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
-import org.apache.directory.fortress.web.GlobalIds;
-import org.apache.directory.fortress.web.SecUtils;
-import org.apache.directory.fortress.web.PwPolicyListModel;
-import org.apache.directory.fortress.web.SaveModelEvent;
-import org.apache.directory.fortress.web.SelectModelEvent;
+import org.apache.directory.fortress.web.common.GlobalIds;
+import org.apache.directory.fortress.web.control.SecUtils;
+import org.apache.directory.fortress.web.model.PwPolicyListModel;
+import org.apache.directory.fortress.web.event.SaveModelEvent;
+import org.apache.directory.fortress.web.event.SelectModelEvent;
 import org.apache.directory.fortress.core.rbac.FortEntity;
 import org.apache.directory.fortress.core.rbac.PwPolicy;
 import org.apache.wicket.markup.html.form.Form;
@@ -62,7 +62,6 @@ public class PwPolicyListPanel extends FormComponentPanel
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
     private static final Logger log = Logger.getLogger( PwPolicyListPanel.class.getName() );
-    private Form listForm;
     private DefaultTreeModel treeModel;
     private DefaultMutableTreeNode node;
     private TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String> grid;
@@ -189,21 +188,21 @@ public class PwPolicyListPanel extends FormComponentPanel
         grid.setSelectToEdit( false );
         // expand the root node
         grid.getTreeState().expandAll();;
-        this.listForm = new Form( "form" );
-        this.listForm.add( grid );
+        Form listForm = new Form( "form" );
+        listForm.add( grid );
         grid.setOutputMarkupId( true );
         TextField searchValFld = new TextField( GlobalIds.SEARCH_VAL, new PropertyModel<String>( this,
             GlobalIds.SEARCH_VAL ) );
-        this.listForm.add( searchValFld );
+        listForm.add( searchValFld );
 
-        this.listForm.add( new AjaxSubmitLink( GlobalIds.SEARCH )
+        listForm.add( new AjaxSubmitLink( GlobalIds.SEARCH )
         {
             /** Default serialVersionUID */
             private static final long serialVersionUID = 1L;
 
 
             @Override
-            protected void onSubmit( AjaxRequestTarget target, Form form )
+            protected void onSubmit(AjaxRequestTarget target, Form form)
             {
                 log.debug( ".search onSubmit" );
                 info( "Searching Policies..." );
@@ -231,7 +230,7 @@ public class PwPolicyListPanel extends FormComponentPanel
 
 
             @Override
-            public void onError( AjaxRequestTarget target, Form form )
+            public void onError(AjaxRequestTarget target, Form form)
             {
                 log.warn( ".search.onError" );
                 target.add();
@@ -239,7 +238,7 @@ public class PwPolicyListPanel extends FormComponentPanel
 
 
             @Override
-            protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
+            protected void updateAjaxAttributes(AjaxRequestAttributes attributes)
             {
                 super.updateAjaxAttributes( attributes );
                 AjaxCallListener ajaxCallListener = new AjaxCallListener()
@@ -249,7 +248,7 @@ public class PwPolicyListPanel extends FormComponentPanel
 
 
                     @Override
-                    public CharSequence getFailureHandler( Component component )
+                    public CharSequence getFailureHandler(Component component)
                     {
                         return GlobalIds.WINDOW_LOCATION_REPLACE_COMMANDER_HOME_HTML;
                     }
@@ -257,7 +256,7 @@ public class PwPolicyListPanel extends FormComponentPanel
                 attributes.getAjaxCallListeners().add( ajaxCallListener );
             }
         } );
-        add( this.listForm );
+        add( listForm );
     }
 
 

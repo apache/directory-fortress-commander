@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.web;
+package org.apache.directory.fortress.web.control;
 
 
 import org.apache.wicket.Page;

@@ -17,37 +17,64 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.web;
+package org.apache.directory.fortress.web.control;
 
 
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxLink;
+import org.apache.wicket.protocol.http.WebSession;
+import org.apache.wicket.request.Request;
 import org.apache.directory.fortress.core.rbac.Permission;
+import org.apache.directory.fortress.core.rbac.Session;
+
+import java.util.List;
 
 
 /**
- * ...
+ * This object is managed by wicket framework.  It is used to cache a copy of a user's session and permissions.
+ *
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @version $Rev$
  */
-public class SecureIndicatingAjaxLink extends IndicatingAjaxLink
+public class WicketSession extends WebSession
 {
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
+    private Session session;
+    private List<Permission> permissions;
 
 
-    public SecureIndicatingAjaxLink( String id, String objName, String opName )
+    /**
+     * Constructor. Note that {@link org.apache.wicket.request.cycle.RequestCycle} is not available until this
+     * constructor returns.
+     *
+     * @param request The current request
+     */
+    public WicketSession(Request request)
     {
-        super( id );
-        if ( !SecUtils.isFound( new Permission( objName, opName ), this ) )
-            setEnabled( false );
+        super( request );
     }
 
 
-    @Override
-    public void onClick( AjaxRequestTarget target )
+    public Session getSession()
     {
-        //To change body of implemented methods use File | Settings | File Templates.
+        return session;
+    }
+
+
+    public void setSession(Session session)
+    {
+        this.session = session;
+    }
+
+
+    public List<Permission> getPermissions()
+    {
+        return permissions;
+    }
+
+
+    public void setPermissions( List<Permission> permissions )
+    {
+        this.permissions = permissions;
     }
 }

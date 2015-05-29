@@ -38,13 +38,13 @@ import org.apache.wicket.markup.html.form.RadioGroup;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
-import org.apache.directory.fortress.web.GlobalIds;
-import org.apache.directory.fortress.web.SecUtils;
-import org.apache.directory.fortress.web.ObjectListModel;
-import org.apache.directory.fortress.web.SaveModelEvent;
-import org.apache.directory.fortress.web.SecureIndicatingAjaxButton;
-import org.apache.directory.fortress.web.SecureIndicatingAjaxLink;
-import org.apache.directory.fortress.web.SelectModelEvent;
+import org.apache.directory.fortress.web.common.GlobalIds;
+import org.apache.directory.fortress.web.control.SecUtils;
+import org.apache.directory.fortress.web.model.ObjectListModel;
+import org.apache.directory.fortress.web.event.SaveModelEvent;
+import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
+import org.apache.directory.fortress.web.control.SecureIndicatingAjaxLink;
+import org.apache.directory.fortress.web.event.SelectModelEvent;
 import org.apache.directory.fortress.core.rbac.FortEntity;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.Model;
@@ -80,13 +80,12 @@ public class ObjectListPanel extends FormComponentPanel
     private char selectedRadioButton;
     private static final char NAMES = 'N';
     private static final char OUS = 'O';
-    private boolean isAdmin;
 
 
     public ObjectListPanel( String id, final boolean isAdmin )
     {
         super( id );
-        this.isAdmin = isAdmin;
+        boolean isAdmin1 = isAdmin;
         ObjectListModel objectListModel = new ObjectListModel( new PermObj( "" ), isAdmin,
             SecUtils.getSession( this ) );
         setDefaultModel( objectListModel );
@@ -314,7 +313,7 @@ public class ObjectListPanel extends FormComponentPanel
         grid.setClickRowToDeselect( false );
         grid.setSelectToEdit( false );
         // expand the root node
-        grid.getTreeState().expandAll();;
+        grid.getTreeState().expandAll();
         this.listForm = new Form( "objectlistform" );
         this.listForm.add( grid );
         add( this.listForm );

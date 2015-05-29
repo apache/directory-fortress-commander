@@ -38,13 +38,13 @@ import org.apache.wicket.markup.html.form.RadioGroup;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
-import org.apache.directory.fortress.web.GlobalIds;
-import org.apache.directory.fortress.web.SecUtils;
-import org.apache.directory.fortress.web.SDListModel;
-import org.apache.directory.fortress.web.SaveModelEvent;
-import org.apache.directory.fortress.web.SecureIndicatingAjaxButton;
-import org.apache.directory.fortress.web.SecureIndicatingAjaxLink;
-import org.apache.directory.fortress.web.SelectModelEvent;
+import org.apache.directory.fortress.web.common.GlobalIds;
+import org.apache.directory.fortress.web.control.SecUtils;
+import org.apache.directory.fortress.web.model.SDListModel;
+import org.apache.directory.fortress.web.event.SaveModelEvent;
+import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
+import org.apache.directory.fortress.web.control.SecureIndicatingAjaxLink;
+import org.apache.directory.fortress.web.event.SelectModelEvent;
 import org.apache.directory.fortress.core.rbac.FortEntity;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.Model;
@@ -75,8 +75,6 @@ public class SDListPanel extends FormComponentPanel
     private TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String> grid;
     private DefaultMutableTreeNode rootNode;
     private String searchVal;
-    private String searchLabel;
-    private String opName;
     private char selectedRadioButton;
     private TextField searchValFld;
     private RadioGroup radioGroup;
@@ -89,6 +87,8 @@ public class SDListPanel extends FormComponentPanel
         super( id );
         SDSet sdSet = new SDSet();
         sdSet.setName( "" );
+        String searchLabel;
+        String opName;
         if ( isStatic )
         {
             sdSet.setType( SDSet.SDType.STATIC );

@@ -38,7 +38,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.apache.directory.fortress.web.SecUtils;
+import org.apache.directory.fortress.web.control.SecUtils;
 import org.apache.directory.fortress.core.DelReviewMgr;
 import org.apache.directory.fortress.core.rbac.OrgUnit;
 
@@ -85,7 +85,7 @@ public class OUSearchModalPanel extends Panel
 
     private PageableListView createListView( final LoadableDetachableModel requests )
     {
-        final PageableListView listView = new PageableListView( "dataview", requests, 16 )
+        return new PageableListView( "dataview", requests, 16 )
         {
             /** Default serialVersionUID */
             private static final long serialVersionUID = 1L;
@@ -111,13 +111,12 @@ public class OUSearchModalPanel extends Panel
                 item.add( new Label( "description", new PropertyModel( item.getModel(), "description" ) ) );
             }
         };
-        return listView;
     }
 
 
     private LoadableDetachableModel getListViewModel()
     {
-        final LoadableDetachableModel ret = new LoadableDetachableModel()
+        return new LoadableDetachableModel()
         {
             /** Default serialVersionUID */
             private static final long serialVersionUID = 1L;
@@ -158,7 +157,6 @@ public class OUSearchModalPanel extends Panel
                 return ous;
             }
         };
-        return ret;
     }
 
 

@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.web;
 
 
+import org.apache.directory.fortress.web.common.GlobalIds;
 import org.apache.wicket.Component;
 import org.apache.wicket.extensions.ajax.markup.html.AjaxLazyLoadPanel;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -40,11 +41,11 @@ public class GroupPage extends FortressWebBasePage
 {
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
-    private String label = "LDAP Group Page";
 
 
     public GroupPage( PageParameters parameters )
     {
+        String label = "LDAP Group Page";
         add( new Label( GlobalIds.PAGE_HEADER, label ) );
         WebMarkupContainer container = new WebMarkupContainer( GlobalIds.LAYOUT );
         FourWaySplitter splitter = new FourWaySplitter( "40", "60" );

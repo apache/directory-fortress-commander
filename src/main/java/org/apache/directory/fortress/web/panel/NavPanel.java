@@ -33,7 +33,7 @@ import org.apache.directory.fortress.web.AuditBindPage;
 import org.apache.directory.fortress.web.AuditModPage;
 import org.apache.directory.fortress.web.GroupPage;
 import org.apache.directory.fortress.web.SdDynamicPage;
-import org.apache.directory.fortress.web.GlobalIds;
+import org.apache.directory.fortress.web.common.GlobalIds;
 import org.apache.directory.fortress.web.ObjectAdminPage;
 import org.apache.directory.fortress.web.OuUserPage;
 import org.apache.directory.fortress.web.ObjectPage;
@@ -44,7 +44,7 @@ import org.apache.directory.fortress.web.PwPolicyPage;
 import org.apache.directory.fortress.web.RoleAdminPage;
 import org.apache.directory.fortress.web.RolePage;
 import org.apache.directory.fortress.web.SdStaticPage;
-import org.apache.directory.fortress.web.SecureIndicatingAjaxButton;
+import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.UserPage;
 
 

@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.web;
 
 
+import org.apache.directory.fortress.web.control.WicketSession;
 import org.apache.wicket.Page;
 import org.apache.wicket.Session;
 import org.apache.wicket.core.request.handler.PageProvider;

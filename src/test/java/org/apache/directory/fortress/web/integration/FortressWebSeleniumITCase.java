@@ -32,7 +32,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.LocalFileDetector;
-import org.apache.directory.fortress.web.GlobalIds;
+import org.apache.directory.fortress.web.common.GlobalIds;
 
 /**
  * This class uses apache selenium firefox driver to drive commander web ui
@@ -625,18 +625,18 @@ TODO: FIX ME:
         // And iterate over them, getting the cells
         allRows.get( 5 ).findElement(By.className("imxt-cell")).click();
         TUtils.sleep( 1 );
-        nextPage(table, "modstable");
+        nextPage( "modstable");
         TUtils.sleep( 1 );
         allRows.get( 6 ).findElement(By.className("imxt-cell")).click();
         TUtils.sleep( 1 );
-        nextPage(table, "modstable");
+        nextPage( "modstable");
         TUtils.sleep( 1 );
     }
 
-    private void nextPage(WebElement table, String szTableName)
+    private void nextPage(String szTableName)
     {
-        table = driver.findElement(By.id( szTableName));
-        List<WebElement> allRows = table.findElements(By.tagName("a"));
+        WebElement table = driver.findElement( By.id( szTableName ) );
+        List<WebElement> allRows = table.findElements( By.tagName( "a" ) );
         for (WebElement row : allRows)
         {
             String szText = row.getText();

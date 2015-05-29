@@ -1,4 +1,4 @@
-package org.apache.directory.fortress.web;
+package org.apache.directory.fortress.web.panel;
 
 import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.rbac.AuthZ;
@@ -13,15 +13,20 @@ import java.util.StringTokenizer;
 /**
  * Created by smckinn on 3/10/15.
  */
-public class AuditUtils
+class AuditUtils
 {
     private static final Logger LOG = Logger.getLogger( AuditUtils.class.getName() );
+
+    private AuditUtils()
+    {
+    }
+
     /**
      *
      * @param raw
      * @return
      */
-    public static Permission getAuthZPerm( String raw )
+    static Permission getAuthZPerm( String raw )
     {
         //// ftOpNm=addUser,ftObjNm=org.apache.directory.fortress.core.rbac.AdminMgrImpl,ou=AdminPerms,ou=ARBAC,dc=jts,dc=us
         // ftObjId=006+ftOpNm=TOP1_6,ftObjNm=TOB1_4,ou=Permissions,ou=RBAC,dc=jts,dc=us
@@ -67,7 +72,7 @@ public class AuditUtils
      *
      * @param authZ
      */
-    public static void mapAuthZPerm( AuthZ authZ )
+    static void mapAuthZPerm( AuthZ authZ )
     {
         //// ftOpNm=addUser,ftObjNm=org.apache.directory.fortress.core.rbac.AdminMgrImpl,ou=AdminPerms,ou=ARBAC,dc=jts,dc=us
         // ftObjId=006+ftOpNm=TOP1_6,ftObjNm=TOB1_4,ou=Permissions,ou=RBAC,dc=jts,dc=us
@@ -120,7 +125,7 @@ public class AuditUtils
      * @param inputString
      * @return
      */
-    public static String getAuthZId( String inputString )
+    static String getAuthZId( String inputString )
     {
         //reqAuthzID: uid=fttu3user4,ou=people,dc=jts,dc=com
         String userId = null;
@@ -146,7 +151,7 @@ public class AuditUtils
      * @param userId
      * @return
      */
-    public static User getUser( ReviewMgr reviewMgr, String userId )
+    static User getUser( ReviewMgr reviewMgr, String userId )
     {
         User user = null;
         try
@@ -168,7 +173,7 @@ public class AuditUtils
      * @param internalId
      * @return
      */
-    public static User getUserByInternalId( ReviewMgr reviewMgr, String internalId )
+    static User getUserByInternalId( ReviewMgr reviewMgr, String internalId )
     {
         User user = null;
         try

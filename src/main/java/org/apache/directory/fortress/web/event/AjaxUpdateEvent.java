@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.web;
+package org.apache.directory.fortress.web.event;
 
 
 import org.apache.wicket.ajax.AjaxRequestTarget;

@@ -83,7 +83,7 @@ public class PwPolicySearchModalPanel extends Panel
 
     private PageableListView createListView( final LoadableDetachableModel requests )
     {
-        final PageableListView listView = new PageableListView( "policydataview", requests, 16 )
+        return new PageableListView( "policydataview", requests, 16 )
         {
             /** Default serialVersionUID */
             private static final long serialVersionUID = 1L;
@@ -124,13 +124,12 @@ public class PwPolicySearchModalPanel extends Panel
 
             }
         };
-        return listView;
     }
 
 
     private LoadableDetachableModel getListViewModel()
     {
-        final LoadableDetachableModel ret = new LoadableDetachableModel()
+        return new LoadableDetachableModel()
         {
             /** Default serialVersionUID */
             private static final long serialVersionUID = 1L;
@@ -167,7 +166,6 @@ public class PwPolicySearchModalPanel extends Panel
                 return policies;
             }
         };
-        return ret;
     }
 
 

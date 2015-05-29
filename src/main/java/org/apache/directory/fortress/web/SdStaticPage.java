@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.web;
 
 
+import org.apache.directory.fortress.web.common.GlobalIds;
 import org.apache.wicket.Component;
 import org.apache.wicket.extensions.ajax.markup.html.AjaxLazyLoadPanel;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -41,11 +42,11 @@ public class SdStaticPage extends FortressWebBasePage
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
     private boolean isStatic = true;
-    private String label = "Static Separation of Duties Administration";
 
 
     public SdStaticPage( PageParameters parameters )
     {
+        String label = "Static Separation of Duties Administration";
         add( new Label( GlobalIds.PAGE_HEADER, label ) );
         WebMarkupContainer container = new WebMarkupContainer( GlobalIds.LAYOUT );
         FourWaySplitter splitter = new FourWaySplitter();

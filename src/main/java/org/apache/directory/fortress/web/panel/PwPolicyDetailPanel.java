@@ -37,11 +37,11 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.RangeValidator;
-import org.apache.directory.fortress.web.GlobalIds;
-import org.apache.directory.fortress.web.SecUtils;
-import org.apache.directory.fortress.web.SaveModelEvent;
-import org.apache.directory.fortress.web.SecureIndicatingAjaxButton;
-import org.apache.directory.fortress.web.SelectModelEvent;
+import org.apache.directory.fortress.web.common.GlobalIds;
+import org.apache.directory.fortress.web.control.SecUtils;
+import org.apache.directory.fortress.web.event.SaveModelEvent;
+import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
+import org.apache.directory.fortress.web.event.SelectModelEvent;
 import org.apache.directory.fortress.core.PwPolicyMgr;
 import org.apache.directory.fortress.core.rbac.PwPolicy;
 

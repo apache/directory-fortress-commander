@@ -25,7 +25,6 @@ import com.googlecode.wicket.kendo.ui.form.datetime.DatePicker;
 import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
-import org.apache.directory.fortress.web.AuditUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -39,13 +38,13 @@ import org.apache.wicket.markup.html.form.FormComponentPanel;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
-import org.apache.directory.fortress.web.AuditAuthzListModel;
+import org.apache.directory.fortress.web.model.AuditAuthzListModel;
 import org.apache.directory.fortress.web.AuditAuthzPage;
-import org.apache.directory.fortress.web.GlobalIds;
-import org.apache.directory.fortress.web.SecUtils;
-import org.apache.directory.fortress.web.SecureIndicatingAjaxButton;
-import org.apache.directory.fortress.web.SecureIndicatingAjaxLink;
-import org.apache.directory.fortress.web.SelectModelEvent;
+import org.apache.directory.fortress.web.common.GlobalIds;
+import org.apache.directory.fortress.web.control.SecUtils;
+import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
+import org.apache.directory.fortress.web.control.SecureIndicatingAjaxLink;
+import org.apache.directory.fortress.web.event.SelectModelEvent;
 import org.apache.directory.fortress.core.rbac.AuthZ;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.Model;
@@ -75,7 +74,6 @@ public class AuditAuthzListPanel extends FormComponentPanel
     private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger( AuditAuthzListPanel.class.getName() );
     private Form listForm;
-    private DefaultTreeModel treeModel;
     private DefaultMutableTreeNode node;
     private TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String> grid;
     private DefaultMutableTreeNode rootNode;
@@ -372,7 +370,7 @@ public class AuditAuthzListPanel extends FormComponentPanel
         columns.add( reqResult );
 
         List<AuthZ> authZs = ( List<AuthZ> ) getDefaultModel().getObject();
-        treeModel = createTreeModel( authZs );
+        DefaultTreeModel treeModel = createTreeModel( authZs );
         grid = new TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String>( "authztreegrid", treeModel, columns )
         {
             /** Default serialVersionUID */
@@ -407,7 +405,7 @@ public class AuditAuthzListPanel extends FormComponentPanel
         grid.setClickRowToDeselect( false );
         grid.setSelectToEdit( false );
         // expand the root node
-        grid.getTreeState().expandAll();;
+        grid.getTreeState().expandAll();
         grid.setOutputMarkupId( true );
     }
 

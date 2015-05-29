@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.web;
+package org.apache.directory.fortress.web.model;
 
 import org.apache.log4j.Logger;
 import org.apache.wicket.injection.Injector;

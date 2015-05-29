@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.web;
 
 
+import org.apache.directory.fortress.web.common.GlobalIds;
 import org.apache.wicket.Component;
 import org.apache.wicket.extensions.ajax.markup.html.AjaxLazyLoadPanel;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -41,11 +42,11 @@ public class ObjectPage extends FortressWebBasePage
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
     private boolean isAdmin = false;
-    private String label = "Permission Object Page";
 
 
     public ObjectPage( PageParameters parameters )
     {
+        String label = "Permission Object Page";
         add( new Label( GlobalIds.PAGE_HEADER, label ) );
         WebMarkupContainer container = new WebMarkupContainer( GlobalIds.LAYOUT );
         FourWaySplitter splitter = new FourWaySplitter();

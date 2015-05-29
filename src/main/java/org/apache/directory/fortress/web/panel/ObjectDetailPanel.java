@@ -37,11 +37,11 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.apache.directory.fortress.web.GlobalIds;
-import org.apache.directory.fortress.web.SecUtils;
-import org.apache.directory.fortress.web.SaveModelEvent;
-import org.apache.directory.fortress.web.SecureIndicatingAjaxButton;
-import org.apache.directory.fortress.web.SelectModelEvent;
+import org.apache.directory.fortress.web.common.GlobalIds;
+import org.apache.directory.fortress.web.control.SecUtils;
+import org.apache.directory.fortress.web.event.SaveModelEvent;
+import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
+import org.apache.directory.fortress.web.event.SelectModelEvent;
 import org.apache.directory.fortress.core.AdminMgr;
 import org.apache.directory.fortress.core.rbac.OrgUnit;
 import org.apache.directory.fortress.core.rbac.PermObj;
@@ -62,7 +62,6 @@ public class ObjectDetailPanel extends FormComponentPanel
     private Form editForm;
     private Displayable display;
     private boolean isAdmin;
-    private String objName;
     private TextField objNameTF;
     private SecureIndicatingAjaxButton addPB;
 
@@ -77,6 +76,7 @@ public class ObjectDetailPanel extends FormComponentPanel
     {
         super( id );
         this.isAdmin = isAdmin;
+        String objName;
         if ( isAdmin )
             objName = GlobalIds.DEL_ADMIN_MGR;
         else

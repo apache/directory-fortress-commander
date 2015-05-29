@@ -26,7 +26,6 @@ import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
 
-import org.apache.directory.fortress.web.AuditUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -40,14 +39,14 @@ import org.apache.wicket.markup.html.form.FormComponentPanel;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
-import org.apache.directory.fortress.web.AuditBindListModel;
+import org.apache.directory.fortress.web.model.AuditBindListModel;
 import org.apache.directory.fortress.web.AuditBindPage;
-import org.apache.directory.fortress.web.GlobalIds;
-import org.apache.directory.fortress.web.SecUtils;
-import org.apache.directory.fortress.web.SecureIndicatingAjaxButton;
-import org.apache.directory.fortress.web.SecureIndicatingAjaxLink;
-import org.apache.directory.fortress.web.SelectModelEvent;
-import org.apache.directory.fortress.web.SerializableList;
+import org.apache.directory.fortress.web.common.GlobalIds;
+import org.apache.directory.fortress.web.control.SecUtils;
+import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
+import org.apache.directory.fortress.web.control.SecureIndicatingAjaxLink;
+import org.apache.directory.fortress.web.event.SelectModelEvent;
+import org.apache.directory.fortress.web.model.SerializableList;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.Model;
 import org.apache.directory.fortress.core.rbac.Bind;
@@ -77,14 +76,12 @@ public class AuditBindListPanel extends FormComponentPanel
     private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger( AuditBindListPanel.class.getName() );
     private Form listForm;
-    private DefaultTreeModel treeModel;
     private DefaultMutableTreeNode node;
     private TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String> grid;
     private DefaultMutableTreeNode rootNode;
     private TextField userFld;
     protected DatePicker beginDateDP;
     protected DatePicker endDateDP;
-    private IModel<SerializableList<Bind>> pageModel;
 
 
     public AuditBindListPanel( String id, UserAudit userAudit )
@@ -96,7 +93,7 @@ public class AuditBindListPanel extends FormComponentPanel
 
     private void init( UserAudit userAudit )
     {
-        pageModel = new AuditBindListModel( userAudit, SecUtils.getSession( this ) );
+        IModel<SerializableList<Bind>> pageModel = new AuditBindListModel( userAudit, SecUtils.getSession( this ) );
         setDefaultModel( pageModel );
         createAndLoadGrid();
         this.listForm = new Form( "bindform" );
@@ -297,7 +294,7 @@ public class AuditBindListPanel extends FormComponentPanel
         columns.add( reqResult );
 
         List<Bind> binds = ( List<Bind> ) getDefaultModel().getObject();
-        treeModel = createTreeModel( binds );
+        DefaultTreeModel treeModel = createTreeModel( binds );
         grid = new TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String>( "bindtreegrid", treeModel, columns )
         {
             /** Default serialVersionUID */
@@ -331,7 +328,7 @@ public class AuditBindListPanel extends FormComponentPanel
         grid.setClickRowToDeselect( false );
         grid.setSelectToEdit( false );
         // expand the root node
-        grid.getTreeState().expandAll();;
+        grid.getTreeState().expandAll();
         grid.setOutputMarkupId( true );
     }
 

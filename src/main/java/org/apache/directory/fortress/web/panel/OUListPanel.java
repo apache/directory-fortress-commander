@@ -34,12 +34,12 @@ import org.apache.wicket.markup.html.form.FormComponentPanel;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
-import org.apache.directory.fortress.web.GlobalIds;
-import org.apache.directory.fortress.web.SecUtils;
-import org.apache.directory.fortress.web.OUListModel;
-import org.apache.directory.fortress.web.SaveModelEvent;
-import org.apache.directory.fortress.web.SecureIndicatingAjaxButton;
-import org.apache.directory.fortress.web.SelectModelEvent;
+import org.apache.directory.fortress.web.common.GlobalIds;
+import org.apache.directory.fortress.web.control.SecUtils;
+import org.apache.directory.fortress.web.model.OUListModel;
+import org.apache.directory.fortress.web.event.SaveModelEvent;
+import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
+import org.apache.directory.fortress.web.event.SelectModelEvent;
 import org.apache.directory.fortress.core.rbac.FortEntity;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.Model;
@@ -63,13 +63,11 @@ public class OUListPanel extends FormComponentPanel
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
     private static final Logger log = Logger.getLogger( OUListPanel.class.getName() );
-    private Form listForm;
     private DefaultTreeModel treeModel;
     private DefaultMutableTreeNode node;
     private TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String> grid;
     private DefaultMutableTreeNode rootNode;
     private String searchVal;
-    private String searchLabel;
 
 
     public OUListPanel( String id, final boolean isUser )
@@ -77,6 +75,7 @@ public class OUListPanel extends FormComponentPanel
         super( id );
         OrgUnit orgUnit = new OrgUnit();
         orgUnit.setName( "" );
+        String searchLabel;
         if ( isUser )
         {
             orgUnit.setType( OrgUnit.Type.USER );
@@ -142,23 +141,23 @@ public class OUListPanel extends FormComponentPanel
         grid.setClickRowToDeselect( false );
         grid.setSelectToEdit( false );
         // expand the root node
-        grid.getTreeState().expandAll();;
-        this.listForm = new Form( "form" );
-        this.listForm.add( grid );
+        grid.getTreeState().expandAll();
+        Form listForm = new Form( "form" );
+        listForm.add( grid );
         grid.setOutputMarkupId( true );
         TextField searchValFld = new TextField( GlobalIds.SEARCH_VAL, new PropertyModel<String>( this,
             GlobalIds.SEARCH_VAL ) );
-        this.listForm.add( searchValFld );
+        listForm.add( searchValFld );
 
         //this.listForm.add( new AjaxSubmitLink( "search" )
-        this.listForm.add( new SecureIndicatingAjaxButton( GlobalIds.SEARCH, GlobalIds.DEL_REVIEW_MGR, "searchOU" )
+        listForm.add( new SecureIndicatingAjaxButton( GlobalIds.SEARCH, GlobalIds.DEL_REVIEW_MGR, "searchOU" )
         {
             /** Default serialVersionUID */
             private static final long serialVersionUID = 1L;
 
 
             @Override
-            protected void onSubmit( AjaxRequestTarget target, Form form )
+            protected void onSubmit(AjaxRequestTarget target, Form form)
             {
                 log.debug( ".search onSubmit" );
                 info( "Searching OrgUnits..." );
@@ -197,7 +196,7 @@ public class OUListPanel extends FormComponentPanel
 
 
             @Override
-            public void onError( AjaxRequestTarget target, Form form )
+            public void onError(AjaxRequestTarget target, Form form)
             {
                 log.warn( ".search.onError" );
                 target.add();
@@ -205,7 +204,7 @@ public class OUListPanel extends FormComponentPanel
 
 
             @Override
-            protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
+            protected void updateAjaxAttributes(AjaxRequestAttributes attributes)
             {
                 super.updateAjaxAttributes( attributes );
                 AjaxCallListener ajaxCallListener = new AjaxCallListener()
@@ -215,7 +214,7 @@ public class OUListPanel extends FormComponentPanel
 
 
                     @Override
-                    public CharSequence getFailureHandler( Component component )
+                    public CharSequence getFailureHandler(Component component)
                     {
                         return GlobalIds.WINDOW_LOCATION_REPLACE_COMMANDER_HOME_HTML;
                     }
@@ -223,7 +222,7 @@ public class OUListPanel extends FormComponentPanel
                 attributes.getAjaxCallListeners().add( ajaxCallListener );
             }
         } );
-        add( this.listForm );
+        add( listForm );
     }
 
 

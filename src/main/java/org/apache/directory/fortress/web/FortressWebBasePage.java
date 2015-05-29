@@ -22,6 +22,9 @@ package org.apache.directory.fortress.web;
 
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.realm.J2eePolicyMgr;
+import org.apache.directory.fortress.web.control.SecUtils;
+import org.apache.directory.fortress.web.control.SecureBookmarkablePageLink;
+import org.apache.directory.fortress.web.control.WicketSession;
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
@@ -57,74 +60,75 @@ public abstract class FortressWebBasePage extends WebPage
 
     public FortressWebBasePage()
     {
-        SecureBookmarkablePageLink usersLink = new SecureBookmarkablePageLink( GlobalIds.USERS_PAGE, UserPage.class,
-            GlobalIds.ROLE_USERS );
+        SecureBookmarkablePageLink usersLink = new SecureBookmarkablePageLink( org.apache.directory.fortress.web
+            .common.GlobalIds.USERS_PAGE, UserPage.class,
+            org.apache.directory.fortress.web.common.GlobalIds.ROLE_USERS );
         add( usersLink );
         PageParameters parameters = new PageParameters();
         //parameters.set( GlobalIds.PAGE_TYPE, GlobalIds.RBAC_TYPE );
-        SecureBookmarkablePageLink rolesLink = new SecureBookmarkablePageLink( GlobalIds.ROLES_PAGE, RolePage.class,
-            parameters, GlobalIds.ROLE_ROLES );
+        SecureBookmarkablePageLink rolesLink = new SecureBookmarkablePageLink( org.apache.directory.fortress.web.common.GlobalIds.ROLES_PAGE, RolePage.class,
+            parameters, org.apache.directory.fortress.web.common.GlobalIds.ROLE_ROLES );
         add( rolesLink );
         parameters = new PageParameters();
         //parameters.set( GlobalIds.PAGE_TYPE, GlobalIds.ADMIN_TYPE );
-        SecureBookmarkablePageLink admrolesLink = new SecureBookmarkablePageLink( GlobalIds.ADMROLES_PAGE,
-            RoleAdminPage.class, parameters, GlobalIds.ROLE_ADMINROLES );
+        SecureBookmarkablePageLink admrolesLink = new SecureBookmarkablePageLink( org.apache.directory.fortress.web.common.GlobalIds.ADMROLES_PAGE,
+            RoleAdminPage.class, parameters, org.apache.directory.fortress.web.common.GlobalIds.ROLE_ADMINROLES );
         add( admrolesLink );
         parameters = new PageParameters();
         //parameters.set( GlobalIds.PAGE_TYPE, GlobalIds.RBAC_TYPE );
-        SecureBookmarkablePageLink objectsLink = new SecureBookmarkablePageLink( GlobalIds.POBJS_PAGE,
-            ObjectPage.class, parameters, GlobalIds.ROLE_PERMOBJS );
+        SecureBookmarkablePageLink objectsLink = new SecureBookmarkablePageLink( org.apache.directory.fortress.web.common.GlobalIds.POBJS_PAGE,
+            ObjectPage.class, parameters, org.apache.directory.fortress.web.common.GlobalIds.ROLE_PERMOBJS );
         add( objectsLink );
         parameters = new PageParameters();
         //parameters.set( GlobalIds.PAGE_TYPE, GlobalIds.ADMIN_TYPE );
-        SecureBookmarkablePageLink admobjsLink = new SecureBookmarkablePageLink( GlobalIds.ADMPOBJS_PAGE,
-            ObjectAdminPage.class, parameters, GlobalIds.ROLE_ADMINOBJS );
+        SecureBookmarkablePageLink admobjsLink = new SecureBookmarkablePageLink( org.apache.directory.fortress.web.common.GlobalIds.ADMPOBJS_PAGE,
+            ObjectAdminPage.class, parameters, org.apache.directory.fortress.web.common.GlobalIds.ROLE_ADMINOBJS );
         add( admobjsLink );
         parameters = new PageParameters();
         //parameters.set( GlobalIds.PAGE_TYPE, GlobalIds.RBAC_TYPE );
-        SecureBookmarkablePageLink permsLink = new SecureBookmarkablePageLink( GlobalIds.PERMS_PAGE, PermPage.class,
-            parameters, GlobalIds.ROLE_PERMS );
+        SecureBookmarkablePageLink permsLink = new SecureBookmarkablePageLink( org.apache.directory.fortress.web.common.GlobalIds.PERMS_PAGE, PermPage.class,
+            parameters, org.apache.directory.fortress.web.common.GlobalIds.ROLE_PERMS );
         add( permsLink );
         parameters = new PageParameters();
         //parameters.set( GlobalIds.PAGE_TYPE, GlobalIds.ADMIN_TYPE );
-        SecureBookmarkablePageLink admpermsLink = new SecureBookmarkablePageLink( GlobalIds.ADMPERMS_PAGE,
-            PermAdminPage.class, parameters, GlobalIds.ROLE_ADMINPERMS );
+        SecureBookmarkablePageLink admpermsLink = new SecureBookmarkablePageLink( org.apache.directory.fortress.web.common.GlobalIds.ADMPERMS_PAGE,
+            PermAdminPage.class, parameters, org.apache.directory.fortress.web.common.GlobalIds.ROLE_ADMINPERMS );
         add( admpermsLink );
-        SecureBookmarkablePageLink policiesLink = new SecureBookmarkablePageLink( GlobalIds.PWPOLICIES_PAGE,
-            PwPolicyPage.class, GlobalIds.ROLE_POLICIES );
+        SecureBookmarkablePageLink policiesLink = new SecureBookmarkablePageLink( org.apache.directory.fortress.web.common.GlobalIds.PWPOLICIES_PAGE,
+            PwPolicyPage.class, org.apache.directory.fortress.web.common.GlobalIds.ROLE_POLICIES );
         add( policiesLink );
         parameters = new PageParameters();
         //parameters.set( GlobalIds.PAGE_TYPE, GlobalIds.SSD );
-        SecureBookmarkablePageLink ssdsLink = new SecureBookmarkablePageLink( GlobalIds.SSDS_PAGE,
-            SdStaticPage.class, parameters, GlobalIds.ROLE_SSDS );
+        SecureBookmarkablePageLink ssdsLink = new SecureBookmarkablePageLink( org.apache.directory.fortress.web.common.GlobalIds.SSDS_PAGE,
+            SdStaticPage.class, parameters, org.apache.directory.fortress.web.common.GlobalIds.ROLE_SSDS );
         add( ssdsLink );
         parameters = new PageParameters();
         //parameters.set( GlobalIds.PAGE_TYPE, GlobalIds.DSD );
-        SecureBookmarkablePageLink dsdsLink = new SecureBookmarkablePageLink( GlobalIds.DSDS_PAGE,
-            SdDynamicPage.class, parameters, GlobalIds.ROLE_DSDS );
+        SecureBookmarkablePageLink dsdsLink = new SecureBookmarkablePageLink( org.apache.directory.fortress.web.common.GlobalIds.DSDS_PAGE,
+            SdDynamicPage.class, parameters, org.apache.directory.fortress.web.common.GlobalIds.ROLE_DSDS );
         add( dsdsLink );
         parameters = new PageParameters();
         //parameters.set( GlobalIds.PAGE_TYPE, GlobalIds.USEROUS );
-        SecureBookmarkablePageLink userouLink = new SecureBookmarkablePageLink( GlobalIds.USEROUS_PAGE,
-            OuUserPage.class, parameters, GlobalIds.ROLE_USEROUS );
+        SecureBookmarkablePageLink userouLink = new SecureBookmarkablePageLink( org.apache.directory.fortress.web.common.GlobalIds.USEROUS_PAGE,
+            OuUserPage.class, parameters, org.apache.directory.fortress.web.common.GlobalIds.ROLE_USEROUS );
         add( userouLink );
         parameters = new PageParameters();
         //parameters.set( GlobalIds.PAGE_TYPE, "PERMOUS" );
-        SecureBookmarkablePageLink permouLink = new SecureBookmarkablePageLink( GlobalIds.PERMOUS_PAGE,
-            OuPermPage.class, parameters, GlobalIds.ROLE_PERMOUS );
+        SecureBookmarkablePageLink permouLink = new SecureBookmarkablePageLink( org.apache.directory.fortress.web.common.GlobalIds.PERMOUS_PAGE,
+            OuPermPage.class, parameters, org.apache.directory.fortress.web.common.GlobalIds.ROLE_PERMOUS );
         add( permouLink );
 
-        add( new SecureBookmarkablePageLink( GlobalIds.GROUP_PAGE, GroupPage.class,
-            GlobalIds.ROLE_GROUPS ) );
+        add( new SecureBookmarkablePageLink( org.apache.directory.fortress.web.common.GlobalIds.GROUP_PAGE, GroupPage.class,
+            org.apache.directory.fortress.web.common.GlobalIds.ROLE_GROUPS ) );
 
-        add( new SecureBookmarkablePageLink( GlobalIds.AUDIT_BINDS_PAGE, AuditBindPage.class,
-            GlobalIds.ROLE_AUDIT_BINDS ) );
+        add( new SecureBookmarkablePageLink( org.apache.directory.fortress.web.common.GlobalIds.AUDIT_BINDS_PAGE, AuditBindPage.class,
+            org.apache.directory.fortress.web.common.GlobalIds.ROLE_AUDIT_BINDS ) );
 
-        add( new SecureBookmarkablePageLink( GlobalIds.AUDIT_AUTHZS_PAGE, AuditAuthzPage.class,
-            GlobalIds.ROLE_AUDIT_AUTHZS ) );
+        add( new SecureBookmarkablePageLink( org.apache.directory.fortress.web.common.GlobalIds.AUDIT_AUTHZS_PAGE, AuditAuthzPage.class,
+            org.apache.directory.fortress.web.common.GlobalIds.ROLE_AUDIT_AUTHZS ) );
 
-        add( new SecureBookmarkablePageLink( GlobalIds.AUDIT_MODS_PAGE, AuditModPage.class,
-            GlobalIds.ROLE_AUDIT_MODS ) );
+        add( new SecureBookmarkablePageLink( org.apache.directory.fortress.web.common.GlobalIds.AUDIT_MODS_PAGE, AuditModPage.class,
+            org.apache.directory.fortress.web.common.GlobalIds.ROLE_AUDIT_MODS ) );
 
         add( new Label( "footer", "Copyright (c) 2003-2015, The Apache Software Foundation. All Rights Reserved." ) );
 

@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.web;
+package org.apache.directory.fortress.web.model;
 
 import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.log4j.Logger;

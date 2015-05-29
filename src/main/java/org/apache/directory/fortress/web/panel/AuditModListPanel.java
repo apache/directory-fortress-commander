@@ -38,14 +38,14 @@ import org.apache.wicket.markup.html.form.FormComponentPanel;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
-import org.apache.directory.fortress.web.AuditModListModel;
+import org.apache.directory.fortress.web.model.AuditModListModel;
 import org.apache.directory.fortress.web.AuditModPage;
-import org.apache.directory.fortress.web.GlobalIds;
-import org.apache.directory.fortress.web.SecUtils;
-import org.apache.directory.fortress.web.SecureIndicatingAjaxButton;
-import org.apache.directory.fortress.web.SecureIndicatingAjaxLink;
-import org.apache.directory.fortress.web.SelectModelEvent;
-import org.apache.directory.fortress.web.SerializableList;
+import org.apache.directory.fortress.web.common.GlobalIds;
+import org.apache.directory.fortress.web.control.SecUtils;
+import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
+import org.apache.directory.fortress.web.control.SecureIndicatingAjaxLink;
+import org.apache.directory.fortress.web.event.SelectModelEvent;
+import org.apache.directory.fortress.web.model.SerializableList;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.Model;
 import org.apache.directory.fortress.core.rbac.Mod;
@@ -76,7 +76,6 @@ public class AuditModListPanel extends FormComponentPanel
     private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger( AuditModListPanel.class.getName() );
     private Form listForm;
-    private DefaultTreeModel treeModel;
     private DefaultMutableTreeNode node;
     private TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String> grid;
     private DefaultMutableTreeNode rootNode;
@@ -86,7 +85,6 @@ public class AuditModListPanel extends FormComponentPanel
     protected DatePicker beginDateDP;
     protected DatePicker endDateDP;
     private Permission permission;
-    private IModel<SerializableList<Mod>> pageModel;
 
 
     public AuditModListPanel( String id, UserAudit userAudit )
@@ -98,7 +96,7 @@ public class AuditModListPanel extends FormComponentPanel
 
     private void init( UserAudit userAudit )
     {
-        pageModel = new AuditModListModel( userAudit, SecUtils.getSession( this ) );
+        IModel<SerializableList<Mod>> pageModel = new AuditModListModel( userAudit, SecUtils.getSession( this ) );
         setDefaultModel( pageModel );
         createAndLoadGrid();
         this.listForm = new Form( "modform" );
@@ -318,7 +316,7 @@ public class AuditModListPanel extends FormComponentPanel
         columns.add( reqAttrsOnly );
 
         List<Mod> mods = ( List<Mod> ) getDefaultModel().getObject();
-        treeModel = createTreeModel( mods );
+        DefaultTreeModel treeModel = createTreeModel( mods );
         grid = new TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String>( "modtreegrid", treeModel, columns )
         {
             /** Default serialVersionUID */
@@ -353,7 +351,7 @@ public class AuditModListPanel extends FormComponentPanel
         grid.setClickRowToDeselect( false );
         grid.setSelectToEdit( false );
         // expand the root node
-        grid.getTreeState().expandAll();;
+        grid.getTreeState().expandAll();
         grid.setOutputMarkupId( true );
     }
 

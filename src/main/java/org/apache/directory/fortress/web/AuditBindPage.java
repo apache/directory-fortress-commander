@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.web;
 
+import org.apache.directory.fortress.web.common.GlobalIds;
 import org.apache.wicket.Component;
 import org.apache.wicket.extensions.ajax.markup.html.AjaxLazyLoadPanel;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -56,7 +57,7 @@ public class AuditBindPage extends FortressWebBasePage
 
     private void init(final UserAudit userAudit)
     {
-        add(new Label(GlobalIds.PAGE_HEADER, "Audit Bind Viewer"));
+        add(new Label( GlobalIds.PAGE_HEADER, "Audit Bind Viewer"));
         WebMarkupContainer container = new WebMarkupContainer(GlobalIds.LAYOUT);
         FourWaySplitter splitter = new FourWaySplitter("60", "40");
         splitter.addBorderLayout(container);

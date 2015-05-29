@@ -21,9 +21,8 @@
 package org.apache.directory.fortress.web.panel;
 
 
-import org.apache.directory.fortress.web.AuditUtils;
-import org.apache.directory.fortress.web.SecUtils;
-import org.apache.directory.fortress.web.SelectModelEvent;
+import org.apache.directory.fortress.web.control.SecUtils;
+import org.apache.directory.fortress.web.event.SelectModelEvent;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -34,7 +33,7 @@ import org.apache.wicket.markup.html.form.FormComponentPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.apache.directory.fortress.web.GlobalIds;
+import org.apache.directory.fortress.web.common.GlobalIds;
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.rbac.AuthZ;
 import org.apache.directory.fortress.core.rbac.User;

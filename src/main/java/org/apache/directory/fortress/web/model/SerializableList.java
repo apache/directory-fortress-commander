@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.web;
+package org.apache.directory.fortress.web.model;
 
 import java.io.Serializable;
 import java.util.Collection;

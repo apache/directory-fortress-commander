@@ -35,7 +35,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
-import org.apache.directory.fortress.web.GlobalIds;
+import org.apache.directory.fortress.web.common.GlobalIds;
 import org.apache.directory.fortress.core.rbac.AdminRole;
 import org.apache.directory.fortress.core.rbac.OrgUnit;
 import org.apache.directory.fortress.core.rbac.UserRole;

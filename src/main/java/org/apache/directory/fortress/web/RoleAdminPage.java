@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.web;
 
 
+import org.apache.directory.fortress.web.common.GlobalIds;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.extensions.ajax.markup.html.AjaxLazyLoadPanel;
@@ -45,7 +46,6 @@ public class RoleAdminPage extends FortressWebBasePage
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
     private boolean isAdmin = true;
-    private String label = "Admin Role Administration";
     private static final Logger LOG = Logger.getLogger( RoleAdminPage.class.getName() );
 
 
@@ -56,6 +56,7 @@ public class RoleAdminPage extends FortressWebBasePage
      */
     public RoleAdminPage( PageParameters parameters )
     {
+        String label = "Admin Role Administration";
         add( new Label( GlobalIds.PAGE_HEADER, label ) );
         WebMarkupContainer container = new WebMarkupContainer( GlobalIds.LAYOUT );
         FourWaySplitter splitter = new FourWaySplitter();
