@@ -85,7 +85,7 @@ public class UserSearchModalPanel extends Panel
 
     private PageableListView createListView( final LoadableDetachableModel requests )
     {
-        final PageableListView listView = new PageableListView( "userdataview", requests, 10 )
+        return new PageableListView( "userdataview", requests, 10 )
         {
             /** Default serialVersionUID */
             private static final long serialVersionUID = 1L;
@@ -128,13 +128,12 @@ public class UserSearchModalPanel extends Panel
                 } );
             }
         };
-        return listView;
     }
 
 
     private LoadableDetachableModel getListViewModel()
     {
-        final LoadableDetachableModel ret = new LoadableDetachableModel()
+        return new LoadableDetachableModel()
         {
             /** Default serialVersionUID */
             private static final long serialVersionUID = 1L;
@@ -172,7 +171,6 @@ public class UserSearchModalPanel extends Panel
                 return users;
             }
         };
-        return ret;
     }
 
 

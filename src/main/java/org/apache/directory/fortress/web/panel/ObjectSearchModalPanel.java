@@ -117,7 +117,7 @@ public class ObjectSearchModalPanel extends Panel
 
     private LoadableDetachableModel getListViewModel()
     {
-        final LoadableDetachableModel ret = new LoadableDetachableModel()
+        return new LoadableDetachableModel()
         {
             /** Default serialVersionUID */
             private static final long serialVersionUID = 1L;
@@ -158,7 +158,6 @@ public class ObjectSearchModalPanel extends Panel
                 return objects;
             }
         };
-        return ret;
     }
 
 

@@ -125,12 +125,8 @@ class RequestMod implements Serializable
 
         RequestMod that = ( RequestMod ) o;
 
-        if ( !name.equals( that.name ) )
-        {
-            return false;
-        }
+        return name.equals( that.name );
 
-        return true;
     }
 
 

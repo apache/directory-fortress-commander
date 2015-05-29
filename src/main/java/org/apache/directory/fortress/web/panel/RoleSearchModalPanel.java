@@ -95,7 +95,7 @@ public class RoleSearchModalPanel extends Panel
 
     private PageableListView createListView( final LoadableDetachableModel requests )
     {
-        final PageableListView listView = new PageableListView( "dataview", requests, 16 )
+        return new PageableListView( "dataview", requests, 16 )
         {
             /** Default serialVersionUID */
             private static final long serialVersionUID = 1L;
@@ -128,13 +128,12 @@ public class RoleSearchModalPanel extends Panel
                 item.add( new Label( "dayMask", new PropertyModel( item.getModel(), "dayMask" ) ) );
             }
         };
-        return listView;
     }
 
 
     private LoadableDetachableModel getListViewModel()
     {
-        final LoadableDetachableModel ret = new LoadableDetachableModel()
+        return new LoadableDetachableModel()
         {
             /** Default serialVersionUID */
             private static final long serialVersionUID = 1L;
@@ -193,7 +192,6 @@ public class RoleSearchModalPanel extends Panel
                 return roles;
             }
         };
-        return ret;
     }
 
     public UserRole getRoleSelection()

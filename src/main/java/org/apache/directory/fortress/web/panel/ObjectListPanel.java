@@ -85,7 +85,6 @@ public class ObjectListPanel extends FormComponentPanel
     public ObjectListPanel( String id, final boolean isAdmin )
     {
         super( id );
-        boolean isAdmin1 = isAdmin;
         ObjectListModel objectListModel = new ObjectListModel( new PermObj( "" ), isAdmin,
             SecUtils.getSession( this ) );
         setDefaultModel( objectListModel );

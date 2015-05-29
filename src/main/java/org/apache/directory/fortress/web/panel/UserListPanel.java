@@ -97,20 +97,11 @@ public class UserListPanel extends FormComponentPanel
     private static final String PERMS = "P";
     private Permission permission;
     private SearchFields searchData = new SearchFields();
-    private static String PERM_OBJ_LABEL = "Object Name";
-    private static String PERM_OP_LABEL = "Operation Name";
     private static String USER_LABEL = "User ID";
-    private static String ROLE_LABEL = "Role Name";
-    private static String ADMIN_LABEL = "Admin Role Name";
-    private static String OU_LABEL = "Organization";
     private String field1Label = USER_LABEL;
     private String field2Label;
     private String searchFieldsLabel = USER_SEARCH_LABEL;
     private static String USER_SEARCH_LABEL = "Search By User";
-    private static String ROLE_SEARCH_LABEL = "Search By Role";
-    private static String ADMIN_SEARCH_LABEL = "Search By Admininstrative Role";
-    private static String OU_SEARCH_LABEL = "Search By User Organization";
-    private static String PERM_SEARCH_LABEL = "Search By Permission";
 
 
     public UserListPanel( String id )
@@ -794,7 +785,9 @@ public class UserListPanel extends FormComponentPanel
     {
         f2Fld.setVisible( false );
         f2Lbl.setVisible( false );
+        String OU_LABEL = "Organization";
         field1Label = OU_LABEL;
+        String OU_SEARCH_LABEL = "Search By User Organization";
         searchFieldsLabel = OU_SEARCH_LABEL;
     }
 
@@ -803,7 +796,9 @@ public class UserListPanel extends FormComponentPanel
     {
         f2Fld.setVisible( false );
         f2Lbl.setVisible( false );
+        String ADMIN_LABEL = "Admin Role Name";
         field1Label = ADMIN_LABEL;
+        String ADMIN_SEARCH_LABEL = "Search By Admininstrative Role";
         searchFieldsLabel = ADMIN_SEARCH_LABEL;
     }
 
@@ -812,7 +807,9 @@ public class UserListPanel extends FormComponentPanel
     {
         f2Fld.setVisible( false );
         f2Lbl.setVisible( false );
+        String ROLE_LABEL = "Role Name";
         field1Label = ROLE_LABEL;
+        String ROLE_SEARCH_LABEL = "Search By Role";
         searchFieldsLabel = ROLE_SEARCH_LABEL;
     }
 
@@ -830,8 +827,11 @@ public class UserListPanel extends FormComponentPanel
     {
         f2Fld.setVisible( true );
         f2Lbl.setVisible( true );
+        String PERM_OBJ_LABEL = "Object Name";
         field1Label = PERM_OBJ_LABEL;
+        String PERM_OP_LABEL = "Operation Name";
         field2Label = PERM_OP_LABEL;
+        String PERM_SEARCH_LABEL = "Search By Permission";
         searchFieldsLabel = PERM_SEARCH_LABEL;
     }
 
