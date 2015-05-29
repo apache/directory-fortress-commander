@@ -49,8 +49,8 @@ public class AuditAuthzListModel extends Model<SerializableList<AuthZ>>
     @SpringBean
     private ReviewMgr reviewMgr;
     private static final Logger LOG = Logger.getLogger(AuditAuthzListModel.class.getName());
-    private transient UserAudit userAudit;
-    private transient SerializableList<AuthZ> authZs = null;
+    private UserAudit userAudit;
+    private SerializableList<AuthZ> authZs = null;
 
     /**
      * Default constructor

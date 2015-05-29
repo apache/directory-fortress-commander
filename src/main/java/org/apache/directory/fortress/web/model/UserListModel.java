@@ -55,9 +55,9 @@ public class UserListModel extends Model<SerializableList<User>>
     @SpringBean
     private DelReviewMgr delReviewMgr;
     private static final Logger log = Logger.getLogger(UserListModel.class.getName());
-    private transient User user;
-    private transient Permission perm;
-    private transient SerializableList<User> users = null;
+    private User user;
+    private Permission perm;
+    private SerializableList<User> users = null;
 
     /**
      * Default constructor

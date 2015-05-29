@@ -49,8 +49,8 @@ public class ObjectListModel extends Model<SerializableList<PermObj>>
     @SpringBean
     private ReviewMgr reviewMgr;
     private static final Logger LOG = Logger.getLogger( ObjectListModel.class.getName() );
-    private transient PermObj permObj;
-    private transient SerializableList<PermObj> permObjs = null;
+    private PermObj permObj;
+    private SerializableList<PermObj> permObjs = null;
     private boolean isAdmin;
 
     /**

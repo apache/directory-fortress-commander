@@ -46,8 +46,8 @@ public class PermListModel extends Model<SerializableList<Permission>>
     @SpringBean
     private ReviewMgr reviewMgr;
     private static final Logger LOG = Logger.getLogger(PermListModel.class.getName());
-    private transient Permission perm;
-    private transient SerializableList<Permission> perms = null;
+    private Permission perm;
+    private SerializableList<Permission> perms = null;
     private boolean isAdmin;
 
     public PermListModel( boolean isAdmin, Session session )

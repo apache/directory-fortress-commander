@@ -50,8 +50,8 @@ public class RoleListModel extends Model<SerializableList<? extends Role>>
     @SpringBean
     private DelReviewMgr delReviewMgr;
     private static final Logger LOG = Logger.getLogger(RoleListModel.class.getName());
-    private transient Role role;
-    private transient SerializableList<? extends Role> roles = null;
+    private Role role;
+    private SerializableList<? extends Role> roles = null;
     private boolean isAdmin;
 
 

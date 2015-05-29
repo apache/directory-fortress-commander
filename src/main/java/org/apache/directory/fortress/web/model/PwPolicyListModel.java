@@ -46,8 +46,8 @@ public class PwPolicyListModel extends Model<SerializableList<PwPolicy>>
     @SpringBean
     private PwPolicyMgr pwPolicyMgr;
     private static final Logger LOG = Logger.getLogger(PwPolicyListModel.class.getName());
-    private transient PwPolicy policy;
-    private transient SerializableList<PwPolicy> policies = null;
+    private PwPolicy policy;
+    private SerializableList<PwPolicy> policies = null;
 
     /**
      * Default constructor

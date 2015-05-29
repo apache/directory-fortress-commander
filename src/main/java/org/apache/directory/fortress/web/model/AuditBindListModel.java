@@ -46,8 +46,8 @@ public class AuditBindListModel extends Model<SerializableList<Bind>>
     @SpringBean
     private AuditMgr auditMgr;
     private static final Logger LOG = Logger.getLogger( AuditBindListModel.class.getName() );
-    private transient UserAudit userAudit;
-    private transient SerializableList<Bind> binds = null;
+    private UserAudit userAudit;
+    private SerializableList<Bind> binds = null;
 
     /**
      * Default constructor

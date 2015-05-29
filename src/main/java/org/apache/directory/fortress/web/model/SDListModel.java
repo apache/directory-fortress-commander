@@ -47,8 +47,8 @@ public class SDListModel extends Model<SerializableList<SDSet>>
     @SpringBean
     private ReviewMgr reviewMgr;
     private static final Logger LOG = Logger.getLogger(SDListModel.class.getName());
-    private transient SDSet sdSet;
-    private transient SerializableList<SDSet> sdSets = null;
+    private SDSet sdSet;
+    private SerializableList<SDSet> sdSets = null;
 
     /**
      * Default constructor

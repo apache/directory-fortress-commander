@@ -47,8 +47,8 @@ public class GroupListModel extends Model<SerializableList<Group>>
     @SpringBean
     private GroupMgr groupMgr;
     private static final Logger LOG = Logger.getLogger( GroupListModel.class.getName() );
-    private transient Group group;
-    private transient SerializableList<Group> groups = null;
+    private Group group;
+    private SerializableList<Group> groups = null;
 
     /**
      * Default constructor

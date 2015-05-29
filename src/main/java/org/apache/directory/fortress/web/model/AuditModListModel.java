@@ -49,8 +49,8 @@ public class AuditModListModel extends Model<SerializableList<Mod>>
     @SpringBean
     private ReviewMgr reviewMgr;
     private static final Logger LOG = Logger.getLogger(AuditModListModel.class.getName());
-    private transient UserAudit userAudit;
-    private transient SerializableList<Mod> mods = null;
+    private UserAudit userAudit;
+    private SerializableList<Mod> mods = null;
 
     /**
      * Default constructor

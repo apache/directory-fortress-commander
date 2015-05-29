@@ -46,8 +46,8 @@ public class OUListModel extends Model<SerializableList<OrgUnit>>
     @SpringBean
     private DelReviewMgr delReviewMgr;
     private static final Logger LOG = Logger.getLogger( OUListModel.class.getName() );
-    private transient OrgUnit orgUnit;
-    private transient SerializableList<OrgUnit> orgUnits = null;
+    private OrgUnit orgUnit;
+    private SerializableList<OrgUnit> orgUnits = null;
 
     /**
      * Default constructor
