@@ -91,6 +91,7 @@ public class AuditBindListPanel extends FormComponentPanel
     }
 
 
+    @SuppressWarnings( "Convert2Diamond" )
     private void init( UserAudit userAudit )
     {
         IModel<SerializableList<Bind>> pageModel = new AuditBindListModel( userAudit, SecUtils.getSession( this ) );
@@ -274,6 +275,7 @@ public class AuditBindListPanel extends FormComponentPanel
     }
 
 
+    @SuppressWarnings( "Convert2Diamond" )
     private void createAndLoadGrid()
     {
         List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>> columns =

@@ -99,7 +99,7 @@ public class AuditAuthzListPanel extends FormComponentPanel
         createAndLoadGrid();
         this.listForm = new Form( "authzform" );
         this.listForm.addOrReplace( grid );
-        this.listForm.setModel( new CompoundPropertyModel<UserAudit>( userAudit ) );
+        this.listForm.setModel( new CompoundPropertyModel<>( userAudit ) );
         addEditFields();
         addButtons();
         add( this.listForm );
@@ -338,33 +338,33 @@ public class AuditAuthzListPanel extends FormComponentPanel
     private void createAndLoadGrid()
     {
         List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>> columns =
-            new ArrayList<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>>();
-        PropertyColumn reqStart = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+            new ArrayList<>();
+        PropertyColumn reqStart = new PropertyColumn<>(
             Model.of( "Timestamp" ), "userObject.reqStart" );
         reqStart.setInitialSize( 200 );
         columns.add( reqStart );
 
-        PropertyColumn requAuthzId = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+        PropertyColumn requAuthzId = new PropertyColumn<>(
             Model.of( "User ID" ), "userObject.reqAuthzID" );
         requAuthzId.setInitialSize( 200 );
         columns.add( requAuthzId );
 
-        PropertyColumn reqAttr = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+        PropertyColumn reqAttr = new PropertyColumn<>(
             Model.of( "Object Name" ), "userObject.reqAttr" );
         reqAttr.setInitialSize( 300 );
         columns.add( reqAttr );
 
-        PropertyColumn reqDerefAliases = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+        PropertyColumn reqDerefAliases = new PropertyColumn<>(
             Model.of( "Object ID" ), "userObject.reqDerefAliases" );
         reqDerefAliases.setInitialSize( 100 );
         columns.add( reqDerefAliases );
 
-        PropertyColumn reqAttrsOnly = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+        PropertyColumn reqAttrsOnly = new PropertyColumn<>(
             Model.of( "Operation" ), "userObject.reqAttrsOnly" );
         reqAttrsOnly.setInitialSize( 120 );
         columns.add( reqAttrsOnly );
 
-        PropertyColumn reqResult = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+        PropertyColumn reqResult = new PropertyColumn<>(
             Model.of( "Result" ), "userObject.reqResult" );
         reqResult.setInitialSize( 80 );
         columns.add( reqResult );

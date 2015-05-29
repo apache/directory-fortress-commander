@@ -83,7 +83,7 @@ public class ObjectDetailPanel extends FormComponentPanel
             objName = GlobalIds.ADMIN_MGR;
 
         this.adminMgr.setAdmin( SecUtils.getSession( this ) );
-        this.editForm = new ObjectDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<PermObj>( new PermObj() ) );
+        this.editForm = new ObjectDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<>( new PermObj() ) );
         this.display = display;
         add( editForm );
     }

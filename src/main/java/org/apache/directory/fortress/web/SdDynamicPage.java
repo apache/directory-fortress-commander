@@ -42,7 +42,6 @@ public class SdDynamicPage extends FortressWebBasePage
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
     private boolean isStatic = false;
-    ;
 
 
     public SdDynamicPage( PageParameters parameters )

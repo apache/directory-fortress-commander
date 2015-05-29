@@ -83,7 +83,7 @@ public class AuditModDetailPanel extends FormComponentPanel
         super( id );
         this.auditMgr.setAdmin( SecUtils.getSession( this ) );
         this.reviewMgr.setAdmin( SecUtils.getSession( this ) );
-        this.detailForm = new AuditAuthzDetailForm( GlobalIds.DETAIL_FIELDS, new CompoundPropertyModel<Mod>( new Mod() ) );
+        this.detailForm = new AuditAuthzDetailForm( GlobalIds.DETAIL_FIELDS, new CompoundPropertyModel<>( new Mod() ) );
         this.display = display;
         add( detailForm );
     }
@@ -115,13 +115,13 @@ public class AuditModDetailPanel extends FormComponentPanel
             options.set( "pageable", "{ pageSizes: [ 5, 10, 15, 20 ] }" );
             //table2 = new DataTable("modstable", columns, createDataProvider( null ), ROWS, options);
 
-            table = new DataTable<RequestMod>( "modstable", columns, createDataProvider( null ), ROWS, options );
+            table = new DataTable<>( "modstable", columns, createDataProvider( null ), ROWS, options );
             table.setOutputMarkupId( true );
             add( table );
             add( new Label( "reqType" ) );
             add( new Label( GlobalIds.REQ_DN ) );
             add( new Label( GlobalIds.REQ_START ) );
-            userPanel = new UserAuditDetailPanel( GlobalIds.USERAUDITDETAILPANEL, new CompoundPropertyModel<User>(
+            userPanel = new UserAuditDetailPanel( GlobalIds.USERAUDITDETAILPANEL, new CompoundPropertyModel<>(
                 new User()
                 ) );
             add( userPanel );
@@ -140,7 +140,7 @@ public class AuditModDetailPanel extends FormComponentPanel
                 String msg = "Mod: " + mod.getReqAuthzID() + " has been selected";
                 LOG.debug( ".onEvent SelectModelEvent: " + mod.getReqAuthzID() );
                 List<RequestMod> modifications = parseRequestMods( mod.getReqMod() );
-                table = new DataTable<RequestMod>( "modstable", columns, createDataProvider( modifications ), ROWS,
+                table = new DataTable<>( "modstable", columns, createDataProvider( modifications ), ROWS,
                     options );
                 User user = null;
                 // necessary to push the 'changed' model down into the aggregated panel:
@@ -169,7 +169,7 @@ public class AuditModDetailPanel extends FormComponentPanel
                 {
                     user = new User();
                 }
-                IModel<User> userModel = new CompoundPropertyModel<User>( user );
+                IModel<User> userModel = new CompoundPropertyModel<>( user );
                 userPanel.setDefaultModel( userModel );
 
                 addOrReplace( table );
@@ -193,7 +193,7 @@ public class AuditModDetailPanel extends FormComponentPanel
 
         private List<RequestMod> parseRequestMods( List<String> mods )
         {
-            List<RequestMod> results = new ArrayList<RequestMod>();
+            List<RequestMod> results = new ArrayList<>();
             if ( VUtil.isNotNullOrEmpty( mods ) )
             {
                 Mod mod = ( Mod ) detailForm.getModelObject();
@@ -245,11 +245,11 @@ public class AuditModDetailPanel extends FormComponentPanel
         ListDataProvider<RequestMod> results;
         if ( VUtil.isNotNullOrEmpty( mods ) )
         {
-            results = new ListDataProvider<RequestMod>( mods );
+            results = new ListDataProvider<>( mods );
         }
         else
         {
-            results = new ListDataProvider<RequestMod>( new ArrayList<RequestMod>() );
+            results = new ListDataProvider<>( new ArrayList<RequestMod>() );
         }
         return results;
     }
@@ -257,7 +257,7 @@ public class AuditModDetailPanel extends FormComponentPanel
 
     private List<IColumn> newColumnList()
     {
-        List<IColumn> columns = new ArrayList<IColumn>();
+        List<IColumn> columns = new ArrayList<>();
         columns.add( new PropertyColumn( "#", "index", 30 ) );
         columns.add( new PropertyColumn( "Op", "type", 50 ) );
         columns.add( new PropertyColumn( "Name", "name", 80 ) );

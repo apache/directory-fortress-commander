@@ -36,16 +36,16 @@ public class ErrorPage extends FortressWebBasePage
 
     public ErrorPage( Exception e )
     {
-        add( new Label( "title", new Model<String>( "Runtime Exception Occurred" ) ) );
-        add( new Label( "message", new Model<String>( e.getLocalizedMessage() ) ) );
+        add( new Label( "title", new Model<>( "Runtime Exception Occurred" ) ) );
+        add( new Label( "message", new Model<>( e.getLocalizedMessage() ) ) );
         add( new BookmarkablePageLink( "homePage", getApplication().getHomePage() ) );
     }
 
     @Deprecated
     public ErrorPage( final PageParameters parameters )
     {
-        add( new Label( "title", new Model<String>( parameters.get( "title" ).toString() ) ) );
-        add( new Label( "message", new Model<String>( parameters.get( "message" ).toString() ) ) );
+        add( new Label( "title", new Model<>( parameters.get( "title" ).toString() ) ) );
+        add( new Label( "message", new Model<>( parameters.get( "message" ).toString() ) ) );
         add( new BookmarkablePageLink( "homePage", getApplication().getHomePage() ) );
     }
 }

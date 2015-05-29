@@ -255,14 +255,14 @@ public class GroupListPanel extends FormComponentPanel
     private void addGrid()
     {
         List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>> columns =
-            new ArrayList<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>>();
+            new ArrayList<>();
 
-        PropertyColumn groupName = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+        PropertyColumn groupName = new PropertyColumn<>(
             Model.of( "Group Name" ), "userObject.Name" );
         groupName.setInitialSize( 250 );
         columns.add( groupName );
 
-        PropertyColumn description = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+        PropertyColumn description = new PropertyColumn<>(
             Model.of( "Description" ), "userObject.Description" );
         description.setInitialSize( 300 );
         columns.add( description );

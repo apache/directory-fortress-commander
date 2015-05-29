@@ -155,7 +155,7 @@ public class RoleSearchModalPanel extends Panel
                         Role childRole = reviewMgr.readRole( new Role( roleSearchVal ) );
                         if ( childRole != null )
                         {
-                            List<Role> parentRoles = new ArrayList<Role>();
+                            List<Role> parentRoles = new ArrayList<>();
                             for ( String role : childRole.getParents() )
                             {
                                 Role parent = reviewMgr.readRole( new Role( role ) );

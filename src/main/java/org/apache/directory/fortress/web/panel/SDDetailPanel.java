@@ -83,7 +83,7 @@ public class SDDetailPanel extends FormComponentPanel
         super( id );
         this.adminMgr.setAdmin( SecUtils.getSession( this ) );
         this.isStatic = isStatic;
-        this.editForm = new SDDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<SDSet>( new SDSet() ) );
+        this.editForm = new SDDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<>( new SDSet() ) );
         this.display = display;
         add( editForm );
     }
@@ -96,7 +96,7 @@ public class SDDetailPanel extends FormComponentPanel
         private ComboBox<String> membersCB;
         private String membersSelection;
         private Component component;
-        private List<String> members = new ArrayList<String>();
+        private List<String> members = new ArrayList<>();
         private UserRole roleConstraint = new UserRole();
         private TextField nameTF;
         private SecureIndicatingAjaxButton addPB;
@@ -370,7 +370,7 @@ public class SDDetailPanel extends FormComponentPanel
             add( new Spinner<Integer>( "cardinality" ) );
             Label iid = new Label( "id" );
             add( iid );
-            membersCB = new ComboBox<String>( "members", new PropertyModel<String>( this, MEMBERS_SELECTION ), members );
+            membersCB = new ComboBox<>( "members", new PropertyModel<String>( this, MEMBERS_SELECTION ), members );
             membersCB.setOutputMarkupId( true );
             add( membersCB );
             addRoleSearchModal();
@@ -523,14 +523,14 @@ public class SDDetailPanel extends FormComponentPanel
                 this.setModelObject( sdSet );
                 if ( VUtil.isNotNullOrEmpty( sdSet.getMembers() ) )
                 {
-                    members = new ArrayList<String>( sdSet.getMembers() );
-                    membersCB = new ComboBox<String>( "members", new PropertyModel<String>( this, MEMBERS_SELECTION ),
+                    members = new ArrayList<>( sdSet.getMembers() );
+                    membersCB = new ComboBox<>( "members", new PropertyModel<String>( this, MEMBERS_SELECTION ),
                         members );
                 }
                 else
                 {
-                    members = new ArrayList<String>();
-                    membersCB = new ComboBox<String>( "members", new PropertyModel<String>( this, MEMBERS_SELECTION ),
+                    members = new ArrayList<>();
+                    membersCB = new ComboBox<>( "members", new PropertyModel<String>( this, MEMBERS_SELECTION ),
                         members );
                 }
                 nameTF.setEnabled( false );
@@ -565,8 +565,8 @@ public class SDDetailPanel extends FormComponentPanel
                 sdSet.setType( SDSet.SDType.DYNAMIC );
             setModelObject( sdSet );
             membersSelection = "";
-            members = new ArrayList<String>();
-            membersCB = new ComboBox<String>( "members", new PropertyModel<String>( this, MEMBERS_SELECTION ),
+            members = new ArrayList<>();
+            membersCB = new ComboBox<>( "members", new PropertyModel<String>( this, MEMBERS_SELECTION ),
                 members );
             nameTF.setEnabled( true );
             addPB.setEnabled( true );

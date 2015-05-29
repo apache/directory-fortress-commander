@@ -109,7 +109,7 @@ public class AuditAuthzListModel extends Model<SerializableList<AuthZ>>
 
         {
             LOG.debug( ".getObject null" );
-            authZs = new SerializableList<AuthZ>( new ArrayList<AuthZ>() );
+            authZs = new SerializableList<>( new ArrayList<AuthZ>() );
         }
         else
         {
@@ -129,7 +129,7 @@ public class AuditAuthzListModel extends Model<SerializableList<AuthZ>>
                 userAudit.setDn( permission.getDn() );
             }
             
-            authZs = new SerializableList<AuthZ>( getList( userAudit ) );
+            authZs = new SerializableList<>( getList( userAudit ) );
             userAudit.setDn( "" );
         }
         

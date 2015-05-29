@@ -71,12 +71,12 @@ public class RoleAdminDetailPanel extends Panel
     {
         super( id, roleModel );
 
-        permouCB = new ComboBox<String>( GlobalIds.OS_P, new PropertyModel<String>( this, PERMOU_SELECTION ), permous );
+        permouCB = new ComboBox<>( GlobalIds.OS_P, new PropertyModel<String>( this, PERMOU_SELECTION ), permous );
         permouCB.setOutputMarkupId( true );
         add( permouCB );
         addPermOUSearchModal();
 
-        userouCB = new ComboBox<String>( GlobalIds.OS_U, new PropertyModel<String>( this, USEROU_SELECTION ), userous );
+        userouCB = new ComboBox<>( GlobalIds.OS_U, new PropertyModel<String>( this, USEROU_SELECTION ), userous );
         userouCB.setOutputMarkupId( true );
         add( userouCB );
         addUserOUSearchModal();
@@ -506,7 +506,7 @@ public class RoleAdminDetailPanel extends Panel
     void setPermous( List<String> permous )
     {
         this.permous = permous;
-        permouCB = new ComboBox<String>( GlobalIds.OS_P, new PropertyModel<String>( this, PERMOU_SELECTION ), permous );
+        permouCB = new ComboBox<>( GlobalIds.OS_P, new PropertyModel<String>( this, PERMOU_SELECTION ), permous );
         permouSelection = "";
         addOrReplace( permouCB );
     }
@@ -520,7 +520,7 @@ public class RoleAdminDetailPanel extends Panel
     void setUserous( List<String> userous )
     {
         this.userous = userous;
-        userouCB = new ComboBox<String>( GlobalIds.OS_U, new PropertyModel<String>( this, USEROU_SELECTION ), userous );
+        userouCB = new ComboBox<>( GlobalIds.OS_U, new PropertyModel<String>( this, USEROU_SELECTION ), userous );
         userouSelection = "";
         addOrReplace( userouCB );
     }

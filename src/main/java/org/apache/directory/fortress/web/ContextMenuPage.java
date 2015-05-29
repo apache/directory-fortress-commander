@@ -82,7 +82,7 @@ public class ContextMenuPage extends FortressWebBasePage
 
     private List<IMenuItem> newMenuList()
     {
-        List<IMenuItem> list = new ArrayList<IMenuItem>();
+        List<IMenuItem> list = new ArrayList<>();
 
         list.add( new MenuItem( "Item with icon", JQueryIcon.FLAG ) );
         list.add( new MenuItem( "Change the title" )
@@ -116,7 +116,7 @@ public class ContextMenuPage extends FortressWebBasePage
 
     private List<IMenuItem> newSubMenuList()
     {
-        List<IMenuItem> list = new ArrayList<IMenuItem>();
+        List<IMenuItem> list = new ArrayList<>();
 
         list.add( new MenuItem( "Sub-menu #1" ) );
         list.add( new MenuItem( "Sub-menu #2" ) );

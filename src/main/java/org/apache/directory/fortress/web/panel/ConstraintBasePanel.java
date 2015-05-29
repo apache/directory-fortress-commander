@@ -110,7 +110,7 @@ public class ConstraintBasePanel extends FormComponentPanel
     public ConstraintBasePanel( String id, final IModel constraint )
     {
         super( id, constraint );
-        final Spinner<Integer> timeout = new Spinner<Integer>( TIMEOUT );
+        final Spinner<Integer> timeout = new Spinner<>( TIMEOUT );
         timeout.setRequired( false );
         add( timeout );
 

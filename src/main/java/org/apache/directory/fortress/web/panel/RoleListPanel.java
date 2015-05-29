@@ -80,51 +80,51 @@ public class RoleListPanel<T extends Serializable> extends FormComponentPanel
         RoleListModel roleListModel = new RoleListModel( createRole( "" ), isAdmin, SecUtils.getSession( this ) );
         setDefaultModel( roleListModel );
         List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>> columns =
-            new ArrayList<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>>();
+            new ArrayList<>();
         columns.add( new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
             Model.of( "Name" ), "userObject.name" ) );
 
-        PropertyColumn description = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+        PropertyColumn description = new PropertyColumn<>(
             Model.of( "Description" ), "userObject.Description" );
         description.setInitialSize( 300 );
         columns.add( description );
 
-        PropertyColumn beginDate = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+        PropertyColumn beginDate = new PropertyColumn<>(
             Model.of( "Begin Date" ), "userObject.BeginDate" );
         beginDate.setInitialSize( 80 );
         columns.add( beginDate );
 
-        PropertyColumn endDate = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+        PropertyColumn endDate = new PropertyColumn<>(
             Model.of( "End Date" ), "userObject.EndDate" );
         endDate.setInitialSize( 80 );
         columns.add( endDate );
 
-        PropertyColumn beginLockDate = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+        PropertyColumn beginLockDate = new PropertyColumn<>(
             Model.of( "Begin Lock Dt" ), "userObject.BeginLockDate" );
         beginLockDate.setInitialSize( 80 );
         columns.add( beginLockDate );
 
-        PropertyColumn endLockDate = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+        PropertyColumn endLockDate = new PropertyColumn<>(
             Model.of( "End Lock Dt" ), "userObject.EndLockDate" );
         endLockDate.setInitialSize( 80 );
         columns.add( endLockDate );
 
-        PropertyColumn beginTime = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+        PropertyColumn beginTime = new PropertyColumn<>(
             Model.of( "Begin Tm" ), "userObject.BeginTime" );
         beginTime.setInitialSize( 70 );
         columns.add( beginTime );
 
-        PropertyColumn endTime = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+        PropertyColumn endTime = new PropertyColumn<>(
             Model.of( "End Tm" ), "userObject.EndTime" );
         endTime.setInitialSize( 70 );
         columns.add( endTime );
 
-        PropertyColumn dayMask = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+        PropertyColumn dayMask = new PropertyColumn<>(
             Model.of( "DayMask" ), "userObject.DayMask" );
         dayMask.setInitialSize( 80 );
         columns.add( dayMask );
 
-        PropertyColumn parents = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+        PropertyColumn parents = new PropertyColumn<>(
             Model.of( "Parents" ), "userObject.parents" );
         parents.setInitialSize( 250 );
         columns.add( parents );
@@ -163,7 +163,7 @@ public class RoleListPanel<T extends Serializable> extends FormComponentPanel
         grid.setClickRowToDeselect( false );
         grid.setSelectToEdit( false );
         // expand the root node
-        grid.getTreeState().expandAll();;
+        grid.getTreeState().expandAll();
         Form listForm = new Form( "form" );
         listForm.add( grid );
         grid.setOutputMarkupId( true );

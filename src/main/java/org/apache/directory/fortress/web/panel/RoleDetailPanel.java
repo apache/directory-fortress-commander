@@ -94,13 +94,13 @@ public class RoleDetailPanel extends Panel
         if ( isAdmin )
         {
             this.objName = GlobalIds.DEL_ADMIN_MGR;
-            this.editForm = new RoleDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<AdminRole>(
+            this.editForm = new RoleDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<>(
                 new AdminRole() ) );
         }
         else
         {
             this.objName = GlobalIds.ADMIN_MGR;
-            this.editForm = new RoleDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<Role>( new Role() ) );
+            this.editForm = new RoleDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<>( new Role() ) );
         }
 
         this.display = display;
@@ -118,7 +118,7 @@ public class RoleDetailPanel extends Panel
         private ComboBox<String> parentsCB;
         private Component component;
         private String parentsSelection;
-        private List<String> parents = new ArrayList<String>();
+        private List<String> parents = new ArrayList<>();
         private UserRole parentConstraint = new UserRole();
         private RoleAdminDetailPanel auxPanel;
         private TextField nameTF;
@@ -149,7 +149,7 @@ public class RoleDetailPanel extends Panel
             add( description );
             Label iid = new Label( "id" );
             add( iid );
-            parentsCB = new ComboBox<String>( GlobalIds.PARENTS, new PropertyModel<String>( this, PARENTS_SELECTION ),
+            parentsCB = new ComboBox<>( GlobalIds.PARENTS, new PropertyModel<String>( this, PARENTS_SELECTION ),
                 parents );
             add( parentsCB );
 
@@ -569,14 +569,14 @@ public class RoleDetailPanel extends Panel
                 parentsSelection = "";
                 if ( VUtil.isNotNullOrEmpty( ( ( Role ) role ).getParents() ) )
                 {
-                    parents = new ArrayList<String>( ( ( Role ) role ).getParents() );
-                    parentsCB = new ComboBox<String>( GlobalIds.PARENTS, new PropertyModel<String>( this,
+                    parents = new ArrayList<>( ( ( Role ) role ).getParents() );
+                    parentsCB = new ComboBox<>( GlobalIds.PARENTS, new PropertyModel<String>( this,
                         PARENTS_SELECTION ), parents );
                 }
                 else
                 {
-                    parents = new ArrayList<String>();
-                    parentsCB = new ComboBox<String>( GlobalIds.PARENTS, new PropertyModel<String>( this,
+                    parents = new ArrayList<>();
+                    parentsCB = new ComboBox<>( GlobalIds.PARENTS, new PropertyModel<String>( this,
                         PARENTS_SELECTION ), parents );
                 }
                 nameTF.setEnabled( false );
@@ -617,7 +617,7 @@ public class RoleDetailPanel extends Panel
                     {
                         if ( role.getOsP() != null )
                         {
-                            auxPanel.setPermous( new ArrayList<String>( role.getOsP() ) );
+                            auxPanel.setPermous( new ArrayList<>( role.getOsP() ) );
                         }
                         else
                         {
@@ -625,7 +625,7 @@ public class RoleDetailPanel extends Panel
                         }
                         if ( role.getOsU() != null )
                         {
-                            auxPanel.setUserous( new ArrayList<String>( role.getOsU() ) );
+                            auxPanel.setUserous( new ArrayList<>( role.getOsU() ) );
                         }
                         else
                         {
@@ -652,8 +652,8 @@ public class RoleDetailPanel extends Panel
                 setModelObject( new Role() );
             }
             parentsSelection = "";
-            parents = new ArrayList<String>();
-            parentsCB = new ComboBox<String>( GlobalIds.PARENTS, new PropertyModel<String>( this,
+            parents = new ArrayList<>();
+            parentsCB = new ComboBox<>( GlobalIds.PARENTS, new PropertyModel<String>( this,
                 PARENTS_SELECTION ), parents );
             modelChanged();
             nameTF.setEnabled( true );

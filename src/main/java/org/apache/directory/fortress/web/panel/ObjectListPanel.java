@@ -257,19 +257,19 @@ public class ObjectListPanel extends FormComponentPanel
     private void addGrid()
     {
         List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>> columns =
-            new ArrayList<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>>();
+            new ArrayList<>();
 
-        PropertyColumn objName = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+        PropertyColumn objName = new PropertyColumn<>(
             Model.of( "Object Name" ), "userObject.ObjName" );
         objName.setInitialSize( 300 );
         columns.add( objName );
 
-        PropertyColumn ou = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+        PropertyColumn ou = new PropertyColumn<>(
             Model.of( "Perm Organization" ), "userObject.Ou" );
         ou.setInitialSize( 200 );
         columns.add( ou );
 
-        PropertyColumn description = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+        PropertyColumn description = new PropertyColumn<>(
             Model.of( "Description" ), "userObject.Description" );
         description.setInitialSize( 500 );
         columns.add( description );

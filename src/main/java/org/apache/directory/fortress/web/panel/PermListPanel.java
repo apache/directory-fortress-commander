@@ -87,7 +87,7 @@ public class PermListPanel extends FormComponentPanel
             isAdmin, SecUtils.getSession( this ) );
         setDefaultModel( permListModel );
         List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>> columns =
-            new ArrayList<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>>();
+            new ArrayList<>();
         PropertyColumn objName = new PropertyColumn( new Model( "Object Name" ), "userObject.ObjName" );
         objName.setInitialSize( 350 );
         columns.add( objName );

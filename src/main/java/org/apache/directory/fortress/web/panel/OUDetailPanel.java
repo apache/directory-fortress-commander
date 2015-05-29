@@ -85,7 +85,7 @@ public class OUDetailPanel extends FormComponentPanel
             ou.setType( OrgUnit.Type.USER );
         else
             ou.setType( OrgUnit.Type.PERM );
-        this.editForm = new OUDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<OrgUnit>( ou ) );
+        this.editForm = new OUDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<>( ou ) );
         this.display = display;
         add( editForm );
     }
@@ -100,7 +100,7 @@ public class OUDetailPanel extends FormComponentPanel
         private ComboBox<String> parentsCB;
         private String parentsSelection;
         private Component component;
-        private List<String> parents = new ArrayList<String>();
+        private List<String> parents = new ArrayList<>();
         private OrgUnit parent = new OrgUnit();
         private TextField nameTF;
         private SecureIndicatingAjaxButton addPB;
@@ -344,7 +344,7 @@ public class OUDetailPanel extends FormComponentPanel
             add( description );
             Label iid = new Label( "id" );
             add( iid );
-            parentsCB = new ComboBox<String>( PARENTS, new PropertyModel<String>( this, PARENTS_SELECTION ), parents );
+            parentsCB = new ComboBox<>( PARENTS, new PropertyModel<String>( this, PARENTS_SELECTION ), parents );
             add( parentsCB );
             setOutputMarkupId( true );
             addParentSearchModal();
@@ -367,8 +367,8 @@ public class OUDetailPanel extends FormComponentPanel
                             orgUnit.getParents().remove( parentsSelection );
                             parents.remove( parentsSelection );
                             parentsSelection = "";
-                            parents = new ArrayList<String>();
-                            parentsCB = new ComboBox<String>( PARENTS, new PropertyModel<String>( this,
+                            parents = new ArrayList<>();
+                            parentsCB = new ComboBox<>( PARENTS, new PropertyModel<String>( this,
                                 PARENTS_SELECTION ), parents );
                             component = editForm;
                             msg += ", was removed from local, commit to persist changes on server";
@@ -499,14 +499,14 @@ public class OUDetailPanel extends FormComponentPanel
                 this.setModelObject( orgUnit );
                 if ( VUtil.isNotNullOrEmpty( orgUnit.getParents() ) )
                 {
-                    parents = new ArrayList<String>( orgUnit.getParents() );
-                    parentsCB = new ComboBox<String>( PARENTS, new PropertyModel<String>( this, PARENTS_SELECTION ),
+                    parents = new ArrayList<>( orgUnit.getParents() );
+                    parentsCB = new ComboBox<>( PARENTS, new PropertyModel<String>( this, PARENTS_SELECTION ),
                         parents );
                 }
                 else
                 {
-                    parents = new ArrayList<String>();
-                    parentsCB = new ComboBox<String>( PARENTS, new PropertyModel<String>( this, PARENTS_SELECTION ),
+                    parents = new ArrayList<>();
+                    parentsCB = new ComboBox<>( PARENTS, new PropertyModel<String>( this, PARENTS_SELECTION ),
                         parents );
                 }
                 nameTF.setEnabled( false );
@@ -542,8 +542,8 @@ public class OUDetailPanel extends FormComponentPanel
 
             setModelObject( ou );
             parentsSelection = "";
-            parents = new ArrayList<String>();
-            parentsCB = new ComboBox<String>( PARENTS, new PropertyModel<String>( this, PARENTS_SELECTION ),
+            parents = new ArrayList<>();
+            parentsCB = new ComboBox<>( PARENTS, new PropertyModel<String>( this, PARENTS_SELECTION ),
                 parents );
             nameTF.setEnabled( true );
             addPB.setEnabled( true );

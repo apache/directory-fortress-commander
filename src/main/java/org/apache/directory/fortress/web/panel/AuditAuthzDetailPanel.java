@@ -70,7 +70,7 @@ public class AuditAuthzDetailPanel extends FormComponentPanel
         super( id );
         this.auditMgr.setAdmin( SecUtils.getSession( this ) );
         this.reviewMgr.setAdmin( SecUtils.getSession( this ) );
-        this.detailForm = new AuditAuthzDetailForm( GlobalIds.DETAIL_FIELDS, new CompoundPropertyModel<AuthZ>(
+        this.detailForm = new AuditAuthzDetailForm( GlobalIds.DETAIL_FIELDS, new CompoundPropertyModel<>(
             new AuthZ() ) );
         this.display = display;
         add( detailForm );
@@ -91,7 +91,7 @@ public class AuditAuthzDetailPanel extends FormComponentPanel
             add( new Label( GlobalIds.REQ_ATTR ) );
             add( new Label( GlobalIds.REQ_ATTRS_ONLY ) );
             add( new Label( GlobalIds.REQ_DEREF_ALIASES ) );
-            userPanel = new UserAuditDetailPanel( GlobalIds.USERAUDITDETAILPANEL, new CompoundPropertyModel<User>(
+            userPanel = new UserAuditDetailPanel( GlobalIds.USERAUDITDETAILPANEL, new CompoundPropertyModel<>(
                 new User() ) );
             add( userPanel );
             setOutputMarkupId( true );
@@ -144,7 +144,7 @@ public class AuditAuthzDetailPanel extends FormComponentPanel
                 {
                     user = new User();
                 }
-                IModel<User> userModel = new CompoundPropertyModel<User>( user );
+                IModel<User> userModel = new CompoundPropertyModel<>( user );
                 userPanel.setDefaultModel( userModel );
             }
             else

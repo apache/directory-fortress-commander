@@ -90,7 +90,7 @@ public class PermDetailPanel extends FormComponentPanel
         super( id );
         this.isAdmin = isAdmin;
         this.adminMgr.setAdmin( SecUtils.getSession( this ) );
-        this.editForm = new PermDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<Permission>(
+        this.editForm = new PermDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<>(
             new Permission() ) );
         this.display = display;
         add( editForm );
@@ -103,7 +103,7 @@ public class PermDetailPanel extends FormComponentPanel
         private ComboBox<String> rolesCB;
         private Component component;
         private String rolesSelection;
-        private List<String> roles = new ArrayList<String>();
+        private List<String> roles = new ArrayList<>();
         private UserRole roleConstraint = new UserRole();
         private TextField objectTF;
         private TextField opNameTF;
@@ -376,7 +376,7 @@ public class PermDetailPanel extends FormComponentPanel
             add( description );
             Label internalId = new Label( "internalId" );
             add( internalId );
-            rolesCB = new ComboBox<String>( "roles", new PropertyModel<String>( this, ROLES_SELECTION ), roles );
+            rolesCB = new ComboBox<>( "roles", new PropertyModel<String>( this, ROLES_SELECTION ), roles );
             add( rolesCB );
             setOutputMarkupId( true );
             addRoleSearchModal();
@@ -619,13 +619,13 @@ public class PermDetailPanel extends FormComponentPanel
                 rolesSelection = "";
                 if ( VUtil.isNotNullOrEmpty( perm.getRoles() ) )
                 {
-                    roles = new ArrayList<String>( perm.getRoles() );
-                    rolesCB = new ComboBox<String>( "roles", new PropertyModel<String>( this, ROLES_SELECTION ), roles );
+                    roles = new ArrayList<>( perm.getRoles() );
+                    rolesCB = new ComboBox<>( "roles", new PropertyModel<String>( this, ROLES_SELECTION ), roles );
                 }
                 else
                 {
-                    roles = new ArrayList<String>();
-                    rolesCB = new ComboBox<String>( "roles", new PropertyModel<String>( this, ROLES_SELECTION ), roles );
+                    roles = new ArrayList<>();
+                    rolesCB = new ComboBox<>( "roles", new PropertyModel<String>( this, ROLES_SELECTION ), roles );
                 }
                 editForm.addOrReplace( rolesCB );
                 objectTF.setEnabled( false );
@@ -656,8 +656,8 @@ public class PermDetailPanel extends FormComponentPanel
         {
             this.setModelObject( new Permission() );
             rolesSelection = "";
-            roles = new ArrayList<String>();
-            rolesCB = new ComboBox<String>( "roles", new PropertyModel<String>( editForm, ROLES_SELECTION ), roles );
+            roles = new ArrayList<>();
+            rolesCB = new ComboBox<>( "roles", new PropertyModel<String>( editForm, ROLES_SELECTION ), roles );
             editForm.addOrReplace( rolesCB );
             addPB.setEnabled( true );
             objectTF.setEnabled( true );

@@ -72,7 +72,7 @@ public class PwPolicyDetailPanel extends FormComponentPanel
     {
         super( id );
         this.pwPolicyMgr.setAdmin( SecUtils.getSession( this ) );
-        this.editForm = new PwPolicyDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<PwPolicy>(
+        this.editForm = new PwPolicyDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<>(
             new PwPolicy() ) );
         this.display = display;
         add( editForm );
@@ -305,38 +305,38 @@ public class PwPolicyDetailPanel extends FormComponentPanel
 
             add( new TextField( "name" ).setRequired( true ) );
 
-            add( new TextField<Integer>( "minAge" ).add( new RangeValidator<Integer>( 0, Integer.MAX_VALUE ) )
+            add( new TextField<Integer>( "minAge" ).add( new RangeValidator<>( 0, Integer.MAX_VALUE ) )
                 .setRequired( true ) );
 
-            add( new TextField<Long>( "maxAge" ).add( new RangeValidator<Long>( ( long ) 0, Long.MAX_VALUE ) )
+            add( new TextField<Long>( "maxAge" ).add( new RangeValidator<>( ( long ) 0, Long.MAX_VALUE ) )
                 .setRequired( true ) );
-            final Spinner<Integer> inHistorySP = new Spinner<Integer>( "inHistory" );
+            final Spinner<Integer> inHistorySP = new Spinner<>( "inHistory" );
             inHistorySP.setRequired( false );
-            inHistorySP.add( new RangeValidator<Short>( ( short ) 0, ( short ) 100 ) );
+            inHistorySP.add( new RangeValidator<>( ( short ) 0, ( short ) 100 ) );
             add( inHistorySP );
 
-            final Spinner<Integer> minLengthSP = new Spinner<Integer>( "minLength" );
+            final Spinner<Integer> minLengthSP = new Spinner<>( "minLength" );
             minLengthSP.setRequired( false );
-            minLengthSP.add( new RangeValidator<Short>( ( short ) 0, ( short ) 100 ) );
+            minLengthSP.add( new RangeValidator<>( ( short ) 0, ( short ) 100 ) );
             add( minLengthSP );
 
-            add( new TextField<Long>( "expireWarning" ).add( new RangeValidator<Long>( ( long ) 0, Long.MAX_VALUE ) )
+            add( new TextField<Long>( "expireWarning" ).add( new RangeValidator<>( ( long ) 0, Long.MAX_VALUE ) )
                 .setRequired( true ) );
-            final Spinner<Integer> graceLoginLimitSP = new Spinner<Integer>( "graceLoginLimit" );
+            final Spinner<Integer> graceLoginLimitSP = new Spinner<>( "graceLoginLimit" );
             graceLoginLimitSP.setRequired( false );
-            graceLoginLimitSP.add( new RangeValidator<Short>( ( short ) 0, ( short ) 100 ) );
+            graceLoginLimitSP.add( new RangeValidator<>( ( short ) 0, ( short ) 100 ) );
             add( graceLoginLimitSP );
 
             add( new CheckBox( "lockout" ).setRequired( true ) );
-            add( new TextField<Integer>( "lockoutDuration" ).add( new RangeValidator<Integer>( 0, Integer.MAX_VALUE ) )
+            add( new TextField<Integer>( "lockoutDuration" ).add( new RangeValidator<>( 0, Integer.MAX_VALUE ) )
                 .setRequired( true ) );
-            final Spinner<Integer> maxFailureSP = new Spinner<Integer>( "maxFailure" );
+            final Spinner<Integer> maxFailureSP = new Spinner<>( "maxFailure" );
             maxFailureSP.setRequired( false );
-            maxFailureSP.add( new RangeValidator<Short>( ( short ) 0, ( short ) 100 ) );
+            maxFailureSP.add( new RangeValidator<>( ( short ) 0, ( short ) 100 ) );
             add( maxFailureSP );
 
             add( new TextField<Short>( "failureCountInterval" ).add(
-                new RangeValidator<Short>( ( short ) 0, Short.MAX_VALUE ) ).setRequired( true ) );
+                new RangeValidator<>( ( short ) 0, Short.MAX_VALUE ) ).setRequired( true ) );
             add( new CheckBox( "mustChange" ).setRequired( true ) );
             add( new CheckBox( "allowUserChange" ).setRequired( true ) );
             add( new CheckBox( "safeModify" ).setRequired( true ) );

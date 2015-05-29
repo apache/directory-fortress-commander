@@ -104,22 +104,22 @@ public class SDListPanel extends FormComponentPanel
         SDListModel sdListModel = new SDListModel( sdSet, SecUtils.getSession( this ) );
         setDefaultModel( sdListModel );
         List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>> columns =
-            new ArrayList<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>>();
+            new ArrayList<>();
         columns.add( new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
             Model.of( searchLabel ), "userObject.name" ) );
 
-        PropertyColumn description = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+        PropertyColumn description = new PropertyColumn<>(
             Model.of( "Description" ), "userObject.Description" );
 
         description.setInitialSize( 300 );
         columns.add( description );
 
-        PropertyColumn cardinality = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+        PropertyColumn cardinality = new PropertyColumn<>(
             Model.of( "Cardinality" ), "userObject.Cardinality" );
         cardinality.setInitialSize( 100 );
         columns.add( cardinality );
 
-        PropertyColumn members = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+        PropertyColumn members = new PropertyColumn<>(
             Model.of( "Members" ), "userObject.members" );
         members.setInitialSize( 600 );
         columns.add( members );
@@ -159,7 +159,7 @@ public class SDListPanel extends FormComponentPanel
         grid.setClickRowToDeselect( false );
         grid.setSelectToEdit( false );
         // expand the root node
-        grid.getTreeState().expandAll();;
+        grid.getTreeState().expandAll();
         this.listForm = new Form( "form" );
         this.listForm.add( grid );
         grid.setOutputMarkupId( true );

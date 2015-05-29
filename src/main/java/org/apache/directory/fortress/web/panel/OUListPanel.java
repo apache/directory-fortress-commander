@@ -89,20 +89,17 @@ public class OUListPanel extends FormComponentPanel
 
         OUListModel ouListModel = new OUListModel( orgUnit, SecUtils.getSession( this ) );
         setDefaultModel( ouListModel );
-        List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>> columns = new ArrayList<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>>();
-        PropertyColumn name = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String,
-            String>( Model.of( searchLabel ), "userObject.name" );
+        List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>> columns = new ArrayList<>();
+        PropertyColumn name = new PropertyColumn<>( Model.of( searchLabel ), "userObject.name" );
         name.setInitialSize( 400 );
         columns.add( name );
 
-        PropertyColumn description = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String,
-            String>( Model.of( "Description" ), "userObject.Description" );
+        PropertyColumn description = new PropertyColumn<>( Model.of( "Description" ), "userObject.Description" );
 
         description.setInitialSize( 400 );
         columns.add( description );
 
-        PropertyColumn parents = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String,
-            String>( Model.of( "Parents" ), "userObject.parents" );
+        PropertyColumn parents = new PropertyColumn<>( Model.of( "Parents" ), "userObject.parents" );
         parents.setInitialSize( 400 );
         columns.add( parents );
 

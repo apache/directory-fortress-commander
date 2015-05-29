@@ -92,7 +92,7 @@ public class GroupDetailPanel extends FormComponentPanel
         super( id );
 
         this.groupMgr.setAdmin( SecUtils.getSession( this ) );
-        this.editForm = new GroupDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<Group>( new Group() ) );
+        this.editForm = new GroupDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<>( new Group() ) );
         editForm.setOutputMarkupId( true );
         this.display = display;
         add( editForm );
@@ -133,7 +133,7 @@ public class GroupDetailPanel extends FormComponentPanel
             description.setRequired( false );
             add( description );
             protocol.setRequired( true );
-            memberPropsCB = new ComboBox<String>( "memberProps", new PropertyModel<String>( this,
+            memberPropsCB = new ComboBox<>( "memberProps", new PropertyModel<String>( this,
                 "memberPropsSelection" ), new ArrayList<String>() );
             memberPropsCB.setOutputMarkupId( true );
             add( memberPropsCB );
@@ -150,7 +150,7 @@ public class GroupDetailPanel extends FormComponentPanel
             options.set( "scrollable", "{ virtual: true }" ); //infinite scroll
             options.set( "height", 300 );
             options.set( "pageable", "{ pageSizes: [ 5, 10, 15, 20 ] }" );
-            table = new DataTable<Member>( "memberstable", columns, createDataProvider( null ), ROWS, options );
+            table = new DataTable<>( "memberstable", columns, createDataProvider( null ), ROWS, options );
             table.setOutputMarkupId( true );
             add( table );
         }
@@ -463,7 +463,7 @@ public class GroupDetailPanel extends FormComponentPanel
                                 {
                                     Group newGroup = groupMgr.delete( group, key, val );
                                     group.setProperties( newGroup.getProperties() );
-                                    memberPropsCB = new ComboBox<String>( "memberProps", new PropertyModel<String>(
+                                    memberPropsCB = new ComboBox<>( "memberProps", new PropertyModel<String>(
                                         form, "memberPropsSelection" ), group.getPropList() );
                                     form.addOrReplace( memberPropsCB );
                                 }
@@ -653,11 +653,11 @@ public class GroupDetailPanel extends FormComponentPanel
         {
             setModelObject( new Group() );
             memberAssign = "";
-            memberPropsCB = new ComboBox<String>( "memberProps", new PropertyModel<String>( form,
+            memberPropsCB = new ComboBox<>( "memberProps", new PropertyModel<String>( form,
                 "memberPropsSelection" ), new ArrayList<String>() );
             editForm.addOrReplace( memberPropsCB );
             table.refresh( target );
-            table = new DataTable<Member>( "memberstable", columns, createDataProvider( null ), ROWS, options );
+            table = new DataTable<>( "memberstable", columns, createDataProvider( null ), ROWS, options );
             editForm.addOrReplace( table );
             modelChanged();
             component = editForm;
@@ -667,7 +667,7 @@ public class GroupDetailPanel extends FormComponentPanel
 
         private List<IColumn> newColumnList()
         {
-            List<IColumn> columns = new ArrayList<IColumn>();
+            List<IColumn> columns = new ArrayList<>();
             columns.add( new PropertyColumn( "#", "index", 30 ) );
             columns.add( new PropertyColumn( "User DN", "userDn", 150 ) );
             columns.add( new CommandsColumn( "", 100 )
@@ -710,11 +710,11 @@ public class GroupDetailPanel extends FormComponentPanel
                     tableMember.setIndex( ++ctr );
                     tableMembers.add( tableMember );
                 }
-                results = new ListDataProvider<Member>( tableMembers );
+                results = new ListDataProvider<>( tableMembers );
             }
             else
             {
-                results = new ListDataProvider<Member>( new ArrayList<Member>() );
+                results = new ListDataProvider<>( new ArrayList<Member>() );
             }
             return results;
         }
@@ -804,7 +804,7 @@ public class GroupDetailPanel extends FormComponentPanel
                 memberPropsSelection = "";
                 if ( VUtil.isNotNullOrEmpty( group.getProperties() ) )
                 {
-                    memberPropsCB = new ComboBox<String>( "memberProps", new PropertyModel<String>( this,
+                    memberPropsCB = new ComboBox<>( "memberProps", new PropertyModel<String>( this,
                         "memberPropsSelection" ), group.getPropList() );
                     editForm.addOrReplace( memberPropsCB );
                 }

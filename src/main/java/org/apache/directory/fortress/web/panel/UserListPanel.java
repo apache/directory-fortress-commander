@@ -692,15 +692,14 @@ public class UserListPanel extends FormComponentPanel
 
     private void addGrid()
     {
-        List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>> columns = new ArrayList<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>>();
+        List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>> columns = new ArrayList<>();
         columns.add( new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String,
             String>( Model.of( "UserId" ), "userObject.UserId" ) );
         /*
                 columns.add( new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String,
                     String>( Model.of( "Name" ), "userObject.Name" ) );
         */
-        PropertyColumn ou = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String,
-            String>( Model.of( "User Organization" ), "userObject.Ou" );
+        PropertyColumn ou = new PropertyColumn<>( Model.of( "User Organization" ), "userObject.Ou" );
         ou.setInitialSize( 150 );
         columns.add( ou );
         columns.add( new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String,
@@ -709,8 +708,7 @@ public class UserListPanel extends FormComponentPanel
             String>( Model.of( "Address" ), "userObject.Address.Addresses" ) );
         columns.add( new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String,
             String>( Model.of( "City" ), "userObject.Address.City" ) );
-        PropertyColumn state = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String,
-            String>( Model.of( "State" ), "userObject.Address.State" );
+        PropertyColumn state = new PropertyColumn<>( Model.of( "State" ), "userObject.Address.State" );
         state.setInitialSize( 50 );
         columns.add( state );
         /*
@@ -723,12 +721,10 @@ public class UserListPanel extends FormComponentPanel
                 reset.setInitialSize(40);
                 columns.add(reset);
         */
-        PropertyColumn roles = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String,
-            String>( Model.of( "RBAC Role Assignments" ), "userObject.Roles" );
+        PropertyColumn roles = new PropertyColumn<>( Model.of( "RBAC Role Assignments" ), "userObject.Roles" );
         roles.setInitialSize( 400 );
         columns.add( roles );
-        PropertyColumn adminRoles = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String,
-            String>( Model.of( "Admin Role Assignments" ), "userObject.AdminRoles" );
+        PropertyColumn adminRoles = new PropertyColumn<>( Model.of( "Admin Role Assignments" ), "userObject.AdminRoles" );
         adminRoles.setInitialSize( 400 );
         columns.add( adminRoles );
 

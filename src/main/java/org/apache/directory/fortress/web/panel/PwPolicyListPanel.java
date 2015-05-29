@@ -69,6 +69,7 @@ public class PwPolicyListPanel extends FormComponentPanel
     private String searchVal;
 
 
+    @SuppressWarnings( "Convert2Diamond" )
     public PwPolicyListPanel( String id )
     {
         super( id );
@@ -187,7 +188,7 @@ public class PwPolicyListPanel extends FormComponentPanel
         grid.setClickRowToDeselect( false );
         grid.setSelectToEdit( false );
         // expand the root node
-        grid.getTreeState().expandAll();;
+        grid.getTreeState().expandAll();
         Form listForm = new Form( "form" );
         listForm.add( grid );
         grid.setOutputMarkupId( true );

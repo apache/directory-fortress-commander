@@ -71,7 +71,7 @@ public class AuditBindDetailPanel extends FormComponentPanel
         this.auditMgr.setAdmin( SecUtils.getSession( this ) );
         this.reviewMgr.setAdmin( SecUtils.getSession( this ) );
         this.detailForm = new AuditBindDetailForm( GlobalIds.DETAIL_FIELDS,
-            new CompoundPropertyModel<Bind>( new Bind() ) );
+            new CompoundPropertyModel<>( new Bind() ) );
         this.display = display;
         add( detailForm );
     }
@@ -89,7 +89,7 @@ public class AuditBindDetailPanel extends FormComponentPanel
             add( new Label( GlobalIds.REQ_DN ) );
             add( new Label( GlobalIds.REQ_RESULT ) );
             add( new Label( GlobalIds.REQ_START ) );
-            userPanel = new UserAuditDetailPanel( GlobalIds.USERAUDITDETAILPANEL, new CompoundPropertyModel<User>(
+            userPanel = new UserAuditDetailPanel( GlobalIds.USERAUDITDETAILPANEL, new CompoundPropertyModel<>(
                 new User() ) );
             add( userPanel );
             setOutputMarkupId( true );
@@ -141,7 +141,7 @@ public class AuditBindDetailPanel extends FormComponentPanel
                 {
                     user = new User();
                 }
-                IModel<User> userModel = new CompoundPropertyModel<User>( user );
+                IModel<User> userModel = new CompoundPropertyModel<>( user );
                 userPanel.setDefaultModel( userModel );
             }
             else

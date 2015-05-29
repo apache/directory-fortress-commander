@@ -89,7 +89,7 @@ public class UserDetailPanel extends FormComponentPanel
     public UserDetailPanel( String id, Displayable display )
     {
         super( id );
-        this.editForm = new UserDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<User>( new User() ) );
+        this.editForm = new UserDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<>( new User() ) );
         this.display = display;
         this.adminMgr.setAdmin( SecUtils.getSession( this ) );
         this.delAdminMgr.setAdmin( SecUtils.getSession( this ) );
@@ -212,7 +212,7 @@ public class UserDetailPanel extends FormComponentPanel
             add( pwPolicyTF );
 
             // Add the role assignment values & temporal constraint panel:
-            rolesCB = new ComboBox<UserRole>( ROLES, new PropertyModel<String>( this, ROLE_SELECTION ),
+            rolesCB = new ComboBox<>( ROLES, new PropertyModel<String>( this, ROLE_SELECTION ),
                 model.getObject().getRoles(), new ChoiceRenderer<UserRole>( GlobalIds.NAME ) );
             rolesCB.setOutputMarkupId( true );
             add( rolesCB );
@@ -222,7 +222,7 @@ public class UserDetailPanel extends FormComponentPanel
             add( roleConstraintPanel );
 
             // Add the adminRole assignment values & temporal constraint panel:
-            adminRolesCB = new ComboBox<UserAdminRole>( ADMIN_ROLES, new PropertyModel<String>( this,
+            adminRolesCB = new ComboBox<>( ADMIN_ROLES, new PropertyModel<String>( this,
                 ADMIN_ROLE_SELECTION ), model.getObject().getAdminRoles(), new ChoiceRenderer<UserAdminRole>(
                 GlobalIds.NAME
                 ) );
@@ -244,13 +244,13 @@ public class UserDetailPanel extends FormComponentPanel
             // TODO: add email validator:
             //add(new TextField("email").add( EmailAddressValidator.getInstance()));
 
-            emailsCB = new ComboBox<String>( GlobalIds.EMAILS, new PropertyModel<String>( this, EMAILS_SELECTION ),
+            emailsCB = new ComboBox<>( GlobalIds.EMAILS, new PropertyModel<String>( this, EMAILS_SELECTION ),
                 model.getObject().getEmails() );
             add( emailsCB );
-            phonesCB = new ComboBox<String>( GlobalIds.PHONES, new PropertyModel<String>( this, PHONES_SELECTION ),
+            phonesCB = new ComboBox<>( GlobalIds.PHONES, new PropertyModel<String>( this, PHONES_SELECTION ),
                 model.getObject().getPhones() );
             add( phonesCB );
-            mobilesCB = new ComboBox<String>( GlobalIds.MOBILES, new PropertyModel<String>( this, MOBILES_SELECTION ),
+            mobilesCB = new ComboBox<>( GlobalIds.MOBILES, new PropertyModel<String>( this, MOBILES_SELECTION ),
                 model.getObject().getMobiles() );
             add( mobilesCB );
             // TODO: name not mapped correctly in fortress so can't be used here:
@@ -259,7 +259,7 @@ public class UserDetailPanel extends FormComponentPanel
             add( name );
 
             // Address ComboBoxes and edit fields
-            addressCB = new ComboBox<String>( GlobalIds.ADDRESSES,
+            addressCB = new ComboBox<>( GlobalIds.ADDRESSES,
                 new PropertyModel<String>( this, ADDRESS_SELECTION ),
                 model.getObject().getAddress().getAddresses() );
             add( addressCB );
@@ -1485,25 +1485,25 @@ public class UserDetailPanel extends FormComponentPanel
             userIdTF.setEnabled( true );
             addPB.setEnabled( true );
 
-            emailsCB = new ComboBox<String>( GlobalIds.EMAILS, new PropertyModel<String>( this, EMAILS_SELECTION ),
+            emailsCB = new ComboBox<>( GlobalIds.EMAILS, new PropertyModel<String>( this, EMAILS_SELECTION ),
                 new ArrayList<String>() );
             editForm.addOrReplace( emailsCB );
-            phonesCB = new ComboBox<String>( GlobalIds.PHONES, new PropertyModel<String>( this, PHONES_SELECTION ),
+            phonesCB = new ComboBox<>( GlobalIds.PHONES, new PropertyModel<String>( this, PHONES_SELECTION ),
                 new ArrayList<String>() );
             editForm.addOrReplace( phonesCB );
-            mobilesCB = new ComboBox<String>( GlobalIds.MOBILES, new PropertyModel<String>( this, MOBILES_SELECTION ),
+            mobilesCB = new ComboBox<>( GlobalIds.MOBILES, new PropertyModel<String>( this, MOBILES_SELECTION ),
                 new ArrayList<String>() );
             editForm.addOrReplace( mobilesCB );
-            addressCB = new ComboBox<String>( GlobalIds.ADDRESSES,
+            addressCB = new ComboBox<>( GlobalIds.ADDRESSES,
                 new PropertyModel<String>( this, ADDRESS_SELECTION ),
                 new ArrayList<String>() );
 
             editForm.addOrReplace( addressCB );
-            rolesCB = new ComboBox<UserRole>( ROLES, new PropertyModel<String>( this, ROLE_SELECTION ),
+            rolesCB = new ComboBox<>( ROLES, new PropertyModel<String>( this, ROLE_SELECTION ),
                 new ArrayList<UserRole>(), new ChoiceRenderer<UserRole>( GlobalIds.NAME ) );
             rolesCB.setOutputMarkupId( true );
             editForm.addOrReplace( rolesCB );
-            adminRolesCB = new ComboBox<UserAdminRole>( ADMIN_ROLES, new PropertyModel<String>( this,
+            adminRolesCB = new ComboBox<>( ADMIN_ROLES, new PropertyModel<String>( this,
                 ADMIN_ROLE_SELECTION ), new ArrayList<UserAdminRole>(), new ChoiceRenderer<UserAdminRole>(
                 GlobalIds.NAME ) );
             adminRolesCB.setOutputMarkupId( true );
@@ -1733,7 +1733,7 @@ public class UserDetailPanel extends FormComponentPanel
                 display.setMessage( msg );
                 userIdTF.setEnabled( false );
                 addPB.setEnabled( false );
-                rolesCB = new ComboBox<UserRole>( ROLES, new PropertyModel<String>( this, ROLE_SELECTION ),
+                rolesCB = new ComboBox<>( ROLES, new PropertyModel<String>( this, ROLE_SELECTION ),
                     user.getRoles(), new ChoiceRenderer<UserRole>( GlobalIds.NAME ) );
                 AjaxFormComponentUpdatingBehavior roleAjaxUpdater = new AjaxFormComponentUpdatingBehavior( "onchange" )
                 {
@@ -1767,7 +1767,7 @@ public class UserDetailPanel extends FormComponentPanel
                 this.rolesCB.add( roleAjaxUpdater );
                 this.rolesCB.setOutputMarkupId( true );
                 editForm.addOrReplace( rolesCB );
-                adminRolesCB = new ComboBox<UserAdminRole>( ADMIN_ROLES, new PropertyModel<String>( this,
+                adminRolesCB = new ComboBox<>( ADMIN_ROLES, new PropertyModel<String>( this,
                     ADMIN_ROLE_SELECTION ), user.getAdminRoles(), new ChoiceRenderer<UserAdminRole>( GlobalIds.NAME ) );
                 AjaxFormComponentUpdatingBehavior adminRoleAjaxUpdater = new AjaxFormComponentUpdatingBehavior(
                     "onchange" )
@@ -1803,17 +1803,17 @@ public class UserDetailPanel extends FormComponentPanel
                 this.adminRolesCB.add( adminRoleAjaxUpdater );
                 this.adminRolesCB.setOutputMarkupId( true );
                 editForm.addOrReplace( adminRolesCB );
-                emailsCB = new ComboBox<String>( GlobalIds.EMAILS, new PropertyModel<String>( this, EMAILS_SELECTION ),
+                emailsCB = new ComboBox<>( GlobalIds.EMAILS, new PropertyModel<String>( this, EMAILS_SELECTION ),
                     user.getEmails() );
                 editForm.addOrReplace( emailsCB );
-                phonesCB = new ComboBox<String>( GlobalIds.PHONES, new PropertyModel<String>( this, PHONES_SELECTION ),
+                phonesCB = new ComboBox<>( GlobalIds.PHONES, new PropertyModel<String>( this, PHONES_SELECTION ),
                     user.getPhones() );
                 editForm.addOrReplace( phonesCB );
-                mobilesCB = new ComboBox<String>( GlobalIds.MOBILES,
+                mobilesCB = new ComboBox<>( GlobalIds.MOBILES,
                     new PropertyModel<String>( this, MOBILES_SELECTION ),
                     user.getMobiles() );
                 editForm.addOrReplace( mobilesCB );
-                addressCB = new ComboBox<String>( GlobalIds.ADDRESSES, new PropertyModel<String>( this,
+                addressCB = new ComboBox<>( GlobalIds.ADDRESSES, new PropertyModel<String>( this,
                     ADDRESS_SELECTION ),
                     user.getAddress().getAddresses() );
                 editForm.addOrReplace( addressCB );

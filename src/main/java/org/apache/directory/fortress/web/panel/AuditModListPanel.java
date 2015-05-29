@@ -101,7 +101,7 @@ public class AuditModListPanel extends FormComponentPanel
         createAndLoadGrid();
         this.listForm = new Form( "modform" );
         this.listForm.addOrReplace( grid );
-        this.listForm.setModel( new CompoundPropertyModel<UserAudit>( userAudit ) );
+        this.listForm.setModel( new CompoundPropertyModel<>( userAudit ) );
         addFormFields();
         addButtons();
         add( this.listForm );
@@ -300,17 +300,17 @@ public class AuditModListPanel extends FormComponentPanel
     private void createAndLoadGrid()
     {
         List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>> columns =
-            new ArrayList<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode, String>>();
-        PropertyColumn reqStart = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+            new ArrayList<>();
+        PropertyColumn reqStart = new PropertyColumn<>(
             Model.of( "Timestamp" ), "userObject.reqStart" );
         reqStart.setInitialSize( 200 );
         columns.add( reqStart );
-        PropertyColumn reqAttr = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+        PropertyColumn reqAttr = new PropertyColumn<>(
             Model.of( "LDAP Operation" ), "userObject.reqType" );
         reqAttr.setInitialSize( 150 );
         columns.add( reqAttr );
 
-        PropertyColumn reqAttrsOnly = new PropertyColumn<DefaultTreeModel, DefaultMutableTreeNode, String, String>(
+        PropertyColumn reqAttrsOnly = new PropertyColumn<>(
             Model.of( "Target Location" ), "userObject.reqDN" );
         reqAttrsOnly.setInitialSize( 500 );
         columns.add( reqAttrsOnly );
