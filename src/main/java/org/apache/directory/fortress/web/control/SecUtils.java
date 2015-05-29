@@ -391,7 +391,7 @@ public class SecUtils
     {
         Permission perm = null;
         String[] parts = id.split( "\\." );
-        if(parts != null && parts.length > 1)
+        if( parts.length > 1)
         {
             String objName = parts[0];
             String opName = parts[1];
