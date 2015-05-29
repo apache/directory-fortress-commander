@@ -28,7 +28,6 @@ import org.apache.directory.fortress.web.panel.AuditBindDetailPanel;
 import org.apache.directory.fortress.web.panel.AuditBindListPanel;
 import org.apache.directory.fortress.web.panel.Displayable;
 import org.apache.directory.fortress.web.panel.InfoPanel;
-import org.apache.directory.fortress.web.panel.NavPanel;
 import org.apache.directory.fortress.core.rbac.UserAudit;
 
 /**

@@ -30,7 +30,6 @@ import org.apache.directory.fortress.web.panel.Displayable;
 import org.apache.directory.fortress.web.panel.GroupDetailPanel;
 import org.apache.directory.fortress.web.panel.GroupListPanel;
 import org.apache.directory.fortress.web.panel.InfoPanel;
-import org.apache.directory.fortress.web.panel.NavPanel;
 
 
 /**

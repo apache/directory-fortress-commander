@@ -144,7 +144,7 @@ public class UserListPanel extends FormComponentPanel
         radioGroup.add( adminRoleRb );
         Radio ouRb = new Radio( "ouRb", new Model( OUS ) );
         radioGroup.add( ouRb );
-        Radio permRb = new Radio( "permRb", new Model( new String( PERMS ) ) );
+        Radio permRb = new Radio( "permRb", new Model( PERMS ) );
         radioGroup.add( permRb );
         radioGroup.setOutputMarkupId( true );
         radioGroup.setRenderBodyOnly( false );

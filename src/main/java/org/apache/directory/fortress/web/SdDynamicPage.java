@@ -28,7 +28,6 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.directory.fortress.web.panel.Displayable;
 import org.apache.directory.fortress.web.panel.InfoPanel;
-import org.apache.directory.fortress.web.panel.NavPanel;
 import org.apache.directory.fortress.web.panel.SDDetailPanel;
 import org.apache.directory.fortress.web.panel.SDListPanel;
 

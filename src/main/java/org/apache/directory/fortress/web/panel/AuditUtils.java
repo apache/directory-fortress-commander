@@ -13,7 +13,7 @@ import java.util.StringTokenizer;
 /**
  * Created by smckinn on 3/10/15.
  */
-class AuditUtils
+final class AuditUtils
 {
     private static final Logger LOG = Logger.getLogger( AuditUtils.class.getName() );
 
@@ -39,7 +39,7 @@ class AuditUtils
         int bindx = raw.indexOf( OBJ_ID );
         if ( bindx != -1 )
         {
-            int eindx = raw.indexOf( "+" );
+            int eindx = raw.indexOf( '+' );
             if ( eindx != -1 )
             {
                 perm.setObjId( raw.substring( bindx + OBJ_ID.length() + 1, eindx ) );
@@ -58,7 +58,7 @@ class AuditUtils
         bindx = raw.indexOf( OP_NM );
         if ( bindx != -1 )
         {
-            int eindx = raw.substring( bindx ).indexOf( "," );
+            int eindx = raw.substring( bindx ).indexOf( ',' );
             if ( eindx != -1 )
             {
                 eindx += bindx;

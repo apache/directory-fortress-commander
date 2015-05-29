@@ -18,7 +18,7 @@
  *
  */
 
-package org.apache.directory.fortress.web.panel;
+package org.apache.directory.fortress.web;
 
 
 import org.apache.wicket.Component;
@@ -28,24 +28,8 @@ import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponentPanel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.directory.fortress.web.AuditAuthzPage;
-import org.apache.directory.fortress.web.AuditBindPage;
-import org.apache.directory.fortress.web.AuditModPage;
-import org.apache.directory.fortress.web.GroupPage;
-import org.apache.directory.fortress.web.SdDynamicPage;
 import org.apache.directory.fortress.web.common.GlobalIds;
-import org.apache.directory.fortress.web.ObjectAdminPage;
-import org.apache.directory.fortress.web.OuUserPage;
-import org.apache.directory.fortress.web.ObjectPage;
-import org.apache.directory.fortress.web.OuPermPage;
-import org.apache.directory.fortress.web.PermAdminPage;
-import org.apache.directory.fortress.web.PermPage;
-import org.apache.directory.fortress.web.PwPolicyPage;
-import org.apache.directory.fortress.web.RoleAdminPage;
-import org.apache.directory.fortress.web.RolePage;
-import org.apache.directory.fortress.web.SdStaticPage;
 import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
-import org.apache.directory.fortress.web.UserPage;
 
 
 /**
