@@ -96,44 +96,39 @@ final class AuditUtils
         // ftObjId=006+ftOpNm=TOP1_6,ftObjNm=TOB1_4,ou=Permissions,ou=RBAC,dc=jts,dc=us
         String raw = authZ.getReqDN();
 
-        // TODO: use fortress GlobalIds instead:
-        final String OBJ_ID = "ftObjId";
-        final String OBJ_NM = "ftObjNm";
-        final String OP_NM = "ftOpNm";
-
         // TODO: fix this mapping:
         //reqDerefAliases
         //reqAttr
         //reqAttrsOnly
 
         //Permission perm = new Permission();
-        int bindx = raw.indexOf( OBJ_ID );
+        int bindx = raw.indexOf( GlobalIds.POBJ_ID );
         if ( bindx != -1 )
         {
             int eindx = raw.indexOf( '+' );
             if ( eindx != -1 )
             {
-                authZ.setReqDerefAliases( raw.substring( bindx + OBJ_ID.length() + 1, eindx ) );
+                authZ.setReqDerefAliases( raw.substring( bindx + GlobalIds.POBJ_ID.length() + 1, eindx ) );
             }
         }
-        bindx = raw.indexOf( OBJ_NM );
+        bindx = raw.indexOf( GlobalIds.POBJ_NAME );
         if ( bindx != -1 )
         {
             int eindx = raw.substring( bindx ).indexOf( ',' );
             if ( eindx != -1 )
             {
                 eindx += bindx;
-                authZ.setReqAttr( raw.substring( bindx + OBJ_NM.length() + 1, eindx ) );
+                authZ.setReqAttr( raw.substring( bindx + GlobalIds.POBJ_NAME.length() + 1, eindx ) );
             }
         }
-        bindx = raw.indexOf( OP_NM );
+        bindx = raw.indexOf( GlobalIds.POP_NAME );
         if ( bindx != -1 )
         {
             int eindx = raw.substring( bindx ).indexOf( ',' );
             if ( eindx != -1 )
             {
                 eindx += bindx;
-                authZ.setReqAttrsOnly( raw.substring( bindx + OP_NM.length() + 1, eindx ) );
+                authZ.setReqAttrsOnly( raw.substring( bindx + GlobalIds.POP_NAME.length() + 1, eindx ) );
             }
         }
     }
