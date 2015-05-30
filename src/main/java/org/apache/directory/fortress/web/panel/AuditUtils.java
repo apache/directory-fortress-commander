@@ -1,3 +1,23 @@
+/*
+ *   Licensed to the Apache Software Foundation (ASF) under one
+ *   or more contributor license agreements.  See the NOTICE file
+ *   distributed with this work for additional information
+ *   regarding copyright ownership.  The ASF licenses this file
+ *   to you under the Apache License, Version 2.0 (the
+ *   "License"); you may not use this file except in compliance
+ *   with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing,
+ *   software distributed under the License is distributed on an
+ *   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *   KIND, either express or implied.  See the License for the
+ *   specific language governing permissions and limitations
+ *   under the License.
+ *
+ */
+
 package org.apache.directory.fortress.web.panel;
 
 import org.apache.directory.fortress.core.ReviewMgr;
@@ -5,13 +25,16 @@ import org.apache.directory.fortress.core.rbac.AuthZ;
 import org.apache.directory.fortress.core.rbac.Permission;
 import org.apache.directory.fortress.core.rbac.User;
 import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.StringTokenizer;
 
 /**
- * Created by smckinn on 3/10/15.
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
+ * @version $Rev$
+ * Date: 3/10/15
  */
 final class AuditUtils
 {
@@ -30,39 +53,34 @@ final class AuditUtils
     {
         //// ftOpNm=addUser,ftObjNm=org.apache.directory.fortress.core.rbac.AdminMgrImpl,ou=AdminPerms,ou=ARBAC,dc=jts,dc=us
         // ftObjId=006+ftOpNm=TOP1_6,ftObjNm=TOB1_4,ou=Permissions,ou=RBAC,dc=jts,dc=us
-
-        // TODO: use fortress GlobalIds instead:
-        final String OBJ_ID = "ftObjId";
-        final String OBJ_NM = "ftObjNm";
-        final String OP_NM = "ftOpNm";
         Permission perm = new Permission();
-        int bindx = raw.indexOf( OBJ_ID );
+        int bindx = raw.indexOf( GlobalIds.POBJ_ID );
         if ( bindx != -1 )
         {
             int eindx = raw.indexOf( '+' );
             if ( eindx != -1 )
             {
-                perm.setObjId( raw.substring( bindx + OBJ_ID.length() + 1, eindx ) );
+                perm.setObjId( raw.substring( bindx + GlobalIds.POBJ_ID.length() + 1, eindx ) );
             }
         }
-        bindx = raw.indexOf( OBJ_NM );
+        bindx = raw.indexOf( GlobalIds.POBJ_NAME );
         if ( bindx != -1 )
         {
             int eindx = raw.substring( bindx ).indexOf( "," );
             if ( eindx != -1 )
             {
                 eindx += bindx;
-                perm.setObjName( raw.substring( bindx + OBJ_NM.length() + 1, eindx ) );
+                perm.setObjName( raw.substring( bindx + GlobalIds.POBJ_NAME.length() + 1, eindx ) );
             }
         }
-        bindx = raw.indexOf( OP_NM );
+        bindx = raw.indexOf( GlobalIds.POP_NAME );
         if ( bindx != -1 )
         {
             int eindx = raw.substring( bindx ).indexOf( ',' );
             if ( eindx != -1 )
             {
                 eindx += bindx;
-                perm.setOpName( raw.substring( bindx + OP_NM.length() + 1, eindx ) );
+                perm.setOpName( raw.substring( bindx + GlobalIds.POP_NAME.length() + 1, eindx ) );
             }
         }
         return perm;
