@@ -92,7 +92,7 @@ final class AuditUtils
         int bindx = raw.indexOf( OBJ_ID );
         if ( bindx != -1 )
         {
-            int eindx = raw.indexOf( "+" );
+            int eindx = raw.indexOf( '+' );
             if ( eindx != -1 )
             {
                 authZ.setReqDerefAliases( raw.substring( bindx + OBJ_ID.length() + 1, eindx ) );
@@ -101,7 +101,7 @@ final class AuditUtils
         bindx = raw.indexOf( OBJ_NM );
         if ( bindx != -1 )
         {
-            int eindx = raw.substring( bindx ).indexOf( "," );
+            int eindx = raw.substring( bindx ).indexOf( ',' );
             if ( eindx != -1 )
             {
                 eindx += bindx;
@@ -111,7 +111,7 @@ final class AuditUtils
         bindx = raw.indexOf( OP_NM );
         if ( bindx != -1 )
         {
-            int eindx = raw.substring( bindx ).indexOf( "," );
+            int eindx = raw.substring( bindx ).indexOf( ',' );
             if ( eindx != -1 )
             {
                 eindx += bindx;

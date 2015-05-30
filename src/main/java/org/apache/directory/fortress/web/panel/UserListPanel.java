@@ -97,11 +97,11 @@ public class UserListPanel extends FormComponentPanel
     private static final String PERMS = "P";
     private Permission permission;
     private SearchFields searchData = new SearchFields();
-    private static String USER_LABEL = "User ID";
+    private static final String USER_LABEL = "User ID";
     private String field1Label = USER_LABEL;
     private String field2Label;
     private String searchFieldsLabel = USER_SEARCH_LABEL;
-    private static String USER_SEARCH_LABEL = "Search By User";
+    private static final String USER_SEARCH_LABEL = "Search By User";
 
 
     public UserListPanel( String id )

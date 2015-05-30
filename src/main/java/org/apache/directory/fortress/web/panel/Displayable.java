@@ -29,7 +29,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
  */
 public interface Displayable
 {
-    public void setMessage(String message);
-    public void display(AjaxRequestTarget target);
-    public void display();
+    void setMessage(String message);
+    void display(AjaxRequestTarget target);
+    void display();
 }

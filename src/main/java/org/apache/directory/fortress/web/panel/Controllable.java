@@ -37,6 +37,6 @@ public interface Controllable
         CANCEL
     }
 
-    public void setOperation(Operations operations);
-    public Operations getOperation();
+    void setOperation(Operations operations);
+    Operations getOperation();
 }
