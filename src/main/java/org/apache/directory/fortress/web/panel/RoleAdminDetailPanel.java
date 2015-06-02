@@ -23,6 +23,7 @@ package org.apache.directory.fortress.web.panel;
 
 import com.googlecode.wicket.kendo.ui.form.button.AjaxButton;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -36,10 +37,9 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.directory.fortress.web.common.GlobalIds;
-import org.apache.directory.fortress.core.rbac.AdminRole;
-import org.apache.directory.fortress.core.rbac.OrgUnit;
-import org.apache.directory.fortress.core.rbac.UserRole;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.UserRole;
 
 import java.util.List;
 
@@ -185,7 +185,7 @@ public class RoleAdminDetailPanel extends Panel
             protected void onSubmit( AjaxRequestTarget target, Form<?> form )
             {
                 String msg = "clicked on permous.delete";
-                if ( VUtil.isNotNullOrEmpty( permouSelection ) )
+                if ( StringUtils.isNotEmpty( permouSelection ) )
                 {
                     msg += " selection:" + permouSelection;
                     AdminRole adminRole = ( AdminRole ) form.getModel().getObject();
@@ -312,7 +312,7 @@ public class RoleAdminDetailPanel extends Panel
             protected void onSubmit( AjaxRequestTarget target, Form<?> form )
             {
                 String msg = "clicked on userous.delete";
-                if ( VUtil.isNotNullOrEmpty( userouSelection ) )
+                if ( StringUtils.isNotEmpty( userouSelection ) )
                 {
                     msg += " selection:" + userouSelection;
                     AdminRole adminRole = ( AdminRole ) form.getModel().getObject();

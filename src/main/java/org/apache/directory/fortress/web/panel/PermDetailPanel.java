@@ -23,6 +23,8 @@ package org.apache.directory.fortress.web.panel;
 
 import com.googlecode.wicket.kendo.ui.form.button.AjaxButton;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
+import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -46,11 +48,10 @@ import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.event.SelectModelEvent;
 import org.apache.directory.fortress.core.AdminMgr;
 import org.apache.directory.fortress.core.DelAdminMgr;
-import org.apache.directory.fortress.core.rbac.AdminRole;
-import org.apache.directory.fortress.core.rbac.PermObj;
-import org.apache.directory.fortress.core.rbac.Permission;
-import org.apache.directory.fortress.core.rbac.UserRole;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.PermObj;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.UserRole;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -193,7 +194,7 @@ public class PermDetailPanel extends FormComponentPanel
                     {
                         if ( isAdmin )
                         {
-                            if ( VUtil.isNotNullOrEmpty( rolesSelection ) )
+                            if ( StringUtils.isNotEmpty( rolesSelection ) )
                             {
                                 delAdminMgr.grantPermission( perm, new AdminRole( rolesSelection ) );
                             }
@@ -389,7 +390,7 @@ public class PermDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
                     String msg = "clicked on roles.delete";
-                    if ( VUtil.isNotNullOrEmpty( rolesSelection ) )
+                    if ( StringUtils.isNotEmpty( rolesSelection ) )
                     {
                         msg += " selection:" + rolesSelection;
                         Permission perm = ( Permission ) form.getModel().getObject();
@@ -601,7 +602,7 @@ public class PermDetailPanel extends FormComponentPanel
         private void updateEntityWithComboData( Permission perm )
         {
             String szValue = rolesCB.getModelObject();
-            if ( VUtil.isNotNullOrEmpty( szValue ) )
+            if ( StringUtils.isNotEmpty( szValue ) )
             {
                 perm.setRole( szValue );
             }
@@ -617,7 +618,7 @@ public class PermDetailPanel extends FormComponentPanel
                 Permission perm = ( Permission ) modelEvent.getEntity();
                 this.setModelObject( perm );
                 rolesSelection = "";
-                if ( VUtil.isNotNullOrEmpty( perm.getRoles() ) )
+                if ( ObjUtil.isNotNullOrEmpty( perm.getRoles() ) )
                 {
                     roles = new ArrayList<>( perm.getRoles() );
                     rolesCB = new ComboBox<>( "roles", new PropertyModel<String>( this, ROLES_SELECTION ), roles );

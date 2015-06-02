@@ -24,6 +24,8 @@ package org.apache.directory.fortress.web.panel;
 import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
+import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -40,11 +42,10 @@ import org.apache.directory.fortress.web.control.SecUtils;
 import org.apache.directory.fortress.web.model.PwPolicyListModel;
 import org.apache.directory.fortress.web.event.SaveModelEvent;
 import org.apache.directory.fortress.web.event.SelectModelEvent;
-import org.apache.directory.fortress.core.rbac.FortEntity;
-import org.apache.directory.fortress.core.rbac.PwPolicy;
+import org.apache.directory.fortress.core.model.FortEntity;
+import org.apache.directory.fortress.core.model.PwPolicy;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.Model;
-import org.apache.directory.fortress.core.util.attr.VUtil;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -207,7 +208,7 @@ public class PwPolicyListPanel extends FormComponentPanel
             {
                 log.debug( ".search onSubmit" );
                 info( "Searching Policies..." );
-                if ( !VUtil.isNotNullOrEmpty( searchVal ) )
+                if ( !StringUtils.isNotEmpty( searchVal ) )
                 {
                     searchVal = "";
                 }
@@ -216,7 +217,7 @@ public class PwPolicyListPanel extends FormComponentPanel
                 treeModel.reload();
                 rootNode.removeAllChildren();
                 List<PwPolicy> policies = ( List<PwPolicy> ) getDefaultModelObject();
-                if ( VUtil.isNotNullOrEmpty( policies ) )
+                if ( ObjUtil.isNotNullOrEmpty( policies ) )
                 {
                     for ( PwPolicy policy : policies )
                         rootNode.add( new DefaultMutableTreeNode( policy ) );

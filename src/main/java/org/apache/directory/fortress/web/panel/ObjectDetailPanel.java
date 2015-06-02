@@ -43,8 +43,8 @@ import org.apache.directory.fortress.web.event.SaveModelEvent;
 import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.event.SelectModelEvent;
 import org.apache.directory.fortress.core.AdminMgr;
-import org.apache.directory.fortress.core.rbac.OrgUnit;
-import org.apache.directory.fortress.core.rbac.PermObj;
+import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.PermObj;
 
 
 /**

@@ -24,6 +24,8 @@ package org.apache.directory.fortress.web.panel;
 import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
+import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -45,12 +47,11 @@ import org.apache.directory.fortress.web.event.SaveModelEvent;
 import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.control.SecureIndicatingAjaxLink;
 import org.apache.directory.fortress.web.event.SelectModelEvent;
-import org.apache.directory.fortress.core.rbac.FortEntity;
+import org.apache.directory.fortress.core.model.FortEntity;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.Model;
-import org.apache.directory.fortress.core.rbac.SDSet;
-import org.apache.directory.fortress.core.rbac.UserRole;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.SDSet;
+import org.apache.directory.fortress.core.model.UserRole;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -202,7 +203,7 @@ public class SDListPanel extends FormComponentPanel
             {
                 log.debug( ".search onSubmit" );
                 info( "Searching SDSets..." );
-                if ( !VUtil.isNotNullOrEmpty( searchVal ) )
+                if ( !StringUtils.isNotBlank( searchVal ) )
                 {
                     searchVal = "";
                 }
@@ -231,7 +232,7 @@ public class SDListPanel extends FormComponentPanel
                 treeModel.reload();
                 rootNode.removeAllChildren();
                 List<SDSet> sdSets = ( List<SDSet> ) getDefaultModelObject();
-                if ( VUtil.isNotNullOrEmpty( sdSets ) )
+                if ( ObjUtil.isNotNullOrEmpty( sdSets ) )
                 {
                     for ( SDSet sdSet : sdSets )
                         rootNode.add( new DefaultMutableTreeNode( sdSet ) );

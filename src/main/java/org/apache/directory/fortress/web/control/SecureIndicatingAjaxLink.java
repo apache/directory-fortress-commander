@@ -22,7 +22,7 @@ package org.apache.directory.fortress.web.control;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxLink;
-import org.apache.directory.fortress.core.rbac.Permission;
+import org.apache.directory.fortress.core.model.Permission;
 
 
 /**

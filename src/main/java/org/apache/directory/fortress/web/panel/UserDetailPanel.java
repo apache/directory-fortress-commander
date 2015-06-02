@@ -25,6 +25,8 @@ import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
 import com.googlecode.wicket.kendo.ui.renderer.ChoiceRenderer;
+import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -54,12 +56,11 @@ import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.event.SelectModelEvent;
 import org.apache.directory.fortress.core.AdminMgr;
 import org.apache.directory.fortress.core.DelAdminMgr;
-import org.apache.directory.fortress.core.rbac.OrgUnit;
-import org.apache.directory.fortress.core.rbac.PwPolicy;
-import org.apache.directory.fortress.core.rbac.User;
-import org.apache.directory.fortress.core.rbac.UserAdminRole;
-import org.apache.directory.fortress.core.rbac.UserRole;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.PwPolicy;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserAdminRole;
+import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.time.Constraint;
 
 import java.io.File;
@@ -961,7 +962,7 @@ public class UserDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
                     String msg = "clicked on address.delete";
-                    if ( VUtil.isNotNullOrEmpty( addressSelection ) )
+                    if ( StringUtils.isNotEmpty( addressSelection ) )
                     {
                         msg += " selection:" + addressSelection;
                         User user = ( User ) form.getModel().getObject();
@@ -1015,7 +1016,7 @@ public class UserDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
                     String msg = "clicked on emails.delete";
-                    if ( VUtil.isNotNullOrEmpty( emailsSelection ) )
+                    if ( StringUtils.isNotEmpty( emailsSelection ) )
                     {
                         msg += " selection:" + emailsSelection;
                         User user = ( User ) form.getModel().getObject();
@@ -1070,7 +1071,7 @@ public class UserDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
                     String msg = "clicked on phones.delete";
-                    if ( VUtil.isNotNullOrEmpty( phonesSelection ) )
+                    if ( StringUtils.isNotEmpty( phonesSelection ) )
                     {
                         msg += " selection:" + phonesSelection;
                         User user = ( User ) form.getModel().getObject();
@@ -1124,7 +1125,7 @@ public class UserDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
                     String msg = "clicked on mobiles.delete";
-                    if ( VUtil.isNotNullOrEmpty( mobilesSelection ) )
+                    if ( StringUtils.isNotEmpty( mobilesSelection ) )
                     {
                         msg += " selection:" + mobilesSelection;
                         User user = ( User ) form.getModel().getObject();
@@ -1580,19 +1581,19 @@ public class UserDetailPanel extends FormComponentPanel
 
         private void updateEntityWithComboData( User user )
         {
-            if ( VUtil.isNotNullOrEmpty( emailsSelection ) )
+            if ( StringUtils.isNotEmpty( emailsSelection ) )
             {
                 user.setEmail( emailsSelection );
             }
-            if ( VUtil.isNotNullOrEmpty( phonesSelection ) )
+            if ( StringUtils.isNotEmpty( phonesSelection ) )
             {
                 user.setPhone( phonesSelection );
             }
-            if ( VUtil.isNotNullOrEmpty( mobilesSelection ) )
+            if ( StringUtils.isNotEmpty( mobilesSelection ) )
             {
                 user.setMobile( mobilesSelection );
             }
-            if ( VUtil.isNotNullOrEmpty( addressSelection ) )
+            if ( StringUtils.isNotEmpty( addressSelection ) )
             {
                 user.getAddress().setAddress( addressSelection );
             }
@@ -1602,7 +1603,7 @@ public class UserDetailPanel extends FormComponentPanel
         private boolean assignRole( User user, String szRoleName )
         {
             boolean success = false;
-            if ( VUtil.isNotNullOrEmpty( szRoleName ) )
+            if ( StringUtils.isNotEmpty( szRoleName ) )
             {
                 UserRole userRole = roleConstraint;
                 userRole.setUserId( user.getUserId() );
@@ -1661,7 +1662,7 @@ public class UserDetailPanel extends FormComponentPanel
         private boolean assignAdminRole( User user, String szAdminRoleName )
         {
             boolean success = false;
-            if ( VUtil.isNotNullOrEmpty( szAdminRoleName ) )
+            if ( StringUtils.isNotEmpty( szAdminRoleName ) )
             {
                 UserAdminRole userAdminRole = adminRoleConstraint;
                 userAdminRole.setUserId( user.getUserId() );
@@ -1746,7 +1747,7 @@ public class UserDetailPanel extends FormComponentPanel
                     {
                         log.warn( "onUpdate roleDB in ajax form updater" );
                         String roleNm = rolesCB.getConvertedInput();
-                        if ( VUtil.isNotNullOrEmpty( roleNm ) )
+                        if ( StringUtils.isNotEmpty( roleNm ) )
                         {
                             UserRole userRole = null;
                             int indx = user.getRoles().indexOf( new UserRole( roleNm ) );
@@ -1781,7 +1782,7 @@ public class UserDetailPanel extends FormComponentPanel
                     {
                         log.warn( "onUpdate adminRoleCB in ajax form updater" );
                         String adminRoleNm = adminRolesCB.getConvertedInput();
-                        if ( VUtil.isNotNullOrEmpty( adminRoleNm ) )
+                        if ( StringUtils.isNotEmpty( adminRoleNm ) )
                         {
                             UserAdminRole userAdminRole = null;
                             int indx = user.getAdminRoles().indexOf( new UserAdminRole( user.getUserId(),
@@ -1880,12 +1881,12 @@ public class UserDetailPanel extends FormComponentPanel
             }
             userDetailLabel = "User Detail: " + user.getUserId();
             roleAssignmentsLabel = "RBAC Role Assignments";
-            if ( VUtil.isNotNullOrEmpty( user.getRoles() ) )
+            if ( ObjUtil.isNotNullOrEmpty( user.getRoles() ) )
             {
                 roleAssignmentsLabel += ": " + user.getRoles().get( 0 ) + " + " + ( user.getRoles().size() - 1 );
             }
             adminRoleAssignmentsLabel = "Admin Role Assignments";
-            if ( VUtil.isNotNullOrEmpty( user.getAdminRoles() ) )
+            if ( ObjUtil.isNotNullOrEmpty( user.getAdminRoles() ) )
             {
                 adminRoleAssignmentsLabel += ": " + user.getAdminRoles().get( 0 ) + " + " + ( user.getAdminRoles()
                     .size() - 1 );
@@ -1893,7 +1894,7 @@ public class UserDetailPanel extends FormComponentPanel
             if ( user.getAddress() != null )
             {
                 addressAssignmentsLabel = "Address Assignments: ";
-                if ( VUtil.isNotNullOrEmpty( user.getAddress().getAddresses() ) )
+                if ( ObjUtil.isNotNullOrEmpty( user.getAddress().getAddresses() ) )
                 {
                     int ctr = 0;
                     for ( String street : user.getAddress().getAddresses() )
@@ -1909,7 +1910,7 @@ public class UserDetailPanel extends FormComponentPanel
                     }
                     isSet = true;
                 }
-                if ( VUtil.isNotNullOrEmpty( user.getAddress().getCity() ) )
+                if ( StringUtils.isNotBlank( user.getAddress().getCity() ) )
                 {
                     if ( isSet )
                     {
@@ -1919,7 +1920,7 @@ public class UserDetailPanel extends FormComponentPanel
                     addressAssignmentsLabel += user.getAddress().getCity();
                     isSet = true;
                 }
-                if ( VUtil.isNotNullOrEmpty( user.getAddress().getState() ) )
+                if ( StringUtils.isNotEmpty( user.getAddress().getState() ) )
                 {
                     if ( isSet )
                     {
@@ -1929,7 +1930,7 @@ public class UserDetailPanel extends FormComponentPanel
                     addressAssignmentsLabel += user.getAddress().getState();
                     isSet = true;
                 }
-                if ( VUtil.isNotNullOrEmpty( user.getAddress().getPostalCode() ) )
+                if ( StringUtils.isNotEmpty( user.getAddress().getPostalCode() ) )
                 {
                     if ( isSet )
                     {
@@ -1940,7 +1941,7 @@ public class UserDetailPanel extends FormComponentPanel
                 }
             }
             String szName = user.getDisplayName();
-            if ( !VUtil.isNotNullOrEmpty( szName ) )
+            if ( !StringUtils.isNotEmpty( szName ) )
             {
                 szName = user.getCn();
             }

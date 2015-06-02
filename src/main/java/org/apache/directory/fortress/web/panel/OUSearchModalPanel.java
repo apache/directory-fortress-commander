@@ -25,7 +25,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -40,7 +40,7 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.web.control.SecUtils;
 import org.apache.directory.fortress.core.DelReviewMgr;
-import org.apache.directory.fortress.core.rbac.OrgUnit;
+import org.apache.directory.fortress.core.model.OrgUnit;
 
 
 /**
@@ -136,7 +136,7 @@ public class OUSearchModalPanel extends Panel
                     else
                         ous = delReviewMgr.search( OrgUnit.Type.PERM, ouSearchVal );
                     // sort list by name:
-                    if( VUtil.isNotNullOrEmpty( ous ))
+                    if( ObjUtil.isNotNullOrEmpty( ous ))
                     {
                         Collections.sort( ( List<OrgUnit> ) ous, new Comparator<OrgUnit>()
                         {

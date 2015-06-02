@@ -24,6 +24,8 @@ package org.apache.directory.fortress.web.panel;
 import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
+import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -43,12 +45,11 @@ import org.apache.directory.fortress.web.event.SaveModelEvent;
 import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.control.SecureIndicatingAjaxLink;
 import org.apache.directory.fortress.web.event.SelectModelEvent;
-import org.apache.directory.fortress.core.rbac.FortEntity;
-import org.apache.directory.fortress.core.rbac.PermObj;
-import org.apache.directory.fortress.core.rbac.Permission;
+import org.apache.directory.fortress.core.model.FortEntity;
+import org.apache.directory.fortress.core.model.PermObj;
+import org.apache.directory.fortress.core.model.Permission;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.Model;
-import org.apache.directory.fortress.core.util.attr.VUtil;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -192,12 +193,12 @@ public class PermListPanel extends FormComponentPanel
                 log.debug( ".search onSubmit" );
                 info( "Searching Perms..." );
 
-                if ( !VUtil.isNotNullOrEmpty( permObject ) )
+                if ( !StringUtils.isNotEmpty( permObject ) )
                 {
                     permObject = "";
                 }
 
-                if ( !VUtil.isNotNullOrEmpty( permOperation ) )
+                if ( !StringUtils.isNotEmpty( permOperation ) )
                 {
                     permOperation = "";
                 }
@@ -208,7 +209,7 @@ public class PermListPanel extends FormComponentPanel
                 rootNode.removeAllChildren();
                 List<Permission> perms = ( List<Permission> ) getDefaultModelObject();
 
-                if ( VUtil.isNotNullOrEmpty( perms ) )
+                if ( ObjUtil.isNotNullOrEmpty( perms ) )
                 {
                     for ( Permission perm : perms )
                     {

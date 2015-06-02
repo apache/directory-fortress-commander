@@ -20,7 +20,7 @@
 package org.apache.directory.fortress.web.control;
 
 
-import org.apache.directory.fortress.core.rbac.Permission;
+import org.apache.directory.fortress.core.model.Permission;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;

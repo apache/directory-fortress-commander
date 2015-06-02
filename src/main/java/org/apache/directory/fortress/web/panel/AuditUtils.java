@@ -21,10 +21,10 @@
 package org.apache.directory.fortress.web.panel;
 
 import org.apache.directory.fortress.core.ReviewMgr;
-import org.apache.directory.fortress.core.rbac.AuthZ;
-import org.apache.directory.fortress.core.rbac.Permission;
-import org.apache.directory.fortress.core.rbac.User;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.AuthZ;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.log4j.Logger;
 
@@ -51,7 +51,7 @@ final class AuditUtils
      */
     static Permission getAuthZPerm( String raw )
     {
-        //// ftOpNm=addUser,ftObjNm=org.apache.directory.fortress.core.rbac.AdminMgrImpl,ou=AdminPerms,ou=ARBAC,dc=jts,dc=us
+        //// ftOpNm=addUser,ftObjNm=org.apache.directory.fortress.core.model.AdminMgrImpl,ou=AdminPerms,ou=ARBAC,dc=jts,dc=us
         // ftObjId=006+ftOpNm=TOP1_6,ftObjNm=TOB1_4,ou=Permissions,ou=RBAC,dc=jts,dc=us
         Permission perm = new Permission();
         int bindx = raw.indexOf( GlobalIds.POBJ_ID );
@@ -92,7 +92,7 @@ final class AuditUtils
      */
     static void mapAuthZPerm( AuthZ authZ )
     {
-        //// ftOpNm=addUser,ftObjNm=org.apache.directory.fortress.core.rbac.AdminMgrImpl,ou=AdminPerms,ou=ARBAC,dc=jts,dc=us
+        //// ftOpNm=addUser,ftObjNm=org.apache.directory.fortress.core.impl.AdminMgrImpl,ou=AdminPerms,ou=ARBAC,dc=jts,dc=us
         // ftObjId=006+ftOpNm=TOP1_6,ftObjNm=TOB1_4,ou=Permissions,ou=RBAC,dc=jts,dc=us
         String raw = authZ.getReqDN();
 
@@ -194,7 +194,7 @@ final class AuditUtils
             User inUser = new User();
             inUser.setInternalId( internalId );
             List<User> users = reviewMgr.findUsers( inUser );
-            if ( VUtil.isNotNullOrEmpty( users ) )
+            if ( ObjUtil.isNotNullOrEmpty( users ) )
             {
                 if ( users.size() > 1 )
                 {

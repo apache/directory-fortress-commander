@@ -24,6 +24,8 @@ package org.apache.directory.fortress.web.panel;
 import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
+import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.fortress.web.common.GlobalIds;
 import org.apache.directory.fortress.web.control.SecUtils;
 import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
@@ -52,12 +54,11 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.Model;
 import org.apache.directory.fortress.web.UserPage;
-import org.apache.directory.fortress.core.rbac.FortEntity;
-import org.apache.directory.fortress.core.rbac.OrgUnit;
-import org.apache.directory.fortress.core.rbac.Permission;
-import org.apache.directory.fortress.core.rbac.User;
-import org.apache.directory.fortress.core.rbac.UserRole;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.FortEntity;
+import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserRole;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -223,7 +224,7 @@ public class UserListPanel extends FormComponentPanel
                 LOG.debug( ".search.onSubmit selected radio button: " + selectedRadioButton );
                 info( "Searching Users..." );
                 String searchVal = "";
-                if ( VUtil.isNotNullOrEmpty( searchData.getField1() ) )
+                if ( StringUtils.isNotEmpty( searchData.getField1() ) )
                 {
                     searchVal = searchData.getField1();
                 }
@@ -269,7 +270,7 @@ public class UserListPanel extends FormComponentPanel
                 treeModel.reload();
                 rootNode.removeAllChildren();
                 List<User> users = ( List<User> ) getDefaultModelObject();
-                if ( VUtil.isNotNullOrEmpty( users ) )
+                if ( ObjUtil.isNotNullOrEmpty( users ) )
                 {
                     for ( User user : users )
                     {
@@ -608,7 +609,7 @@ public class UserListPanel extends FormComponentPanel
                 String msg = "clicked on perms search";
                 msg += "permSelection: " + permission;
                 String objectSearchVal = "";
-                if ( VUtil.isNotNullOrEmpty( searchData.getField1() ) )
+                if ( StringUtils.isNotEmpty( searchData.getField1() ) )
                 {
                     objectSearchVal = searchData.getField1();
                 }

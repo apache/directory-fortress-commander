@@ -24,6 +24,8 @@ package org.apache.directory.fortress.web.panel;
 import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
+import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -40,12 +42,11 @@ import org.apache.directory.fortress.web.model.RoleListModel;
 import org.apache.directory.fortress.web.event.SaveModelEvent;
 import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.event.SelectModelEvent;
-import org.apache.directory.fortress.core.rbac.AdminRole;
-import org.apache.directory.fortress.core.rbac.FortEntity;
-import org.apache.directory.fortress.core.rbac.Role;
+import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.FortEntity;
+import org.apache.directory.fortress.core.model.Role;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.Model;
-import org.apache.directory.fortress.core.util.attr.VUtil;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -182,7 +183,7 @@ public class RoleListPanel<T extends Serializable> extends FormComponentPanel
             {
                 log.debug( ".search onSubmit" );
                 info( "Searching Roles..." );
-                if ( !VUtil.isNotNullOrEmpty( searchVal ) )
+                if ( !StringUtils.isNotEmpty( searchVal ) )
                 {
                     searchVal = "";
                 }
@@ -192,7 +193,7 @@ public class RoleListPanel<T extends Serializable> extends FormComponentPanel
                 treeModel.reload();
                 rootNode.removeAllChildren();
                 List<Role> roles = ( List<Role> ) getDefaultModelObject();
-                if ( VUtil.isNotNullOrEmpty( roles ) )
+                if ( ObjUtil.isNotNullOrEmpty( roles ) )
                 {
                     for ( T role : ( List<T> ) roles )
                         rootNode.add( new DefaultMutableTreeNode( role ) );

@@ -26,7 +26,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -42,9 +42,9 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.web.control.SecUtils;
 import org.apache.directory.fortress.core.DelReviewMgr;
 import org.apache.directory.fortress.core.ReviewMgr;
-import org.apache.directory.fortress.core.rbac.Role;
-import org.apache.directory.fortress.core.rbac.UserAdminRole;
-import org.apache.directory.fortress.core.rbac.UserRole;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.UserAdminRole;
+import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.time.CUtil;
 import org.apache.directory.fortress.core.util.time.Constraint;
 
@@ -178,7 +178,7 @@ public class RoleSearchModalPanel extends Panel
                 }
 
                 // sort list by name:
-                if( VUtil.isNotNullOrEmpty( roles ))
+                if( ObjUtil.isNotNullOrEmpty( roles ))
                 {
                     Collections.sort( (List<Role>)roles, new Comparator<Role>()
                     {

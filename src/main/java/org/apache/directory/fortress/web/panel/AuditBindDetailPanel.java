@@ -21,6 +21,7 @@
 package org.apache.directory.fortress.web.panel;
 
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.directory.fortress.web.control.SecUtils;
 import org.apache.directory.fortress.web.event.SelectModelEvent;
 import org.apache.log4j.Logger;
@@ -35,9 +36,8 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.web.common.GlobalIds;
 import org.apache.directory.fortress.core.*;
-import org.apache.directory.fortress.core.rbac.Bind;
-import org.apache.directory.fortress.core.rbac.User;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.Bind;
+import org.apache.directory.fortress.core.model.User;
 
 
 /**
@@ -133,7 +133,7 @@ public class AuditBindDetailPanel extends FormComponentPanel
                 User user = null;
                 // necessary to push the 'changed' model down into the aggregated panel:
                 Bind bind = ( Bind ) detailForm.getModelObject();
-                if ( VUtil.isNotNullOrEmpty( bind.getReqDN() ) )
+                if ( StringUtils.isNotBlank( bind.getReqDN() ) )
                 {
                     user = AuditUtils.getUser( reviewMgr, bind.getReqDN() );
                 }

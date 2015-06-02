@@ -25,7 +25,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -40,7 +40,7 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.web.control.SecUtils;
 import org.apache.directory.fortress.core.ReviewMgr;
-import org.apache.directory.fortress.core.rbac.PermObj;
+import org.apache.directory.fortress.core.model.PermObj;
 
 
 /**
@@ -137,7 +137,7 @@ public class ObjectSearchModalPanel extends Panel
                     permObj.setAdmin( isAdmin );
                     objects = reviewMgr.findPermObjs( permObj );
                     // sort list by objName:
-                    if( VUtil.isNotNullOrEmpty( objects ))
+                    if( ObjUtil.isNotNullOrEmpty( objects ))
                     {
                         Collections.sort( ( List<PermObj> ) objects, new Comparator<PermObj>()
                         {

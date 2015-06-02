@@ -592,7 +592,7 @@ TODO: FIX ME:
     {
         driver.findElement( By.linkText( "AUTHZ" ) ).click();
         driver.findElement( By.id( GlobalIds.OBJ_NAME ) ).clear();
-        driver.findElement( By.id( GlobalIds.OBJ_NAME ) ).sendKeys( "org.apache.directory.fortress.core.rbac.AdminMgrImpl" );
+        driver.findElement( By.id( GlobalIds.OBJ_NAME ) ).sendKeys( "org.apache.directory.fortress.core.impl.AdminMgrImpl" );
         driver.findElement( By.name( "admin" ) ).click();
         driver.findElement( By.id( "permLinkLbl" ) ).click();
         TUtils.sleep( 1 );

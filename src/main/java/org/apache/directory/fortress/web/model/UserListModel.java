@@ -19,6 +19,8 @@
  */
 package org.apache.directory.fortress.web.model;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
@@ -26,13 +28,12 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.web.panel.UserListPanel;
 import org.apache.directory.fortress.core.DelReviewMgr;
 import org.apache.directory.fortress.core.ReviewMgr;
-import org.apache.directory.fortress.core.rbac.AdminRole;
-import org.apache.directory.fortress.core.rbac.OrgUnit;
-import org.apache.directory.fortress.core.rbac.Permission;
-import org.apache.directory.fortress.core.rbac.Role;
-import org.apache.directory.fortress.core.rbac.Session;
-import org.apache.directory.fortress.core.rbac.User;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.SecurityException;
 
 import java.util.ArrayList;
@@ -152,7 +153,7 @@ public class UserListModel extends Model<SerializableList<User>>
             {
                 Set<String> users = reviewMgr.authorizedPermissionUsers( perm );
                 
-                if ( VUtil.isNotNullOrEmpty( users ) )
+                if ( ObjUtil.isNotNullOrEmpty( users ) )
                 {
                     usersList = new ArrayList<>();
                     
@@ -163,15 +164,15 @@ public class UserListModel extends Model<SerializableList<User>>
                     }
                 }
             }
-            else if( VUtil.isNotNullOrEmpty( user.getOu() ) )
+            else if( StringUtils.isNotEmpty( user.getOu() ) )
             {
                 usersList = reviewMgr.findUsers( new OrgUnit( user.getOu(), OrgUnit.Type.USER ) );
             }
-            else if ( VUtil.isNotNullOrEmpty( user.getRoles() ) )
+            else if ( ObjUtil.isNotNullOrEmpty( user.getRoles() ) )
             {
                 usersList = reviewMgr.assignedUsers( new Role( user.getRoles().get( 0 ).getName() ) );
             }
-            else if ( VUtil.isNotNullOrEmpty( user.getAdminRoles() ) )
+            else if ( ObjUtil.isNotNullOrEmpty( user.getAdminRoles() ) )
             {
                 usersList = delReviewMgr.assignedUsers( new AdminRole( user.getAdminRoles().get( 0 ).getName() ) );
             }
@@ -180,7 +181,7 @@ public class UserListModel extends Model<SerializableList<User>>
                 usersList = reviewMgr.findUsers( user );
             }
             // sort list by userId:
-            if( VUtil.isNotNullOrEmpty( usersList ))
+            if( ObjUtil.isNotNullOrEmpty( usersList ))
             {
                 Collections.sort( usersList, new Comparator<User>()
                 {

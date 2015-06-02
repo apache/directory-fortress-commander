@@ -25,7 +25,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.util.ObjUtil;
+import org.apache.directory.fortress.core.util.VUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -41,7 +42,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.web.common.GlobalIds;
 import org.apache.directory.fortress.web.control.SecUtils;
 import org.apache.directory.fortress.core.ReviewMgr;
-import org.apache.directory.fortress.core.rbac.User;
+import org.apache.directory.fortress.core.model.User;
 
 
 /**
@@ -150,7 +151,7 @@ public class UserSearchModalPanel extends Panel
                         userSearchVal = "";
                     users = reviewMgr.findUsers( new User( userSearchVal ) );
                     // sort list by userId:
-                    if( VUtil.isNotNullOrEmpty( users ))
+                    if( ObjUtil.isNotNullOrEmpty( users ))
                     {
                         Collections.sort( ( List<User> ) users, new Comparator<User>()
                         {

@@ -25,7 +25,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -39,7 +39,7 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.core.PwPolicyMgr;
-import org.apache.directory.fortress.core.rbac.PwPolicy;
+import org.apache.directory.fortress.core.model.PwPolicy;
 
 
 /**
@@ -146,7 +146,7 @@ public class PwPolicySearchModalPanel extends Panel
                         policySearchVal = "";
                     policies = pwPolicyMgr.search( policySearchVal );
                     // sort list by name:
-                    if( VUtil.isNotNullOrEmpty( policies ))
+                    if( ObjUtil.isNotNullOrEmpty( policies ))
                     {
                         Collections.sort( ( List<PwPolicy> ) policies, new Comparator<PwPolicy>()
                         {

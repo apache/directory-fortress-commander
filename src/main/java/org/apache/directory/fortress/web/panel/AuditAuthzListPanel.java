@@ -25,6 +25,8 @@ import com.googlecode.wicket.kendo.ui.form.datetime.DatePicker;
 import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
+import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.util.time.TUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -45,14 +47,12 @@ import org.apache.directory.fortress.web.control.SecUtils;
 import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.control.SecureIndicatingAjaxLink;
 import org.apache.directory.fortress.web.event.SelectModelEvent;
-import org.apache.directory.fortress.core.rbac.AuthZ;
+import org.apache.directory.fortress.core.model.AuthZ;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.Model;
-import org.apache.directory.fortress.core.rbac.Permission;
-import org.apache.directory.fortress.core.rbac.User;
-import org.apache.directory.fortress.core.rbac.UserAudit;
-import org.apache.directory.fortress.core.util.attr.AttrHelper;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserAudit;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -254,7 +254,7 @@ public class AuditAuthzListPanel extends FormComponentPanel
             {
                 LOG.debug( ".search onSubmit" );
                 UserAudit userAudit = ( UserAudit ) listForm.getModelObject();
-                if ( !VUtil.isNotNullOrEmpty( userAudit.getUserId() ) )
+                if ( !StringUtils.isNotEmpty( userAudit.getUserId() ) )
                 {
                     userAudit.setUserId( "" );
                 }
@@ -585,7 +585,7 @@ public class AuditAuthzListPanel extends FormComponentPanel
             Date start = null;
             try
             {
-                start = AttrHelper.decodeGeneralizedTime( authZ.getReqStart() );
+                start = TUtil.decodeGeneralizedTime( authZ.getReqStart() );
             }
             catch ( ParseException pe )
             {
@@ -600,7 +600,7 @@ public class AuditAuthzListPanel extends FormComponentPanel
             authZ.setReqResult( GlobalIds.FAILURE );
             /*
                         TODO: On RC40 - Replace above line with the following:
-                        if(VUtil.isNotNullOrEmpty( authZ.getReqAssertion() ) && (authZ.getReqAssertion().equals( org.apache.directory.fortress.core.GlobalIds.AUTH_Z_FAILED_VALUE ) ) )
+                        if(StringUtils.isNotEmpty( authZ.getReqAssertion() ) && (authZ.getReqAssertion().equals( org.apache.directory.fortress.core.GlobalIds.AUTH_Z_FAILED_VALUE ) ) )
                         {
                             authZ.setReqResult( GlobalIds.FAILURE );
                         }

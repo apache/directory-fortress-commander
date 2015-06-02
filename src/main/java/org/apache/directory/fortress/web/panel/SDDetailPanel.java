@@ -24,6 +24,8 @@ package org.apache.directory.fortress.web.panel;
 import com.googlecode.wicket.jquery.ui.form.spinner.Spinner;
 import com.googlecode.wicket.kendo.ui.form.button.AjaxButton;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
+import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -46,9 +48,8 @@ import org.apache.directory.fortress.web.event.SaveModelEvent;
 import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.event.SelectModelEvent;
 import org.apache.directory.fortress.core.AdminMgr;
-import org.apache.directory.fortress.core.rbac.SDSet;
-import org.apache.directory.fortress.core.rbac.UserRole;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.SDSet;
+import org.apache.directory.fortress.core.model.UserRole;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -384,7 +385,7 @@ public class SDDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
                     String msg = "clicked on members.delete";
-                    if ( VUtil.isNotNullOrEmpty( membersSelection ) )
+                    if ( StringUtils.isNotEmpty( membersSelection ) )
                     {
                         msg += " selection:" + membersSelection;
                         SDSet sdSet = ( SDSet ) form.getModel().getObject();
@@ -505,7 +506,7 @@ public class SDDetailPanel extends FormComponentPanel
 
         private void updateEntityWithComboData( SDSet sdSet )
         {
-            if ( VUtil.isNotNullOrEmpty( membersSelection ) )
+            if ( StringUtils.isNotEmpty( membersSelection ) )
             {
                 sdSet.setMember( membersSelection );
                 members.add( membersSelection );
@@ -521,7 +522,7 @@ public class SDDetailPanel extends FormComponentPanel
                 SelectModelEvent modelEvent = ( SelectModelEvent ) event.getPayload();
                 SDSet sdSet = ( SDSet ) modelEvent.getEntity();
                 this.setModelObject( sdSet );
-                if ( VUtil.isNotNullOrEmpty( sdSet.getMembers() ) )
+                if ( ObjUtil.isNotNullOrEmpty( sdSet.getMembers() ) )
                 {
                     members = new ArrayList<>( sdSet.getMembers() );
                     membersCB = new ComboBox<>( "members", new PropertyModel<String>( this, MEMBERS_SELECTION ),

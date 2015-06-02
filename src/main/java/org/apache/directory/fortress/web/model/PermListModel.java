@@ -19,14 +19,14 @@
  */
 package org.apache.directory.fortress.web.model;
 
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.core.ReviewMgr;
-import org.apache.directory.fortress.core.rbac.Permission;
-import org.apache.directory.fortress.core.rbac.Session;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.SecurityException;
 
 import java.util.ArrayList;
@@ -136,7 +136,7 @@ public class PermListModel extends Model<SerializableList<Permission>>
             perm.setAdmin( isAdmin );
             permsList = reviewMgr.findPermissions( perm );
             // sort list by abstract name:
-            if( VUtil.isNotNullOrEmpty( permsList ))
+            if( ObjUtil.isNotNullOrEmpty( permsList ))
             {
                 Collections.sort( permsList, new Comparator<Permission>()
                 {

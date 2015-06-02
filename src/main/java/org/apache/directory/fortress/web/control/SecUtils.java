@@ -19,19 +19,21 @@
  */
 package org.apache.directory.fortress.web.control;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.cfg.Config;
-import org.apache.directory.fortress.core.rbac.UserRole;
-import org.apache.directory.fortress.core.rbac.Warning;
+import org.apache.directory.fortress.core.util.Config;
+import org.apache.directory.fortress.core.model.UserRole;
+import org.apache.directory.fortress.core.model.Warning;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.fortress.realm.*;
 import org.apache.directory.fortress.realm.GlobalIds;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
-import org.apache.directory.fortress.core.rbac.Permission;
-import org.apache.directory.fortress.core.rbac.Session;
-import org.apache.directory.fortress.core.rbac.User;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.util.VUtil;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 
 import javax.servlet.http.HttpServletRequest;
@@ -177,7 +179,7 @@ public class SecUtils
     public static boolean isFound( Permission permission, Component component )
     {
         List<Permission> permissions = SecUtils.getPermissions( component );
-        return VUtil.isNotNullOrEmpty( permissions ) && permissions.contains( permission );
+        return ObjUtil.isNotNullOrEmpty( permissions ) && permissions.contains( permission );
     }
 
     /**
@@ -216,7 +218,7 @@ public class SecUtils
         }
         try
         {
-            if(VUtil.isNotNullOrEmpty( szPrincipal ))
+            if( StringUtils.isNotEmpty( szPrincipal ))
                 realmSession = j2eePolicyMgr.deserialize( szPrincipal );
         }
         catch( SecurityException se )
@@ -260,7 +262,7 @@ public class SecUtils
             session.getSession().setWarnings( null );
             accessMgr.addActiveRole( session.getSession(), new UserRole( roleName ) );
             List<Warning> warnings = session.getSession().getWarnings();
-            if ( VUtil.isNotNullOrEmpty( warnings ) )
+            if ( ObjUtil.isNotNullOrEmpty( warnings ) )
             {
                 for ( Warning warning : warnings )
                 {

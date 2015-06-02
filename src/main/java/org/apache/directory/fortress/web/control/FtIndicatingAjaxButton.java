@@ -23,7 +23,7 @@ import com.googlecode.wicket.jquery.ui.form.button.IndicatingAjaxButton;
 import org.apache.log4j.Logger;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.core.*;
-import org.apache.directory.fortress.core.rbac.Permission;
+import org.apache.directory.fortress.core.model.Permission;
 
 
 /**

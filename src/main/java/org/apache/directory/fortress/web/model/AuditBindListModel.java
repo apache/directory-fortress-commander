@@ -20,15 +20,15 @@
 
 package org.apache.directory.fortress.web.model;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.core.AuditMgr;
-import org.apache.directory.fortress.core.rbac.Bind;
-import org.apache.directory.fortress.core.rbac.Session;
-import org.apache.directory.fortress.core.rbac.UserAudit;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.Bind;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.UserAudit;
 import org.apache.directory.fortress.core.SecurityException;
 
 import java.util.ArrayList;
@@ -89,7 +89,7 @@ public class AuditBindListModel extends Model<SerializableList<Bind>>
         // if caller did not set userId return an empty list:
         if ( ( userAudit == null ) || 
              ( 
-                 !VUtil.isNotNullOrEmpty( userAudit.getUserId() ) &&
+                 !StringUtils.isNotEmpty( userAudit.getUserId() ) &&
                  ( userAudit.getBeginDate() == null ) && 
                  ( userAudit.getEndDate() == null )
              )

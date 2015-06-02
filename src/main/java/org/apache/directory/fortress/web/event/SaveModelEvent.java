@@ -29,7 +29,7 @@ import org.apache.wicket.request.ILogData;
 import org.apache.wicket.request.IRequestCycle;
 import org.apache.wicket.request.component.IRequestablePage;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.directory.fortress.core.rbac.FortEntity;
+import org.apache.directory.fortress.core.model.FortEntity;
 
 import java.util.Collection;
 

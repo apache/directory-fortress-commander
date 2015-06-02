@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.web;
 
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
@@ -27,7 +28,7 @@ import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.http.handler.RedirectRequestHandler;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.util.VUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -86,7 +87,7 @@ public final class LoginPage extends FortressWebBasePage
             Principal principal = servletReq.getUserPrincipal();
             if ( principal == null )
             {
-                if ( VUtil.isNotNullOrEmpty( userId ) && VUtil.isNotNullOrEmpty( pswdField ) )
+                if ( StringUtils.isNotEmpty( userId ) && StringUtils.isNotEmpty( pswdField ) )
                 {
                     try
                     {

@@ -19,17 +19,17 @@
  */
 package org.apache.directory.fortress.web.model;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.core.AuditMgr;
 import org.apache.directory.fortress.core.ReviewMgr;
-import org.apache.directory.fortress.core.rbac.Mod;
-import org.apache.directory.fortress.core.rbac.Session;
-import org.apache.directory.fortress.core.rbac.User;
-import org.apache.directory.fortress.core.rbac.UserAudit;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.Mod;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserAudit;
 import org.apache.directory.fortress.core.SecurityException;
 
 import java.util.ArrayList;
@@ -91,9 +91,9 @@ public class AuditModListModel extends Model<SerializableList<Mod>>
         // if caller did not set userId return an empty list:
         if ( ( userAudit == null ) ||
              ( 
-                 !VUtil.isNotNullOrEmpty( userAudit.getUserId() )  &&
-                 !VUtil.isNotNullOrEmpty( userAudit.getObjName() )  &&
-                 !VUtil.isNotNullOrEmpty( userAudit.getOpName() )  &&
+                 !StringUtils.isNotEmpty( userAudit.getUserId() )  &&
+                 !StringUtils.isNotEmpty( userAudit.getObjName() )  &&
+                 !StringUtils.isNotEmpty( userAudit.getOpName() )  &&
                  ( userAudit.getBeginDate() == null ) &&
                  ( userAudit.getEndDate() == null )
              )
@@ -105,7 +105,8 @@ public class AuditModListModel extends Model<SerializableList<Mod>>
         else
         {
             // do we need to retrieve the internalUserId (which is what maps to admin modification record in slapd audit log?
-            if ( VUtil.isNotNullOrEmpty( userAudit.getUserId()) && !VUtil.isNotNullOrEmpty( userAudit.getInternalUserId() ) )
+            if ( StringUtils.isNotEmpty( userAudit.getUserId() ) && !StringUtils.isNotEmpty( userAudit
+                .getInternalUserId() ) )
             {
                 User user = getUser( userAudit );
                 
@@ -150,7 +151,7 @@ public class AuditModListModel extends Model<SerializableList<Mod>>
         {
             userAudit.setDn( "" );
             
-            if (VUtil.isNotNullOrEmpty( userAudit.getObjName() ) )
+            if ( StringUtils.isNotEmpty( userAudit.getObjName() ) )
             {
                 userAudit.setObjName( getTruncatedObjName( userAudit.getObjName() ) );
             }

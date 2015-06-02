@@ -23,6 +23,8 @@ package org.apache.directory.fortress.web.panel;
 
 import com.googlecode.wicket.kendo.ui.form.button.AjaxButton;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
+import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -45,8 +47,7 @@ import org.apache.directory.fortress.web.event.SaveModelEvent;
 import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.event.SelectModelEvent;
 import org.apache.directory.fortress.core.DelAdminMgr;
-import org.apache.directory.fortress.core.rbac.OrgUnit;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.OrgUnit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -358,7 +359,7 @@ public class OUDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
                     String msg = "clicked on members.delete";
-                    if ( VUtil.isNotNullOrEmpty( parentsSelection ) )
+                    if ( StringUtils.isNotEmpty( parentsSelection ) )
                     {
                         msg += " selection:" + parentsSelection;
                         OrgUnit orgUnit = ( OrgUnit ) form.getModel().getObject();
@@ -481,7 +482,7 @@ public class OUDetailPanel extends FormComponentPanel
 
         private void updateEntityWithComboData( OrgUnit orgUnit )
         {
-            if ( VUtil.isNotNullOrEmpty( parentsSelection ) )
+            if ( StringUtils.isNotEmpty( parentsSelection ) )
             {
                 orgUnit.setParent( parentsSelection );
                 parents.add( parentsSelection );
@@ -497,7 +498,7 @@ public class OUDetailPanel extends FormComponentPanel
                 SelectModelEvent modelEvent = ( SelectModelEvent ) event.getPayload();
                 OrgUnit orgUnit = ( OrgUnit ) modelEvent.getEntity();
                 this.setModelObject( orgUnit );
-                if ( VUtil.isNotNullOrEmpty( orgUnit.getParents() ) )
+                if ( ObjUtil.isNotNullOrEmpty( orgUnit.getParents() ) )
                 {
                     parents = new ArrayList<>( orgUnit.getParents() );
                     parentsCB = new ComboBox<>( PARENTS, new PropertyModel<String>( this, PARENTS_SELECTION ),

@@ -28,7 +28,7 @@ import org.apache.directory.fortress.web.panel.AuditAuthzDetailPanel;
 import org.apache.directory.fortress.web.panel.AuditAuthzListPanel;
 import org.apache.directory.fortress.web.panel.Displayable;
 import org.apache.directory.fortress.web.panel.InfoPanel;
-import org.apache.directory.fortress.core.rbac.UserAudit;
+import org.apache.directory.fortress.core.model.UserAudit;
 
 /**
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>

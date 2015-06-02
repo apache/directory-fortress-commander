@@ -78,7 +78,7 @@
           factory-method="createInstance">
         <constructor-arg value="HOME"/>
     </bean>
-    <bean id="groupMgr" class="org.apache.directory.fortress.core.ldap.group.GroupMgrFactory" scope="prototype"
+    <bean id="groupMgr" class="org.apache.directory.fortress.core.GroupMgrFactory" scope="prototype"
           factory-method="createInstance">
         <constructor-arg value="HOME"/>
     </bean>

@@ -43,7 +43,7 @@ import org.apache.directory.fortress.web.event.SaveModelEvent;
 import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.event.SelectModelEvent;
 import org.apache.directory.fortress.core.PwPolicyMgr;
-import org.apache.directory.fortress.core.rbac.PwPolicy;
+import org.apache.directory.fortress.core.model.PwPolicy;
 
 
 /**

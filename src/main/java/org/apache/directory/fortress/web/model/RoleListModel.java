@@ -19,16 +19,16 @@
  */
 package org.apache.directory.fortress.web.model;
 
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.core.DelReviewMgr;
 import org.apache.directory.fortress.core.ReviewMgr;
-import org.apache.directory.fortress.core.rbac.AdminRole;
-import org.apache.directory.fortress.core.rbac.Role;
-import org.apache.directory.fortress.core.rbac.Session;
+import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.SecurityException;
 
 import java.util.ArrayList;
@@ -140,7 +140,7 @@ public class RoleListModel extends Model<SerializableList<? extends Role>>
             LOG.debug( ".getList roleNm: " + szRoleNm );
             rolesList = reviewMgr.findRoles( szRoleNm );
             // sort list by role name:
-            if( VUtil.isNotNullOrEmpty( rolesList ))
+            if( ObjUtil.isNotNullOrEmpty( rolesList ))
             {
                 Collections.sort( rolesList, new Comparator<Role>()
                 {
@@ -170,7 +170,7 @@ public class RoleListModel extends Model<SerializableList<? extends Role>>
         {
             LOG.debug( ".getList roleNm: " + szRoleNm );
             rolesList = delReviewMgr.findRoles( szRoleNm );
-            if( VUtil.isNotNullOrEmpty( rolesList ))
+            if( ObjUtil.isNotNullOrEmpty( rolesList ))
             {
                 Collections.sort( rolesList, new Comparator<AdminRole>()
                 {

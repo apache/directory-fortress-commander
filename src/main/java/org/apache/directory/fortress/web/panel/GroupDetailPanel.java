@@ -28,9 +28,11 @@ import com.googlecode.wicket.kendo.ui.datatable.column.CommandsColumn;
 import com.googlecode.wicket.kendo.ui.datatable.column.IColumn;
 import com.googlecode.wicket.kendo.ui.datatable.column.PropertyColumn;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.exception.LdapInvalidDnException;
 import org.apache.directory.api.ldap.model.name.Dn;
 import org.apache.directory.api.ldap.model.name.Rdn;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -54,10 +56,10 @@ import org.apache.directory.fortress.web.control.SecUtils;
 import org.apache.directory.fortress.web.event.SaveModelEvent;
 import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.event.SelectModelEvent;
-import org.apache.directory.fortress.core.ldap.group.Group;
-import org.apache.directory.fortress.core.ldap.group.GroupMgr;
-import org.apache.directory.fortress.core.rbac.User;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.Group;
+import org.apache.directory.fortress.core.GroupMgr;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.util.VUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -170,7 +172,7 @@ public class GroupDetailPanel extends FormComponentPanel
                     log.debug( ".onSubmit Add" );
                     Group group = ( Group ) form.getModel().getObject();
                     String msg = null;
-                    if ( !VUtil.isNotNullOrEmpty( memberAssign ) && !VUtil.isNotNullOrEmpty( group.getMembers() ) )
+                    if ( !StringUtils.isNotBlank( memberAssign ) && !ObjUtil.isNotNullOrEmpty( group.getMembers() ) )
                     {
                         msg = "Group name: " + group.getName() + " cannot be added without a member";
                     }
@@ -178,7 +180,7 @@ public class GroupDetailPanel extends FormComponentPanel
                     {
                         try
                         {
-                            if ( VUtil.isNotNullOrEmpty( memberAssign ) )
+                            if ( StringUtils.isNotBlank( memberAssign ) )
                             {
                                 group.setMember( memberAssign );
                             }
@@ -381,7 +383,7 @@ public class GroupDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
                     String msg = "clicked on memberProps.add";
-                    if ( VUtil.isNotNullOrEmpty( memberPropsSelection ) )
+                    if ( StringUtils.isNotBlank( memberPropsSelection ) )
                     {
                         msg += " selection:" + memberPropsSelection;
                         Group group = ( Group ) form.getModel().getObject();
@@ -448,7 +450,7 @@ public class GroupDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
                     String msg = "clicked on memberProps.delete";
-                    if ( VUtil.isNotNullOrEmpty( memberPropsSelection ) )
+                    if ( StringUtils.isNotBlank( memberPropsSelection ) )
                     {
                         msg += " selection:" + memberPropsSelection;
                         Group group = ( Group ) form.getModel().getObject();
@@ -522,7 +524,7 @@ public class GroupDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
                     Group group = ( Group ) form.getModel().getObject();
-                    if ( VUtil.isNotNullOrEmpty( memberAssign ) )
+                    if ( StringUtils.isNotBlank( memberAssign ) )
                     {
                         try
                         {
@@ -589,7 +591,7 @@ public class GroupDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
                     Group group = ( Group ) form.getModel().getObject();
-                    if ( VUtil.isNotNullOrEmpty( memberAssign ) )
+                    if ( StringUtils.isNotBlank( memberAssign ) )
                     {
                         try
                         {
@@ -690,7 +692,7 @@ public class GroupDetailPanel extends FormComponentPanel
         private IDataProvider<Member> createDataProvider( List<String> members )
         {
             ListDataProvider<Member> results;
-            if ( VUtil.isNotNullOrEmpty( members ) )
+            if ( ObjUtil.isNotNullOrEmpty( members ) )
             {
                 Collections.sort( members, new Comparator<String>()
                 {
@@ -757,7 +759,7 @@ public class GroupDetailPanel extends FormComponentPanel
                     msg += memberAssign != null ? ": " + memberAssign : "";
                     display.setMessage( msg );
                     log.debug( msg );
-                    if ( VUtil.isNotNullOrEmpty( memberAssign ) )
+                    if ( StringUtils.isNotBlank( memberAssign ) )
                     {
                         memberSearchModalPanel.setSearchVal( memberAssign );
                     }
@@ -802,7 +804,7 @@ public class GroupDetailPanel extends FormComponentPanel
                 final Group group = ( Group ) modelEvent.getEntity();
                 this.setModelObject( group );
                 memberPropsSelection = "";
-                if ( VUtil.isNotNullOrEmpty( group.getProperties() ) )
+                if ( ObjUtil.isNotNullOrEmpty( group.getProperties() ) )
                 {
                     memberPropsCB = new ComboBox<>( "memberProps", new PropertyModel<String>( this,
                         "memberPropsSelection" ), group.getPropList() );
@@ -843,7 +845,7 @@ public class GroupDetailPanel extends FormComponentPanel
                 @Override
                 public void onClick( AjaxRequestTarget target, ColumnButton button, String value )
                 {
-                    if ( VUtil.isNotNullOrEmpty( value ) )
+                    if ( StringUtils.isNotEmpty( value ) )
                     {
                         try
                         {

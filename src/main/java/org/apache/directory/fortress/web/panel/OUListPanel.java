@@ -24,6 +24,8 @@ package org.apache.directory.fortress.web.panel;
 import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
+import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -40,11 +42,10 @@ import org.apache.directory.fortress.web.model.OUListModel;
 import org.apache.directory.fortress.web.event.SaveModelEvent;
 import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.event.SelectModelEvent;
-import org.apache.directory.fortress.core.rbac.FortEntity;
+import org.apache.directory.fortress.core.model.FortEntity;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.Model;
-import org.apache.directory.fortress.core.rbac.OrgUnit;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.OrgUnit;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -158,7 +159,7 @@ public class OUListPanel extends FormComponentPanel
             {
                 log.debug( ".search onSubmit" );
                 info( "Searching OrgUnits..." );
-                if ( !VUtil.isNotNullOrEmpty( searchVal ) )
+                if ( !StringUtils.isNotEmpty( searchVal ) )
                 {
                     searchVal = "";
                 }
@@ -176,7 +177,7 @@ public class OUListPanel extends FormComponentPanel
                 treeModel.reload();
                 rootNode.removeAllChildren();
                 List<OrgUnit> orgUnits1 = ( List<OrgUnit> ) getDefaultModelObject();
-                if ( VUtil.isNotNullOrEmpty( orgUnits1 ) )
+                if ( ObjUtil.isNotNullOrEmpty( orgUnits1 ) )
                 {
                     for ( OrgUnit ou : orgUnits1 )
                     {

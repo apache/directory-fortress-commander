@@ -24,6 +24,8 @@ package org.apache.directory.fortress.web.panel;
 import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
+import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -45,12 +47,11 @@ import org.apache.directory.fortress.web.event.SaveModelEvent;
 import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.control.SecureIndicatingAjaxLink;
 import org.apache.directory.fortress.web.event.SelectModelEvent;
-import org.apache.directory.fortress.core.ldap.group.Group;
-import org.apache.directory.fortress.core.rbac.FortEntity;
+import org.apache.directory.fortress.core.model.Group;
+import org.apache.directory.fortress.core.model.FortEntity;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.Model;
-import org.apache.directory.fortress.core.rbac.User;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.User;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -128,7 +129,7 @@ public class GroupListPanel extends FormComponentPanel
             {
                 log.debug( ".search.onSubmit selected radio button: " + selectedRadioButton );
                 info( "Searching Group Objects..." );
-                if ( !VUtil.isNotNullOrEmpty( searchVal ) )
+                if ( !StringUtils.isNotEmpty( searchVal ) )
                 {
                     searchVal = "";
                 }
@@ -148,7 +149,7 @@ public class GroupListPanel extends FormComponentPanel
                 treeModel.reload();
                 rootNode.removeAllChildren();
                 List<Group> groups = ( List<Group> ) getDefaultModelObject();
-                if ( VUtil.isNotNullOrEmpty( groups ) )
+                if ( ObjUtil.isNotNullOrEmpty( groups ) )
                 {
                     for ( Group group : groups )
                         rootNode.add( new DefaultMutableTreeNode( group ) );

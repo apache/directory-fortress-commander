@@ -24,6 +24,8 @@ package org.apache.directory.fortress.web.panel;
 import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import com.googlecode.wicket.kendo.ui.form.button.AjaxButton;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
+import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -48,11 +50,10 @@ import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.event.SelectModelEvent;
 import org.apache.directory.fortress.core.AdminMgr;
 import org.apache.directory.fortress.core.DelAdminMgr;
-import org.apache.directory.fortress.core.rbac.AdminRole;
-import org.apache.directory.fortress.core.rbac.FortEntity;
-import org.apache.directory.fortress.core.rbac.Role;
-import org.apache.directory.fortress.core.rbac.UserRole;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.FortEntity;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.UserRole;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -419,7 +420,7 @@ public class RoleDetailPanel extends Panel
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
                     String msg = "clicked on roles.delete";
-                    if ( VUtil.isNotNullOrEmpty( parentsSelection ) )
+                    if ( StringUtils.isNotEmpty( parentsSelection ) )
                     {
                         msg += " selection:" + parentsSelection;
                         Role role = ( Role ) form.getModel().getObject();
@@ -470,7 +471,7 @@ public class RoleDetailPanel extends Panel
 
         private void updateEntityWithComboData( Role role )
         {
-            if ( VUtil.isNotNullOrEmpty( parentsSelection ) )
+            if ( StringUtils.isNotEmpty( parentsSelection ) )
             {
                 role.setParent( parentsSelection );
                 parents.add( parentsSelection );
@@ -567,7 +568,7 @@ public class RoleDetailPanel extends Panel
                 T role = ( T ) modelEvent.getEntity();
                 this.setModelObject( role );
                 parentsSelection = "";
-                if ( VUtil.isNotNullOrEmpty( ( ( Role ) role ).getParents() ) )
+                if ( ObjUtil.isNotNullOrEmpty( ( ( Role ) role ).getParents() ) )
                 {
                     parents = new ArrayList<>( ( ( Role ) role ).getParents() );
                     parentsCB = new ComboBox<>( GlobalIds.PARENTS, new PropertyModel<String>( this,

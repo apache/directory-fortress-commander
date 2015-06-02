@@ -26,6 +26,8 @@ import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.util.time.TUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -49,11 +51,9 @@ import org.apache.directory.fortress.web.event.SelectModelEvent;
 import org.apache.directory.fortress.web.model.SerializableList;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.Model;
-import org.apache.directory.fortress.core.rbac.Bind;
-import org.apache.directory.fortress.core.rbac.User;
-import org.apache.directory.fortress.core.rbac.UserAudit;
-import org.apache.directory.fortress.core.util.attr.AttrHelper;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.Bind;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserAudit;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -198,7 +198,7 @@ public class AuditBindListPanel extends FormComponentPanel
             {
                 LOG.debug( ".search onSubmit" );
                 UserAudit userAudit = ( UserAudit ) listForm.getModelObject();
-                if ( !VUtil.isNotNullOrEmpty( userAudit.getUserId() ) )
+                if ( !StringUtils.isNotEmpty( userAudit.getUserId() ) )
                 {
                     userAudit.setUserId( "" );
                 }
@@ -429,7 +429,7 @@ public class AuditBindListPanel extends FormComponentPanel
             Date start = null;
             try
             {
-                start = AttrHelper.decodeGeneralizedTime( bind.getReqStart() );
+                start = TUtil.decodeGeneralizedTime( bind.getReqStart() );
             }
             catch ( ParseException pe )
             {
