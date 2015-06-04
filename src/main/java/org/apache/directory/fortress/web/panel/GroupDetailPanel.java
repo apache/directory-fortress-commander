@@ -33,7 +33,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.exception.LdapInvalidDnException;
 import org.apache.directory.api.ldap.model.name.Dn;
 import org.apache.directory.api.ldap.model.name.Rdn;
-import org.apache.directory.fortress.core.util.ObjUtil;
+import org.apache.directory.fortress.core.model.PropUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -804,7 +804,7 @@ public class GroupDetailPanel extends FormComponentPanel
                 final Group group = ( Group ) modelEvent.getEntity();
                 this.setModelObject( group );
                 memberPropsSelection = "";
-                if ( ObjUtil.isNotNullOrEmpty( group.getProperties() ) )
+                if ( PropUtil.isNotEmpty( group.getProperties() ) )
                 {
                     memberPropsCB = new ComboBox<>( "memberProps", new PropertyModel<String>( this,
                         "memberPropsSelection" ), group.getPropList() );
