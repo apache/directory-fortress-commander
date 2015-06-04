@@ -24,8 +24,8 @@ package org.apache.directory.fortress.web.panel;
 import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -232,7 +232,7 @@ public class SDListPanel extends FormComponentPanel
                 treeModel.reload();
                 rootNode.removeAllChildren();
                 List<SDSet> sdSets = ( List<SDSet> ) getDefaultModelObject();
-                if ( ObjUtil.isNotNullOrEmpty( sdSets ) )
+                if ( CollectionUtils.isNotEmpty( sdSets ) )
                 {
                     for ( SDSet sdSet : sdSets )
                         rootNode.add( new DefaultMutableTreeNode( sdSet ) );

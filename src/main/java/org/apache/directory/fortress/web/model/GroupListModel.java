@@ -19,7 +19,7 @@
  */
 package org.apache.directory.fortress.web.model;
 
-import org.apache.directory.fortress.core.util.ObjUtil;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
@@ -96,7 +96,7 @@ public class GroupListModel extends Model<SerializableList<Group>>
         {
             LOG.debug( ".getObject group name: " + group.getName() );
             List<Group> foundGroups = getList( group );
-            if( ObjUtil.isNotNullOrEmpty( foundGroups ))
+            if( CollectionUtils.isNotEmpty( foundGroups ))
             {
                 groups = new SerializableList<>( foundGroups );
             }
@@ -132,7 +132,7 @@ public class GroupListModel extends Model<SerializableList<Group>>
         
         try
         {
-            if ( ObjUtil.isNotNullOrEmpty( group.getMembers() ) )
+            if ( CollectionUtils.isNotEmpty( group.getMembers() ) )
             {
                 String userId = group.getMembers().get( 0 );
                 LOG.debug( ".getList userId name: " + userId );
@@ -144,7 +144,7 @@ public class GroupListModel extends Model<SerializableList<Group>>
                 groupList = groupMgr.find( group );
             }
             // sort list by name:
-            if( ObjUtil.isNotNullOrEmpty( groupList ))
+            if( CollectionUtils.isNotEmpty( groupList ))
             {
                 Collections.sort( groupList, new Comparator<Group>()
                 {

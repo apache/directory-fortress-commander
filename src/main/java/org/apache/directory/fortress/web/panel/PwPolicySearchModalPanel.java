@@ -25,7 +25,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.apache.directory.fortress.core.util.ObjUtil;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -146,7 +146,7 @@ public class PwPolicySearchModalPanel extends Panel
                         policySearchVal = "";
                     policies = pwPolicyMgr.search( policySearchVal );
                     // sort list by name:
-                    if( ObjUtil.isNotNullOrEmpty( policies ))
+                    if( CollectionUtils.isNotEmpty( policies ))
                     {
                         Collections.sort( ( List<PwPolicy> ) policies, new Comparator<PwPolicy>()
                         {

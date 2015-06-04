@@ -23,8 +23,8 @@ package org.apache.directory.fortress.web.panel;
 
 import com.googlecode.wicket.kendo.ui.form.button.AjaxButton;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -618,7 +618,7 @@ public class PermDetailPanel extends FormComponentPanel
                 Permission perm = ( Permission ) modelEvent.getEntity();
                 this.setModelObject( perm );
                 rolesSelection = "";
-                if ( ObjUtil.isNotNullOrEmpty( perm.getRoles() ) )
+                if ( CollectionUtils.isNotEmpty( perm.getRoles() ) )
                 {
                     roles = new ArrayList<>( perm.getRoles() );
                     rolesCB = new ComboBox<>( "roles", new PropertyModel<String>( this, ROLES_SELECTION ), roles );

@@ -19,7 +19,7 @@
  */
 package org.apache.directory.fortress.web.model;
 
-import org.apache.directory.fortress.core.util.ObjUtil;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
@@ -133,7 +133,7 @@ public class SDListModel extends Model<SerializableList<SDSet>>
             String szSdSetNm = sdSet.getName();
             LOG.debug( ".getList sdSetNm: " + szSdSetNm );
 
-            if ( ObjUtil.isNotNullOrEmpty( sdSet.getMembers() ) )
+            if ( CollectionUtils.isNotEmpty( sdSet.getMembers() ) )
             {
                 Object[] roleNms = sdSet.getMembers().toArray();
                 String szRoleNm = (String)roleNms[0];
@@ -160,7 +160,7 @@ public class SDListModel extends Model<SerializableList<SDSet>>
                 }
             }
             // sort list by set name:
-            if( ObjUtil.isNotNullOrEmpty( sdSetList ))
+            if( CollectionUtils.isNotEmpty( sdSetList ))
             {
                 Collections.sort( sdSetList, new Comparator<SDSet>()
                 {

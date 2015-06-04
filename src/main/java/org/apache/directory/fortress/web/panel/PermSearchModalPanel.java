@@ -25,7 +25,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.apache.directory.fortress.core.util.ObjUtil;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -140,7 +140,7 @@ public class PermSearchModalPanel extends Panel
                     permission.setAdmin( isAdmin );
                     objects = reviewMgr.findPermissions( permission );
                     // sort list by abstract name:
-                    if( ObjUtil.isNotNullOrEmpty( objects ))
+                    if( CollectionUtils.isNotEmpty( objects ))
                     {
                         Collections.sort( ( List<Permission> ) objects, new Comparator<Permission>()
                         {

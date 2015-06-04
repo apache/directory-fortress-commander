@@ -23,8 +23,8 @@ package org.apache.directory.fortress.web.panel;
 
 import com.googlecode.wicket.kendo.ui.form.button.AjaxButton;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -498,7 +498,7 @@ public class OUDetailPanel extends FormComponentPanel
                 SelectModelEvent modelEvent = ( SelectModelEvent ) event.getPayload();
                 OrgUnit orgUnit = ( OrgUnit ) modelEvent.getEntity();
                 this.setModelObject( orgUnit );
-                if ( ObjUtil.isNotNullOrEmpty( orgUnit.getParents() ) )
+                if ( CollectionUtils.isNotEmpty( orgUnit.getParents() ) )
                 {
                     parents = new ArrayList<>( orgUnit.getParents() );
                     parentsCB = new ComboBox<>( PARENTS, new PropertyModel<String>( this, PARENTS_SELECTION ),

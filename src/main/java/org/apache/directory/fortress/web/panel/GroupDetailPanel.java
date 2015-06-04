@@ -28,6 +28,7 @@ import com.googlecode.wicket.kendo.ui.datatable.column.CommandsColumn;
 import com.googlecode.wicket.kendo.ui.datatable.column.IColumn;
 import com.googlecode.wicket.kendo.ui.datatable.column.PropertyColumn;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.exception.LdapInvalidDnException;
 import org.apache.directory.api.ldap.model.name.Dn;
@@ -59,7 +60,6 @@ import org.apache.directory.fortress.web.event.SelectModelEvent;
 import org.apache.directory.fortress.core.model.Group;
 import org.apache.directory.fortress.core.GroupMgr;
 import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.util.VUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -172,7 +172,7 @@ public class GroupDetailPanel extends FormComponentPanel
                     log.debug( ".onSubmit Add" );
                     Group group = ( Group ) form.getModel().getObject();
                     String msg = null;
-                    if ( !StringUtils.isNotBlank( memberAssign ) && !ObjUtil.isNotNullOrEmpty( group.getMembers() ) )
+                    if ( !StringUtils.isNotBlank( memberAssign ) && !CollectionUtils.isNotEmpty( group.getMembers() ) )
                     {
                         msg = "Group name: " + group.getName() + " cannot be added without a member";
                     }
@@ -692,7 +692,7 @@ public class GroupDetailPanel extends FormComponentPanel
         private IDataProvider<Member> createDataProvider( List<String> members )
         {
             ListDataProvider<Member> results;
-            if ( ObjUtil.isNotNullOrEmpty( members ) )
+            if ( CollectionUtils.isNotEmpty( members ) )
             {
                 Collections.sort( members, new Comparator<String>()
                 {

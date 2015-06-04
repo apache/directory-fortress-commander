@@ -25,8 +25,8 @@ import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
 import com.googlecode.wicket.kendo.ui.renderer.ChoiceRenderer;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -1881,12 +1881,12 @@ public class UserDetailPanel extends FormComponentPanel
             }
             userDetailLabel = "User Detail: " + user.getUserId();
             roleAssignmentsLabel = "RBAC Role Assignments";
-            if ( ObjUtil.isNotNullOrEmpty( user.getRoles() ) )
+            if ( CollectionUtils.isNotEmpty( user.getRoles() ) )
             {
                 roleAssignmentsLabel += ": " + user.getRoles().get( 0 ) + " + " + ( user.getRoles().size() - 1 );
             }
             adminRoleAssignmentsLabel = "Admin Role Assignments";
-            if ( ObjUtil.isNotNullOrEmpty( user.getAdminRoles() ) )
+            if ( CollectionUtils.isNotEmpty( user.getAdminRoles() ) )
             {
                 adminRoleAssignmentsLabel += ": " + user.getAdminRoles().get( 0 ) + " + " + ( user.getAdminRoles()
                     .size() - 1 );
@@ -1894,7 +1894,7 @@ public class UserDetailPanel extends FormComponentPanel
             if ( user.getAddress() != null )
             {
                 addressAssignmentsLabel = "Address Assignments: ";
-                if ( ObjUtil.isNotNullOrEmpty( user.getAddress().getAddresses() ) )
+                if ( CollectionUtils.isNotEmpty( user.getAddress().getAddresses() ) )
                 {
                     int ctr = 0;
                     for ( String street : user.getAddress().getAddresses() )

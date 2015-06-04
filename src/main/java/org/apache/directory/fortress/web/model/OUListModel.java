@@ -19,7 +19,7 @@
  */
 package org.apache.directory.fortress.web.model;
 
-import org.apache.directory.fortress.core.util.ObjUtil;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
@@ -131,7 +131,7 @@ public class OUListModel extends Model<SerializableList<OrgUnit>>
             LOG.debug( ".getList orgUnitNm: " + szOrgUnitNm );
             orgUnitList = delReviewMgr.search( orgUnit.getType(), orgUnit.getName() );
             // sort list by name:
-            if( ObjUtil.isNotNullOrEmpty( orgUnitList ))
+            if( CollectionUtils.isNotEmpty( orgUnitList ))
             {
                 Collections.sort( ( orgUnitList ), new Comparator<OrgUnit>()
                 {

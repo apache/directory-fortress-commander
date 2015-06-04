@@ -24,8 +24,8 @@ package org.apache.directory.fortress.web.panel;
 import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -217,7 +217,7 @@ public class PwPolicyListPanel extends FormComponentPanel
                 treeModel.reload();
                 rootNode.removeAllChildren();
                 List<PwPolicy> policies = ( List<PwPolicy> ) getDefaultModelObject();
-                if ( ObjUtil.isNotNullOrEmpty( policies ) )
+                if ( CollectionUtils.isNotEmpty( policies ) )
                 {
                     for ( PwPolicy policy : policies )
                         rootNode.add( new DefaultMutableTreeNode( policy ) );

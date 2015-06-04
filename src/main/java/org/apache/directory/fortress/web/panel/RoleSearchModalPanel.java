@@ -26,7 +26,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.apache.directory.fortress.core.util.ObjUtil;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -178,7 +178,7 @@ public class RoleSearchModalPanel extends Panel
                 }
 
                 // sort list by name:
-                if( ObjUtil.isNotNullOrEmpty( roles ))
+                if( CollectionUtils.isNotEmpty( roles ))
                 {
                     Collections.sort( (List<Role>)roles, new Comparator<Role>()
                     {

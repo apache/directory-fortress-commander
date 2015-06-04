@@ -25,8 +25,8 @@ import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.kendo.ui.datatable.DataTable;
 import com.googlecode.wicket.kendo.ui.datatable.column.IColumn;
 import com.googlecode.wicket.kendo.ui.datatable.column.PropertyColumn;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -195,10 +195,10 @@ public class AuditModDetailPanel extends FormComponentPanel
         private List<RequestMod> parseRequestMods( List<String> mods )
         {
             List<RequestMod> results = new ArrayList<>();
-            if ( ObjUtil.isNotNullOrEmpty( mods ) )
+            if ( CollectionUtils.isNotEmpty( mods ) )
             {
                 Mod mod = ( Mod ) detailForm.getModelObject();
-                if ( mod != null && ObjUtil.isNotNullOrEmpty( mod.getReqMod() ) )
+                if ( mod != null && CollectionUtils.isNotEmpty( mod.getReqMod() ) )
                 {
                     int ctr = 1;
                     for ( String szMod : mod.getReqMod() )
@@ -244,7 +244,7 @@ public class AuditModDetailPanel extends FormComponentPanel
     private IDataProvider<RequestMod> createDataProvider( List<RequestMod> mods )
     {
         ListDataProvider<RequestMod> results;
-        if ( ObjUtil.isNotNullOrEmpty( mods ) )
+        if ( CollectionUtils.isNotEmpty( mods ) )
         {
             results = new ListDataProvider<>( mods );
         }

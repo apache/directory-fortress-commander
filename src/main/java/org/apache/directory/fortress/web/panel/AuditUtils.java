@@ -20,11 +20,11 @@
 
 package org.apache.directory.fortress.web.panel;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.model.AuthZ;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.log4j.Logger;
 
@@ -194,7 +194,7 @@ final class AuditUtils
             User inUser = new User();
             inUser.setInternalId( internalId );
             List<User> users = reviewMgr.findUsers( inUser );
-            if ( ObjUtil.isNotNullOrEmpty( users ) )
+            if ( CollectionUtils.isNotEmpty( users ) )
             {
                 if ( users.size() > 1 )
                 {

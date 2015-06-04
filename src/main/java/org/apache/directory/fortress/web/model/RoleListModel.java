@@ -19,7 +19,7 @@
  */
 package org.apache.directory.fortress.web.model;
 
-import org.apache.directory.fortress.core.util.ObjUtil;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
@@ -140,7 +140,7 @@ public class RoleListModel extends Model<SerializableList<? extends Role>>
             LOG.debug( ".getList roleNm: " + szRoleNm );
             rolesList = reviewMgr.findRoles( szRoleNm );
             // sort list by role name:
-            if( ObjUtil.isNotNullOrEmpty( rolesList ))
+            if( CollectionUtils.isNotEmpty( rolesList ))
             {
                 Collections.sort( rolesList, new Comparator<Role>()
                 {
@@ -170,7 +170,7 @@ public class RoleListModel extends Model<SerializableList<? extends Role>>
         {
             LOG.debug( ".getList roleNm: " + szRoleNm );
             rolesList = delReviewMgr.findRoles( szRoleNm );
-            if( ObjUtil.isNotNullOrEmpty( rolesList ))
+            if( CollectionUtils.isNotEmpty( rolesList ))
             {
                 Collections.sort( rolesList, new Comparator<AdminRole>()
                 {

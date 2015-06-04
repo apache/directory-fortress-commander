@@ -19,7 +19,7 @@
  */
 package org.apache.directory.fortress.web.model;
 
-import org.apache.directory.fortress.core.util.ObjUtil;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
@@ -149,7 +149,7 @@ public class ObjectListModel extends Model<SerializableList<PermObj>>
                 permObjList = reviewMgr.findPermObjs( new OrgUnit( ou ) );
             }
             // sort list by objName:
-            if( ObjUtil.isNotNullOrEmpty( permObjList ))
+            if( CollectionUtils.isNotEmpty( permObjList ))
             {
                 Collections.sort( permObjList, new Comparator<PermObj>()
                 {

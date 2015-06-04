@@ -24,8 +24,8 @@ package org.apache.directory.fortress.web.panel;
 import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -177,7 +177,7 @@ public class OUListPanel extends FormComponentPanel
                 treeModel.reload();
                 rootNode.removeAllChildren();
                 List<OrgUnit> orgUnits1 = ( List<OrgUnit> ) getDefaultModelObject();
-                if ( ObjUtil.isNotNullOrEmpty( orgUnits1 ) )
+                if ( CollectionUtils.isNotEmpty( orgUnits1 ) )
                 {
                     for ( OrgUnit ou : orgUnits1 )
                     {

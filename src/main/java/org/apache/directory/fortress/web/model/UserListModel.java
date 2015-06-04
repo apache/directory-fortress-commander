@@ -19,8 +19,8 @@
  */
 package org.apache.directory.fortress.web.model;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
@@ -153,7 +153,7 @@ public class UserListModel extends Model<SerializableList<User>>
             {
                 Set<String> users = reviewMgr.authorizedPermissionUsers( perm );
                 
-                if ( ObjUtil.isNotNullOrEmpty( users ) )
+                if ( CollectionUtils.isNotEmpty( users ) )
                 {
                     usersList = new ArrayList<>();
                     
@@ -168,11 +168,11 @@ public class UserListModel extends Model<SerializableList<User>>
             {
                 usersList = reviewMgr.findUsers( new OrgUnit( user.getOu(), OrgUnit.Type.USER ) );
             }
-            else if ( ObjUtil.isNotNullOrEmpty( user.getRoles() ) )
+            else if ( CollectionUtils.isNotEmpty( user.getRoles() ) )
             {
                 usersList = reviewMgr.assignedUsers( new Role( user.getRoles().get( 0 ).getName() ) );
             }
-            else if ( ObjUtil.isNotNullOrEmpty( user.getAdminRoles() ) )
+            else if ( CollectionUtils.isNotEmpty( user.getAdminRoles() ) )
             {
                 usersList = delReviewMgr.assignedUsers( new AdminRole( user.getAdminRoles().get( 0 ).getName() ) );
             }
@@ -181,7 +181,7 @@ public class UserListModel extends Model<SerializableList<User>>
                 usersList = reviewMgr.findUsers( user );
             }
             // sort list by userId:
-            if( ObjUtil.isNotNullOrEmpty( usersList ))
+            if( CollectionUtils.isNotEmpty( usersList ))
             {
                 Collections.sort( usersList, new Comparator<User>()
                 {

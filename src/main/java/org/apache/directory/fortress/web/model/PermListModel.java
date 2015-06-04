@@ -19,7 +19,7 @@
  */
 package org.apache.directory.fortress.web.model;
 
-import org.apache.directory.fortress.core.util.ObjUtil;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
@@ -136,7 +136,7 @@ public class PermListModel extends Model<SerializableList<Permission>>
             perm.setAdmin( isAdmin );
             permsList = reviewMgr.findPermissions( perm );
             // sort list by abstract name:
-            if( ObjUtil.isNotNullOrEmpty( permsList ))
+            if( CollectionUtils.isNotEmpty( permsList ))
             {
                 Collections.sort( permsList, new Comparator<Permission>()
                 {

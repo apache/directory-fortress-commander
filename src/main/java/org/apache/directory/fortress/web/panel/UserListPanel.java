@@ -24,8 +24,8 @@ package org.apache.directory.fortress.web.panel;
 import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.fortress.web.common.GlobalIds;
 import org.apache.directory.fortress.web.control.SecUtils;
 import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
@@ -270,7 +270,7 @@ public class UserListPanel extends FormComponentPanel
                 treeModel.reload();
                 rootNode.removeAllChildren();
                 List<User> users = ( List<User> ) getDefaultModelObject();
-                if ( ObjUtil.isNotNullOrEmpty( users ) )
+                if ( CollectionUtils.isNotEmpty( users ) )
                 {
                     for ( User user : users )
                     {

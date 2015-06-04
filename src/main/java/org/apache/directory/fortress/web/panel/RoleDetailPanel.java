@@ -24,8 +24,8 @@ package org.apache.directory.fortress.web.panel;
 import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import com.googlecode.wicket.kendo.ui.form.button.AjaxButton;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -568,7 +568,7 @@ public class RoleDetailPanel extends Panel
                 T role = ( T ) modelEvent.getEntity();
                 this.setModelObject( role );
                 parentsSelection = "";
-                if ( ObjUtil.isNotNullOrEmpty( ( ( Role ) role ).getParents() ) )
+                if ( CollectionUtils.isNotEmpty( ( ( Role ) role ).getParents() ) )
                 {
                     parents = new ArrayList<>( ( ( Role ) role ).getParents() );
                     parentsCB = new ComboBox<>( GlobalIds.PARENTS, new PropertyModel<String>( this,

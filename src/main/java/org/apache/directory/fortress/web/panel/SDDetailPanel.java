@@ -24,8 +24,8 @@ package org.apache.directory.fortress.web.panel;
 import com.googlecode.wicket.jquery.ui.form.spinner.Spinner;
 import com.googlecode.wicket.kendo.ui.form.button.AjaxButton;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -522,7 +522,7 @@ public class SDDetailPanel extends FormComponentPanel
                 SelectModelEvent modelEvent = ( SelectModelEvent ) event.getPayload();
                 SDSet sdSet = ( SDSet ) modelEvent.getEntity();
                 this.setModelObject( sdSet );
-                if ( ObjUtil.isNotNullOrEmpty( sdSet.getMembers() ) )
+                if ( CollectionUtils.isNotEmpty( sdSet.getMembers() ) )
                 {
                     members = new ArrayList<>( sdSet.getMembers() );
                     membersCB = new ComboBox<>( "members", new PropertyModel<String>( this, MEMBERS_SELECTION ),

@@ -19,7 +19,7 @@
  */
 package org.apache.directory.fortress.web.model;
 
-import org.apache.directory.fortress.core.util.ObjUtil;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
@@ -129,7 +129,7 @@ public class PwPolicyListModel extends Model<SerializableList<PwPolicy>>
             LOG.debug( ".getList policyNm: " + szPolicyNm );
             policiesList = pwPolicyMgr.search( szPolicyNm );
             // sort list by policy name:
-            if( ObjUtil.isNotNullOrEmpty( policiesList ))
+            if( CollectionUtils.isNotEmpty( policiesList ))
             {
                 Collections.sort( policiesList, new Comparator<PwPolicy>()
                 {
