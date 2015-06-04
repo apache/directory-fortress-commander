@@ -45,8 +45,8 @@ import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.model.UserRole;
-import org.apache.directory.fortress.core.util.time.CUtil;
-import org.apache.directory.fortress.core.util.time.Constraint;
+import org.apache.directory.fortress.core.model.ConstraintUtil;
+import org.apache.directory.fortress.core.model.Constraint;
 
 
 /**
@@ -200,7 +200,7 @@ public class RoleSearchModalPanel extends Panel
         if ( this.roleSelection != null )
         {
             userRoleSelection.setName( this.roleSelection.getName() );
-            CUtil.copy( this.roleSelection, userRoleSelection );
+            ConstraintUtil.copy( this.roleSelection, userRoleSelection );
         }
         return userRoleSelection;
     }
@@ -212,7 +212,7 @@ public class RoleSearchModalPanel extends Panel
         if ( this.roleSelection != null )
         {
             userRoleSelection.setName( this.roleSelection.getName() );
-            CUtil.copy( this.roleSelection, userRoleSelection );
+            ConstraintUtil.copy( this.roleSelection, userRoleSelection );
         }
         return userRoleSelection;
     }
