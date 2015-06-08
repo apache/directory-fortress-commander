@@ -51,7 +51,7 @@ public class PermAdminPage extends FortressWebBasePage
         FourWaySplitter splitter = new FourWaySplitter();
         splitter.addBorderLayout( container );
 
-        // Add the four necessary panels for Commander Page: 1. Nav,, 2. List, 3. Info, 4. Detail
+        // Add the four necessary panels of Fortress Web Page: 1. Nav, 2. List, 3. Info, 4. Detail.
         // Nav and Info are generic and work across all entities, the others are specific to this entity type.
 
         // 1. Nav Panel:
