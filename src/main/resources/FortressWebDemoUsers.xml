@@ -86,16 +86,16 @@
                 <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deassignUser" roleNm="fortress-web-user-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.PwPolicyMgrImpl" opName="updateUserPolicy" roleNm="fortress-web-user-admin" admin="true"/>
 
-                <permgrant objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="add" roleNm="fortress-web-user-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="update" roleNm="fortress-web-user-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="delete" roleNm="fortress-web-user-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="addProperty" roleNm="fortress-web-user-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="deleteProperty" roleNm="fortress-web-user-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="assign" roleNm="fortress-web-user-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="deassign" roleNm="fortress-web-user-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="read" roleNm="fortress-web-user-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="find" roleNm="fortress-web-user-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="findWithUsers" roleNm="fortress-web-user-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="add" roleNm="fortress-web-user-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="update" roleNm="fortress-web-user-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="delete" roleNm="fortress-web-user-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="addProperty" roleNm="fortress-web-user-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="deleteProperty" roleNm="fortress-web-user-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="assign" roleNm="fortress-web-user-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="deassign" roleNm="fortress-web-user-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="read" roleNm="fortress-web-user-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="find" roleNm="fortress-web-user-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="findWithUsers" roleNm="fortress-web-user-admin" admin="true"/>
             </addpermgrant>
 
 
