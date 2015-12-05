@@ -575,7 +575,14 @@
                     <pathelement location="${net.sf.ehcache:ehcache-core:jar}"/>
                     <pathelement location="${org.slf4j:slf4j-api:jar}"/>
                     <pathelement location="${org.slf4j:slf4j-log4j12:jar}"/>
-                    <pathelement location="${antlr:antlr:jar}"/>
+                    <pathelement location="${org.apache.cxf:cxf-api:jar}" />
+                    <pathelement location="${javax.ws.rs:javax.ws.rs-api:jar}" />
+                    <pathelement location="${javax.ws.rs:javax.ws.rs-api:jar}" />
+                    <pathelement location="${org.apache.httpcomponents:httpclient:jar}" />
+                    <pathelement location="${org.apache.httpcomponents:httpcore:jar}" />
+                    <pathelement location="${com.sun.xml.bind:jaxb-impl:jar}" />
+                    <pathelement location="${commons-codec:commons-codec:jar}" />
+                    <pathelement location="${antlr:antlr:jar}" />
                   </classpath>
                   <sysproperty key="version" value="${project.version}"/>
                   <sysproperty key="tenant" value="HOME"/>
