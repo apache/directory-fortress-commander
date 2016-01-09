@@ -616,17 +616,17 @@ public class RoleDetailPanel extends Panel
                     AdminRole role = ( AdminRole ) getModel().getObject();
                     if ( role != null )
                     {
-                        if ( role.getOsP() != null )
+                        if ( role.getOsPSet() != null )
                         {
-                            auxPanel.setPermous( new ArrayList<>( role.getOsP() ) );
+                            auxPanel.setPermous( new ArrayList<>( role.getOsPSet() ) );
                         }
                         else
                         {
                             auxPanel.setPermous( new ArrayList<String>() );
                         }
-                        if ( role.getOsU() != null )
+                        if ( role.getOsUSet() != null )
                         {
-                            auxPanel.setUserous( new ArrayList<>( role.getOsU() ) );
+                            auxPanel.setUserous( new ArrayList<>( role.getOsUSet() ) );
                         }
                         else
                         {

@@ -189,9 +189,9 @@ public class RoleAdminDetailPanel extends Panel
                 {
                     msg += " selection:" + permouSelection;
                     AdminRole adminRole = ( AdminRole ) form.getModel().getObject();
-                    if ( adminRole.getOsP() != null )
+                    if ( adminRole.getOsPSet() != null )
                     {
-                        adminRole.getOsP().remove( permouSelection );
+                        adminRole.getOsPSet().remove( permouSelection );
                         permous.remove( permouSelection );
                         permouSelection = "";
                         target.add( permouCB );
@@ -316,9 +316,9 @@ public class RoleAdminDetailPanel extends Panel
                 {
                     msg += " selection:" + userouSelection;
                     AdminRole adminRole = ( AdminRole ) form.getModel().getObject();
-                    if ( adminRole.getOsU() != null )
+                    if ( adminRole.getOsUSet() != null )
                     {
-                        adminRole.getOsU().remove( userouSelection );
+                        adminRole.getOsUSet().remove( userouSelection );
                         userous.remove( userouSelection );
                         userouSelection = "";
                         target.add( userouCB );

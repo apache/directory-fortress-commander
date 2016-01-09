@@ -248,12 +248,12 @@ public class UserListPanel extends FormComponentPanel
                     else if ( selectedRadioButton.equals( ROLES ) )
                     {
                         LOG.debug( ".onSubmit ROLES RB selected" );
-                        srchUser.setRole( searchVal );
+                        srchUser.setRoleName( searchVal );
                     }
                     else if ( selectedRadioButton.equals( ADMIN_ROLES ) )
                     {
                         LOG.debug( ".onSubmit ADMIN ROLES RB selected" );
-                        srchUser.setAdminRole( searchVal );
+                        srchUser.setAdminRoleName( searchVal );
                     }
                     else if ( selectedRadioButton.equals( OUS ) )
                     {
