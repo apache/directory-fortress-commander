@@ -109,7 +109,7 @@ ________________________________________________________________________________
  mvn tomcat:redeploy
  ```
 ___________________________________________________________________________________
-# SECTION 6. Test with Selenium
+## SECTION 6. Test with Selenium
 
 1. Run the Selenium Web driver integration tests:
  ```
