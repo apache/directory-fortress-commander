@@ -108,20 +108,19 @@ ________________________________________________________________________________
  ```
  mvn tomcat:redeploy
  ```
+
 ___________________________________________________________________________________
 ## SECTION 6. Test with Selenium
 
-1. Run the Selenium Web driver integration tests:
+Run the Selenium Web driver integration tests:
  ```
  mvn test -Dtest=FortressWebSeleniumITCase
  ```
 
-Note: This test case depends on:
+ Note: This test case depends on:
 
 * Apache Fortress Core *FortressJUnitTest* has been executed.  This will load some test data loaded into the ldap server.
-
 * Sample Fortress Web security policy loaded.
-
 * Firefox is installed to target machine.
 
 ___________________________________________________________________________________
