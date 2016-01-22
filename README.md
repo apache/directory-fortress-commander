@@ -17,6 +17,7 @@
 
 # Apache Fortress Web
 
+This document contains instructions to download, build, and test operations using Apache Fortress Web component.
 
 -------------------------------------------------------------------------------
 ## Table of Contents
@@ -46,6 +47,7 @@ Everything else covered in steps that follow.  Tested on Debian, Centos & Window
 -------------------------------------------------------------------------------
 ## SECTION 2. Download & Build
 
+Build the source.
  ```
  git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
  cd directory-fortress-commander
