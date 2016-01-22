@@ -585,7 +585,7 @@
                     <pathelement location="${antlr:antlr:jar}" />
                   </classpath>
                   <sysproperty key="version" value="${project.version}"/>
-                  <sysproperty key="tenant" value="HOME"/>
+                  <sysproperty key="tenant" value="${tenant}" />
                   <arg value="-buildfile"/>
                   <arg file="./${load.file}" />
                   <!--                  <arg file="./src/main/resources/FortressRestServerPolicy.xml"/>-->
