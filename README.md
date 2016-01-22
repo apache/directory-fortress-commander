@@ -17,6 +17,9 @@
 
 # Apache Fortress Web
 
+ Apache Fortress Web Version 1.0-RC41 System Architecture Diagram
+ ![Apache Fortress Web System Architecture](images/fortress-web-system-arch.png "Apache Fortress Web System Architecture")
+
 This document contains instructions to download, build, and test operations using Apache Fortress Web component.
 
 -------------------------------------------------------------------------------
