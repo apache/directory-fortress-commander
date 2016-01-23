@@ -17,7 +17,7 @@
 
 # README for Apache Fortress Web
  * Version 1.0-RC41
- Apache Fortress Web System Architecture Diagram
+ * Apache Fortress Web System Architecture Diagram
  ![Apache Fortress Web System Architecture](images/fortress-web-system-arch.png "Apache Fortress Web System Architecture")
 
 -------------------------------------------------------------------------------
