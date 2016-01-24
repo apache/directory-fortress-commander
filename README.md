@@ -80,10 +80,10 @@ ________________________________________________________________________________
 
 These contain the coordinates to the target LDAP server.
 
-1. Copy the fortress.properties, created during **FORTRESS_CORE_HOME** README, to this package's resource folder.
+1. Copy the **fortress.properties**, created during **FORTRESS_CORE_HOME** **README.md**, to this package's resource folder.
 
  ```
- cp FORTRESS_CORE_HOME/config/fortress.properties FORTRESS_WEB_HOME/src/main/resources
+ cp $FORTRESS_CORE_HOME/config/fortress.properties $FORTRESS_WEB_HOME/src/main/resources
  ```
 
 2. Verify they match your target LDAP server.
