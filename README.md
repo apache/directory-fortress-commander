@@ -26,7 +26,7 @@
  * Document Overview
  * Tips for first-time users.
  * SECTION 1. Prerequisites
- * SECTION 2. Download & Build
+ * SECTION 2. Download & Install
  * SECTION 3. Get the fortress.properties
  * SECTION 4. Load Sample Security Policy
  * SECTION 5. Deploy to Tomcat Server
@@ -67,7 +67,7 @@ Minimum software requirements:
 Everything else covered in steps that follow.  Tested on Debian, Centos & Windows systems.
 
 -------------------------------------------------------------------------------
-## SECTION 2. Download & Build
+## SECTION 2. Download & Install
 
 Build the source.
  ```
