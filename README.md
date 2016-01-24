@@ -60,8 +60,8 @@ Minimum software requirements:
  * git
  * Apache Maven3++
  * Apache Tomcat7++
- * Apache Fortress Core and LDAP server installed per README located in **FORTRESS_CORE_HOME** package.
- * Apache Fortress Realm installed per README located in **FORTRESS_REALM_HOME** package.
+ * Apache Fortress Core Downloaded and Installed and LDAP server setup per **README.md** located in **FORTRESS_CORE_HOME** package.
+ * Apache Fortress Realm Downloaded and Installed per **README.md** in **FORTRESS_REALM_HOME** package.
 
 Everything else covered in steps that follow.  Tested on Debian, Centos & Windows systems.
 
@@ -77,11 +77,46 @@ Build the source.
 ___________________________________________________________________________________
 ## SECTION 3. Get the fortress.properties
 
-Copy the fortress.properties, created during **FORTRESS_CORE_HOME** README, to this package's resource folder.
+These contain the coordinates to the target LDAP server.
 
-```
-cp FORTRESS_CORE_HOME/config/fortress.properties FORTRESS_WEB_HOME/src/main/resources
-```
+1. Copy the fortress.properties, created during **FORTRESS_CORE_HOME** README, to this package's resource folder.
+
+ ```
+ cp FORTRESS_CORE_HOME/config/fortress.properties FORTRESS_WEB_HOME/src/main/resources
+ ```
+
+2. Verify they match your target LDAP server.
+ ```
+ # This param tells fortress what type of ldap server in use:
+ ldap.server.type=apacheds
+
+ # ldap host name
+ host=localhost
+
+ # if ApacheDS is listening on
+ port=10389
+
+ # If ApacheDS, these credentials are used for read/write to fortress DIT
+ admin.user=uid=admin,ou=system
+ admin.pw=secret
+
+ # This is min/max settings for admin pool connections:
+ min.admin.conn=1
+ max.admin.conn=10
+
+ # This node contains more fortress properties stored on behalf of connecting LDAP clients:
+ config.realm=DEFAULT
+ config.root=ou=Config,dc=example,dc=com
+
+ # Used by application security components:
+ perms.cached=true
+
+ # Fortress uses a cache:
+ ehcache.config.file=ehcache.xml
+
+ # Default for pool reconnect flag is false:
+ enable.pool.reconnect=true
+ ```
 
 ___________________________________________________________________________________
 ## SECTION 4. Load Sample Security Policy
@@ -140,11 +175,10 @@ Run the Selenium Web driver integration tests:
  mvn test -Dtest=FortressWebSeleniumITCase
  ```
 
- Note: This test case depends on:
-
-* Apache Fortress Core *FortressJUnitTest* has been executed.  This will load some test data loaded into the ldap server.
-* Sample Fortress Web security policy loaded.
-* Firefox is installed to target machine.
+ Note: These automated tests depend that:
+ * Firefox installed to target machine.
+ * **FORTRESS_CORE_HOME**/*FortressJUnitTest* successfully run.  This will load some test data to grind on.
+ * [FortressWebDemoUsers](./src/main/resources/FortressWebDemoUsers.xml) policy loaded into target LDAP server.
 
 ___________________________________________________________________________________
 #### END OF README
