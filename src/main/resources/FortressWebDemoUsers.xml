@@ -144,19 +144,6 @@
                 <relationship child="ROLE_AUDITOR" parent="ROLE_AUDIT_BINDS"/>
                 <relationship child="ROLE_AUDITOR" parent="ROLE_AUDIT_AUTHZS"/>
                 <relationship child="ROLE_AUDITOR" parent="ROLE_AUDIT_MODS"/>
-
-                <!--
-                Leave these out until apacheds support added:
-
-                <relationship child="fortress-web-super-user" parent="ROLE_POLICIES"/>
-
-                <relationship child="fortress-web-super-user" parent="ROLE_AUDIT_AUTHZS"/>
-                <relationship child="fortress-web-super-user" parent="ROLE_AUDIT_BINDS"/>
-                <relationship child="fortress-web-super-user" parent="ROLE_AUDIT_MODS"/>
-
-                <relationship child="fortress-web-super-user" parent="ROLE_GROUPS"/>
--->
-
             </addroleinheritance>
 
             <addorgunit>
