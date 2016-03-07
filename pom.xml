@@ -44,8 +44,8 @@
   </licenses>
 
   <scm>
-    <connection>scm:git:http://git-wip-us.apache.org/repos/asf/directory-fortress-web.git</connection>
-    <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/directory-fortress-web.git
+    <connection>scm:git:http://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git</connection>
+    <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
     </developerConnection>
     <tag>HEAD</tag>
   </scm>
