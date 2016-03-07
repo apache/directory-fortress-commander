@@ -30,7 +30,7 @@
   <groupId>org.apache.directory.fortress</groupId>
   <artifactId>fortress-web</artifactId>
   <packaging>war</packaging>
-  <version>1.0-RC42</version>
+  <version>1.0-RC43-SNAPSHOT</version>
   <name>Apache Fortress Web</name>
   <url>http://directory.apache.org/fortress/</url>
   <description>Fortress Web is an ANSI RBAC INCITS 359 compliant administrative UI</description>
@@ -46,7 +46,7 @@
     <connection>scm:git:http://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git</connection>
     <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
     </developerConnection>
-    <tag>1.0-RC42</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <issueManagement>
@@ -576,7 +576,7 @@
             <phase>test</phase>
             <configuration>
               <target name="fortress-load" if="load.file" description="Loads fortress rbac policy files into ldap">
-                <echo message="############### Run Fortress Policy Load  ###############" />
+                <echo message="############### Run Fortress Policy Load ###############" />
                 <java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="${basedir}" timeout="4000000" taskname="startAnt">
                   <classpath>
                     <pathelement location="./src/main/resources" />
