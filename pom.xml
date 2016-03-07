@@ -31,7 +31,7 @@
   <groupId>org.apache.directory.fortress</groupId>
   <artifactId>fortress-web</artifactId>
   <packaging>war</packaging>
-  <version>1.0-RC41-SNAPSHOT</version>
+  <version>1.0-RC42-SNAPSHOT</version>
   <name>Apache Fortress Web</name>
   <url>http://directory.apache.org/fortress/</url>
   <description>Fortress Web is an ANSI RBAC INCITS 359 compliant administrative UI</description>
@@ -78,6 +78,19 @@
       <name>Emmanuel Lecharny</name>
       <email>elecharny@apache.org</email>
     </developer>
+
+    <developer>
+      <id>cpike</id>
+      <name>Chris Pike</name>
+      <email>cpike@apache.org</email>
+    </developer>
+
+    <developer>
+      <id>sindberg</id>
+      <name>Jan Sindberg</name>
+      <email>sindberg@apache.org</email>
+    </developer>
+
   </developers>
 
   <properties>
@@ -361,61 +374,6 @@
       </resource>
     </resources>
     <plugins>
-<!--
-        <plugin>
-          <groupId>org.apache.rat</groupId>
-          <artifactId>apache-rat-plugin</artifactId>
-          <inherited>true</inherited>
-          <configuration>
-            <excludeSubProjects>false</excludeSubProjects>
-            <excludes>
-              &lt;!&ndash; project excludes &ndash;&gt;
-              <exclude>**/jquery-ui.css</exclude>
-              <exclude>**/kendo.common.min.css</exclude>
-              <exclude>**/kendo.default.min.css</exclude>
-              <exclude>**/jquery-ui-1.10.2.custom.min.css</exclude>
-              <exclude>**/target/**</exclude>
-              <exclude>**/.classpath</exclude>
-              <exclude>**/.project</exclude>
-              <exclude>**/.settings/**</exclude>
-              <exclude>**/LICENSE.*</exclude>
-              <exclude>**/NOTICE-bin.txt</exclude>
-              <exclude>**/resources/**</exclude>
-            </excludes>
-          </configuration>
-          <executions>
-            <execution>
-              <phase>verify</phase>
-              <goals>
-                <goal>check</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
--->
-
-      <!-- Assemble a commander distro archive -->
-<!--
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>user_distribution</id>
-            <phase>package</phase>
-            <goals>
-              <goal>attached</goal>
-              <goal>single</goal>
-            </goals>
-            <configuration>
-              <appendAssemblyId>false</appendAssemblyId>
-              <descriptors>
-                <descriptor>src/main/assembly/distsrc.xml</descriptor>
-              </descriptors>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
--->
 
       <!-- Deploy the finished war -->
       <plugin>
@@ -535,6 +493,37 @@
               <maxIdleTime>3600000</maxIdleTime>
             </connector>
           </connectors>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <configuration>
+          <excludeSubProjects>false</excludeSubProjects>
+          <excludes>
+            <!-- MAVEN_DEFAULT_EXCLUDES -->
+            <exclude>**/target/**/*</exclude>
+            <exclude>**/cobertura.ser</exclude>
+            <!-- ECLIPSE_DEFAULT_EXCLUDES -->
+            <exclude>**/.classpath</exclude>
+            <exclude>**/.project</exclude>
+            <exclude>**/.settings/**/*</exclude>
+            <!-- IDEA_DEFAULT_EXCLUDES -->
+            <exclude>**/*.iml</exclude>
+            <exclude>**/*.ipr</exclude>
+            <exclude>**/*.iws</exclude>
+            <!-- MANIFEST_MF_EXCLUDES -->
+            <exclude>**/MANIFEST.MF</exclude>
+            <!-- GIT_EXCLUDES -->
+            <exclude>**/.git/**/*</exclude>
+            <!-- CERT_EXCLUDES -->
+            <exclude>**/*.pem</exclude>
+            <!-- EXTERNAL_CODE_EXCLUDES -->
+            <exclude>**/CmdLineParser.java</exclude>
+            <!-- Exclude logs -->
+            <exclude>**/*.log/**</exclude>
+          </excludes>
         </configuration>
       </plugin>
 
