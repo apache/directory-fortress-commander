@@ -44,7 +44,7 @@
                 <userrole userId="test" name="fortress-web-super-user"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
                 <userrole userId="test1" name="ROLE_USERS"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
                 <userrole userId="test2" name="ROLE_AUDITOR"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
-                <userrole userId="test3" name="fortress-web-group-admin-user"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
+                <!--<userrole userId="test3" name="fortress-web-group-admin-user"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>-->
             </adduserrole>
 
             <addadminrole>
@@ -133,9 +133,12 @@
                 <relationship child="fortress-web-super-user" parent="ROLE_ADMINROLES"/>
                 <relationship child="fortress-web-super-user" parent="ROLE_ADMINOBJS"/>
                 <relationship child="fortress-web-super-user" parent="ROLE_ADMINPERMS"/>
+<!--
+                Group page disabled until the datatable is replaced:
                 <relationship child="fortress-web-super-user" parent="ROLE_GROUPS"/>
 
                 <relationship child="fortress-web-group-admin-user" parent="ROLE_GROUPS"/>
+-->
                 <relationship child="fortress-web-group-admin-user" parent="ROLE_POLICIES"/>
                 <relationship child="fortress-web-group-admin-user" parent="ROLE_USERS"/>
                 <relationship child="fortress-web-group-admin-user" parent="ROLE_AUDIT_AUTHZS"/>

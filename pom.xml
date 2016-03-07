@@ -97,8 +97,8 @@
     <fortress.realm.version>1.0-RC42</fortress.realm.version>
     <wicket.version>6.19.0</wicket.version>
 
-    <wicket.jquery.version>6.14.0</wicket.jquery.version>
-    <wicket.kendo-ui.version>6.14.0</wicket.kendo-ui.version>
+    <wicket.jquery.version>6.15.0</wicket.jquery.version>
+    <wicket.kendo-ui.version>6.15.0</wicket.kendo-ui.version>
 
 <!--
     <wicket.jquery.version>6.19.0</wicket.jquery.version>
