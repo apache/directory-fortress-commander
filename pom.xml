@@ -551,12 +551,23 @@
             <exclude>**/.git/**/*</exclude>
             <!-- CERT_EXCLUDES -->
             <exclude>**/*.pem</exclude>
-            <!-- EXTERNAL_CODE_EXCLUDES -->
-            <exclude>**/CmdLineParser.java</exclude>
             <!-- Exclude logs -->
             <exclude>**/*.log/**</exclude>
           </excludes>
         </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.doxia</groupId>
+            <artifactId>doxia-core</artifactId>
+            <version>1.6</version>
+            <exclusions>
+              <exclusion>
+                <groupId>xerces</groupId>
+                <artifactId>xercesImpl</artifactId>
+              </exclusion>
+            </exclusions>
+          </dependency>
+        </dependencies>
       </plugin>
 
       <plugin>
