@@ -440,7 +440,7 @@
           <author>true</author>
           <doctitle>${project.name} Javadoc ${project.version}</doctitle>
           <windowtitle>Apache ${project.name} Javadoc ${project.version}</windowtitle>
-          <!--<additionalparam>-Xdoclint:none</additionalparam>-->
+          <additionalparam>-Xdoclint:none</additionalparam>
         </configuration>
       </plugin>
       
