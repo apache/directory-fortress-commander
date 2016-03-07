@@ -17,8 +17,7 @@
    specific language governing permissions and limitations
    under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -31,7 +30,7 @@
   <groupId>org.apache.directory.fortress</groupId>
   <artifactId>fortress-web</artifactId>
   <packaging>war</packaging>
-  <version>1.0-RC42-SNAPSHOT</version>
+  <version>1.0-RC42</version>
   <name>Apache Fortress Web</name>
   <url>http://directory.apache.org/fortress/</url>
   <description>Fortress Web is an ANSI RBAC INCITS 359 compliant administrative UI</description>
@@ -47,7 +46,7 @@
     <connection>scm:git:http://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git</connection>
     <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
     </developerConnection>
-    <tag>HEAD</tag>
+    <tag>1.0-RC42</tag>
   </scm>
 
   <issueManagement>
@@ -576,37 +575,30 @@
           <execution>
             <phase>test</phase>
             <configuration>
-              <target name="fortress-load"  if="load.file"
-                      description="Loads fortress rbac policy files into ldap">
-                <echo message="###############  Run Fortress Policy Load  ###############"/>
-                <java
-                        classname="org.apache.tools.ant.launch.Launcher"
-                        fork="true"
-                        failonerror="true"
-                        dir="${basedir}"
-                        timeout="4000000"
-                        taskname="startAnt">
+              <target name="fortress-load" if="load.file" description="Loads fortress rbac policy files into ldap">
+                <echo message="############### Run Fortress Policy Load  ###############" />
+                <java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="${basedir}" timeout="4000000" taskname="startAnt">
                   <classpath>
-                    <pathelement location="./src/main/resources"/>
-                    <pathelement location="${org.apache.ant:ant-launcher:jar}"/>
-                    <pathelement location="${org.apache.ant:ant:jar}"/>
-                    <pathelement location="${org.apache.directory.fortress:fortress-core:jar}"/>
-                    <pathelement location="${org.openldap:accelerator-api:jar}"/>
-                    <pathelement location="${org.openldap:accelerator-impl:jar}"/>
-                    <pathelement location="${log4j:log4j:jar}"/>
-                    <pathelement location="${org.apache.directory.api:api-all:jar}"/>
-                    <pathelement location="${org.apache.mina:mina-core:jar}"/>
-                    <pathelement location="${org.jgrapht:jgrapht-core:jar}"/>
-                    <pathelement location="${org.jasypt:jasypt:jar}"/>
-                    <pathelement location="${commons-configuration:commons-configuration:jar}"/>
-                    <pathelement location="${commons-lang:commons-lang:jar}"/>
-                    <pathelement location="${commons-collections:commons-collections:jar}"/>
-                    <pathelement location="${commons-logging:commons-logging:jar}"/>
-                    <pathelement location="${commons-io:commons-io:jar}"/>
-                    <pathelement location="${commons-pool:commons-pool:jar}"/>
-                    <pathelement location="${net.sf.ehcache:ehcache-core:jar}"/>
-                    <pathelement location="${org.slf4j:slf4j-api:jar}"/>
-                    <pathelement location="${org.slf4j:slf4j-log4j12:jar}"/>
+                    <pathelement location="./src/main/resources" />
+                    <pathelement location="${org.apache.ant:ant-launcher:jar}" />
+                    <pathelement location="${org.apache.ant:ant:jar}" />
+                    <pathelement location="${org.apache.directory.fortress:fortress-core:jar}" />
+                    <pathelement location="${org.openldap:accelerator-api:jar}" />
+                    <pathelement location="${org.openldap:accelerator-impl:jar}" />
+                    <pathelement location="${log4j:log4j:jar}" />
+                    <pathelement location="${org.apache.directory.api:api-all:jar}" />
+                    <pathelement location="${org.apache.mina:mina-core:jar}" />
+                    <pathelement location="${org.jgrapht:jgrapht-core:jar}" />
+                    <pathelement location="${org.jasypt:jasypt:jar}" />
+                    <pathelement location="${commons-configuration:commons-configuration:jar}" />
+                    <pathelement location="${commons-lang:commons-lang:jar}" />
+                    <pathelement location="${commons-collections:commons-collections:jar}" />
+                    <pathelement location="${commons-logging:commons-logging:jar}" />
+                    <pathelement location="${commons-io:commons-io:jar}" />
+                    <pathelement location="${commons-pool:commons-pool:jar}" />
+                    <pathelement location="${net.sf.ehcache:ehcache-core:jar}" />
+                    <pathelement location="${org.slf4j:slf4j-api:jar}" />
+                    <pathelement location="${org.slf4j:slf4j-log4j12:jar}" />
                     <pathelement location="${org.apache.cxf:cxf-api:jar}" />
                     <pathelement location="${javax.ws.rs:javax.ws.rs-api:jar}" />
                     <pathelement location="${javax.ws.rs:javax.ws.rs-api:jar}" />
@@ -616,11 +608,11 @@
                     <pathelement location="${commons-codec:commons-codec:jar}" />
                     <pathelement location="${antlr:antlr:jar}" />
                   </classpath>
-                  <sysproperty key="version" value="${project.version}"/>
+                  <sysproperty key="version" value="${project.version}" />
                   <sysproperty key="tenant" value="${tenant}" />
-                  <arg value="-buildfile"/>
+                  <arg value="-buildfile" />
                   <arg file="./${load.file}" />
-                  <!--                  <arg file="./src/main/resources/FortressRestServerPolicy.xml"/>-->
+                  <!--                  <arg file="./src/main/resources/FortressRestServerPolicy.xml" />-->
                 </java>
               </target>
             </configuration>
