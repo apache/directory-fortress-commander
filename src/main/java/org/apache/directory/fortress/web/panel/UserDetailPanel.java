@@ -1727,6 +1727,8 @@ public class UserDetailPanel extends FormComponentPanel
                 clearDetailPanel();
                 SelectModelEvent modelEvent = ( SelectModelEvent ) event.getPayload();
                 final User user = ( User ) modelEvent.getEntity();
+                // strip the attribute name from value.  e.g. cn=value:
+                user.setPwPolicy( getPolicyName( user.getPwPolicy() ) );
                 this.setModelObject( user );
                 initAccordionLabels( user );
                 String msg = "User: " + user.getUserId() + " has been selected";
@@ -1986,5 +1988,25 @@ public class UserDetailPanel extends FormComponentPanel
             log.error( error );
         }
         return image;
+    }
+
+    /**
+     * Strip and reutrn the value of an openldap pw policy attribute from its rdn name.
+     *
+     * @param rDn in the format of rdn name=value
+     * @return value
+     */
+    private String getPolicyName(String rDn)
+    {
+        String name = null;
+        if(StringUtils.isNotEmpty( rDn ))
+        {
+            int indx = rDn.indexOf( '=' );
+            if( indx != -1 )
+            {
+                name = rDn.substring( indx + 1 );
+            }
+        }
+        return name;
     }
 }
