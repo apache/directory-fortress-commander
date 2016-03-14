@@ -30,7 +30,7 @@
   <groupId>org.apache.directory.fortress</groupId>
   <artifactId>fortress-web</artifactId>
   <packaging>war</packaging>
-  <version>1.0-RC43-SNAPSHOT</version>
+  <version>1.0-RC42-SNAPSHOT</version>
   <name>Apache Fortress Web</name>
   <url>http://directory.apache.org/fortress/</url>
   <description>Fortress Web is an ANSI RBAC INCITS 359 compliant administrative UI</description>
@@ -94,7 +94,7 @@
 
   <properties>
     <title>${project.name} ${project.version}</title>
-    <fortress.realm.version>1.0-RC42</fortress.realm.version>
+    <fortress.realm.version>1.0-RC42-SNAPSHOT</fortress.realm.version>
     <wicket.version>6.19.0</wicket.version>
 
     <wicket.jquery.version>6.15.0</wicket.jquery.version>
@@ -306,24 +306,28 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
+      <scope>test</scope>
     </dependency>
     
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
       <version>2.52.0</version>
+      <scope>test</scope>
     </dependency>
     
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-common</artifactId>
       <version>2.0b1</version>
+      <scope>test</scope>
     </dependency>
     
     <dependency>
       <groupId>org.seleniumhq.selenium.client-drivers</groupId>
       <artifactId>selenium-java-client-driver</artifactId>
       <version>1.0.2</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 

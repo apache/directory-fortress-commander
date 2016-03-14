@@ -20,8 +20,7 @@
 
 package org.apache.directory.fortress.web.panel;
 
-
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.web.control.SecUtils;
 import org.apache.directory.fortress.web.event.SelectModelEvent;
 import org.apache.log4j.Logger;
