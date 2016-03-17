@@ -1,35 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-   Licensed to the Apache Software Foundation (ASF) under one
-   or more contributor license agreements.  See the NOTICE file
-   distributed with this work for additional information
-   regarding copyright ownership.  The ASF licenses this file
-   to you under the Apache License, Version 2.0 (the
-   "License"); you may not use this file except in compliance
-   with the License.  You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing,
-   software distributed under the License is distributed on an
-   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-   KIND, either express or implied.  See the License for the
-   specific language governing permissions and limitations
-   under the License.
--->
-
+  ~ This is free and unencumbered software released into the public domain.
+  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:sec="http://www.springframework.org/schema/security"
        xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-                           http://www.springframework.org/schema/beans/spring-beans.xsd
-                           http://www.springframework.org/schema/beans
-                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-                           http://www.springframework.org/schema/util
-                           http://www.springframework.org/schema/util/spring-util-3.0.xsd
-                           http://www.springframework.org/schema/security
-                           http://www.springframework.org/schema/security/spring-security.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security.xsd">
 
     <!-- Housekeeping -->
     <bean id="baseURL" class="java.lang.String">
@@ -87,7 +71,6 @@
           factory-method="createInstance">
     </bean>
 
-
     <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
         <property name="targetObject">
             <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
@@ -98,7 +81,7 @@
         <property name="targetMethod" value="putAll"/>
         <property name="arguments">
             <util:properties>
-                <prop key="version">1.0-RC39</prop>
+                <prop key="version">1.0-RC42-SNAPSHOT</prop>
             </util:properties>
         </property>
     </bean>
@@ -106,29 +89,24 @@
     <!-- Inject spring context into wicket pages -->
     <bean id="wicketApplication" class="org.apache.directory.fortress.web.ApplicationContext"></bean>
 
-    <!-- setup spring security using preauthenticated (java ee) strategy -->
+    <!-- setup spring security using pre-authenticated (Java EE) strategy -->
     <bean id="filterChainProxy" class="org.springframework.security.web.FilterChainProxy">
-        <sec:filter-chain-map path-type="ant">
-            <sec:filter-chain pattern="/**" filters="sif,j2eePreAuthFilter,logoutFilter,etf,fsi"/>
-        </sec:filter-chain-map>
+        <constructor-arg>
+            <list>
+                <sec:filter-chain pattern="/**" filters="sif,j2eePreAuthFilter,logoutFilter,etf,fsi" />
+            </list>
+        </constructor-arg>
     </bean>
 
     <bean id="sif" class="org.springframework.security.web.context.SecurityContextPersistenceFilter"/>
-
     <sec:authentication-manager alias="authenticationManager">
         <sec:authentication-provider ref='preAuthenticatedAuthenticationProvider'/>
     </sec:authentication-manager>
-
-    <bean id="preAuthenticatedAuthenticationProvider"
-          class="org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider">
+    <bean id="preAuthenticatedAuthenticationProvider" class="org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider">
         <property name="preAuthenticatedUserDetailsService" ref="preAuthenticatedUserDetailsService"/>
     </bean>
-
-    <bean id="preAuthenticatedUserDetailsService"
-          class="org.springframework.security.web.authentication.preauth.PreAuthenticatedGrantedAuthoritiesUserDetailsService"/>
-
-    <bean id="j2eePreAuthFilter"
-          class="org.springframework.security.web.authentication.preauth.j2ee.J2eePreAuthenticatedProcessingFilter">
+    <bean id="preAuthenticatedUserDetailsService" class="org.springframework.security.web.authentication.preauth.PreAuthenticatedGrantedAuthoritiesUserDetailsService"/>
+    <bean id="j2eePreAuthFilter" class="org.springframework.security.web.authentication.preauth.j2ee.J2eePreAuthenticatedProcessingFilter">
         <property name="authenticationManager" ref="authenticationManager"/>
         <property name="authenticationDetailsSource">
             <bean class="org.springframework.security.web.authentication.preauth.j2ee.J2eeBasedPreAuthenticatedWebAuthenticationDetailsSource">
@@ -143,10 +121,7 @@
             </bean>
         </property>
     </bean>
-
-    <bean id="preAuthenticatedProcessingFilterEntryPoint"
-          class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint"/>
-
+    <bean id="preAuthenticatedProcessingFilterEntryPoint" class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint"/>
     <bean id="logoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
         <constructor-arg value="/"/>
         <constructor-arg>
@@ -156,26 +131,25 @@
         </constructor-arg>
     </bean>
 
-    <bean id="servletContext" class="org.springframework.web.context.support.ServletContextFactoryBean"/>
+    <!--     <bean id="servletContext" class="org.springframework.web.context.support.ServletContextFactoryBean"/> -->
 
     <bean id="etf" class="org.springframework.security.web.access.ExceptionTranslationFilter">
-        <property name="authenticationEntryPoint" ref="preAuthenticatedProcessingFilterEntryPoint"/>
+        <constructor-arg  ref="preAuthenticatedProcessingFilterEntryPoint"/>
     </bean>
 
     <bean id="httpRequestAccessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
-        <property name="allowIfAllAbstainDecisions" value="false"/>
-        <property name="decisionVoters">
+        <constructor-arg>
             <list>
                 <ref bean="roleVoter"/>
             </list>
-        </property>
+        </constructor-arg>
     </bean>
 
     <bean id="fsi" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
         <property name="authenticationManager" ref="authenticationManager"/>
         <property name="accessDecisionManager" ref="httpRequestAccessDecisionManager"/>
         <property name="securityMetadataSource">
-            <sec:filter-invocation-definition-source>
+            <sec:filter-security-metadata-source use-expressions="false">
                 <!-- before spring interceptor recognizes these roles, the j2ee preauthentication filter requires prior declaration in web.xml -->
                 <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.userpage"
                                    access="ROLE_RBAC_ADMIN,ROLE_USERS"/>
@@ -209,13 +183,9 @@
                                    access="ROLE_RBAC_ADMIN,ROLE_AUDIT_BINDS"/>
                 <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.grouppage"
                                    access="ROLE_RBAC_ADMIN,ROLE_GROUPS"/>
-            </sec:filter-invocation-definition-source>
+            </sec:filter-security-metadata-source>
         </property>
     </bean>
-
     <bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter"/>
-
-    <bean id="securityContextHolderAwareRequestFilter"
-          class="org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter"/>
-
+    <bean id="securityContextHolderAwareRequestFilter" class="org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter"/>
 </beans>
