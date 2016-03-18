@@ -245,26 +245,30 @@
       <artifactId>velocity</artifactId>
       <version>1.4</version>
     </dependency>
-    
-    <dependency>
-      <groupId>httpunit</groupId>
-      <artifactId>httpunit</artifactId>
-      <version>1.6.1</version>
-    </dependency>
-    
+
     <!--  ANT DEPENDENCIES FOR RUNNING ANT PLUG-IN FOR FORTRESS LOAD UTILITY  -->
     <dependency>
       <groupId>org.apache.ant</groupId>
       <artifactId>ant</artifactId>
       <version>1.8.1</version>
+      <scope>test</scope>
     </dependency>
-    
+
     <dependency>
       <groupId>org.apache.ant</groupId>
       <artifactId>ant-launcher</artifactId>
       <version>1.8.1</version>
+      <scope>test</scope>
     </dependency>
 
+    <!-- Begin test dependencies -->
+    <dependency>
+      <groupId>httpunit</groupId>
+      <artifactId>httpunit</artifactId>
+      <version>1.6.1</version>
+      <scope>test</scope>
+    </dependency>
+    
     <!--  JETTY used for embedded testing -->
     <dependency>
       <groupId>org.mortbay.jetty</groupId>
@@ -280,7 +284,6 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- Testing -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -416,7 +419,7 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
           <stylesheet>java</stylesheet>
-          <bottom>&lt;small&gt;Copyright &amp;copy; 2003-2015, The Apache Software Foundation. All Rights Reserved. Generated ${maven.build.timestamp}&lt;/small&gt;</bottom>
+          <bottom>&lt;small&gt;Copyright &amp;copy; 2003-2016, The Apache Software Foundation. All Rights Reserved. Generated ${maven.build.timestamp}&lt;/small&gt;</bottom>
           <overview>src/main/java/org/apache/directory/fortress/web/overview.html</overview>
           <version>true</version>
           <author>true</author>

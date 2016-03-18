@@ -130,7 +130,7 @@ public abstract class FortressWebBasePage extends WebPage
         add( new SecureBookmarkablePageLink( org.apache.directory.fortress.web.common.GlobalIds.AUDIT_MODS_PAGE, AuditModPage.class,
             org.apache.directory.fortress.web.common.GlobalIds.ROLE_AUDIT_MODS ) );
 
-        add( new Label( "footer", "Copyright (c) 2003-2015, The Apache Software Foundation. All Rights Reserved." ) );
+        add( new Label( "footer", "Copyright (c) 2003-2016, The Apache Software Foundation. All Rights Reserved." ) );
 
         final Link actionLink = new Link( "logout" )
         {
