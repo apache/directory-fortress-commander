@@ -58,6 +58,7 @@ public class FortressWebSeleniumITCase
 
         // tomcat default:
         baseUrl = "http://localhost:8080";
+        //baseUrl = "http://10.71.6.14:8080";
         //baseUrl = "http://fortressdemo2.com:8080";
         // tomcat SSL:
         //baseUrl = "https://localhost:8443";
