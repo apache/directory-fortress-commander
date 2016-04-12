@@ -30,7 +30,7 @@
   <groupId>org.apache.directory.fortress</groupId>
   <artifactId>fortress-web</artifactId>
   <packaging>war</packaging>
-  <version>1.0-RC43-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <name>Apache Fortress Web</name>
   <url>http://directory.apache.org/fortress/</url>
   <description>Fortress Web is an ANSI RBAC INCITS 359 compliant administrative UI</description>
@@ -94,7 +94,7 @@
 
   <properties>
     <title>${project.name} ${project.version}</title>
-    <fortress.realm.version>1.0-RC42</fortress.realm.version>
+    <fortress.realm.version>1.0.0</fortress.realm.version>
     <wicket.version>6.22.0</wicket.version>
     <wicket.jquery.version>6.15.0</wicket.jquery.version>
     <wicket.kendo-ui.version>6.15.0</wicket.kendo-ui.version>
