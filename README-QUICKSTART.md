@@ -26,8 +26,11 @@
  * SECTION 2. Configure Tomcat
  * SECTION 3. Load Sample Security Policy
  * SECTION 4. Deploy to Tomcat Server
+
 ___________________________________________________________________________________
 ## Document Overview
+
+Note: This document is a *work in progress*
 
 This document contains instructions to deploy a pre-built Apache Fortress Web instance to Tomcat and configure the server for its use.
 
