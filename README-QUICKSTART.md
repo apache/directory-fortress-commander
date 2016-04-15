@@ -26,12 +26,11 @@
  * SECTION 2. Configure Tomcat and Deploy Fortress Web
  * SECTION 3. Load Sample Security Policy
  * SECTION 4. Test
+
 ___________________________________________________________________________________
 ## Document Overview
 
-Note: This document is a *work in progress*
-
-This document contains instructions to deploy a pre-built Apache Fortress Web instance to Tomcat and configure the server for its use.
+This document contains instructions to deploy a pre-built Apache Fortress Web instance to Tomcat.
 
 -------------------------------------------------------------------------------
 ## SECTION 1. Prerequisites
@@ -39,8 +38,8 @@ This document contains instructions to deploy a pre-built Apache Fortress Web in
 Minimum software requirements:
  * Apache Tomcat7++
  * Completed either section in Apache Fortress Core Quickstart:
-    * *SECTION 2. Apache Fortress Core and OpenLDAP Setup* in [README-QUICKSTART-SLAPD.md](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-SLAPD.md)
-    * *SECTION 3. Apache Fortress Core Setup* in [README-QUICKSTART-APACHEDS.md](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-APACHEDS.md)
+    * *SECTION 3. Apache Fortress Core Integration Test* in [README-QUICKSTART-SLAPD.md](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-SLAPD.md)
+    * *SECTION 4. Apache Fortress Core Integration Test* in [README-QUICKSTART-APACHEDS.md](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-APACHEDS.md)
 
 ___________________________________________________________________________________
 ## SECTION 2. Configure Tomcat and Deploy Fortress Web
@@ -85,10 +84,21 @@ Set the java system properties in tomcat with the target ldap server's coordinat
 ___________________________________________________________________________________
 ## SECTION 3. Load Sample Security Policy
 
-Run maven install with load file:
-```
-mvn install -Dload.file=./src/main/resources/FortressWebDemoUsers.xml
-```
+1. From the Fortress Core package perform the following steps:
+
+a. Download the fortress web sample security policy from git:
+
+ ```
+ wget https://github.com/apache/directory-fortress-commander/blob/master/src/main/resources/FortressWebDemoUsers.xml -P ldap/setup
+ ```
+
+b. Run maven install with -Dload.file file:
+
+ ```
+ mvn install -Dload.file=ldap/setup/FortressWebDemoUsers.xml
+ ```
+
+Note: This step is required before tests can be successfully run.
 
 ___________________________________________________________________________________
 ## SECTION 4. Test
