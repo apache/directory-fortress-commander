@@ -26,7 +26,7 @@
  * SECTION 2. Configure Tomcat
  * SECTION 3. Load Sample Security Policy
  * SECTION 4. Deploy to Tomcat Server
-
+ * SECTION 5. Test
 ___________________________________________________________________________________
 ## Document Overview
 
@@ -39,7 +39,9 @@ This document contains instructions to deploy a pre-built Apache Fortress Web in
 
 Minimum software requirements:
  * Apache Tomcat7++
- * Either OpenLDAP or ApacheDS configured for Apache Fortress
+ * Completed either:
+    * *SECTION 2. Apache Fortress Core and OpenLDAP Setup* in [README-QUICKSTART-SLAPD.md](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-SLAPD.md)
+    * *SECTION 3. Apache Fortress Core Setup* in [README-QUICKSTART-APACHEDS.md](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-APACHEDS.md)
 
 ___________________________________________________________________________________
 ## SECTION 2. Configure Tomcat
@@ -66,8 +68,10 @@ Set the java system properties in tomcat with the target ldap server's coordinat
 4. Download the fortress realm proxy jar into tomcat/lib folder:
 
   ```
-  wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/1.0-RC42/fortress-realm-proxy-1.0-RC42.jar -P /usr/local/tomcat8/lib
+  wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/1.0.0/fortress-realm-proxy-1.0.0.jar -P $TOMCAT_HOME/lib
   ```
+
+  where *TOMCAT_HOME* matches your target env.
 
 5. Restart tomcat for new settings to take effect.
 
@@ -85,14 +89,31 @@ ________________________________________________________________________________
 1. Download the fortress web war into tomcat/webapps folder:
 
   ```
-  wget https://repository.apache.org/content/repositories/orgapachedirectory-1094/org/apache/directory/fortress/fortress-web/1.0.0/fortress-web-1.0.0.war
+  wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-web/1.0.0/fortress-web-1.0.0.war -P $TOMCAT_HOME/webapps
   ```
 
-2. Open browser and test (creds: test/password):
+  where *TOMCAT_HOME* matches your target env.
+
+2. You may need to restart Tomcat.
+
+___________________________________________________________________________________
+## SECTION 5. Test
+
+1. Open browser and test (creds: test/password):
 
  ```
  http://hostname:8080/fortress-web-1.0.0
  ```
+
+2. Click on the links, to pull up various views on the data stored in the directory.
+
+3. Run the selenium automated test:
+
+ ```
+ mvn test -Dtest=FortressWebSeleniumITCase
+ ```
+
+ *Requires Firefox on target machine.*
 
 ___________________________________________________________________________________
 #### END OF README-QUICKSTART
