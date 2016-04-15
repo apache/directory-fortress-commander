@@ -86,13 +86,13 @@ ________________________________________________________________________________
 
 1. From the Fortress Core package perform the following steps:
 
-a. Download the fortress web sample security policy from git:
+ a. Download the fortress web sample security policy from git:
 
  ```
  wget https://github.com/apache/directory-fortress-commander/blob/master/src/main/resources/FortressWebDemoUsers.xml -P ldap/setup
  ```
 
-b. Run maven install with -Dload.file file:
+ b. Run maven install with -Dload.file file:
 
  ```
  mvn install -Dload.file=ldap/setup/FortressWebDemoUsers.xml
