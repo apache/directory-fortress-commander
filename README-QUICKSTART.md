@@ -30,7 +30,7 @@
 ___________________________________________________________________________________
 ## Document Overview
 
-This document contains instructions to deploy a pre-built Apache Fortress Web instance to Tomcat.
+This document contains instructions to deploy a pre-built Fortress Web instance to Apache Tomcat.
 
 -------------------------------------------------------------------------------
 ## SECTION 1. Prerequisites
