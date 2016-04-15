@@ -23,10 +23,9 @@
 
  * Document Overview
  * SECTION 1. Prerequisites
- * SECTION 2. Configure Tomcat
+ * SECTION 2. Configure Tomcat and Deploy Fortress Web
  * SECTION 3. Load Sample Security Policy
- * SECTION 4. Deploy to Tomcat Server
- * SECTION 5. Test
+ * SECTION 4. Test
 ___________________________________________________________________________________
 ## Document Overview
 
@@ -39,12 +38,12 @@ This document contains instructions to deploy a pre-built Apache Fortress Web in
 
 Minimum software requirements:
  * Apache Tomcat7++
- * Completed either:
+ * Completed either section in Apache Fortress Core Quickstart:
     * *SECTION 2. Apache Fortress Core and OpenLDAP Setup* in [README-QUICKSTART-SLAPD.md](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-SLAPD.md)
     * *SECTION 3. Apache Fortress Core Setup* in [README-QUICKSTART-APACHEDS.md](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-APACHEDS.md)
 
 ___________________________________________________________________________________
-## SECTION 2. Configure Tomcat
+## SECTION 2. Configure Tomcat and Deploy Fortress Web
 
 Set the java system properties in tomcat with the target ldap server's coordinates.
 
@@ -73,7 +72,15 @@ Set the java system properties in tomcat with the target ldap server's coordinat
 
   where *TOMCAT_HOME* matches your target env.
 
-5. Restart tomcat for new settings to take effect.
+5. Download the fortress web war into tomcat/webapps folder:
+
+  ```
+  wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-web/1.0.0/fortress-web-1.0.0.war -P $TOMCAT_HOME/webapps
+  ```
+
+  where *TOMCAT_HOME* matches your target env.
+
+6. Restart tomcat for new settings to take effect.
 
 ___________________________________________________________________________________
 ## SECTION 3. Load Sample Security Policy
@@ -84,20 +91,7 @@ mvn install -Dload.file=./src/main/resources/FortressWebDemoUsers.xml
 ```
 
 ___________________________________________________________________________________
-## SECTION 4. Deploy to Tomcat Server
-
-1. Download the fortress web war into tomcat/webapps folder:
-
-  ```
-  wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-web/1.0.0/fortress-web-1.0.0.war -P $TOMCAT_HOME/webapps
-  ```
-
-  where *TOMCAT_HOME* matches your target env.
-
-2. You may need to restart Tomcat.
-
-___________________________________________________________________________________
-## SECTION 5. Test
+## SECTION 4. Test
 
 1. Open browser and test (creds: test/password):
 
