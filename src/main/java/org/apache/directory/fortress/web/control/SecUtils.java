@@ -49,7 +49,7 @@ public class SecUtils
 {
     private static final Logger LOG = Logger.getLogger( SecUtils.class.getName() );
     private static final String PERMS_CACHED = "perms.cached";
-    public static final boolean IS_PERM_CACHED = ( ( Config.getProperty( PERMS_CACHED ) != null ) && ( Config
+    public static final boolean IS_PERM_CACHED = ( ( Config.getInstance().getProperty( PERMS_CACHED ) != null ) && ( Config.getInstance()
         .getProperty( PERMS_CACHED ).equalsIgnoreCase( "true" ) ) );
 
     /**
