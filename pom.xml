@@ -95,9 +95,13 @@
   <properties>
     <title>${project.name} ${project.version}</title>
     <fortress.realm.version>1.0.1-SNAPSHOT</fortress.realm.version>
-    <wicket.version>6.22.0</wicket.version>
-    <wicket.jquery.version>6.15.0</wicket.jquery.version>
-    <wicket.kendo-ui.version>6.15.0</wicket.kendo-ui.version>
+    <wicket.version>7.3.0</wicket.version>
+    <wicket.jquery.version>7.3.0</wicket.jquery.version>
+    <wicket.kendo-ui.version>7.3.0</wicket.kendo-ui.version>
+
+<!--    <wicket.version>6.22.0</wicket.version>-->
+<!--    <wicket.jquery.version>6.15.0</wicket.jquery.version>-->
+<!--    <wicket.kendo-ui.version>6.15.0</wicket.kendo-ui.version>-->
     <version.log4j>1.2.17</version.log4j>
     <version.slf4j.log4j12>1.7.7</version.slf4j.log4j12>
     <spring.version>4.2.5.RELEASE</spring.version>

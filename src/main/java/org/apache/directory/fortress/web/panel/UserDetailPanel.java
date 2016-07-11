@@ -24,7 +24,8 @@ package org.apache.directory.fortress.web.panel;
 import com.googlecode.wicket.jquery.core.JQueryBehavior;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
-import com.googlecode.wicket.kendo.ui.renderer.ChoiceRenderer;
+import com.googlecode.wicket.kendo.ui.form.dropdown.AjaxDropDownList;
+import com.googlecode.wicket.kendo.ui.form.dropdown.DropDownList;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -32,7 +33,6 @@ import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
-import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.event.IEvent;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
@@ -86,7 +86,6 @@ public class UserDetailPanel extends FormComponentPanel
     private Form editForm;
     private Displayable display;
 
-
     public UserDetailPanel( String id, Displayable display )
     {
         super( id );
@@ -132,6 +131,8 @@ public class UserDetailPanel extends FormComponentPanel
 
         // form model attributes:
         private String pswdField;
+        private String newUserRole;
+        private String newUserAdminRole;
         private String userDetailLabel;
         private String lockLabel = "Lock";
         private String roleAssignmentsLabel;
@@ -141,8 +142,9 @@ public class UserDetailPanel extends FormComponentPanel
         private String temporalConstraintsLabel = "Temporal Constraints";
         private String systemInfoLabel = "System Information";
         private String importPhotoLabel = "Import Photo";
-        private String roleSelection;
-        private String adminRoleSelection;
+        private UserRole userRoleSelection = new UserRole();
+        private UserAdminRole userAdminRoleSelection = new UserAdminRole();
+
         private String addressSelection;
         private String phonesSelection;
         private String mobilesSelection;
@@ -161,14 +163,13 @@ public class UserDetailPanel extends FormComponentPanel
         private ComboBox<String> phonesCB;
         private ComboBox<String> mobilesCB;
         private ComboBox<String> addressCB;
-        private ComboBox<UserRole> rolesCB;
-        private ComboBox<UserAdminRole> adminRolesCB;
+        private DropDownList<UserRole> rolesDD;
+        private DropDownList<UserAdminRole> adminRolesDD;
         private FileUploadField upload;
         private TextField pwPolicyTF;
         private TextField ouTF;
         private TextField userIdTF;
         private SecureIndicatingAjaxButton addPB;
-
 
         public UserDetailForm( String id, final IModel<User> model )
         {
@@ -183,7 +184,6 @@ public class UserDetailPanel extends FormComponentPanel
             setOutputMarkupId( true );
         }
 
-
         private void addDetailFields( final IModel<User> model )
         {
             // Add the User page required attributes:
@@ -191,8 +191,10 @@ public class UserDetailPanel extends FormComponentPanel
             add( userIdTF );
             PasswordTextField pw = new PasswordTextField( GlobalIds.PSWD_FIELD, new PropertyModel<String>( this,
                 GlobalIds.PSWD_FIELD ) );
+
             pw.setRequired( false );
             add( pw );
+
             TextField descriptionTF = new TextField( GlobalIds.DESCRIPTION );
             descriptionTF.setRequired( false );
             add( descriptionTF );
@@ -213,22 +215,28 @@ public class UserDetailPanel extends FormComponentPanel
             add( pwPolicyTF );
 
             // Add the role assignment values & temporal constraint panel:
-            rolesCB = new ComboBox<>( ROLES, new PropertyModel<String>( this, ROLE_SELECTION ),
-                model.getObject().getRoles(), new ChoiceRenderer<UserRole>( GlobalIds.NAME ) );
-            rolesCB.setOutputMarkupId( true );
-            add( rolesCB );
+            TextField newUserRoleTF = new TextField( GlobalIds.NEW_USER_ROLE_FIELD, new PropertyModel<String>( this,
+                GlobalIds.NEW_USER_ROLE_FIELD ) );
+            newUserRoleTF.setRequired( false );
+            add( newUserRoleTF );
+
+            rolesDD = new AjaxDropDownList<>(ROLES, new CompoundPropertyModel<>( new UserRole() ), Model.ofList(new ArrayList<UserRole>()));
+            add( rolesDD );
+
             roleConstraintPanel = new ConstraintRolePanel( ROLECONSTRAINTPANEL, new PropertyModel<UserRole>( this,
                 ROLE_CONSTRAINT ) );
             roleConstraintPanel.setOutputMarkupId( true );
             add( roleConstraintPanel );
 
             // Add the adminRole assignment values & temporal constraint panel:
-            adminRolesCB = new ComboBox<>( ADMIN_ROLES, new PropertyModel<String>( this,
-                ADMIN_ROLE_SELECTION ), model.getObject().getAdminRoles(), new ChoiceRenderer<UserAdminRole>(
-                GlobalIds.NAME
-                ) );
-            adminRolesCB.setOutputMarkupId( true );
-            add( adminRolesCB );
+            TextField newUserAdminRoleTF = new TextField( GlobalIds.NEW_USER_ADMIN_ROLE_FIELD, new PropertyModel<String>( this,
+                GlobalIds.NEW_USER_ADMIN_ROLE_FIELD ) );
+            newUserAdminRoleTF.setRequired( false );
+            add( newUserAdminRoleTF );
+
+            adminRolesDD = new AjaxDropDownList<>(ADMIN_ROLES, new CompoundPropertyModel<>( new UserAdminRole() ), Model.ofList(new ArrayList<UserAdminRole>()));
+            add( adminRolesDD );
+
             adminRoleConstraintPanel = new ConstraintAdminRolePanel( ADMINROLECONSTRAINTPANEL,
                 new PropertyModel<UserAdminRole>( this, ADMIN_ROLE_CONSTRAINT ) );
             adminRoleConstraintPanel.setOutputMarkupId( true );
@@ -254,6 +262,7 @@ public class UserDetailPanel extends FormComponentPanel
             mobilesCB = new ComboBox<>( GlobalIds.MOBILES, new PropertyModel<String>( this, MOBILES_SELECTION ),
                 model.getObject().getMobiles() );
             add( mobilesCB );
+
             // TODO: name not mapped correctly in fortress so can't be used here:
             TextField name = new TextField( "displayName" );
             name.setRequired( false );
@@ -313,7 +322,6 @@ public class UserDetailPanel extends FormComponentPanel
 
         private void addButtons()
         {
-
             add( addPB = new SecureIndicatingAjaxButton( GlobalIds.ADD, GlobalIds.ADMIN_MGR, GlobalIds.ADD_USER )
             {
                 /** Default serialVersionUID */
@@ -352,7 +360,6 @@ public class UserDetailPanel extends FormComponentPanel
                         display.display();
                     }
                 }
-
 
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
@@ -422,13 +429,11 @@ public class UserDetailPanel extends FormComponentPanel
                     }
                 }
 
-
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "UserDetailPanel.commit.onError" );
                 }
-
 
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
@@ -476,13 +481,11 @@ public class UserDetailPanel extends FormComponentPanel
                     }
                 }
 
-
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "UserDetailPanel.delete.onError" );
                 }
-
 
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
@@ -508,7 +511,6 @@ public class UserDetailPanel extends FormComponentPanel
                 /** Default serialVersionUID */
                 private static final long serialVersionUID = 1L;
 
-
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
@@ -517,13 +519,11 @@ public class UserDetailPanel extends FormComponentPanel
                     display.setMessage( msg );
                 }
 
-
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "UserDetailPanel.cancel.onError" );
                 }
-
 
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
@@ -564,13 +564,11 @@ public class UserDetailPanel extends FormComponentPanel
                     initAccordionLabels( user );
                 }
 
-
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "save.onError" );
                 }
-
 
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
@@ -744,31 +742,27 @@ public class UserDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
                     log.debug( ".onSubmit assign" );
-                    /*
-                                        HttpServletRequest servletReq = ( HttpServletRequest ) getRequest().getContainerRequest();
-                                        if ( servletReq.isUserInRole( "rbac_admin" ) )
-                                        {
-                                            log.debug( "User has RBAC_ADMIN" );
-                                        }
-                                        else
-                                        {
-                                            log.debug( "User NOT RBAC_ADMIN" );
-                                        }
-                    */
-
                     User user = ( User ) form.getModel().getObject();
-                    if ( assignRole( user, roleSelection ) )
+                    if( StringUtils.isNotEmpty( newUserRole ))
                     {
-                        String msg = "User: " + user.getUserId() + " has been assigned role: " + roleSelection;
-                        //info( msg );
-                        display.setMessage( msg );
-                        component = editForm;
-                        initAccordionLabels( user );
+                        if ( assignRole( user, newUserRole ) )
+                        {
+                            String msg = "User: " + user.getUserId() + " has been assigned role: " + newUserRole;
+                            display.setMessage( msg );
+                            component = editForm;
+                            initAccordionLabels( user );
+                            userRoleSelection = new UserRole();
+                            roleConstraint = new UserRole();
+                            newUserRole = "";
+                        }
+                        else
+                        {
+                            String msg = "User: " + user.getUserId() + " assign failed for role: " + newUserRole;
+                            display.setMessage( msg );
+                            log.debug( msg );
+                        }
                     }
-                    roleSelection = "";
-                    roleConstraint = new UserRole();
                 }
-
 
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
@@ -807,19 +801,27 @@ public class UserDetailPanel extends FormComponentPanel
                 {
                     log.debug( ".onSubmit assignAdminRole" );
                     User user = ( User ) form.getModel().getObject();
-                    if ( assignAdminRole( user, adminRoleSelection ) )
+                    if( StringUtils.isNotEmpty( newUserAdminRole ))
                     {
-                        String msg = "User: " + user.getUserId() + " has been assigned adminRole: " +
-                            adminRoleSelection;
-                        //info( msg );
-                        display.setMessage( msg );
-                        component = editForm;
-                        initAccordionLabels( user );
+                        if ( assignAdminRole( user, newUserAdminRole ) )
+                        {
+                            String msg = "User: " + user.getUserId() + " has been assigned adminRole: " +
+                                newUserAdminRole;
+                            display.setMessage( msg );
+                            component = editForm;
+                            initAccordionLabels( user );
+                            userAdminRoleSelection = new UserAdminRole();
+                            adminRoleConstraint = new UserAdminRole();
+                            newUserAdminRole = "";
+                        }
+                        else
+                        {
+                            String msg = "User: " + user.getUserId() + " assign failed for admin role: " + newUserAdminRole;
+                            display.setMessage( msg );
+                            log.debug( msg );
+                        }
                     }
-                    adminRoleSelection = "";
-                    adminRoleConstraint = new UserAdminRole();
                 }
-
 
                 @Override
                 public void onError( AjaxRequestTarget target, Form form )
@@ -858,17 +860,16 @@ public class UserDetailPanel extends FormComponentPanel
                 {
                     log.debug( ".onSubmit deassign" );
                     User user = ( User ) form.getModel().getObject();
-                    UserRole userRole = new UserRole( user.getUserId(), roleSelection );
+                    UserRole userRole = new UserRole( user.getUserId(), userRoleSelection.getName() );
                     if ( deassignRole( user, userRole ) )
                     {
-                        user.delRole( new UserRole( roleSelection ) );
-                        String msg = "User: " + user.getUserId() + " has been deassigned role: " + roleSelection;
-                        //info( msg );
+                        user.delRole( userRoleSelection );
+                        String msg = "User: " + user.getUserId() + " has been deassigned role: " + userRoleSelection.getName();
                         display.setMessage( msg );
                         component = editForm;
                         initAccordionLabels( user );
                     }
-                    roleSelection = "";
+                    userRoleSelection = new UserRole();
                     roleConstraint = new UserRole();
                 }
 
@@ -910,18 +911,17 @@ public class UserDetailPanel extends FormComponentPanel
                 {
                     log.debug( ".onSubmit deassignAdminRole" );
                     User user = ( User ) form.getModel().getObject();
-                    UserAdminRole userAdminRole = new UserAdminRole( user.getUserId(), adminRoleSelection );
+                    UserAdminRole userAdminRole = new UserAdminRole( user.getUserId(), userAdminRoleSelection.getName() );
                     if ( deassignAdminRole( user, userAdminRole ) )
                     {
                         user.delAdminRole( userAdminRole );
                         String msg = "User: " + user.getUserId() + " has been deassigned adminRole: " +
-                            adminRoleSelection;
-                        //info( msg );
+                            userAdminRoleSelection.getName();
                         display.setMessage( msg );
                         component = editForm;
                         initAccordionLabels( user );
                     }
-                    adminRoleSelection = "";
+                    userAdminRoleSelection = new UserAdminRole();
                     adminRoleConstraint = new UserAdminRole();
                 }
 
@@ -957,7 +957,6 @@ public class UserDetailPanel extends FormComponentPanel
                 /** Default serialVersionUID */
                 private static final long serialVersionUID = 1L;
 
-
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
@@ -986,7 +985,6 @@ public class UserDetailPanel extends FormComponentPanel
                     display.setMessage( msg );
                     log.debug( msg );
                 }
-
 
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
@@ -1197,9 +1195,7 @@ public class UserDetailPanel extends FormComponentPanel
                     roleConstraint = roleSearchModalPanel.getRoleSelection();
                     if ( roleConstraint != null )
                     {
-                        roleSelection = roleConstraint.getName();
                         target.add( roleConstraintPanel );
-                        target.add( rolesCB );
                     }
                 }
             } );
@@ -1213,8 +1209,8 @@ public class UserDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
                     String msg = "clicked on roles search";
-                    msg += roleSelection != null ? ": " + roleSelection : "";
-                    roleSearchModalPanel.setRoleSearchVal( roleSelection );
+                    msg += userRoleSelection != null ? ": " + userRoleSelection.getName() : "";
+                    roleSearchModalPanel.setRoleSearchVal( userRoleSelection.getName() );
                     display.setMessage( msg );
                     log.debug( msg );
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
@@ -1268,9 +1264,7 @@ public class UserDetailPanel extends FormComponentPanel
                     adminRoleConstraint = adminRoleSearchModalPanel.getAdminRoleSelection();
                     if ( adminRoleConstraint != null )
                     {
-                        adminRoleSelection = adminRoleConstraint.getName();
                         target.add( adminRoleConstraintPanel );
-                        target.add( adminRolesCB );
                     }
                 }
             } );
@@ -1284,8 +1278,8 @@ public class UserDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
                     String msg = "clicked on roles search";
-                    msg += adminRoleSelection != null ? ": " + adminRoleSelection : "";
-                    adminRoleSearchModalPanel.setRoleSearchVal( adminRoleSelection );
+                    msg += userAdminRoleSelection.getName() != null ? ": " + userAdminRoleSelection.getName() : "";
+                    adminRoleSearchModalPanel.setRoleSearchVal( userAdminRoleSelection.getName() );
                     display.setMessage( msg );
                     log.debug( msg );
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
@@ -1422,7 +1416,6 @@ public class UserDetailPanel extends FormComponentPanel
             {
                 private static final long serialVersionUID = 1L;
 
-
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
@@ -1435,7 +1428,6 @@ public class UserDetailPanel extends FormComponentPanel
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     ousModalWindow.show( target );
                 }
-
 
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
@@ -1463,7 +1455,6 @@ public class UserDetailPanel extends FormComponentPanel
             ousModalWindow.setCookieName( "userou-modal" );
         }
 
-
         private void info( ComboBox<String> comboBox )
         {
             String choice = comboBox.getModelObject();
@@ -1472,12 +1463,13 @@ public class UserDetailPanel extends FormComponentPanel
             log.debug( msg );
         }
 
-
         private void clearDetailPanel()
         {
             setModelObject( new User() );
-            roleSelection = "";
-            adminRoleSelection = "";
+            userRoleSelection = new UserRole();
+            userAdminRoleSelection = new UserAdminRole();
+            newUserRole = "";
+            newUserAdminRole = "";
             addressSelection = "";
             phonesSelection = "";
             roleConstraint = new UserRole();
@@ -1500,15 +1492,14 @@ public class UserDetailPanel extends FormComponentPanel
                 new ArrayList<String>() );
 
             editForm.addOrReplace( addressCB );
-            rolesCB = new ComboBox<>( ROLES, new PropertyModel<String>( this, ROLE_SELECTION ),
-                new ArrayList<UserRole>(), new ChoiceRenderer<UserRole>( GlobalIds.NAME ) );
-            rolesCB.setOutputMarkupId( true );
-            editForm.addOrReplace( rolesCB );
-            adminRolesCB = new ComboBox<>( ADMIN_ROLES, new PropertyModel<String>( this,
-                ADMIN_ROLE_SELECTION ), new ArrayList<UserAdminRole>(), new ChoiceRenderer<UserAdminRole>(
-                GlobalIds.NAME ) );
-            adminRolesCB.setOutputMarkupId( true );
-            editForm.addOrReplace( adminRolesCB );
+            rolesDD = new AjaxDropDownList<>(ROLES, new CompoundPropertyModel<>( new UserRole() ), Model.ofList(new ArrayList<UserRole>()));
+            rolesDD.setOutputMarkupId( true );
+            editForm.addOrReplace( rolesDD );
+
+            adminRolesDD = new AjaxDropDownList<>(ADMIN_ROLES, new CompoundPropertyModel<>( new UserAdminRole() ), Model.ofList(new ArrayList<UserAdminRole>()));
+            adminRolesDD.setOutputMarkupId( true );
+            editForm.addOrReplace( adminRolesDD );
+
             modelChanged();
             component = editForm;
             editForm.setOutputMarkupId( true );
@@ -1718,10 +1709,10 @@ public class UserDetailPanel extends FormComponentPanel
             return success;
         }
 
-
         @Override
         public void onEvent( final IEvent<?> event )
         {
+
             if ( event.getPayload() instanceof SelectModelEvent )
             {
                 clearDetailPanel();
@@ -1736,76 +1727,53 @@ public class UserDetailPanel extends FormComponentPanel
                 display.setMessage( msg );
                 userIdTF.setEnabled( false );
                 addPB.setEnabled( false );
-                rolesCB = new ComboBox<>( ROLES, new PropertyModel<String>( this, ROLE_SELECTION ),
-                    user.getRoles(), new ChoiceRenderer<UserRole>( GlobalIds.NAME ) );
-                AjaxFormComponentUpdatingBehavior roleAjaxUpdater = new AjaxFormComponentUpdatingBehavior( "onchange" )
+
+                rolesDD = new AjaxDropDownList<UserRole>(ROLES, new CompoundPropertyModel<>( new UserRole() ), Model.ofList(user.getRoles()))
                 {
-                    /** Default serialVersionUID */
                     private static final long serialVersionUID = 1L;
 
-
                     @Override
-                    protected void onUpdate( final AjaxRequestTarget target )
+                    public void onSelectionChanged(AjaxRequestTarget target)
                     {
-                        log.warn( "onUpdate roleDB in ajax form updater" );
-                        String roleNm = rolesCB.getConvertedInput();
-                        if ( StringUtils.isNotEmpty( roleNm ) )
+                        userRoleSelection =  this.getModelObject();
+                        if ( userRoleSelection != null )
                         {
-                            UserRole userRole = null;
-                            int indx = user.getRoles().indexOf( new UserRole( roleNm ) );
-                            if ( indx != -1 )
-                            {
-                                userRole = user.getRoles().get( indx );
-                                log.warn( "onUpdate roleNm:" + roleNm );
-                                info( "roleNm=" + roleNm );
-                                roleConstraint = userRole;
-                                roleConstraintPanel.setOutputMarkupId( true );
-                                target.add( roleConstraintPanel );
-                                adminRoleSelection = "";
-                                target.add( adminRolesCB );
-                            }
+                            info( "roleNm=" + userRoleSelection.getName() );
+                            roleConstraint = userRoleSelection;
+                            roleConstraintPanel.setOutputMarkupId( true );
+                            target.add( roleConstraintPanel );
+                            // TODO: should we clear out any unfinished work here:
+                            //userAdminRoleSelection = new UserAdminRole();
+                            //target.add( adminRolesDD );
                         }
                     }
                 };
-                this.rolesCB.add( roleAjaxUpdater );
-                this.rolesCB.setOutputMarkupId( true );
-                editForm.addOrReplace( rolesCB );
-                adminRolesCB = new ComboBox<>( ADMIN_ROLES, new PropertyModel<String>( this,
-                    ADMIN_ROLE_SELECTION ), user.getAdminRoles(), new ChoiceRenderer<UserAdminRole>( GlobalIds.NAME ) );
-                AjaxFormComponentUpdatingBehavior adminRoleAjaxUpdater = new AjaxFormComponentUpdatingBehavior(
-                    "onchange" )
+                this.rolesDD.setOutputMarkupId( true );
+                editForm.addOrReplace( rolesDD );
+
+                adminRolesDD = new AjaxDropDownList<UserAdminRole>(ADMIN_ROLES, new CompoundPropertyModel<>( new UserAdminRole() ), Model.ofList(user.getAdminRoles()))
                 {
-                    /** Default serialVersionUID */
                     private static final long serialVersionUID = 1L;
 
-
                     @Override
-                    protected void onUpdate( final AjaxRequestTarget target )
+                    public void onSelectionChanged(AjaxRequestTarget target)
                     {
-                        log.warn( "onUpdate adminRoleCB in ajax form updater" );
-                        String adminRoleNm = adminRolesCB.getConvertedInput();
-                        if ( StringUtils.isNotEmpty( adminRoleNm ) )
+                        userAdminRoleSelection =  this.getModelObject();
+                        if ( userAdminRoleSelection != null )
                         {
-                            UserAdminRole userAdminRole = null;
-                            int indx = user.getAdminRoles().indexOf( new UserAdminRole( user.getUserId(),
-                                adminRoleNm ) );
-                            if ( indx != -1 )
-                            {
-                                userAdminRole = user.getAdminRoles().get( indx );
-                                log.warn( "onUpdate adminRoleNm:" + userAdminRole );
-                                info( "adminRoleNm=" + userAdminRole );
-                                adminRoleConstraint = userAdminRole;
-                                adminRoleConstraintPanel.setOutputMarkupId( true );
-                                target.add( adminRoleConstraintPanel );
-                                roleSelection = "";
-                                target.add( rolesCB );
-                            }
+                            info( "roleNm=" + userRoleSelection.getName() );
+                            adminRoleConstraint = userAdminRoleSelection;
+                            adminRoleConstraintPanel.setOutputMarkupId( true );
+                            target.add( adminRoleConstraintPanel );
+                            // TODO: should we clear out any unfinished work here:
+                            // userRoleSelection = new UserRole();
+                            // target.add( rolesDD );
                         }
                     }
                 };
-                this.adminRolesCB.add( adminRoleAjaxUpdater );
-                this.adminRolesCB.setOutputMarkupId( true );
-                editForm.addOrReplace( adminRolesCB );
+                this.adminRolesDD.setOutputMarkupId( true );
+                editForm.addOrReplace( adminRolesDD );
+
                 emailsCB = new ComboBox<>( GlobalIds.EMAILS, new PropertyModel<String>( this, EMAILS_SELECTION ),
                     user.getEmails() );
                 editForm.addOrReplace( emailsCB );
@@ -1826,8 +1794,6 @@ public class UserDetailPanel extends FormComponentPanel
                 editForm.addOrReplace( adminRoleConstraintPanel );
                 component = editForm;
             }
-            //else if (event.getPayload() instanceof AjaxRequestTarget && !(event.getPayload() instanceof
-            // AjaxUpdateEvent))
             // TODO: fix me... don't want to add detail form to every ajax request target that passes though:
             else if ( event.getPayload() instanceof AjaxRequestTarget )
             {
@@ -1859,7 +1825,6 @@ public class UserDetailPanel extends FormComponentPanel
             super.onBeforeRender();
         }
 
-
         private void initAccordionLabels()
         {
             userDetailLabel = "User Detail";
@@ -1868,7 +1833,6 @@ public class UserDetailPanel extends FormComponentPanel
             addressAssignmentsLabel = "Address Assignments";
             contactInformationLabel = "Contact Information";
         }
-
 
         private void initAccordionLabels( User user )
         {
@@ -1953,12 +1917,14 @@ public class UserDetailPanel extends FormComponentPanel
 
         private void initSelectionModels()
         {
-            roleSelection = "";
-            adminRoleSelection = "";
+            userRoleSelection = new UserRole();
+            userAdminRoleSelection = new UserAdminRole();
             addressSelection = "";
             phonesSelection = "";
             mobilesSelection = "";
             emailsSelection = "";
+            newUserRole = "";
+            newUserAdminRole = "";
         }
     }
 

@@ -248,7 +248,7 @@ public class ConstraintBasePanel extends FormComponentPanel
      * This method is used to convert from the panel component model to the domain model:
      */
     @Override
-    protected void convertInput()
+    public void convertInput()
     {
         Constraint constraint = ( Constraint ) getDefaultModelObject();
         if ( constraint != null )

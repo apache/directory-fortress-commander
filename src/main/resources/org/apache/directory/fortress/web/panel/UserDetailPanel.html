@@ -110,10 +110,20 @@
         </fieldset>
         <tr>
             <td>
+                <label for="newUserRole">New Role</label>
+            </td>
+            <td>
+                <!--                <input type="checkbox" wicket:id="isNewUserRole" id="isNewUserRole"/>-->
+                <input type="text" wicket:id="newUserRole" id="newUserRole" class="formLarge" style="width: 250px"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <label for="roles">RBAC Roles</label>
             </td>
             <td>
-                <input type="text" wicket:id="roles" id="roles" style="width: 250px;display:block"/>
+                <select wicket:id="roles" id="roles" ></select>
+                 <!--<input type="text" wicket:id="roles" id="roles" style="width: 250px;display:inline"/>-->
                 <button wicket:id="roles.search" name="roles.search">search</button>
                 <div wicket:id="rolesmodal"></div>
             </td>
@@ -134,10 +144,19 @@
         </fieldset>
         <tr>
             <td>
+                <label for="newUserAdminRole">New Admin Role</label>
+            </td>
+            <td>
+                <input type="text" wicket:id="newUserAdminRole" id="newUserAdminRole" class="formLarge" style="width: 250px"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <label for="adminRoles">Admin Roles</label>
             </td>
             <td>
-                <input type="text" wicket:id="adminRoles" id="adminRoles" style="width: 250px;display:inline"/>
+<!--                <input type="text" wicket:id="adminRoles" id="adminRoles" style="width: 250px;display:inline"/>-->
+                <select wicket:id="adminRoles" id="adminRoles" ></select>
                 <button wicket:id="adminRoles.search" name="adminRoles.search">search</button>
                 <div wicket:id="adminrolesmodal"></div>
             </td>

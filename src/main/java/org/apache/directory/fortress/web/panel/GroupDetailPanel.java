@@ -22,9 +22,9 @@ package org.apache.directory.fortress.web.panel;
 
 
 import com.googlecode.wicket.jquery.core.Options;
-import com.googlecode.wicket.kendo.ui.datatable.ColumnButton;
+//import com.googlecode.wicket.kendo.ui.datatable.ColumnButton;
 import com.googlecode.wicket.kendo.ui.datatable.DataTable;
-import com.googlecode.wicket.kendo.ui.datatable.column.CommandsColumn;
+//import com.googlecode.wicket.kendo.ui.datatable.column.CommandsColumn;
 import com.googlecode.wicket.kendo.ui.datatable.column.IColumn;
 import com.googlecode.wicket.kendo.ui.datatable.column.PropertyColumn;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
@@ -146,7 +146,7 @@ public class GroupDetailPanel extends FormComponentPanel
             addUserSearchModal();
 
             // DataTable //
-            columns = newColumnList();
+            //columns = newColumnList();
             options = new Options();
             options.set( "selectable", Options.asString( "single" ) );
             options.set( "scrollable", "{ virtual: true }" ); //infinite scroll
@@ -667,6 +667,7 @@ public class GroupDetailPanel extends FormComponentPanel
         }
 
 
+/*
         private List<IColumn> newColumnList()
         {
             List<IColumn> columns = new ArrayList<>();
@@ -687,6 +688,7 @@ public class GroupDetailPanel extends FormComponentPanel
 
             return columns;
         }
+*/
 
 
         private IDataProvider<Member> createDataProvider( List<String> members )
@@ -842,6 +844,7 @@ public class GroupDetailPanel extends FormComponentPanel
                 /**
                  * Triggered when a column button is clicked.
                  */
+/*
                 @Override
                 public void onClick( AjaxRequestTarget target, ColumnButton button, String value )
                 {
@@ -869,6 +872,7 @@ public class GroupDetailPanel extends FormComponentPanel
                         }
                     }
                 }
+*/
             };
 
             addOrReplace( table );

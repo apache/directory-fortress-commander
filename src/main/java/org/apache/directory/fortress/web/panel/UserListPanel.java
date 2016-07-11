@@ -72,7 +72,8 @@ import java.util.List;
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @version $Rev$
  */
-public class UserListPanel extends FormComponentPanel
+//public class UserListPanel extends FormComponentPanel
+public class UserListPanel<T extends Serializable> extends FormComponentPanel
 {
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
@@ -661,9 +662,9 @@ public class UserListPanel extends FormComponentPanel
     }
 
 
-    private DefaultTreeModel createTreeModel( List<User> users )
+    private DefaultTreeModel createTreeModel( List<T> users )
     {
-        DefaultTreeModel model = null;
+        DefaultTreeModel model;
         rootNode = new DefaultMutableTreeNode( null );
         model = new DefaultTreeModel( rootNode );
         if ( users == null )
@@ -673,7 +674,7 @@ public class UserListPanel extends FormComponentPanel
         else
         {
             LOG.debug( ".createTreeModel Users found:" + users.size() );
-            for ( User user : users )
+            for ( T user : users )
             {
                     rootNode.add( new DefaultMutableTreeNode( user ) );
             }
@@ -720,13 +721,14 @@ public class UserListPanel extends FormComponentPanel
         adminRoles.setInitialSize( 400 );
         columns.add( adminRoles );
 
-        List<User> users = ( List<User> ) getDefaultModel().getObject();
+        //List<User> users = ( List<User> ) getDefaultModel().getObject();
+        List<T> users = ( List<T> ) getDefaultModel().getObject();
+
         treeModel = createTreeModel( users );
         grid = new TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String>( "usertreegrid", treeModel, columns )
         {
             /** Default serialVersionUID */
             private static final long serialVersionUID = 1L;
-
 
             @Override
             public void selectItem( IModel itemModel, boolean selected )
@@ -734,8 +736,8 @@ public class UserListPanel extends FormComponentPanel
                 node = ( DefaultMutableTreeNode ) itemModel.getObject();
                 if ( !node.isRoot() )
                 {
-                    User user = ( User ) node.getUserObject();
-                    LOG.debug( "TreeGrid.addGrid.selectItem selected user =" + user.getUserId() );
+                    T user = ( T ) node.getUserObject();
+                    //LOG.debug( "TreeGrid.addGrid.selectItem selected user =" + user.getUserId() );
                     if ( super.isItemSelected( itemModel ) )
                     {
                         LOG.debug( "TreeGrid.addGrid.selectItem item is selected" );
@@ -744,7 +746,7 @@ public class UserListPanel extends FormComponentPanel
                     else
                     {
                         super.selectItem( itemModel, true );
-                        SelectModelEvent.send( getPage(), this, user );
+                        SelectModelEvent.send( getPage(), this, ( FortEntity ) user );
                     }
                 }
             }

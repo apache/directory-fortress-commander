@@ -128,6 +128,8 @@ public class GlobalIds
     public static final String NAME = "name";
     public static final String USER_ID = "userId";
     public static final String PSWD_FIELD = "pswdField";
+    public static final String NEW_USER_ROLE_FIELD = "newUserRole";
+    public static final String NEW_USER_ADMIN_ROLE_FIELD = "newUserAdminRole";
     public static final String LOGIN = "login";
     public static final String EMPLOYEE_TYPE = "employeeType";
     public static final String TITLE = "title";
@@ -151,7 +153,7 @@ public class GlobalIds
     public static final String AUDIT_TIMESTAMP_FORMAT = "MM/dd/yyyy HH:mm:ss";
     public static final String FIND_USERS = "findUsers";
     public static final String FIND_PERMISSIONS = "findPermissions";
-    public static final String ONBLUR = "onblur";
+    public static final String ONBLUR = "blur";
     public static final String ADDRESS_ADDRESSES = "address.addresses";
     public static final String FT_MOD_ID = "ftModId";
     public static final String FT_MODIFIER = "ftModifier";
