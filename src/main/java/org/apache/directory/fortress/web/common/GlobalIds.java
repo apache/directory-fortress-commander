@@ -89,6 +89,8 @@ public class GlobalIds
     public static final String WEDNESDAY_ARC = "wednesdayARC";
     public static final String THURSDAY_ARC = "thursdayARC";
     public static final String FRIDAY_ARC = "fridayARC";
+    public static final String ASSIGN_NEW_ROLE = "newUserRole";
+    public static final String ASSIGN_NEW_ADMIN_ROLE = "newUserAdminRole";
     public static final String ASSIGN_ADMIN_ROLE = "assignAdminRole";
     public static final String DESCRIPTION = "description";
     public static final String EMAILS = "emails";

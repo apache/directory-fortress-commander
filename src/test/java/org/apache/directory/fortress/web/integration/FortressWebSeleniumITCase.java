@@ -58,7 +58,7 @@ public class FortressWebSeleniumITCase
 
         // tomcat default:
         baseUrl = "http://localhost:8080";
-        //baseUrl = "http://10.71.6.14:8080";
+        //baseUrl = "http://10.71.6.36:8080";
         //baseUrl = "http://fortressdemo2.com:8080";
         // tomcat SSL:
         //baseUrl = "https://localhost:8443";
@@ -173,7 +173,8 @@ TODO: FIX ME:
         driver.findElement( By.name( GlobalIds.ADD ) ).click();
         TUtils.sleep( 1 );
         driver.findElement( By.id( GlobalIds.ROLE_ASSIGNMENTS_LABEL ) ).click();
-        ( ( JavascriptExecutor ) driver ).executeScript( "$(document.getElementById('roles')).val('role1');" );
+        //( ( JavascriptExecutor ) driver ).executeScript( "$(document.getElementById('roles')).val('role1');" );
+        driver.findElement( By.id( GlobalIds.ASSIGN_NEW_ROLE ) ).sendKeys( "ROLE_USERS" );
         driver.findElement( By.id( GlobalIds.BEGIN_TIME_RC ) ).clear();
         driver.findElement( By.id( GlobalIds.BEGIN_TIME_RC ) ).sendKeys( "8:00 AM" );
         driver.findElement( By.id( GlobalIds.END_TIME_RC ) ).clear();
@@ -198,9 +199,10 @@ TODO: FIX ME:
         driver.findElement( By.name( GlobalIds.ASSIGN ) ).click();
         TUtils.sleep( 1 );
         driver.findElement( By.id( GlobalIds.ROLE_ASSIGNMENTS_LABEL ) ).click();
+        driver.findElement( By.id( GlobalIds.ASSIGN_NEW_ROLE ) ).sendKeys( "" );
         driver.findElement( By.name( GlobalIds.ROLES_SEARCH ) ).click();
         TUtils.sleep( 2 );
-        driver.findElement( By.linkText( "6" ) ).click();
+        driver.findElement( By.linkText( "3" ) ).click();
         TUtils.sleep( 2 );
         driver.findElement( By.linkText( GlobalIds.SELECT ) ).click();
         TUtils.sleep( 2 );
@@ -217,8 +219,9 @@ TODO: FIX ME:
                         System.out.println("adminRoles is NOT displayed!!!");
                     }
             */
-        ( ( JavascriptExecutor ) driver ).executeScript( "$(document.getElementById('adminRoles')).val" +
-            "('DemoAdminUsers');" );
+        //( ( JavascriptExecutor ) driver ).executeScript( "$(document.getElementById('adminRoles')).val" +
+        //    "('DemoAdminUsers');" );
+        driver.findElement( By.id( GlobalIds.ASSIGN_NEW_ADMIN_ROLE ) ).sendKeys( "o" );
         driver.findElement( By.id( GlobalIds.BEGIN_TIME_ARC ) ).clear();
         driver.findElement( By.id( GlobalIds.BEGIN_TIME_ARC ) ).sendKeys( "8:00 AM" );
         driver.findElement( By.id( GlobalIds.END_TIME_ARC ) ).clear();
