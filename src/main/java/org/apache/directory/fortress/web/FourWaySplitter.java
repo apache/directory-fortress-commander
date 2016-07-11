@@ -51,18 +51,9 @@ public class FourWaySplitter implements IBorderLayout
 
     public void addBorderLayout(MarkupContainer container)
     {
-        /*
-        public SplitterBehavior(String selector, ISplitterListener listener) {
-        public SplitterBehavior(String selector, Options options, ISplitterListener listener) {
-        */
-        //  this.add(new SplitterBehavior("#splitter", new SplitterAdapter()));
-
         SplitterBehavior vertical = new SplitterBehavior("#vertical", new SplitterAdapter());
-
-        //SplitterBehavior vertical = new SplitterBehavior("#vertical");
         vertical.setOption("panes", this.getVerticalPanes()).setOption("orientation", "'vertical'");
         container.add(vertical);
-        //SplitterBehavior horizontal = new SplitterBehavior("#horizontal");
         SplitterBehavior horizontal = new SplitterBehavior("#horizontal", new SplitterAdapter());
         horizontal.setOption("panes", this.getHorizontalPanes());
         container.add(horizontal);
