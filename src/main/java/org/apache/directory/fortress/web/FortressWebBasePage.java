@@ -20,8 +20,10 @@
 package org.apache.directory.fortress.web;
 
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.realm.J2eePolicyMgr;
+import org.apache.directory.fortress.web.common.*;
 import org.apache.directory.fortress.web.control.SecUtils;
 import org.apache.directory.fortress.web.control.SecureBookmarkablePageLink;
 import org.apache.directory.fortress.web.control.WicketSession;
@@ -157,15 +159,28 @@ public abstract class FortressWebBasePage extends WebPage
             // Here the principal was created by fortress realm and is a serialized instance of {@link Session}.
             String szPrincipal = principal.toString();
             Session session = null;
-            try
+
+            String szIsJetty = System.getProperty( org.apache.directory.fortress.web.common.GlobalIds.IS_JETTY_SERVER );
+            boolean isJetty = false;
+            if( StringUtils.isNotEmpty( szIsJetty ))
             {
-                // Deserialize the principal string into a fortress session:
-                session = j2eePolicyMgr.deserialize( szPrincipal );
+                if ( szIsJetty.equalsIgnoreCase( "true" ) )
+                {
+                    isJetty = true;
+                }
             }
-            catch(SecurityException se)
+            if( !isJetty )
             {
-                // Can't recover....
-                throw new RuntimeException( se );
+                try
+                {
+                    // Deserialize the principal string into a fortress session:
+                    session = j2eePolicyMgr.deserialize( szPrincipal );
+                }
+                catch(SecurityException se)
+                {
+                    // Can't recover....
+                    throw new RuntimeException( se );
+                }
             }
 
             // If this is null, it means this app cannot share an rbac session with container and must now (re)create session here:

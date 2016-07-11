@@ -23,6 +23,7 @@ package org.apache.directory.fortress.web;
 import java.lang.management.ManagementFactory;
 import javax.management.MBeanServer;
 
+import org.apache.directory.fortress.web.common.GlobalIds;
 import org.eclipse.jetty.jmx.MBeanContainer;
 import org.eclipse.jetty.security.HashLoginService;
 import org.eclipse.jetty.server.Connector;
@@ -50,7 +51,8 @@ public class StartExamples
 		Server server = new Server();
 		SocketConnector connector = new SocketConnector();
 
-        System.setProperty("version", "1.0-RC39");
+        System.setProperty("version", "1.0.0");
+        System.setProperty( GlobalIds.IS_JETTY_SERVER, "true");
 
 		// Set some timeout options to make debugging easier.
 		connector.setMaxIdleTime(1000 * 60 * 60);
@@ -61,7 +63,7 @@ public class StartExamples
 		WebAppContext bb = new WebAppContext();
 		bb.setServer(server);
 		//bb.setContextPath("/rbac");
-        bb.setContextPath("/commander");
+        bb.setContextPath("/fortress-web");
 		bb.setWar("src/main/webapp");
 
         // Setup the test security realm, its name must match what's in the web.xml's 'realm-name' tag:
