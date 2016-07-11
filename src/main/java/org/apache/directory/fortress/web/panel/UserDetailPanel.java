@@ -169,6 +169,8 @@ public class UserDetailPanel extends FormComponentPanel
         private TextField pwPolicyTF;
         private TextField ouTF;
         private TextField userIdTF;
+        private TextField newUserRoleTF;
+        private TextField newUserAdminRoleTF;
         private SecureIndicatingAjaxButton addPB;
 
         public UserDetailForm( String id, final IModel<User> model )
@@ -215,9 +217,10 @@ public class UserDetailPanel extends FormComponentPanel
             add( pwPolicyTF );
 
             // Add the role assignment values & temporal constraint panel:
-            TextField newUserRoleTF = new TextField( GlobalIds.NEW_USER_ROLE_FIELD, new PropertyModel<String>( this,
+            newUserRoleTF = new TextField( GlobalIds.NEW_USER_ROLE_FIELD, new PropertyModel<String>( this,
                 GlobalIds.NEW_USER_ROLE_FIELD ) );
             newUserRoleTF.setRequired( false );
+            newUserRoleTF.setOutputMarkupId( true );
             add( newUserRoleTF );
 
             rolesDD = new AjaxDropDownList<>(ROLES, new CompoundPropertyModel<>( new UserRole() ), Model.ofList(new ArrayList<UserRole>()));
@@ -229,9 +232,10 @@ public class UserDetailPanel extends FormComponentPanel
             add( roleConstraintPanel );
 
             // Add the adminRole assignment values & temporal constraint panel:
-            TextField newUserAdminRoleTF = new TextField( GlobalIds.NEW_USER_ADMIN_ROLE_FIELD, new PropertyModel<String>( this,
+            newUserAdminRoleTF = new TextField( GlobalIds.NEW_USER_ADMIN_ROLE_FIELD, new PropertyModel<String>( this,
                 GlobalIds.NEW_USER_ADMIN_ROLE_FIELD ) );
             newUserAdminRoleTF.setRequired( false );
+            newUserAdminRoleTF.setOutputMarkupId( true );
             add( newUserAdminRoleTF );
 
             adminRolesDD = new AjaxDropDownList<>(ADMIN_ROLES, new CompoundPropertyModel<>( new UserAdminRole() ), Model.ofList(new ArrayList<UserAdminRole>()));
@@ -1193,9 +1197,11 @@ public class UserDetailPanel extends FormComponentPanel
                 public void onClose( AjaxRequestTarget target )
                 {
                     roleConstraint = roleSearchModalPanel.getRoleSelection();
+                    newUserRole = roleConstraint.getName();
                     if ( roleConstraint != null )
                     {
                         target.add( roleConstraintPanel );
+                        target.add( newUserRoleTF );
                     }
                 }
             } );
@@ -1209,8 +1215,8 @@ public class UserDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
                     String msg = "clicked on roles search";
-                    msg += userRoleSelection != null ? ": " + userRoleSelection.getName() : "";
-                    roleSearchModalPanel.setRoleSearchVal( userRoleSelection.getName() );
+                    msg += userRoleSelection != null ? ": " + newUserRole : "";
+                    roleSearchModalPanel.setRoleSearchVal( newUserRole );
                     display.setMessage( msg );
                     log.debug( msg );
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
@@ -1262,9 +1268,11 @@ public class UserDetailPanel extends FormComponentPanel
                 public void onClose( AjaxRequestTarget target )
                 {
                     adminRoleConstraint = adminRoleSearchModalPanel.getAdminRoleSelection();
+                    newUserAdminRole = adminRoleConstraint.getName();
                     if ( adminRoleConstraint != null )
                     {
                         target.add( adminRoleConstraintPanel );
+                        target.add( newUserAdminRoleTF );
                     }
                 }
             } );
@@ -1278,8 +1286,8 @@ public class UserDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
                     String msg = "clicked on roles search";
-                    msg += userAdminRoleSelection.getName() != null ? ": " + userAdminRoleSelection.getName() : "";
-                    adminRoleSearchModalPanel.setRoleSearchVal( userAdminRoleSelection.getName() );
+                    msg += userAdminRoleSelection.getName() != null ? ": " + newUserAdminRole : "";
+                    adminRoleSearchModalPanel.setRoleSearchVal( newUserAdminRole );
                     display.setMessage( msg );
                     log.debug( msg );
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
