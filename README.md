@@ -16,7 +16,7 @@
    under the License.
 
 # README for Apache Fortress Web
- * Version 1.0.0
+ * Version 1.0.1
  * Apache Fortress Web System Architecture Diagram
  ![Apache Fortress Web System Architecture](images/fortress-web-system-arch.png "Apache Fortress Web System Architecture")
 
@@ -46,7 +46,7 @@ ________________________________________________________________________________
  * If you see **FORTRESS_WEB_HOME**, refer to this packages base folder.
  * If you see **TOMCAT_HOME**, refer to the location of that package's base folder.
  * Questions about this software package should be directed to its mailing list:
-   * http://mail-archives.apache.org/mod_mbox/directory-fortress/
+   * http://mail-archives.apacheorg/mod_mbox/directory-fortress/
 
 -------------------------------------------------------------------------------
 ## SECTION 1. Prerequisites
@@ -73,7 +73,7 @@ Build the source.
 
  a. from git:
  ```
- git clone --branch 1.0.0 https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
+ git clone --branch 1.0.1 https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
  cd directory-fortress-commander
  mvn clean install
  ```
@@ -81,9 +81,9 @@ Build the source.
  b. or download package:
 
  ```
- wget http://www.apache.org/dist/directory/fortress/dist/1.0.0/fortress-web-1.0.0-source-release.zip
- unzip fortress-web-1.0.0-source-release.zip
- cd fortress-web-1.0.0
+ wget http://www.apache.org/dist/directory/fortress/dist/1.0.1/fortress-web-1.0.1-source-release.zip
+ unzip fortress-web-1.0.1-source-release.zip
+ cd fortress-web-1.0.1
  mvn clean install
  ```
 

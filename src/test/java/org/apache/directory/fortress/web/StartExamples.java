@@ -51,7 +51,7 @@ public class StartExamples
 		Server server = new Server();
 		SocketConnector connector = new SocketConnector();
 
-        System.setProperty("version", "1.0.0");
+        System.setProperty("version", "1.0.1");
         System.setProperty( GlobalIds.IS_JETTY_SERVER, "true");
 
 		// Set some timeout options to make debugging easier.
