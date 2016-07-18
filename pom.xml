@@ -93,8 +93,8 @@
     <wicket.kendo-ui.version>7.3.0</wicket.kendo-ui.version>
     <version.log4j>1.2.17</version.log4j>
     <version.slf4j.log4j12>1.7.7</version.slf4j.log4j12>
-    <spring.version>4.2.5.RELEASE</spring.version>
-    <spring.security.version>4.0.4.RELEASE</spring.security.version>
+    <spring.version>4.3.1.RELEASE</spring.version>
+    <spring.security.version>4.1.1.RELEASE</spring.security.version>
     <javadoc.version>2.9.1</javadoc.version>
     <jetty.version>8.1.8.v20121106</jetty.version>
     <jetty.stopKey>stopJetty</jetty.stopKey>
