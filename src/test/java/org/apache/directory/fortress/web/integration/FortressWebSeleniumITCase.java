@@ -53,12 +53,8 @@ public class FortressWebSeleniumITCase
         driver = new FirefoxDriver( ffProfile );
         driver.manage().window().maximize();
 
-        // Use test local default:
-        //baseUrl = "http://localhost:8081";
-
         // tomcat default:
         baseUrl = "http://localhost:8080";
-        //baseUrl = "http://10.71.6.36:8080";
         //baseUrl = "http://fortressdemo2.com:8080";
         // tomcat SSL:
         //baseUrl = "https://localhost:8443";
@@ -199,7 +195,8 @@ TODO: FIX ME:
         driver.findElement( By.name( GlobalIds.ASSIGN ) ).click();
         TUtils.sleep( 1 );
         driver.findElement( By.id( GlobalIds.ROLE_ASSIGNMENTS_LABEL ) ).click();
-        driver.findElement( By.id( GlobalIds.ASSIGN_NEW_ROLE ) ).sendKeys( "" );
+        driver.findElement( By.id( GlobalIds.ASSIGN_NEW_ROLE ) ).clear();
+        TUtils.sleep( 2 );
         driver.findElement( By.name( GlobalIds.ROLES_SEARCH ) ).click();
         TUtils.sleep( 2 );
         driver.findElement( By.linkText( "3" ) ).click();
