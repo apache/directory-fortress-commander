@@ -133,55 +133,13 @@
     <!-- Wicket, Spring and other Web UI framework tools -->
     <dependency>
       <groupId>org.apache.wicket</groupId>
-      <artifactId>wicket-extensions</artifactId>
-      <version>${wicket.version}</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.apache.wicket</groupId>
-      <artifactId>wicket-guice</artifactId>
-      <version>${wicket.version}</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.apache.wicket</groupId>
-      <artifactId>wicket-jmx</artifactId>
-      <version>${wicket.version}</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.apache.wicket</groupId>
-      <artifactId>wicket-datetime</artifactId>
-      <version>${wicket.version}</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.apache.wicket</groupId>
-      <artifactId>wicket-velocity</artifactId>
-      <version>${wicket.version}</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.apache.wicket</groupId>
       <artifactId>wicket-spring</artifactId>
-      <version>${wicket.version}</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.apache.wicket</groupId>
-      <artifactId>wicket-devutils</artifactId>
       <version>${wicket.version}</version>
     </dependency>
     
     <dependency>
       <groupId>org.wicketstuff</groupId>
       <artifactId>wicketstuff-inmethod-grid</artifactId>
-      <version>${wicket.jquery.version}</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.wicketstuff</groupId>
-      <artifactId>wicketstuff-jwicket-ui-resize</artifactId>
       <version>${wicket.jquery.version}</version>
     </dependency>
     
