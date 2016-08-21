@@ -166,7 +166,6 @@
         <property name="securityMetadataSource">
             <sec:filter-security-metadata-source use-expressions="false">
                 <!-- before spring interceptor recognizes these roles, the j2ee preauthentication filter requires prior declaration in web.xml -->
-                <!-- http://localhost:8080/fortress-web/wicket/bookmarkable/org.apache.directory.fortress.web.UserPage?3 -->
                 <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.UserPage"
                                    access="ROLE_RBAC_ADMIN,ROLE_USERS"/>
                 <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.RolePage"
