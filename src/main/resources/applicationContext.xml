@@ -166,37 +166,38 @@
         <property name="securityMetadataSource">
             <sec:filter-security-metadata-source use-expressions="false">
                 <!-- before spring interceptor recognizes these roles, the j2ee preauthentication filter requires prior declaration in web.xml -->
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.userpage"
+                <!-- http://localhost:8080/fortress-web/wicket/bookmarkable/org.apache.directory.fortress.web.UserPage?3 -->
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.UserPage"
                                    access="ROLE_RBAC_ADMIN,ROLE_USERS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.rolepage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.RolePage"
                                    access="ROLE_RBAC_ADMIN,ROLE_ROLES"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.permpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.PermPage"
                                    access="ROLE_RBAC_ADMIN,ROLE_PERMS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.sdstaticpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.SdStaticPage"
                                    access="ROLE_RBAC_ADMIN,ROLE_SSDS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.sddynamicpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.SdDynamicPage"
                                    access="ROLE_RBAC_ADMIN,ROLE_DSDS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.pwpolicypage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.PwPolicyPage"
                                    access="ROLE_RBAC_ADMIN,ROLE_POLICIES"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.objectpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.ObjectPage"
                                    access="ROLE_RBAC_ADMIN,ROLE_PERMOBJS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.ouuserpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.OuUserPage"
                                    access="ROLE_RBAC_ADMIN,ROLE_USEROUS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.oupermpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.OuPermPage"
                                    access="ROLE_RBAC_ADMIN,ROLE_PERMOUS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.roleadminpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.RoleAdminPage"
                                    access="ROLE_RBAC_ADMIN,ROLE_ADMINROLES"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.objectadminpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.ObjectAdminPage"
                                    access="ROLE_RBAC_ADMIN,ROLE_ADMINOBJS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.permadminpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.PermAdminPage"
                                    access="ROLE_RBAC_ADMIN,ROLE_ADMINPERMS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.auditauthzpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.AuditAuthzPage"
                                    access="ROLE_RBAC_ADMIN,ROLE_AUDIT_AUTHZS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.auditmodpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.AuditModPage"
                                    access="ROLE_RBAC_ADMIN,ROLE_AUDIT_MODS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.auditbindpage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.AuditBindPage"
                                    access="ROLE_RBAC_ADMIN,ROLE_AUDIT_BINDS"/>
-                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.grouppage"
+                <sec:intercept-url pattern="/wicket/bookmarkable/org.apache.directory.fortress.web.GroupPage"
                                    access="ROLE_RBAC_ADMIN,ROLE_GROUPS"/>
             </sec:filter-security-metadata-source>
         </property>

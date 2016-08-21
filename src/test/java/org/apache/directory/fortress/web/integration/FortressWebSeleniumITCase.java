@@ -39,6 +39,22 @@ import org.apache.directory.fortress.web.common.GlobalIds;
  */
 public class FortressWebSeleniumITCase
 {
+    public static final String ROLES = "ROLES";
+    public static final String POBJS = "POBJS";
+    public static final String PERMS = "PERMS";
+    public static final String SSDS = "SSDS";
+    public static final String DSDS = "DSDS";
+    public static final String OUSERS = "OUSERS";
+    public static final String OUPRMS = "OUPRMS";
+    public static final String ADMRLES = "ADMRLES";
+    public static final String ADMOBJS = "ADMOBJS";
+    public static final String ADMPERMS = "ADMPERMS";
+    public static final String PLCYS = "PLCYS";
+    public static final String GROUPS = "GROUPS";
+    public static final String BINDS = "BINDS";
+    public static final String AUTHZ = "AUTHZ";
+    public static final String MODS = "MODS";
+    public static final String FORTRESS_WEB = "/fortress-web";
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;
@@ -65,15 +81,16 @@ public class FortressWebSeleniumITCase
     @Test
     public void testCase1() throws Exception
     {
-        log.info( "Begin FortressWebSeleniumITCase" );
-        driver.get( baseUrl + "/fortress-web" );
-        login();
+        log.info( "Begin FortressWebSeleniumITCase 1" );
+        driver.get( baseUrl + FORTRESS_WEB );
+        login( "test", "password" );
         TUtils.sleep( 1 );
 
         boolean skipFirstHalf = false;
         //boolean skipFirstHalf = true;
         boolean skipSecondHalf = false;
         //boolean skipSecondHalf = true;
+
         if ( !skipFirstHalf )
         {
             users();
@@ -107,12 +124,88 @@ public class FortressWebSeleniumITCase
         //driver.findElement( By.linkText( "glob:search*" ) ).click();
     }
 
-    private void login()
+
+    @Test
+    public void testCase2() throws Exception
+    {
+        log.info( "Begin FortressWebSeleniumITCase 2" );
+        driver.get( baseUrl + FORTRESS_WEB );
+        login( "test1", "password" );
+        TUtils.sleep( 1 );
+        doNegativeLinkTest( ROLES, "RolePage", "test1" );
+        doNegativeLinkTest( POBJS, "ObjectPage", "test1" );
+        doNegativeLinkTest( PERMS, "PermPage", "test1" );
+        doNegativeLinkTest( SSDS, "SdStaticPage", "test1" );
+        doNegativeLinkTest( DSDS, "SdDynamicPage", "test1" );
+        doNegativeLinkTest( OUSERS, "OuUserPage", "test1" );
+        doNegativeLinkTest( OUPRMS, "OuPermPage", "test1" );
+        doNegativeLinkTest( ADMRLES, "RoleAdminPage", "test1" );
+        doNegativeLinkTest( ADMOBJS, "ObjectAdminPage", "test1" );
+    }
+
+    private void doNegativeLinkTest( String linkName, String pageName, String userId)
+    {
+        log.info("Negative link:" + linkName + " test for " + userId);
+        try
+        {
+            if(driver.findElement( By.linkText( linkName ) ).isEnabled())
+            {
+                fail("Negative Link Test Failed UserId: " + userId + " Link: " + linkName);
+            }
+            fail("Negative Button Test Failed UserId: " + userId + " Link: " + linkName);
+        }
+        catch (org.openqa.selenium.NoSuchElementException e)
+        {
+            // pass
+        }
+        try
+        {
+            if(driver.findElement( By.linkText( linkName ) ).isEnabled())
+            {
+                fail("Negative Link Test Failed UserId: " + userId + " Link: " + linkName);
+            }
+        }
+        catch (org.openqa.selenium.NoSuchElementException e)
+        {
+            // pass
+        }
+
+        // Check that Spring security is enforcing page level security:
+        String unauthorizedUrl = baseUrl + FORTRESS_WEB + "/wicket/bookmarkable/org.apache.directory.fortress.web." + pageName;
+        driver.get( unauthorizedUrl );
+        if(is403())
+        {
+            // pass
+            TUtils.sleep( 1 );
+            driver.navigate().back();
+        }
+        else
+        {
+            fail("Spring Security Test Failed URL: " + unauthorizedUrl + "." + GlobalIds.ADD);
+        }
+    }
+
+    public boolean is403()
+    {
+        try
+        {
+            driver.findElement(By.id("web_403"));
+            return true;
+        }
+        catch (NoSuchElementException e)
+        {
+            return false;
+        }
+    }
+
+
+    //private void login()
+    private void login( String userId, String password )
     {
         driver.findElement( By.id( GlobalIds.USER_ID ) ).clear();
-        driver.findElement( By.id( GlobalIds.USER_ID ) ).sendKeys( "test" );
+        driver.findElement( By.id( GlobalIds.USER_ID ) ).sendKeys( userId );
         driver.findElement( By.id( GlobalIds.PSWD_FIELD ) ).clear();
-        driver.findElement( By.id( GlobalIds.PSWD_FIELD ) ).sendKeys( "password" );
+        driver.findElement( By.id( GlobalIds.PSWD_FIELD ) ).sendKeys( password );
         driver.findElement( By.name( GlobalIds.LOGIN ) ).click();
     }
 
@@ -344,7 +437,7 @@ TODO: FIX ME:
 
     private void roles()
     {
-        driver.findElement( By.linkText( "ROLES" ) ).click();
+        driver.findElement( By.linkText( ROLES ) ).click();
         driver.findElement( By.id( GlobalIds.SEARCH_VAL ) ).clear();
         driver.findElement( By.id( GlobalIds.SEARCH_VAL ) ).sendKeys( "oamt13" );
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
@@ -393,7 +486,7 @@ TODO: FIX ME:
 
     private void pobjs()
     {
-        driver.findElement( By.linkText( "POBJS" ) ).click();
+        driver.findElement( By.linkText( POBJS ) ).click();
         driver.findElement( By.id( GlobalIds.SEARCH_VAL ) ).sendKeys( "t" );
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
         TUtils.sleep( 1 );
@@ -401,7 +494,7 @@ TODO: FIX ME:
 
     private void perms()
     {
-        driver.findElement( By.linkText( "PERMS" ) ).click();
+        driver.findElement( By.linkText( PERMS ) ).click();
         driver.findElement( By.id( "permObject" ) ).sendKeys( "/cal" );
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
         TUtils.sleep( 1 );
@@ -409,7 +502,7 @@ TODO: FIX ME:
 
     private void ssds()
     {
-        driver.findElement( By.linkText( "SSDS" ) ).click();
+        driver.findElement( By.linkText( SSDS ) ).click();
         driver.findElement( By.id( "roleRb" ) ).click();
         driver.findElement( By.id( GlobalIds.SEARCH_VAL ) ).sendKeys( "oamT16SDR6" );
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
@@ -418,7 +511,7 @@ TODO: FIX ME:
 
     private void dsds()
     {
-        driver.findElement( By.linkText( "DSDS" ) ).click();
+        driver.findElement( By.linkText( DSDS ) ).click();
         driver.findElement( By.id( "roleRb" ) ).click();
         driver.findElement( By.id( GlobalIds.SEARCH_VAL ) ).sendKeys( "oamT13DSD6" );
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
@@ -427,7 +520,7 @@ TODO: FIX ME:
 
     private void ouusers()
     {
-        driver.findElement( By.linkText( "OUSERS" ) ).click();
+        driver.findElement( By.linkText( OUSERS ) ).click();
         driver.findElement( By.id( GlobalIds.SEARCH_VAL ) ).sendKeys( "d" );
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
         TUtils.sleep( 1 );
@@ -435,7 +528,7 @@ TODO: FIX ME:
 
     private void ouperms()
     {
-        driver.findElement( By.linkText( "OUPRMS" ) ).click();
+        driver.findElement( By.linkText( OUPRMS ) ).click();
         driver.findElement( By.id( GlobalIds.SEARCH_VAL ) ).sendKeys( "a" );
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
     }
@@ -443,7 +536,7 @@ TODO: FIX ME:
     private void admrles()
     {
         TUtils.sleep( 1 );
-        driver.findElement( By.linkText( "ADMRLES" ) ).click();
+        driver.findElement( By.linkText( ADMRLES ) ).click();
         driver.findElement( By.id( GlobalIds.SEARCH_VAL ) ).clear();
         driver.findElement( By.id( GlobalIds.SEARCH_VAL ) ).sendKeys( "t" );
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
@@ -509,7 +602,7 @@ TODO: FIX ME:
 
     private void admobjs()
     {
-        driver.findElement( By.linkText( "ADMOBJS" ) ).click();
+        driver.findElement( By.linkText( ADMOBJS ) ).click();
         driver.findElement( By.id( GlobalIds.SEARCH_VAL ) ).sendKeys( "u" );
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
         TUtils.sleep( 1 );
@@ -517,7 +610,7 @@ TODO: FIX ME:
 
     private void admperms()
     {
-        driver.findElement( By.linkText( "ADMPERMS" ) ).click();
+        driver.findElement( By.linkText( ADMPERMS ) ).click();
         driver.findElement( By.id( "objectAssignLinkLbl" ) ).click();
         TUtils.sleep( 1 );
         driver.findElement( By.linkText( GlobalIds.SELECT ) ).click();
@@ -527,7 +620,7 @@ TODO: FIX ME:
 
     private void plcys()
     {
-        driver.findElement( By.linkText( "PLCYS" ) ).click();
+        driver.findElement( By.linkText( PLCYS ) ).click();
         driver.findElement( By.id( GlobalIds.SEARCH_VAL ) ).sendKeys( "oamtp1policy" );
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
         TUtils.sleep( 1 );
@@ -535,7 +628,7 @@ TODO: FIX ME:
 
     private void groups()
     {
-        driver.findElement( By.linkText( "GROUPS" ) ).click();
+        driver.findElement( By.linkText( GROUPS ) ).click();
         driver.findElement( By.id( "searchVal" ) ).sendKeys( "t" );
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
         TUtils.sleep( 1 );
@@ -570,7 +663,7 @@ TODO: FIX ME:
 
     private void binds()
     {
-        driver.findElement( By.linkText( "BINDS" ) ).click();
+        driver.findElement( By.linkText( BINDS ) ).click();
         driver.findElement( By.id( GlobalIds.USER_ID ) ).clear();
         driver.findElement( By.id( GlobalIds.USER_ID ) ).sendKeys( "jtsuser1" );
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
@@ -589,7 +682,7 @@ TODO: FIX ME:
 
     private void authzs()
     {
-        driver.findElement( By.linkText( "AUTHZ" ) ).click();
+        driver.findElement( By.linkText( AUTHZ ) ).click();
         driver.findElement( By.id( GlobalIds.OBJ_NAME ) ).clear();
         driver.findElement( By.id( GlobalIds.OBJ_NAME ) ).sendKeys( "org.apache.directory.fortress.core.impl.AdminMgrImpl" );
         driver.findElement( By.name( "admin" ) ).click();
@@ -613,7 +706,7 @@ TODO: FIX ME:
 
     private void mods()
     {
-        driver.findElement( By.linkText( "MODS" ) ).click();
+        driver.findElement( By.linkText( MODS ) ).click();
         driver.findElement( By.id( GlobalIds.USER_ID ) ).clear();
         driver.findElement( By.id( GlobalIds.USER_ID ) ).sendKeys( "test" );
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
