@@ -143,62 +143,6 @@ public class FortressWebSeleniumITCase
         doNegativeLinkTest( ADMOBJS, "ObjectAdminPage", "test1" );
     }
 
-    private void doNegativeLinkTest( String linkName, String pageName, String userId)
-    {
-        log.info("Negative link:" + linkName + " test for " + userId);
-        try
-        {
-            if(driver.findElement( By.linkText( linkName ) ).isEnabled())
-            {
-                fail("Negative Link Test Failed UserId: " + userId + " Link: " + linkName);
-            }
-            fail("Negative Button Test Failed UserId: " + userId + " Link: " + linkName);
-        }
-        catch (org.openqa.selenium.NoSuchElementException e)
-        {
-            // pass
-        }
-        try
-        {
-            if(driver.findElement( By.linkText( linkName ) ).isEnabled())
-            {
-                fail("Negative Link Test Failed UserId: " + userId + " Link: " + linkName);
-            }
-        }
-        catch (org.openqa.selenium.NoSuchElementException e)
-        {
-            // pass
-        }
-
-        // Check that Spring security is enforcing page level security:
-        String unauthorizedUrl = baseUrl + FORTRESS_WEB + "/wicket/bookmarkable/org.apache.directory.fortress.web." + pageName;
-        driver.get( unauthorizedUrl );
-        if(is403())
-        {
-            // pass
-            TUtils.sleep( 1 );
-            driver.navigate().back();
-        }
-        else
-        {
-            fail("Spring Security Test Failed URL: " + unauthorizedUrl + "." + GlobalIds.ADD);
-        }
-    }
-
-    public boolean is403()
-    {
-        try
-        {
-            driver.findElement(By.id("web_403"));
-            return true;
-        }
-        catch (NoSuchElementException e)
-        {
-            return false;
-        }
-    }
-
-
     //private void login()
     private void login( String userId, String password )
     {
@@ -797,136 +741,58 @@ TODO: FIX ME:
         }
     }
 
-    // Warning: verifyTextPresent may require manual changes
-        /*
-                try
-                {
-                    assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*Commander Web
-                    Admin[\\s\\S]*$"));
-                }
-                catch ( Error e )
-                {
-                    verificationErrors.append( e.toString() );
-                }
-        */
-    // Warning: verifyTextPresent may require manual changes
-        /*
-                try
-                {
-                    assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches
-                    ("^[\\s\\S]*UserAdministration[\\s\\S]*$"));
-                }
-                catch ( Error e )
-                {
-                    verificationErrors.append( e.toString() );
-                }
-                // Warning: verifyTextPresent may require manual changes
-                try
-                {
-                    assertTrue( driver.findElement( By.cssSelector( "BODY" ) ).getText().matches(
-                        "^[\\s\\S]*jtsTU16User7[\\s\\S]*$" ) );
-                }
-                catch ( Error e )
-                {
-                    verificationErrors.append( e.toString() );
-                }
-        */
-/*
-            table = driver.findElement(By.id( "modstable"));
-            allRows = table.findElements(By.tagName("a"));
-            for (WebElement row : allRows)
+    private void doNegativeLinkTest( String linkName, String pageName, String userId)
+    {
+        log.info("Negative link:" + linkName + " test for " + userId);
+        try
+        {
+            if(driver.findElement( By.linkText( linkName ) ).isEnabled())
             {
-                String szText = row.getText();
-                if(szText.equals( "Go to the next page" ))
-                    row.click();
-                log.info( "row text=" + row.getText());
+                fail("Negative Link Test Failed UserId: " + userId + " Link: " + linkName);
             }
+            fail("Negative Button Test Failed UserId: " + userId + " Link: " + linkName);
+        }
+        catch (org.openqa.selenium.NoSuchElementException e)
+        {
+            // pass
+        }
+        try
+        {
+            if(driver.findElement( By.linkText( linkName ) ).isEnabled())
+            {
+                fail("Negative Link Test Failed UserId: " + userId + " Link: " + linkName);
+            }
+        }
+        catch (org.openqa.selenium.NoSuchElementException e)
+        {
+            // pass
+        }
+
+        // Check that Spring security is enforcing page level security:
+        String unauthorizedUrl = baseUrl + FORTRESS_WEB + "/wicket/bookmarkable/org.apache.directory.fortress.web." + pageName;
+        driver.get( unauthorizedUrl );
+        if(is403())
+        {
+            // pass
             TUtils.sleep( 1 );
-*/
-            //table = driver.findElement(By.className( "k-link"));
-            //driver.findElement( By.className( "k-link" ) ).click();
-            //driver.findElement( By.className( "k-icon k-i-arrow-e" ) ).click();
-            //a.k-link:nth-child(4) > span:nth-child(1)
-            //TUtils.sleep( 1 );
-            //driver.findElement( By.className( "k-link" ) ).click();
-            //TUtils.sleep( 1 );
-            //driver.findElement( By.className( "k-link" ) ).click();
-            //TUtils.sleep( 1 );
-/*
-            allRows.get( 6 ).findElement(By.className("imxt-cell")).click();
-            TUtils.sleep( 1 );
-            allRows.get( 7 ).findElement(By.className("imxt-cell")).click();
-*/
-    /*
-                for(WebElement row : allRows)
-                {
-                    if(rowctr++ < 5)
-                        continue;
+            driver.navigate().back();
+        }
+        else
+        {
+            fail("Spring Security Test Failed URL: " + unauthorizedUrl + "." + GlobalIds.ADD);
+        }
+    }
 
-                    row.findElement(By.className("imxt-cell")).click();
-                    TUtils.sleep( 3 );
-                    //driver.findElement(By.className("imxt-cell")).click();
-                }
-    */
-    /*
-                for (WebElement row : allRows)
-                {
-                    rowctr++;
-                    //List<WebElement> cells = row.findElements(By.tagName("td"));
-
-                    if(rowctr < 5)
-                        continue;
-
-                    List<WebElement> cells = row.findElements(By.className("imxt-cell"));
-                    driver.findElement(By.className("imxt-cell")).click();
-    */
-                    //List<WebElement> cells = row.findElements(By.className("imxt-cell"));
-
-                    //List<WebElement> cells = row.findElements(By.className("imxt-a-imxt-nowrap"));
-                    //*[@id="body35_1"]/td[1]/div
-    /*
-                    int cellctr = 0;
-                    for (WebElement cell : cells)
-                    {
-                        cellctr++;
-                        //log.info( "Cell[" + rowctr + "][" + cellctr + "]: " + cell.toString() );
-                        //log.info( "cell tagname: " + cell.getTagName());
-                        //String td = cell.getAttribute( "td" );
-                        String td = cell.getText();
-                        //String innerText = driver.findElement(By.xpath(".//div")).getText();
-                        //String innerText = driver.findElement(By.className("imxt-cell")).getText();
-                        log.info( "intext[" + rowctr + "][" + cellctr + "] td value:" + td);
-
-                        //List<WebElement> cells2 = cell.findElements(By.className("imxt-cell"));
-                        // "imxt-cell"
-                        ///*/
-    /*[@id="body35_1"]/td[1]
-                     }
-    */
-                    //List<WebElement> cells = row.findElements(By.xpath(".//*[@id=\"*\"]/td[2]/div"));
-                    //List<WebElement> cells = row.findElements(By.xpath("//table/tbody/tr[" + rowctr + "/td[1]"));
-                    //String innerText = driver.findElement(By.xpath("//table/tbody/tr[" + rowctr + "]/td[1]")).getText();
-                    //List<WebElement> cells = row.findElements(By.xpath(".//td[1]"));
-                    //log.info( "intext[" + rowctr + ":" + innerText);
-
-                    ////*[@id="body35_9"]
-                    //<div class="imxt-a imxt-nowrap">demoUser10</div>
-    /*
-                    int cellctr = 0;
-                    for (WebElement cell : cells)
-                    {
-                        cellctr++;
-                        log.info( "Cell[" + rowctr + "][" + cellctr + "]: " + cell.toString() );
-                        log.info( "cell tagname: " + cell.getTagName());
-                     }
-    */
-    //            }
-
-                //List<WebElement> cells = row.findElements(By.xpath(".//*[local-name(.)='th' or local-name(.)='td']"));
-                //TUtils.sleep( 1 );
-                //( ( JavascriptExecutor ) driver ).executeScript( "document.getElementById('usertreegrid').focus();" );
-    /*
-                ( ( JavascriptExecutor ) driver ).executeScript( "$(document.getElementById('adminRoles')).val" +
-                    "('DemoAdminUsers');" );
-    */
+    private boolean is403()
+    {
+        try
+        {
+            driver.findElement(By.id("web_403"));
+            return true;
+        }
+        catch (NoSuchElementException e)
+        {
+            return false;
+        }
+    }
 }
