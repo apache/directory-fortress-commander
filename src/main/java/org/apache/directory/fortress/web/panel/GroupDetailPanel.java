@@ -20,25 +20,22 @@
 
 package org.apache.directory.fortress.web.panel;
 
-
-import com.googlecode.wicket.jquery.core.Options;
-//import com.googlecode.wicket.kendo.ui.datatable.ColumnButton;
-import com.googlecode.wicket.kendo.ui.datatable.DataTable;
-//import com.googlecode.wicket.kendo.ui.datatable.column.CommandsColumn;
-import com.googlecode.wicket.kendo.ui.datatable.column.IColumn;
-import com.googlecode.wicket.kendo.ui.datatable.column.PropertyColumn;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.exception.LdapInvalidDnException;
 import org.apache.directory.api.ldap.model.name.Dn;
 import org.apache.directory.api.ldap.model.name.Rdn;
+import org.apache.directory.fortress.core.*;
+import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.PropUtil;
 import org.apache.log4j.Logger;
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
+import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.event.IEvent;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
@@ -46,8 +43,12 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponentPanel;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
+import org.apache.wicket.markup.repeater.Item;
+import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
+import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
@@ -58,14 +59,13 @@ import org.apache.directory.fortress.web.event.SaveModelEvent;
 import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
 import org.apache.directory.fortress.web.event.SelectModelEvent;
 import org.apache.directory.fortress.core.model.Group;
-import org.apache.directory.fortress.core.GroupMgr;
 import org.apache.directory.fortress.core.model.User;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
 
 
 /**
@@ -105,14 +105,10 @@ public class GroupDetailPanel extends FormComponentPanel
         /** Default serialVersionUID */
         private static final long serialVersionUID = 1L;
         private Component component;
-        private DataTable<Member> table;
-        private List<IColumn> columns;
-        private Options options;
         private String memberAssign;
         private TextField memberAssignTF;
         private ComboBox<String> memberPropsCB;
         private String memberPropsSelection;
-
 
         public GroupDetailForm( String id, final IModel<Group> model )
         {
@@ -121,7 +117,6 @@ public class GroupDetailPanel extends FormComponentPanel
             addGroupButtons();
             setOutputMarkupId( true );
         }
-
 
         private void addGroupDetailFields()
         {
@@ -139,24 +134,71 @@ public class GroupDetailPanel extends FormComponentPanel
                 "memberPropsSelection" ), new ArrayList<String>() );
             memberPropsCB.setOutputMarkupId( true );
             add( memberPropsCB );
-
             memberAssignTF = new TextField( "memberAssign", new PropertyModel( this, "memberAssign" ) );
             memberAssignTF.setOutputMarkupId( true );
             add( memberAssignTF );
             addUserSearchModal();
-
-            // DataTable //
-            //columns = newColumnList();
-            options = new Options();
-            options.set( "selectable", Options.asString( "single" ) );
-            options.set( "scrollable", "{ virtual: true }" ); //infinite scroll
-            options.set( "height", 300 );
-            options.set( "pageable", "{ pageSizes: [ 5, 10, 15, 20 ] }" );
-            table = new DataTable<>( "memberstable", columns, createDataProvider( null ), ROWS, options );
-            table.setOutputMarkupId( true );
-            add( table );
+            createDataTable( null );
         }
 
+        private void createDataTable( List<String> members )
+        {
+            DataView< Member > view = new DataView<Member>("members", createDataProvider( members ) )
+            {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                protected void populateItem(final Item<Member> item)
+                {
+                    Member member = item.getModelObject();
+                    item.add( new Label( "index", member.getIndex() ) );
+                    item.add( new Label( "userDn", member.getUserDn() ) );
+                    item.add( AttributeModifier.replace( "class", new AbstractReadOnlyModel<String>()
+                    {
+                        private static final long serialVersionUID = 1L;
+
+                        @Override
+                        public String getObject()
+                        {
+                            return ( item.getIndex() % 2 == 1 ) ? "even" : "odd";
+                        }
+                    } ));
+
+                    AjaxFallbackLink<Member> removeLink = new AjaxFallbackLink<Member>( "remove-member", item.getModel() )
+                    {
+                        @Override
+                        public void onClick(AjaxRequestTarget target)
+                        {
+                            Member member = item.getModelObject();
+                            Group group = ( Group ) editForm.getModel().getObject();
+                            try
+                            {
+                                String memberId = getUserId( member.getUserDn() );
+                                Group newGroup = groupMgr.deassign( group, memberId );
+                                group.setMembers( newGroup.getMembers() );
+                                String msg = "Group: " + group.getName() + ", member: " + memberId
+                                    + ", has been deassigned";
+                                display.setMessage( msg );
+                                component = editForm;
+                                createDataTable( newGroup.getMembers() );
+                            }
+                            catch( SecurityException se )
+                            {
+                                String szError = "Group deassign failed group: " + se;
+                                display.setMessage( szError );
+                                log.warn( szError );
+                            }
+                            target.add( component );
+                        }
+                    };
+                    removeLink.setOutputMarkupId( true );
+                    item.add(removeLink);
+                }
+            };
+            view.setItemsPerPage( 5L );
+            addOrReplace( view );
+            addOrReplace( new PagingNavigator( "navigator", view ) );
+        }
 
         private void addGroupButtons()
         {
@@ -528,7 +570,6 @@ public class GroupDetailPanel extends FormComponentPanel
                     {
                         try
                         {
-                            // TODO: figure out how to get the table to refresh its values here:
                             String userId = getUserId( memberAssign );
                             if( userId != null )
                             {
@@ -539,9 +580,9 @@ public class GroupDetailPanel extends FormComponentPanel
                                     + ", has been assigned";
                                 memberAssign = "";
                                 form.add( memberAssignTF );
-                                addMemberTable( group );
                                 display.setMessage( msg );
                                 log.debug( msg );
+                                createDataTable( newGroup.getMembers() );
                             }
                         }
                         catch ( org.apache.directory.fortress.core.SecurityException se )
@@ -601,14 +642,13 @@ public class GroupDetailPanel extends FormComponentPanel
                             {
                                 Group newGroup = groupMgr.deassign( group, userId );
                                 group.setMembers( newGroup.getMembers() );
-
                                 String msg = "Group: " + group.getName() + ", member: " + memberAssign
                                     + ", has been deassigned";
                                 memberAssign = "";
                                 form.add( memberAssignTF );
-                                addMemberTable( group );
                                 display.setMessage( msg );
                                 log.debug( msg );
+                                createDataTable( newGroup.getMembers() );
                             }
                         }
                         catch ( org.apache.directory.fortress.core.SecurityException se )
@@ -658,38 +698,11 @@ public class GroupDetailPanel extends FormComponentPanel
             memberPropsCB = new ComboBox<>( "memberProps", new PropertyModel<String>( form,
                 "memberPropsSelection" ), new ArrayList<String>() );
             editForm.addOrReplace( memberPropsCB );
-            table.refresh( target );
-            table = new DataTable<>( "memberstable", columns, createDataProvider( null ), ROWS, options );
-            editForm.addOrReplace( table );
+            createDataTable( null );
             modelChanged();
             component = editForm;
             display.setMessage( msg );
         }
-
-
-/*
-        private List<IColumn> newColumnList()
-        {
-            List<IColumn> columns = new ArrayList<>();
-            columns.add( new PropertyColumn( "#", "index", 30 ) );
-            columns.add( new PropertyColumn( "User DN", "userDn", 150 ) );
-            columns.add( new CommandsColumn( "", 100 )
-            {
-
-                private static final long serialVersionUID = 1L;
-
-
-                @Override
-                public List<ColumnButton> newButtons()
-                {
-                    return Arrays.asList( new ColumnButton( "remove", "userDn" ) );
-                }
-            } );
-
-            return columns;
-        }
-*/
-
 
         private IDataProvider<Member> createDataProvider( List<String> members )
         {
@@ -753,7 +766,6 @@ public class GroupDetailPanel extends FormComponentPanel
             {
                 private static final long serialVersionUID = 1L;
 
-
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
@@ -812,7 +824,7 @@ public class GroupDetailPanel extends FormComponentPanel
                         "memberPropsSelection" ), group.getPropList() );
                     editForm.addOrReplace( memberPropsCB );
                 }
-                addMemberTable( group );
+                createDataTable( group.getMembers() );
                 String msg = "Group Name: " + group.getName() + " has been selected";
                 display.setMessage( msg );
                 log.debug( msg );
@@ -830,52 +842,6 @@ public class GroupDetailPanel extends FormComponentPanel
 
                 display.display( ( AjaxRequestTarget ) event.getPayload() );
             }
-        }
-
-
-        private void addMemberTable( final Group group )
-        {
-            table = new DataTable<Member>( "memberstable", columns, createDataProvider( group.getMembers() ), ROWS,
-                options )
-            {
-                /** Default serialVersionUID */
-                private static final long serialVersionUID = 1L;
-
-                /**
-                 * Triggered when a column button is clicked.
-                 */
-/*
-                @Override
-                public void onClick( AjaxRequestTarget target, ColumnButton button, String value )
-                {
-                    if ( StringUtils.isNotEmpty( value ) )
-                    {
-                        try
-                        {
-                            // TODO: figure out how to get the table to refresh its values here:
-                            String userId = getUserId( value );
-                            if( userId != null )
-                            {
-                                Group newGroup = groupMgr.deassign( group, userId );
-                                group.setMembers( newGroup.getMembers() );
-                                table.refresh( target );
-                                String msg = "User: " + userId + ", deassigned from group: " + group.getName();
-                                display.setMessage( msg );
-                                log.debug( msg );
-                            }
-                        }
-                        catch ( org.apache.directory.fortress.core.SecurityException se )
-                        {
-                            String error = "Failed deassign user: " + value + ", SecurityException=" + se;
-                            log.warn( error );
-                            display.setMessage( error );
-                        }
-                    }
-                }
-*/
-            };
-
-            addOrReplace( table );
         }
 
         /**

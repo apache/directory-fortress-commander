@@ -478,15 +478,9 @@ public class NavPanel extends FormComponentPanel
 
             );
 
-            /*
-            TODO: Add Group Back (replace datatable)
             add( new SecureIndicatingAjaxButton( GlobalIds.GROUP_PAGE, GlobalIds.ROLE_GROUPS )
             {
-                */
-                /** Default serialVersionUID *//*
-
                 private static final long serialVersionUID = 1L;
-
 
                 @Override
                 public void onSubmit( AjaxRequestTarget target, Form<?> form )
@@ -494,18 +488,13 @@ public class NavPanel extends FormComponentPanel
                     setResponsePage( GroupPage.class );
                 }
 
-
                 @Override
                 protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
                 {
                     super.updateAjaxAttributes( attributes );
                     AjaxCallListener ajaxCallListener = new AjaxCallListener()
                     {
-                        */
-                        /** Default serialVersionUID *//*
-
                         private static final long serialVersionUID = 1L;
-
 
                         @Override
                         public CharSequence getFailureHandler( Component component )
@@ -516,9 +505,7 @@ public class NavPanel extends FormComponentPanel
                     attributes.getAjaxCallListeners().add( ajaxCallListener );
                 }
             }
-
             );
-            */
 
             add( new SecureIndicatingAjaxButton( GlobalIds.AUDIT_BINDS_PAGE, GlobalIds.ROLE_AUDIT_BINDS )
             {

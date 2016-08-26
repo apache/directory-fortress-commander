@@ -65,14 +65,27 @@
                     </td>
                 </tr>
                 <tr>
+                    <td colspan="3"><hr/></td>
+                </tr>
+                <tr>
                     <td>
                         <label for="memberProps">Properties</label>
                     </td>
                     <td>
                         <input type="text" wicket:id="memberProps"  id="memberProps" style="width: 250px"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Operations</label>
+                    </td>
+                    <td>
                         <button wicket:id="memberProps.add" name="memberProps.add">add</button>
                         <button wicket:id="memberProps.delete" name="memberProps.delete">delete</button>
                     </td>
+                </tr>
+                <tr>
+                    <td colspan="3"><hr/></td>
                 </tr>
                 <tr>
                     <td>
@@ -80,7 +93,13 @@
                     </td>
                     <td>
                         <input type="text" wicket:id="memberAssign" id="memberAssign" class="formLarge" style="width: 250px"/>
-
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="memberAssign">Operations</label>
+                    </td>
+                    <td>
                         <input type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
                                wicket:id="members.search" name="members.search" value="search"/>
 
@@ -93,17 +112,39 @@
                         <div wicket:id="membersmodal"></div>
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="3"><hr/></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Members</label>
+                    </td>
+                    <td>
+                        <span wicket:id="navigator">[dataview navigator]</span>
+                        <table cellspacing="0" class="dataview">
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th>#   </th>
+                                <th></th>
+                                <th>DN</th>
+                            </tr>
+                            <tr wicket:id="members">
+                                <td><a href="#" wicket:id="remove-member">remove</a></td>
+                                <td><span>        </span></td>
+                                <td><span wicket:id="index">[id]</span> </td>
+                                <td><span>        </span></td>
+                                <td><span wicket:id="userDn">[userDn]</span></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3"><hr/></td>
+                </tr>
             </table>
-            <div wicket:id="memberstable" id="modstable" style="width: 720px;"></div>
         </fieldset>
     </form>
-    <!-- Group attributes:
-        "name",
-        "description",
-        "protocol",
-        "members",
-        "props",
-    -->
 </wicket:panel>
 </body>
 </html>

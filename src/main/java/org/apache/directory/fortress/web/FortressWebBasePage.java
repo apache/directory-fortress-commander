@@ -120,10 +120,8 @@ public abstract class FortressWebBasePage extends WebPage
             OuPermPage.class, parameters, org.apache.directory.fortress.web.common.GlobalIds.ROLE_PERMOUS );
         add( permouLink );
 
-        /* TODO: Add groups back:
         add( new SecureBookmarkablePageLink( org.apache.directory.fortress.web.common.GlobalIds.GROUP_PAGE, GroupPage.class,
             org.apache.directory.fortress.web.common.GlobalIds.ROLE_GROUPS ) );
-        */
 
         add( new SecureBookmarkablePageLink( org.apache.directory.fortress.web.common.GlobalIds.AUDIT_BINDS_PAGE, AuditBindPage.class,
             org.apache.directory.fortress.web.common.GlobalIds.ROLE_AUDIT_BINDS ) );

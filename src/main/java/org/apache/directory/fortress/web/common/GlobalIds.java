@@ -51,7 +51,7 @@ public class GlobalIds
     public static final String DEL_REVIEW_MGR = "org.apache.directory.fortress.core.impl.DelReviewMgrImpl";
     public static final String PWPOLICY_MGR = "org.apache.directory.fortress.core.impl.PwPolicyMgrImpl";
     public static final String AUDIT_MGR = "org.apache.directory.fortress.core.impl.AuditMgrImpl";
-    public static final String GROUP_MGR = "org.apache.directory.fortress.core.ldap.group.GroupMgrImpl";
+    public static final String GROUP_MGR = "org.apache.directory.fortress.core.impl.GroupMgrImpl";
     public static final String ASSIGN_USER = "assignUser";
     public static final String ADD = "add";
     public static final String COMMIT = "commit";
