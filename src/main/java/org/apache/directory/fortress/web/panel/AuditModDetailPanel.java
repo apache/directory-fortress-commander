@@ -148,9 +148,7 @@ public class AuditModDetailPanel extends FormComponentPanel
                     } ));
                 }
             };
-            view.setItemsPerPage( 5L );
             addOrReplace( view );
-            addOrReplace( new PagingNavigator( "navigator", view ) );
         }
 
         @Override

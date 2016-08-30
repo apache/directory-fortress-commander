@@ -109,17 +109,17 @@ public class AuditModListModel extends Model<SerializableList<Mod>>
                 .getInternalUserId() ) )
             {
                 User user = getUser( userAudit );
-                
                 if ( user == null )
                 {
                     String warning = "Matching user not found for userId: " + userAudit.getUserId();
                     LOG.warn( warning );
-                    throw new RuntimeException( warning );
+                    //throw new RuntimeException( warning );
                 }
-
-                userAudit.setInternalUserId( user.getInternalId() );
+                else
+                {
+                    userAudit.setInternalUserId( user.getInternalId() );
+                }
             }
-            
             mods = new SerializableList<>( getList( userAudit ) );
         }
         
@@ -162,6 +162,8 @@ public class AuditModListModel extends Model<SerializableList<Mod>>
         {
             String error = ".getList caught SecurityException=" + se;
             LOG.warn(error);
+            // create empty model object to prevent npe in listview.
+            modList = new SerializableList<>( new ArrayList<Mod>() );
         }
         
         return modList;
