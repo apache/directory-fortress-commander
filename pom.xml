@@ -93,7 +93,6 @@
     <wicket.kendo-ui.version>7.4.0</wicket.kendo-ui.version>
     <version.log4j>1.2.17</version.log4j>
     <version.slf4j.log4j12>1.7.7</version.slf4j.log4j12>
-    <spring.version>4.3.1.RELEASE</spring.version>
     <spring.security.version>4.1.1.RELEASE</spring.security.version>
     <javadoc.version>2.9.1</javadoc.version>
     <jetty.version>8.1.8.v20121106</jetty.version>
@@ -291,7 +290,6 @@
           <warFile>target/${project.artifactId}.war</warFile>
           <server>local-tomcat</server>
           <url>http://localhost:8080/manager/text</url>
-          <!-- TODO: CHANGE ME ON NEXT RELEASE TO USE 'TEXT' on URL: <url>http://localhost:8080/manager/text</url>-->
           <path>/${project.artifactId}</path>
           <!-- Warning the tomcat manager creds here are for deploying into a demo environment only. -->
           <username>tcmanager</username>
