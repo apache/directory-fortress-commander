@@ -22,20 +22,24 @@ package org.apache.directory.fortress.web.panel;
 
 
 import com.googlecode.wicket.jquery.core.Options;
-import com.googlecode.wicket.kendo.ui.datatable.DataTable;
 import com.googlecode.wicket.kendo.ui.datatable.column.IColumn;
-import com.googlecode.wicket.kendo.ui.datatable.column.PropertyColumn;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.*;
 import org.apache.log4j.Logger;
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.event.IEvent;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponentPanel;
+import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
+import org.apache.wicket.markup.repeater.Item;
+import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
+import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
@@ -43,8 +47,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.web.common.GlobalIds;
 import org.apache.directory.fortress.web.control.SecUtils;
 import org.apache.directory.fortress.web.event.SelectModelEvent;
-import org.apache.directory.fortress.core.AuditMgr;
-import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.model.Mod;
 import org.apache.directory.fortress.core.model.User;
 
@@ -99,29 +101,18 @@ public class AuditModDetailPanel extends FormComponentPanel
         private String ftModId;
         private String userId;
         private byte[] modPhoto;
-        private DataTable<RequestMod> table;
         private List<IColumn> columns;
         private Options options;
-
 
         public AuditAuthzDetailForm( String id, final IModel<Mod> model )
         {
             super( id, model );
             add( new Label( GlobalIds.FT_MOD_ID, new PropertyModel<String>( this, GlobalIds.FT_MOD_ID ) ) );
             add( new Label( GlobalIds.FT_MOD_CODE, new PropertyModel<String>( this, GlobalIds.FT_MOD_CODE ) ) );
-            // DataTable //
-            columns = newColumnList();
-            options = new Options();
-            options.set( "height", 240 );
-            options.set( "pageable", "{ pageSizes: [ 5, 10, 15, 20 ] }" );
-            //table2 = new DataTable("modstable", columns, createDataProvider( null ), ROWS, options);
-
-            table = new DataTable<>( "modstable", columns, createDataProvider( null ), ROWS, options );
-            table.setOutputMarkupId( true );
-            add( table );
             add( new Label( "reqType" ) );
             add( new Label( GlobalIds.REQ_DN ) );
             add( new Label( GlobalIds.REQ_START ) );
+            createDataTable( null );
             userPanel = new UserAuditDetailPanel( GlobalIds.USERAUDITDETAILPANEL, new CompoundPropertyModel<>(
                 new User()
                 ) );
@@ -129,6 +120,38 @@ public class AuditModDetailPanel extends FormComponentPanel
             setOutputMarkupId( true );
         }
 
+
+        private void createDataTable( List<RequestMod> mods )
+        {
+            DataView< RequestMod > view = new DataView<RequestMod>("modstable", createDataProvider( mods ) )
+            {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                protected void populateItem(final Item<RequestMod> item)
+                {
+
+                    RequestMod mod = item.getModelObject();
+                    item.add( new Label( "index", mod.getIndex() ) );
+                    item.add( new Label( "type", mod.getType() ) );
+                    item.add( new Label( "name", mod.getName() ) );
+                    item.add( new Label( "value", mod.getValue() ) );
+                    item.add( AttributeModifier.replace( "class", new AbstractReadOnlyModel<String>()
+                    {
+                        private static final long serialVersionUID = 1L;
+
+                        @Override
+                        public String getObject()
+                        {
+                            return ( item.getIndex() % 2 == 1 ) ? "even" : "odd";
+                        }
+                    } ));
+                }
+            };
+            view.setItemsPerPage( 5L );
+            addOrReplace( view );
+            addOrReplace( new PagingNavigator( "navigator", view ) );
+        }
 
         @Override
         public void onEvent( final IEvent<?> event )
@@ -141,8 +164,7 @@ public class AuditModDetailPanel extends FormComponentPanel
                 String msg = "Mod: " + mod.getReqAuthzID() + " has been selected";
                 LOG.debug( ".onEvent SelectModelEvent: " + mod.getReqAuthzID() );
                 List<RequestMod> modifications = parseRequestMods( mod.getReqMod() );
-                table = new DataTable<>( "modstable", columns, createDataProvider( modifications ), ROWS,
-                    options );
+                createDataTable( modifications );
                 User user = null;
                 // necessary to push the 'changed' model down into the aggregated panel:
                 int indx = modifications.indexOf( new RequestMod( GlobalIds.FT_MODIFIER ) );
@@ -172,8 +194,6 @@ public class AuditModDetailPanel extends FormComponentPanel
                 }
                 IModel<User> userModel = new CompoundPropertyModel<>( user );
                 userPanel.setDefaultModel( userModel );
-
-                addOrReplace( table );
                 display.setMessage( msg );
                 component = detailForm;
             }
@@ -253,16 +273,5 @@ public class AuditModDetailPanel extends FormComponentPanel
             results = new ListDataProvider<>( new ArrayList<RequestMod>() );
         }
         return results;
-    }
-
-
-    private List<IColumn> newColumnList()
-    {
-        List<IColumn> columns = new ArrayList<>();
-        columns.add( new PropertyColumn( "#", "index", 30 ) );
-        columns.add( new PropertyColumn( "Op", "type", 50 ) );
-        columns.add( new PropertyColumn( "Name", "name", 80 ) );
-        columns.add( new PropertyColumn( "Value", "value", 200 ) );
-        return columns;
     }
 }

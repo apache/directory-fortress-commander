@@ -69,13 +69,42 @@
                             <span wicket:id="ftModId"></span>
                         </td>
                     </tr>
+                    <tr>
+                        <td colspan="3"><hr/></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Modifications</label>
+                        </td>
+                        <td>
+                            <span wicket:id="navigator">[dataview navigator]</span>
+                            <table cellspacing="0" class="dataview">
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Type</th>
+                                    <th></th>
+                                    <th>Name</th>
+                                    <th></th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr wicket:id="modstable">
+                                    <td><span wicket:id="index">[Index]</span> </td>
+                                    <td><span>        </span></td>
+                                    <td><span wicket:id="type">[Type]</span></td>
+                                    <td><span>        </span></td>
+                                    <td><span wicket:id="name">[Name]</span></td>
+                                    <td><span>        </span></td>
+                                    <td><span wicket:id="value">[Value]</span></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><hr/></td>
+                    </tr>
                 </table>
-
               </fieldset>
-
-                <h3>Modifications</h3>
-                <div wicket:id="modstable" id="modstable" style="width: 720px;"></div>
-
             </div>
             <div wicket:id="userauditdetailpanel" id="userauditdetailpanel"></div>
         </div>
