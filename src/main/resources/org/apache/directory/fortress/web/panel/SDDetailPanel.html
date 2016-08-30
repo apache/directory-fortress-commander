@@ -64,6 +64,17 @@
                 </tr>
                 <tr>
                     <td>
+                        <label for="id">Internal ID</label>
+                    </td>
+                    <td>
+                        <span wicket:id="id"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3"><hr/></td>
+                </tr>
+                <tr>
+                    <td>
                         <label for="members">Members</label>
                     </td>
                     <td>
@@ -71,14 +82,6 @@
                         <button wicket:id="roles.search" name="roles.search">search</button>
                         <div wicket:id="rolesmodal"></div>
                         <button wicket:id="members.delete" name="members.delete">remove</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="id">Internal ID</label>
-                    </td>
-                    <td>
-                        <span wicket:id="id"></span>
                     </td>
                 </tr>
             </table>

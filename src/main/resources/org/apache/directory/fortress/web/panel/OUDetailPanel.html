@@ -56,6 +56,17 @@
                 </tr>
                 <tr>
                     <td>
+                        <label for="id">Internal ID</label>
+                    </td>
+                    <td>
+                        <span wicket:id="id"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3"><hr/></td>
+                </tr>
+                <tr>
+                    <td>
                         <label for="parents">Parents</label>
                     </td>
                     <td>
@@ -63,14 +74,6 @@
                         <button wicket:id="parents.search" name="parents.search">search</button>
                         <div wicket:id="ouparentsmodal"></div>
                         <button wicket:id="parents.delete" name="parents.delete">remove</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="id">Internal ID</label>
-                    </td>
-                    <td>
-                        <span wicket:id="id"></span>
                     </td>
                 </tr>
             </table>

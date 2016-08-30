@@ -76,6 +76,17 @@
                 </tr>
                 <tr>
                     <td>
+                        <label for="internalId">Internal ID</label>
+                    </td>
+                    <td>
+                        <span wicket:id="internalId"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3"><hr/></td>
+                </tr>
+                <tr>
+                    <td>
                         <label for="roles">Roles</label>
                     </td>
                     <td>
@@ -83,14 +94,6 @@
                         <button wicket:id="permroles.search" name="permroles.search">search</button>
                         <div wicket:id="permrolesmodal"></div>
                         <button wicket:id="roles.delete" name="roles.delete">remove</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="internalId">Internal ID</label>
-                    </td>
-                    <td>
-                        <span wicket:id="internalId"></span>
                     </td>
                 </tr>
             </table>
