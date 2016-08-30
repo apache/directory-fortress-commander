@@ -26,7 +26,7 @@
             <h3>Audit Modification Details</h3>
             <div>
                 <fieldset>
-                  <legend>Administrative Modifications</legend>
+                  <legend>Modifications</legend>
 
                 <table id="inputFormTable">
                     <tr>
@@ -39,7 +39,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <label for="reqType">LDAP Operation</label>
+                            <label for="reqType">Operation</label>
                         </td>
                         <td>
                             <span wicket:id="reqType"></span>
@@ -63,7 +63,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <label for="ftModId">Mod GUID</label>
+                            <label for="ftModId">GUID</label>
                         </td>
                         <td>
                             <span wicket:id="ftModId"></span>
@@ -73,36 +73,36 @@
                         <td colspan="3"><hr/></td>
                     </tr>
                     <tr>
-                        <td>
-                            <label>Mods</label>
-                        </td>
-                        <td>
-                            <table cellspacing="0" class="dataview">
-                                <tr>
-                                    <th></th>
-                                    <th></th>
-                                    <th>Op</th>
-                                    <th></th>
-                                    <th>Name</th>
-                                    <th></th>
-                                    <th>Value</th>
-                                </tr>
-                                <tr wicket:id="modstable">
-                                    <td><span wicket:id="index">[Index]</span> </td>
-                                    <td><span>        </span></td>
-                                    <td><span wicket:id="type">[Type]</span></td>
-                                    <td><span>        </span></td>
-                                    <td><span wicket:id="name">[Name]</span></td>
-                                    <td><span>        </span></td>
-                                    <td><span wicket:id="value">[Value]</span></td>
-                                </tr>
-                            </table>
-                        </td>
+                        <table cellspacing="0" class="dataview">
+                            <caption>Attributes</caption>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th>Op</th>
+                                <th></th>
+                                <th>Name</th>
+                                <th></th>
+                                <th>Value</th>
+                            </tr>
+                            <tr wicket:id="modstable">
+                                <td><span wicket:id="index">[Index]</span> </td>
+                                <td><span>        </span></td>
+                                <td><span wicket:id="type">[Type]</span></td>
+                                <td><span>        </span></td>
+                                <td><span wicket:id="name">[Name]</span></td>
+                                <td><span>        </span></td>
+                                <td><span wicket:id="value">[Value]</span></td>
+                            </tr>
+                        </table>
                     </tr>
                 </table>
               </fieldset>
             </div>
-            <div wicket:id="userauditdetailpanel" id="userauditdetailpanel"></div>
+            <fieldset>
+                <legend>Modifier</legend>
+                <div wicket:id="userauditdetailpanel" id="userauditdetailpanel"></div>
+            </fieldset>
+
         </div>
     </form>
 </wicket:panel>

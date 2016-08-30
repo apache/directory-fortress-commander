@@ -25,34 +25,41 @@
             <h3>Audit Bind Details</h3>
 
             <div>
-                <table id="inputFormTable">
-                    <tr>
-                        <td>
-                            <label for="reqDN">User ID</label>
-                        </td>
-                        <td>
-                            <span wicket:id="reqDN"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="reqResult">Result</label>
-                        </td>
-                        <td>
-                            <span wicket:id="reqResult"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="reqStart">Timestamp</label>
-                        </td>
-                        <td>
-                            <span wicket:id="reqStart"></span>
-                        </td>
-                    </tr>
-                </table>
+                <fieldset>
+                    <legend>Authentications</legend>
+
+                    <table id="inputFormTable">
+                        <tr>
+                            <td>
+                                <label for="reqDN">User ID</label>
+                            </td>
+                            <td>
+                                <span wicket:id="reqDN"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="reqResult">Result</label>
+                            </td>
+                            <td>
+                                <span wicket:id="reqResult"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="reqStart">Timestamp</label>
+                            </td>
+                            <td>
+                                <span wicket:id="reqStart"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
             </div>
-            <div wicket:id="userauditdetailpanel" id="userauditdetailpanel"></div>
+            <fieldset>
+                <legend>Subject</legend>
+                <div wicket:id="userauditdetailpanel" id="userauditdetailpanel"></div>
+            </fieldset>
         </div>
     </form>
 </wicket:panel>
