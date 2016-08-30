@@ -88,9 +88,9 @@
   <properties>
     <title>${project.name} ${project.version}</title>
     <fortress.realm.version>1.0.1</fortress.realm.version>
-    <wicket.version>7.3.0</wicket.version>
-    <wicket.jquery.version>7.3.0</wicket.jquery.version>
-    <wicket.kendo-ui.version>7.3.0</wicket.kendo-ui.version>
+    <wicket.version>7.4.0</wicket.version>
+    <wicket.jquery.version>7.4.0</wicket.jquery.version>
+    <wicket.kendo-ui.version>7.4.0</wicket.kendo-ui.version>
     <version.log4j>1.2.17</version.log4j>
     <version.slf4j.log4j12>1.7.7</version.slf4j.log4j12>
     <spring.version>4.3.1.RELEASE</spring.version>
@@ -103,7 +103,7 @@
   </properties>
 
   <dependencies>
-    <!-- Fortress Realm pulls in Fortress Core for RBAC 'CRUD' & policy enforcement apis. -->
+    <!-- Fortress Realm pulls in Fortress Core for RBAC 'CRUD' & access management apis. -->
     <dependency>
       <groupId>org.apache.directory.fortress</groupId>
       <artifactId>fortress-realm-impl</artifactId>
@@ -156,45 +156,15 @@
     </dependency>
 
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-web</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-expression</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-core</artifactId>
-      <version>${spring.security.version}</version>
-    </dependency>
-    
-    <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-config</artifactId>
       <version>${spring.security.version}</version>
     </dependency>
-    
+
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-web</artifactId>
       <version>${spring.security.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
-      <version>2.6</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>velocity</groupId>
-      <artifactId>velocity</artifactId>
-      <version>1.4</version>
     </dependency>
 
     <!--  ANT DEPENDENCIES FOR RUNNING ANT PLUG-IN FOR FORTRESS LOAD UTILITY  -->
