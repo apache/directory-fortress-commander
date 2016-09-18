@@ -24,13 +24,13 @@ import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import io.github.bonigarcia.wdm.MarionetteDriverManager;
 import org.apache.log4j.Logger;
 import org.junit.*;
 import static org.junit.Assert.*;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.apache.directory.fortress.web.common.GlobalIds;
 
@@ -61,20 +61,41 @@ public class FortressWebSeleniumITCase
     private StringBuffer verificationErrors = new StringBuffer();
     private static final Logger log = Logger.getLogger( FortressWebSeleniumITCase.class.getName() );
 
+    @BeforeClass
+    public static void setupClass() {
+        MarionetteDriverManager.getInstance().setup();
+        //MarionetteDriverManager.getInstance().setup("0.10.0");
+    }
+
+    @Before
+    public void setupTest()
+    {
+        //DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+        //capabilities.setCapability("marionette", true);
+        //driver = new FirefoxDriver(capabilities);
+
+        driver = new FirefoxDriver( );
+        driver.manage().window().maximize();
+    }
+
+    @After
+    public void teardown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+
     @Before
     public void setUp() throws Exception
     {
-        FirefoxProfile ffProfile = new FirefoxProfile();
-        ffProfile.setPreference( "browser.safebrowsing.malware.enabled", false );
-        driver = new FirefoxDriver( ffProfile );
-        driver.manage().window().maximize();
-
-        // tomcat default:
+        // http default:
         baseUrl = "http://localhost:8080";
         //baseUrl = "http://fortressdemo2.com:8080";
-        // tomcat SSL:
+
+        // https:
         //baseUrl = "https://localhost:8443";
         //baseUrl = "https://fortressdemo2.com:8443";
+
         driver.manage().timeouts().implicitlyWait( 5, TimeUnit.SECONDS );
     }
 
