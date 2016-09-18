@@ -64,23 +64,20 @@ public class FortressWebSeleniumITCase
     @BeforeClass
     public static void setupClass() {
         MarionetteDriverManager.getInstance().setup();
-        //MarionetteDriverManager.getInstance().setup("0.10.0");
     }
 
     @Before
     public void setupTest()
     {
-        //DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-        //capabilities.setCapability("marionette", true);
-        //driver = new FirefoxDriver(capabilities);
-
         driver = new FirefoxDriver( );
         driver.manage().window().maximize();
     }
 
     @After
-    public void teardown() {
-        if (driver != null) {
+    public void teardown()
+    {
+        if (driver != null)
+        {
             driver.quit();
         }
     }
