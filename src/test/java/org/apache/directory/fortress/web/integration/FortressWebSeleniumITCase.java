@@ -61,6 +61,20 @@ public class FortressWebSeleniumITCase
     private StringBuffer verificationErrors = new StringBuffer();
     private static final Logger log = Logger.getLogger( FortressWebSeleniumITCase.class.getName() );
 
+    @Before
+    public void setUp() throws Exception
+    {
+        // http default:
+        baseUrl = "http://localhost:8080";
+        //baseUrl = "http://fortressdemo2.com:8080";
+
+        // https:
+        //baseUrl = "https://localhost:8443";
+        //baseUrl = "https://fortressdemo2.com:8443";
+
+        driver.manage().timeouts().implicitlyWait( 5, TimeUnit.SECONDS );
+    }
+
     @BeforeClass
     public static void setupClass()
     {
@@ -81,20 +95,6 @@ public class FortressWebSeleniumITCase
         {
             driver.quit();
         }
-    }
-
-    @Before
-    public void setUp() throws Exception
-    {
-        // http default:
-        baseUrl = "http://localhost:8080";
-        //baseUrl = "http://fortressdemo2.com:8080";
-
-        // https:
-        //baseUrl = "https://localhost:8443";
-        //baseUrl = "https://fortressdemo2.com:8443";
-
-        driver.manage().timeouts().implicitlyWait( 5, TimeUnit.SECONDS );
     }
 
     @Test
