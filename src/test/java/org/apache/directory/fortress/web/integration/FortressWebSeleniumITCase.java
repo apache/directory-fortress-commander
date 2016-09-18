@@ -62,7 +62,8 @@ public class FortressWebSeleniumITCase
     private static final Logger log = Logger.getLogger( FortressWebSeleniumITCase.class.getName() );
 
     @BeforeClass
-    public static void setupClass() {
+    public static void setupClass()
+    {
         MarionetteDriverManager.getInstance().setup();
     }
 
