@@ -185,13 +185,18 @@ ________________________________________________________________________________
 ___________________________________________________________________________________
 ## SECTION 6. Test with Selenium
 
-Run the Selenium Web driver integration tests:
+1. Run the Selenium Web driver integration tests with Firefox (default):
  ```
  mvn test -Dtest=FortressWebSeleniumITCase
  ```
 
- Note: These automated tests depend that:
- * Firefox installed to target machine.
+2. Run the tests using Chrome:
+ ```
+ mvn test -Dtest=FortressWebSeleniumITCase -Dweb.driver=chrome
+ ```
+
+ Note: These automated tests require that:
+ * Either Firefox or Chrome installed to target machine.
  * **FORTRESS_CORE_HOME**/*FortressJUnitTest* successfully run.  This will load some test data to grind on.
  * [FortressWebDemoUsers](./src/main/resources/FortressWebDemoUsers.xml) policy loaded into target LDAP server.
 

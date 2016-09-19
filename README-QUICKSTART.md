@@ -111,13 +111,20 @@ ________________________________________________________________________________
 
 2. Click on the links, to pull up various views on the data stored in the directory.
 
-3. Run the selenium automated test:
-
+3. Run the Selenium Web driver integration tests with Firefox (default):
  ```
  mvn test -Dtest=FortressWebSeleniumITCase
  ```
 
- *Requires Firefox on target machine.*
+4. Run the tests using Chrome:
+ ```
+ mvn test -Dtest=FortressWebSeleniumITCase -Dweb.driver=chrome
+ ```
+
+ Note: The Selenium tests require that:
+ * Either Firefox or Chrome installed to target machine.
+ * **FORTRESS_CORE_HOME**/*FortressJUnitTest* successfully run.  This will load some test data to grind on.
+ * [FortressWebDemoUsers](./src/main/resources/FortressWebDemoUsers.xml) policy loaded into target LDAP server.
 
 ___________________________________________________________________________________
 #### END OF README-QUICKSTART

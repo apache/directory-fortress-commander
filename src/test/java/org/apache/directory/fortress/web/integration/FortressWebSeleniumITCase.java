@@ -71,9 +71,7 @@ public class FortressWebSeleniumITCase
         CHROME
     }
 
-    private static DriverType driverType = DriverType.CHROME;
-
-
+    private static DriverType driverType = DriverType.FIREFOX;
     private StringBuffer verificationErrors = new StringBuffer();
     private static final Logger log = Logger.getLogger( FortressWebSeleniumITCase.class.getName() );
 
