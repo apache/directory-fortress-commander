@@ -38,7 +38,14 @@ import org.openqa.selenium.remote.LocalFileDetector;
 import org.apache.directory.fortress.web.common.GlobalIds;
 
 /**
- * This class uses apache selenium firefox driver to drive commander web ui
+ * This class uses apache selenium firefox or chrome driver to drive commander web ui automated tests
+ * <p>
+ <ol>
+ <li>Firefox: mvn test -Dtest=FortressWebSeleniumITCase</li>
+ <li>Chrome:  mvn test -Dtest=FortressWebSeleniumITCase -Dweb.driver=chrome</li>
+ </ol>
+ *
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class FortressWebSeleniumITCase
 {
@@ -67,7 +74,6 @@ public class FortressWebSeleniumITCase
     private enum DriverType
     {
         FIREFOX,
-
         CHROME
     }
 
