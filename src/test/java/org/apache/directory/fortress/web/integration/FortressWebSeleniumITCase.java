@@ -24,12 +24,15 @@ import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import io.github.bonigarcia.wdm.ChromeDriverManager;
 import io.github.bonigarcia.wdm.MarionetteDriverManager;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.junit.*;
 import static org.junit.Assert.*;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.apache.directory.fortress.web.common.GlobalIds;
@@ -55,9 +58,22 @@ public class FortressWebSeleniumITCase
     public static final String AUTHZ = "AUTHZ";
     public static final String MODS = "MODS";
     public static final String FORTRESS_WEB = "/fortress-web";
+    private static final String DRIVER_SYS_PROP = "web.driver";
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;
+
+
+    private enum DriverType
+    {
+        FIREFOX,
+
+        CHROME
+    }
+
+    private static DriverType driverType = DriverType.CHROME;
+
+
     private StringBuffer verificationErrors = new StringBuffer();
     private static final Logger log = Logger.getLogger( FortressWebSeleniumITCase.class.getName() );
 
@@ -78,13 +94,30 @@ public class FortressWebSeleniumITCase
     @BeforeClass
     public static void setupClass()
     {
-        MarionetteDriverManager.getInstance().setup();
+        String szDriverType = System.getProperty( DRIVER_SYS_PROP );
+        if( StringUtils.isNotEmpty( szDriverType ) && szDriverType.equalsIgnoreCase( DriverType.CHROME.toString() ))
+        {
+            driverType = DriverType.CHROME;
+            ChromeDriverManager.getInstance().setup();
+        }
+        else
+        {
+            driverType = DriverType.FIREFOX;
+            MarionetteDriverManager.getInstance().setup();
+        }
     }
 
     @Before
     public void setupTest()
     {
-        driver = new FirefoxDriver( );
+        if ( driverType.equals( DriverType.CHROME ) )
+        {
+            driver = new ChromeDriver( );
+        }
+        else
+        {
+            driver = new FirefoxDriver( );
+        }
         driver.manage().window().maximize();
     }
 
@@ -167,8 +200,10 @@ public class FortressWebSeleniumITCase
     {
         driver.findElement( By.id( GlobalIds.USER_ID ) ).clear();
         driver.findElement( By.id( GlobalIds.USER_ID ) ).sendKeys( userId );
+        TUtils.sleep( 1 );
         driver.findElement( By.id( GlobalIds.PSWD_FIELD ) ).clear();
         driver.findElement( By.id( GlobalIds.PSWD_FIELD ) ).sendKeys( password );
+        TUtils.sleep( 1 );
         driver.findElement( By.name( GlobalIds.LOGIN ) ).click();
     }
 
@@ -251,6 +286,7 @@ TODO: FIX ME:
         driver.findElement( By.name( GlobalIds.ASSIGN ) ).click();
         TUtils.sleep( 1 );
         driver.findElement( By.id( GlobalIds.ROLE_ASSIGNMENTS_LABEL ) ).click();
+        TUtils.sleep( 1 );
         driver.findElement( By.id( GlobalIds.ASSIGN_NEW_ROLE ) ).clear();
         TUtils.sleep( 2 );
         driver.findElement( By.name( GlobalIds.ROLES_SEARCH ) ).click();
@@ -297,6 +333,7 @@ TODO: FIX ME:
         driver.findElement( By.name( GlobalIds.ASSIGN_ADMIN_ROLE ) ).click();
         TUtils.sleep( 1 );
         driver.findElement( By.id( "adminRoleAssignmentsLabel" ) ).click();
+        TUtils.sleep( 1 );
         driver.findElement( By.name( "adminRoles.search" ) ).click();
         TUtils.sleep( 2 );
         driver.findElement( By.linkText( ">" ) ).click();
@@ -314,37 +351,50 @@ TODO: FIX ME:
         driver.findElement( By.id( GlobalIds.EMPLOYEE_TYPE ) ).clear();
         driver.findElement( By.id( GlobalIds.EMPLOYEE_TYPE ) ).sendKeys( "Test User" );
         driver.findElement( By.id( GlobalIds.TITLE ) ).clear();
-        driver.findElement( By.id( GlobalIds.TITLE ) ).sendKeys( "TestUser" );
-        ( ( JavascriptExecutor ) driver ).executeScript( "$(document.getElementById('emails')).show();" );
-        driver.findElement( By.id( GlobalIds.EMAILS ) ).clear();
-        driver.findElement( By.id( GlobalIds.EMAILS ) ).sendKeys( "joeuser@selenium.com" );
-        ( ( JavascriptExecutor ) driver ).executeScript( "$(document.getElementById('phones')).show();" );
-        driver.findElement( By.id( GlobalIds.PHONES ) ).clear();
-        driver.findElement( By.id( GlobalIds.PHONES ) ).sendKeys( "555-555-5555" );
-        ( ( JavascriptExecutor ) driver ).executeScript( "$(document.getElementById('mobiles')).show();" );
-        driver.findElement( By.id( GlobalIds.MOBILES ) ).clear();
-        driver.findElement( By.id( GlobalIds.MOBILES ) ).sendKeys( "222-222-2222" );
-        driver.findElement( By.id( GlobalIds.ADDRESS_ASSIGNMENTS_LABEL ) ).click();
         TUtils.sleep( 1 );
-        ( ( JavascriptExecutor ) driver ).executeScript( "$(document.getElementById('addresses')).show();" );
-        driver.findElement( By.id( GlobalIds.ADDRESSES ) ).clear();
-        driver.findElement( By.id( GlobalIds.ADDRESSES ) ).sendKeys( "9 Manor Road" );
-        driver.findElement( By.id( GlobalIds.ADDRESS_CITY ) ).clear();
-        driver.findElement( By.id( GlobalIds.ADDRESS_CITY ) ).sendKeys( "Salina" );
-        driver.findElement( By.id( GlobalIds.ADDRESS_STATE ) ).clear();
-        driver.findElement( By.id( GlobalIds.ADDRESS_STATE ) ).sendKeys( "KS" );
-        driver.findElement( By.id( GlobalIds.ADDRESS_COUNTRY ) ).clear();
-        driver.findElement( By.id( GlobalIds.ADDRESS_COUNTRY ) ).sendKeys( "US" );
-        driver.findElement( By.id( GlobalIds.ADDRESS_POSTAL_CODE ) ).clear();
-        driver.findElement( By.id( GlobalIds.ADDRESS_POSTAL_CODE ) ).sendKeys( "67401" );
-        driver.findElement( By.id( GlobalIds.ADDRESS_POST_OFFICE_BOX ) ).clear();
-        driver.findElement( By.id( GlobalIds.ADDRESS_POST_OFFICE_BOX ) ).sendKeys( "422" );
-        driver.findElement( By.id( GlobalIds.ADDRESS_BUILDING ) ).clear();
-        driver.findElement( By.id( GlobalIds.ADDRESS_BUILDING ) ).sendKeys( "2929" );
-        driver.findElement( By.id( GlobalIds.ADDRESS_DEPARTMENT_NUMBER ) ).clear();
-        driver.findElement( By.id( GlobalIds.ADDRESS_DEPARTMENT_NUMBER ) ).sendKeys( "2222" );
-        driver.findElement( By.id( GlobalIds.ADDRESS_ROOM_NUMBER ) ).clear();
-        driver.findElement( By.id( GlobalIds.ADDRESS_ROOM_NUMBER ) ).sendKeys( "555" );
+        driver.findElement( By.id( GlobalIds.TITLE ) ).sendKeys( "TestUser" );
+
+        // TODO: Fixme.  The chrome driver.findElement( By.id(  ) ).sendKeys can't find focus....
+        if( ! driverType.equals( DriverType.CHROME ) )
+        {
+            ( ( JavascriptExecutor ) driver ).executeScript( "$(document.getElementById('emails')).show();" );
+            TUtils.sleep( 1 );
+            driver.findElement( By.id( GlobalIds.EMAILS ) ).click();
+            driver.findElement( By.id( GlobalIds.EMAILS ) ).clear();
+            TUtils.sleep( 1 );
+            driver.findElement( By.id( GlobalIds.EMAILS ) ).sendKeys( "joeuser@selenium.com" );
+            TUtils.sleep( 1 );
+            ( ( JavascriptExecutor ) driver ).executeScript( "$(document.getElementById('phones')).show();" );
+            driver.findElement( By.id( GlobalIds.PHONES ) ).clear();
+            TUtils.sleep( 1 );
+            driver.findElement( By.id( GlobalIds.PHONES ) ).sendKeys( "555-555-5555" );
+            ( ( JavascriptExecutor ) driver ).executeScript( "$(document.getElementById('mobiles')).show();" );
+            driver.findElement( By.id( GlobalIds.MOBILES ) ).clear();
+            driver.findElement( By.id( GlobalIds.MOBILES ) ).sendKeys( "222-222-2222" );
+            driver.findElement( By.id( GlobalIds.ADDRESS_ASSIGNMENTS_LABEL ) ).click();
+            TUtils.sleep( 1 );
+            ( ( JavascriptExecutor ) driver ).executeScript( "$(document.getElementById('addresses')).show();" );
+            driver.findElement( By.id( GlobalIds.ADDRESSES ) ).click();
+            driver.findElement( By.id( GlobalIds.ADDRESSES ) ).clear();
+            driver.findElement( By.id( GlobalIds.ADDRESSES ) ).sendKeys( "9 Manor Road" );
+            driver.findElement( By.id( GlobalIds.ADDRESS_CITY ) ).clear();
+            driver.findElement( By.id( GlobalIds.ADDRESS_CITY ) ).sendKeys( "Salina" );
+            driver.findElement( By.id( GlobalIds.ADDRESS_STATE ) ).clear();
+            driver.findElement( By.id( GlobalIds.ADDRESS_STATE ) ).sendKeys( "KS" );
+            driver.findElement( By.id( GlobalIds.ADDRESS_COUNTRY ) ).clear();
+            driver.findElement( By.id( GlobalIds.ADDRESS_COUNTRY ) ).sendKeys( "US" );
+            driver.findElement( By.id( GlobalIds.ADDRESS_POSTAL_CODE ) ).clear();
+            driver.findElement( By.id( GlobalIds.ADDRESS_POSTAL_CODE ) ).sendKeys( "67401" );
+            driver.findElement( By.id( GlobalIds.ADDRESS_POST_OFFICE_BOX ) ).clear();
+            driver.findElement( By.id( GlobalIds.ADDRESS_POST_OFFICE_BOX ) ).sendKeys( "422" );
+            driver.findElement( By.id( GlobalIds.ADDRESS_BUILDING ) ).clear();
+            driver.findElement( By.id( GlobalIds.ADDRESS_BUILDING ) ).sendKeys( "2929" );
+            driver.findElement( By.id( GlobalIds.ADDRESS_DEPARTMENT_NUMBER ) ).clear();
+            driver.findElement( By.id( GlobalIds.ADDRESS_DEPARTMENT_NUMBER ) ).sendKeys( "2222" );
+            driver.findElement( By.id( GlobalIds.ADDRESS_ROOM_NUMBER ) ).clear();
+            driver.findElement( By.id( GlobalIds.ADDRESS_ROOM_NUMBER ) ).sendKeys( "555" );
+        }
+
         driver.findElement( By.id( GlobalIds.TEMPORAL_CONSTRAINTS_LABEL ) ).click();
         TUtils.sleep( 1 );
         driver.findElement( By.id( GlobalIds.BEGIN_TIME_P ) ).clear();
