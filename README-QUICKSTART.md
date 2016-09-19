@@ -112,11 +112,13 @@ ________________________________________________________________________________
 2. Click on the links, to pull up various views on the data stored in the directory.
 
 3. Run the Selenium Web driver integration tests with Firefox (default):
+
  ```
  mvn test -Dtest=FortressWebSeleniumITCase
  ```
 
 4. Run the tests using Chrome:
+
  ```
  mvn test -Dtest=FortressWebSeleniumITCase -Dweb.driver=chrome
  ```

@@ -167,11 +167,13 @@ ________________________________________________________________________________
 3. Restart Tomcat server.
 
 4. Enter maven command to deploy to Tomcat:
+
  ```
  mvn tomcat:deploy
  ```
 
 5. To redeploy:
+
  ```
  mvn tomcat:redeploy
  ```
@@ -186,11 +188,13 @@ ________________________________________________________________________________
 ## SECTION 6. Test with Selenium
 
 1. Run the Selenium Web driver integration tests with Firefox (default):
+
  ```
  mvn test -Dtest=FortressWebSeleniumITCase
  ```
 
 2. Run the tests using Chrome:
+
  ```
  mvn test -Dtest=FortressWebSeleniumITCase -Dweb.driver=chrome
  ```
