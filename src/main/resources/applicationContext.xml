@@ -21,6 +21,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:sec="http://www.springframework.org/schema/security"
        xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/beans
@@ -28,63 +29,54 @@
         http://www.springframework.org/schema/util
         http://www.springframework.org/schema/util/spring-util.xsd
         http://www.springframework.org/schema/security
-        http://www.springframework.org/schema/security/spring-security.xsd">
+        http://www.springframework.org/schema/security/spring-security.xsd
+        http://www.springframework.org/schema/context
+	    http://www.springframework.org/schema/context/spring-context.xsd
+        ">
 
     <!-- Housekeeping -->
-    <bean id="baseURL" class="java.lang.String">
-        <constructor-arg value="${scheme}://${host}:${port}${rootPath}"/>
-    </bean>
-    <bean id="site" class="java.lang.String">
-        <constructor-arg value="${project.parent.url}"/>
-    </bean>
-    <bean id="license" class="java.lang.String">
-        <constructor-arg value="${licenseUrl}"/>
-    </bean>
-    <bean id="HOME" class="java.lang.String">
-        <constructor-arg value="HOME"/>
-    </bean>
+    <context:property-placeholder location="classpath:fortress.properties" />
 
-    <!-- These Fortress Manager beans are used as api for RBAC/IAM domain model -->
+    <!-- These Fortress Manager beans are used as api for RBAC domain model -->
     <bean id="reviewMgr" class="org.apache.directory.fortress.core.ReviewMgrFactory" scope="prototype"
           factory-method="createInstance">
-        <constructor-arg value="HOME"/>
+        <constructor-arg value="${contextId:HOME}"/>
     </bean>
     <bean id="adminMgr" class="org.apache.directory.fortress.core.AdminMgrFactory" scope="prototype"
           factory-method="createInstance">
-        <constructor-arg value="HOME"/>
+        <constructor-arg value="${contextId:HOME}"/>
     </bean>
     <bean id="accessMgr" class="org.apache.directory.fortress.core.AccessMgrFactory" scope="prototype"
           factory-method="createInstance">
-        <constructor-arg value="HOME"/>
+        <constructor-arg value="#{systemProperties['contextId'] ?: 'HOME'}"/>
     </bean>
     <bean id="delReviewMgr" class="org.apache.directory.fortress.core.DelReviewMgrFactory" scope="prototype"
           factory-method="createInstance">
-        <constructor-arg value="HOME"/>
+        <constructor-arg value="${contextId:HOME}"/>
     </bean>
     <bean id="delAdminMgr" class="org.apache.directory.fortress.core.DelAdminMgrFactory" scope="prototype"
           factory-method="createInstance">
-        <constructor-arg value="HOME"/>
+        <constructor-arg value="${contextId:HOME}"/>
     </bean>
     <bean id="delAccessMgr" class="org.apache.directory.fortress.core.DelAccessMgrFactory" scope="prototype"
           factory-method="createInstance">
-        <constructor-arg value="HOME"/>
+        <constructor-arg value="${contextId:HOME}"/>
     </bean>
     <bean id="auditMgr" class="org.apache.directory.fortress.core.AuditMgrFactory" scope="prototype"
           factory-method="createInstance">
-        <constructor-arg value="HOME"/>
+        <constructor-arg value="${contextId:HOME}"/>
     </bean>
     <bean id="pwPolicyMgr" class="org.apache.directory.fortress.core.PwPolicyMgrFactory" scope="prototype"
           factory-method="createInstance">
-        <constructor-arg value="HOME"/>
+        <constructor-arg value="${contextId:HOME}"/>
     </bean>
     <bean id="groupMgr" class="org.apache.directory.fortress.core.GroupMgrFactory" scope="prototype"
           factory-method="createInstance">
-        <constructor-arg value="HOME"/>
+        <constructor-arg value="${contextId:HOME}"/>
     </bean>
-    <!-- The Fortress Realm J2EE Manager bean used for deserializing the principal as returned from tomcat -->
+    <!-- TODO: after the realm 1.0.2 release pass the contextId here.  -->
     <bean id="j2eePolicyMgr" class="org.apache.directory.fortress.realm.J2eePolicyMgrFactory" scope="prototype"
-          factory-method="createInstance">
-    </bean>
+          factory-method="createInstance"/>
 
     <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
         <property name="targetObject">

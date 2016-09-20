@@ -23,7 +23,6 @@ package org.apache.directory.fortress.web;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.realm.J2eePolicyMgr;
-import org.apache.directory.fortress.web.common.*;
 import org.apache.directory.fortress.web.control.SecUtils;
 import org.apache.directory.fortress.web.control.SecureBookmarkablePageLink;
 import org.apache.directory.fortress.web.control.WicketSession;

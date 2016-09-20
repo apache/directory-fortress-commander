@@ -114,14 +114,16 @@ public class UserListModel extends Model<SerializableList<User>>
         if ( ( user == null ) && ( perm == null  ))
         {
             log.debug( ".getObject null" );
-            users = new SerializableList<>( new ArrayList<User>() );
         }
         else
         {
             //log.debug(".getObject userId: " + user != null ? user.getUserId() : "null");
             users = new SerializableList<>( getList( user ) );
         }
-        
+        // guard against NPE:
+        if ( users == null )
+            users = new SerializableList<>( new ArrayList<User>() );
+
         return users;
     }
 

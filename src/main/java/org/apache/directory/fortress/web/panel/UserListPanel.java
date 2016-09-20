@@ -676,7 +676,7 @@ public class UserListPanel<T extends Serializable> extends FormComponentPanel
             LOG.debug( ".createTreeModel Users found:" + users.size() );
             for ( T user : users )
             {
-                    rootNode.add( new DefaultMutableTreeNode( user ) );
+                rootNode.add( new DefaultMutableTreeNode( user ) );
             }
         }
         return model;

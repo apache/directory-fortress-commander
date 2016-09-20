@@ -22,6 +22,6 @@
            defaultRoles=""
            containerType="TomcatContext"
            realmClasspath=""
-            />
-
+           contextId="HOME"
+           />
 </Context>

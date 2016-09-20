@@ -17,6 +17,8 @@
 #   under the License.
 #
 
+contextId=HOME
+
 # Used by application security components:
 perms.cached=true
 
