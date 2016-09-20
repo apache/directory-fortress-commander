@@ -211,6 +211,9 @@ public class FortressWebSeleniumITCase
 
     private void users()
     {
+        String TEST_ROLE_NAME = "T15ROLE1";
+        String TEST_ADMIN_ROLE_NAME = "T3AdmRle1";
+
         /*****
          *  USERS_PAGE TESTS
          */
@@ -263,7 +266,7 @@ public class FortressWebSeleniumITCase
         TUtils.sleep( 1 );
         driver.findElement( By.id( GlobalIds.ROLE_ASSIGNMENTS_LABEL ) ).click();
         //( ( JavascriptExecutor ) driver ).executeScript( "$(document.getElementById('roles')).val('role1');" );
-        driver.findElement( By.id( GlobalIds.ASSIGN_NEW_ROLE ) ).sendKeys( "ROLE_USERS" );
+        driver.findElement( By.id( GlobalIds.ASSIGN_NEW_ROLE ) ).sendKeys( TEST_ROLE_NAME );
         driver.findElement( By.id( GlobalIds.BEGIN_TIME_RC ) ).clear();
         driver.findElement( By.id( GlobalIds.BEGIN_TIME_RC ) ).sendKeys( "8:00 AM" );
         driver.findElement( By.id( GlobalIds.END_TIME_RC ) ).clear();
@@ -312,7 +315,7 @@ public class FortressWebSeleniumITCase
             */
         //( ( JavascriptExecutor ) driver ).executeScript( "$(document.getElementById('adminRoles')).val" +
         //    "('DemoAdminUsers');" );
-        driver.findElement( By.id( GlobalIds.ASSIGN_NEW_ADMIN_ROLE ) ).sendKeys( "o" );
+        driver.findElement( By.id( GlobalIds.ASSIGN_NEW_ADMIN_ROLE ) ).sendKeys( TEST_ADMIN_ROLE_NAME );
         driver.findElement( By.id( GlobalIds.BEGIN_TIME_ARC ) ).clear();
         driver.findElement( By.id( GlobalIds.BEGIN_TIME_ARC ) ).sendKeys( "8:00 AM" );
         driver.findElement( By.id( GlobalIds.END_TIME_ARC ) ).clear();
