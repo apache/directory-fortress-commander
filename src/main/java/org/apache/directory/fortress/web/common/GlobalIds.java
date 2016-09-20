@@ -203,6 +203,7 @@ public class GlobalIds
     public static final String GROUPLISTPANEL = "grouplistpanel";
     public static final String GROUPDETAILPANEL = "groupdetailpanel";
     public static final String LAYOUT = "layout";
+    public static final String TITLE_BAR = "titleBar";
     public static final String PAGE_HEADER = "pageHeader";
     public static final String DETAIL_FIELDS = "detailFields";
     public static final String EDIT_FIELDS = "editFields";
@@ -233,4 +234,5 @@ public class GlobalIds
     public static final String FIELD_2 = "field2";
     public static final String FIELD_1 = "field1";
     public static final String IS_JETTY_SERVER = "is-jetty-server";
+    public static final String CONTEXT_ID_PROPERTY = "contextId";
 }

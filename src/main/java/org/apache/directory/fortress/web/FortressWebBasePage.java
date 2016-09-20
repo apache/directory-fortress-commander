@@ -22,7 +22,9 @@ package org.apache.directory.fortress.web;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.realm.J2eePolicyMgr;
+import org.apache.directory.fortress.web.common.GlobalIds;
 import org.apache.directory.fortress.web.control.SecUtils;
 import org.apache.directory.fortress.web.control.SecureBookmarkablePageLink;
 import org.apache.directory.fortress.web.control.WicketSession;
@@ -61,6 +63,19 @@ public abstract class FortressWebBasePage extends WebPage
 
     public FortressWebBasePage()
     {
+        // Build the title bar string.
+        StringBuilder titlebuf = new StringBuilder();
+        titlebuf.append( "Fortress Web Administration" );
+        String szContextId = Config.getInstance().getProperty( GlobalIds.CONTEXT_ID_PROPERTY );
+        // append the tenantId if set
+        if( StringUtils.isNotEmpty( szContextId ) && !szContextId.equalsIgnoreCase( org.apache.directory.fortress.core.GlobalIds.HOME ))
+        {
+            titlebuf.append( " : " );
+            titlebuf.append( szContextId );
+        }
+        // add it to title bar of page
+        add( new Label( org.apache.directory.fortress.web.common.GlobalIds.TITLE_BAR, titlebuf.toString() ) );
+
         SecureBookmarkablePageLink usersLink = new SecureBookmarkablePageLink( org.apache.directory.fortress.web
             .common.GlobalIds.USERS_PAGE, UserPage.class,
             org.apache.directory.fortress.web.common.GlobalIds.ROLE_USERS );
