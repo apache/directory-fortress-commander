@@ -28,7 +28,7 @@ import org.apache.directory.api.ldap.model.name.Dn;
 import org.apache.directory.api.ldap.model.name.Rdn;
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.model.PropUtil;
+import org.apache.directory.fortress.core.util.PropUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
