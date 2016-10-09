@@ -87,7 +87,7 @@
 
   <properties>
     <title>${project.name} ${project.version}</title>
-    <fortress.realm.version>1.0.1</fortress.realm.version>
+    <fortress.realm.version>1.0.2-SNAPSHOT</fortress.realm.version>
     <wicket.version>7.4.0</wicket.version>
     <wicket.jquery.version>7.4.0</wicket.jquery.version>
     <wicket.kendo-ui.version>7.4.0</wicket.kendo-ui.version>
