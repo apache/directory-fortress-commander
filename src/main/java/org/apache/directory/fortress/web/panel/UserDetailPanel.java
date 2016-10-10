@@ -1198,11 +1198,8 @@ public class UserDetailPanel extends FormComponentPanel
                 {
                     roleConstraint = roleSearchModalPanel.getRoleSelection();
                     newUserRole = roleConstraint.getName();
-                    if ( roleConstraint != null )
-                    {
-                        target.add( roleConstraintPanel );
-                        target.add( newUserRoleTF );
-                    }
+                    target.add( roleConstraintPanel );
+                    target.add( newUserRoleTF );
                 }
             } );
 
@@ -1269,11 +1266,8 @@ public class UserDetailPanel extends FormComponentPanel
                 {
                     adminRoleConstraint = adminRoleSearchModalPanel.getAdminRoleSelection();
                     newUserAdminRole = adminRoleConstraint.getName();
-                    if ( adminRoleConstraint != null )
-                    {
-                        target.add( adminRoleConstraintPanel );
-                        target.add( newUserAdminRoleTF );
-                    }
+                    target.add( adminRoleConstraintPanel );
+                    target.add( newUserAdminRoleTF );
                 }
             } );
 
