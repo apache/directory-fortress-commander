@@ -333,17 +333,6 @@ public class UserDetailPanel extends FormComponentPanel
                 {
                     log.debug( ".onSubmit Add" );
                     User user = ( User ) form.getModel().getObject();
-                    // todo: fix this, going from string to char back to string (in ldap)?
-/*
-                    if ( pswdField != null )
-                    {
-                        user.setPassword( pswdField );
-                    }
-                    else
-                    {
-                        user.setPassword( "".toCharArray() );
-                    }
-*/
                     updateEntityWithComboData( user );
                     try
                     {
@@ -605,16 +594,6 @@ public class UserDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
                     User user = ( User ) form.getModel().getObject();
-                    /*
-                                        if ( pswdField != null )
-                                        {
-                                            user.setPassword( pswdField.toCharArray() );
-                                        }
-                                        else
-                                        {
-                                            user.setPassword( "".toCharArray() );
-                                        }
-                    */
                     String msg = "User: " + user.getUserId();
                     try
                     {
@@ -682,20 +661,10 @@ public class UserDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
                     User user = ( User ) form.getModel().getObject();
-/*
-                    if ( pswdField != null )
-                    {
-                        user.setPassword( pswdField.toCharArray() );
-                    }
-                    else
-                    {
-                        user.setPassword( "".toCharArray() );
-                    }
-*/
                     String msg = "User: " + user.getUserId();
                     try
                     {
-                        adminMgr.resetPassword( user, user.getPassword().toCharArray() );
+                        adminMgr.resetPassword( user, user.getPassword() );
                         user.setReset( true );
                         msg += " account has been reset";
                         display.setMessage( msg );
