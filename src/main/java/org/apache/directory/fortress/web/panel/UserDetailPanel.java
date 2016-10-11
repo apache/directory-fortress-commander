@@ -130,7 +130,6 @@ public class UserDetailPanel extends FormComponentPanel
         private static final String DEFAULT_JPG = "GenericAvatar.jpg";
 
         // form model attributes:
-        private String pswdField;
         private String newUserRole;
         private String newUserAdminRole;
         private String userDetailLabel;
@@ -191,12 +190,9 @@ public class UserDetailPanel extends FormComponentPanel
             // Add the User page required attributes:
             userIdTF = new TextField( GlobalIds.USER_ID );
             add( userIdTF );
-            PasswordTextField pw = new PasswordTextField( GlobalIds.PSWD_FIELD, new PropertyModel<String>( this,
-                GlobalIds.PSWD_FIELD ) );
-
+            PasswordTextField pw = new PasswordTextField( GlobalIds.PASSWORD );
             pw.setRequired( false );
             add( pw );
-
             TextField descriptionTF = new TextField( GlobalIds.DESCRIPTION );
             descriptionTF.setRequired( false );
             add( descriptionTF );
@@ -338,14 +334,16 @@ public class UserDetailPanel extends FormComponentPanel
                     log.debug( ".onSubmit Add" );
                     User user = ( User ) form.getModel().getObject();
                     // todo: fix this, going from string to char back to string (in ldap)?
+/*
                     if ( pswdField != null )
                     {
-                        user.setPassword( pswdField.toCharArray() );
+                        user.setPassword( pswdField );
                     }
                     else
                     {
                         user.setPassword( "".toCharArray() );
                     }
+*/
                     updateEntityWithComboData( user );
                     try
                     {
@@ -404,6 +402,7 @@ public class UserDetailPanel extends FormComponentPanel
                     log.debug( ".onSubmit commit" );
                     User user = ( User ) form.getModel().getObject();
                     // todo: fix this, going from string to char back to string (in ldap)?
+/*
                     if ( pswdField != null )
                     {
                         user.setPassword( pswdField.toCharArray() );
@@ -412,6 +411,7 @@ public class UserDetailPanel extends FormComponentPanel
                     {
                         user.setPassword( "".toCharArray() );
                     }
+*/
                     updateEntityWithComboData( user );
                     try
                     {
@@ -682,6 +682,7 @@ public class UserDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
                     User user = ( User ) form.getModel().getObject();
+/*
                     if ( pswdField != null )
                     {
                         user.setPassword( pswdField.toCharArray() );
@@ -690,10 +691,11 @@ public class UserDetailPanel extends FormComponentPanel
                     {
                         user.setPassword( "".toCharArray() );
                     }
+*/
                     String msg = "User: " + user.getUserId();
                     try
                     {
-                        adminMgr.resetPassword( user, user.getPassword() );
+                        adminMgr.resetPassword( user, user.getPassword().toCharArray() );
                         user.setReset( true );
                         msg += " account has been reset";
                         display.setMessage( msg );

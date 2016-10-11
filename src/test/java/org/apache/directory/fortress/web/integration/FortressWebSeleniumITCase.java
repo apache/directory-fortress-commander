@@ -203,8 +203,8 @@ public class FortressWebSeleniumITCase
         driver.findElement( By.id( GlobalIds.USER_ID ) ).clear();
         driver.findElement( By.id( GlobalIds.USER_ID ) ).sendKeys( userId );
         TUtils.sleep( 1 );
-        driver.findElement( By.id( GlobalIds.PSWD_FIELD ) ).clear();
-        driver.findElement( By.id( GlobalIds.PSWD_FIELD ) ).sendKeys( password );
+        driver.findElement( By.id( GlobalIds.PASSWORD ) ).clear();
+        driver.findElement( By.id( GlobalIds.PASSWORD ) ).sendKeys( password );
         TUtils.sleep( 1 );
         driver.findElement( By.name( GlobalIds.LOGIN ) ).click();
     }
@@ -245,8 +245,8 @@ public class FortressWebSeleniumITCase
         driver.findElement( By.name( GlobalIds.CLEAR ) ).click();
         TUtils.sleep( 1 );
         driver.findElement( By.id( GlobalIds.USER_ID ) ).sendKeys( "selTestU1" );
-        driver.findElement( By.id( GlobalIds.PSWD_FIELD ) ).clear();
-        driver.findElement( By.id( GlobalIds.PSWD_FIELD ) ).sendKeys( "password" );
+        driver.findElement( By.id( GlobalIds.PASSWORD ) ).clear();
+        driver.findElement( By.id( GlobalIds.PASSWORD ) ).sendKeys( "password" );
         driver.findElement( By.id( GlobalIds.OU ) ).clear();
         driver.findElement( By.id( GlobalIds.OU ) ).sendKeys( "dev1" );
         driver.findElement( By.name( GlobalIds.OU_SEARCH ) ).click();

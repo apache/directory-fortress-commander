@@ -129,7 +129,7 @@ public class GlobalIds
     public static final String SAVE = "save";
     public static final String NAME = "name";
     public static final String USER_ID = "userId";
-    public static final String PSWD_FIELD = "pswdField";
+    public static final String PASSWORD = "password";
     public static final String NEW_USER_ROLE_FIELD = "newUserRole";
     public static final String NEW_USER_ADMIN_ROLE_FIELD = "newUserAdminRole";
     public static final String LOGIN = "login";
