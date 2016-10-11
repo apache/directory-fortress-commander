@@ -51,7 +51,8 @@ public class StartExamples
 		Server server = new Server();
 		SocketConnector connector = new SocketConnector();
 
-        System.setProperty("version", "1.0.1");
+		// fortress-rest navigation (iff enabled in fortress.properties)
+        System.setProperty("version", "2.0.0-RC1-SNAPSHOT");
         System.setProperty( GlobalIds.IS_JETTY_SERVER, "true");
 
 		// Set some timeout options to make debugging easier.

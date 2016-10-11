@@ -76,8 +76,15 @@
     </bean>
     <!-- TODO: after the realm 1.0.2 release pass the contextId here.  -->
     <bean id="j2eePolicyMgr" class="org.apache.directory.fortress.realm.J2eePolicyMgrFactory" scope="prototype"
+          factory-method="createInstance">
+        <constructor-arg value="${contextId:HOME}"/>
+    </bean>
+    <!-- no longer used:
+    <bean id="j2eePolicyMgr" class="org.apache.directory.fortress.realm.J2eePolicyMgrFactory" scope="prototype"
           factory-method="createInstance"/>
+    -->
 
+    <!-- This decl is to build uri for navigating to correct fortress-rest impl (iff rest enabled in fortress.properties)  -->
     <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
         <property name="targetObject">
             <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
@@ -88,7 +95,7 @@
         <property name="targetMethod" value="putAll"/>
         <property name="arguments">
             <util:properties>
-                <prop key="version">1.0.1</prop>
+                <prop key="version">2.0.0-RC1-SNAPSHOT</prop>
             </util:properties>
         </property>
     </bean>

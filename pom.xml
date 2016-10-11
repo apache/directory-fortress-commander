@@ -30,7 +30,7 @@
   <groupId>org.apache.directory.fortress</groupId>
   <artifactId>fortress-web</artifactId>
   <packaging>war</packaging>
-  <version>1.0.2-SNAPSHOT</version>
+  <version>2.0.0-RC1-SNAPSHOT</version>
   <name>Apache Fortress Web</name>
   <url>http://directory.apache.org/fortress/</url>
   <description>Fortress Web is an administrative UI that drives the APIs</description>
@@ -87,7 +87,7 @@
 
   <properties>
     <title>${project.name} ${project.version}</title>
-    <fortress.realm.version>1.0.2-SNAPSHOT</fortress.realm.version>
+    <fortress.realm.version>2.0.0-RC1-SNAPSHOT</fortress.realm.version>
     <wicket.version>7.4.0</wicket.version>
     <wicket.jquery.version>7.4.0</wicket.jquery.version>
     <wicket.kendo-ui.version>7.4.0</wicket.kendo-ui.version>
