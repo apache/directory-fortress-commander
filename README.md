@@ -16,7 +16,7 @@
    under the License.
 
 # README for Apache Fortress Web
- * Version 1.0.1
+ * Version 2.0.0-RC1
  * Apache Fortress Web System Architecture Diagram
  ![Apache Fortress Web System Architecture](images/fortress-web-system-arch.png "Apache Fortress Web System Architecture")
 
@@ -73,7 +73,7 @@ Build the source.
 
  a. from git:
  ```
- git clone --branch 1.0.1 https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
+ git clone --branch 2.0.0-RC1 https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
  cd directory-fortress-commander
  mvn clean install
  ```
@@ -81,9 +81,9 @@ Build the source.
  b. or download package:
 
  ```
- wget http://www.apache.org/dist/directory/fortress/dist/1.0.1/fortress-web-1.0.1-source-release.zip
- unzip fortress-web-1.0.1-source-release.zip
- cd fortress-web-1.0.1
+ wget http://www.apache.org/dist/directory/fortress/dist/2.0.0-RC1/fortress-web-2.0.0-RC1-source-release.zip
+ unzip fortress-web-2.0.0-RC1-source-release.zip
+ cd fortress-web-2.0.0-RC1
  mvn clean install
  ```
 
