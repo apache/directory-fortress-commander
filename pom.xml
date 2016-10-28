@@ -46,7 +46,7 @@
     <connection>scm:git:http://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git</connection>
     <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
     </developerConnection>
-    <tag>1.0.1</tag>
+    <tag>2.0.0-RC1</tag>
   </scm>
 
   <issueManagement>
@@ -87,13 +87,14 @@
 
   <properties>
     <title>${project.name} ${project.version}</title>
-    <fortress.realm.version>2.0.0-RC1-SNAPSHOT</fortress.realm.version>
+    <fortress.realm.version>2.0.0-RC1</fortress.realm.version>
     <wicket.version>7.4.0</wicket.version>
     <wicket.jquery.version>7.4.0</wicket.jquery.version>
     <wicket.kendo-ui.version>7.4.0</wicket.kendo-ui.version>
     <version.log4j>1.2.17</version.log4j>
+    <version.ant>1.9.7</version.ant>
     <version.slf4j.log4j12>1.7.7</version.slf4j.log4j12>
-    <spring.security.version>4.1.1.RELEASE</spring.security.version>
+    <spring.security.version>4.1.3.RELEASE</spring.security.version>
     <javadoc.version>2.9.1</javadoc.version>
     <jetty.version>8.1.8.v20121106</jetty.version>
     <jetty.stopKey>stopJetty</jetty.stopKey>
@@ -170,14 +171,14 @@
     <dependency>
       <groupId>org.apache.ant</groupId>
       <artifactId>ant</artifactId>
-      <version>1.8.1</version>
+      <version>${version.ant}</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>org.apache.ant</groupId>
       <artifactId>ant-launcher</artifactId>
-      <version>1.8.1</version>
+      <version>${version.ant}</version>
       <scope>test</scope>
     </dependency>
 
