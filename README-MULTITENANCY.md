@@ -77,7 +77,7 @@ Why are there are two locations for setting the tenant id, [context.xml](https:/
 1. Expedience in loading the realm tenant id with the context.xml file and the spring beans using fortress.properties because that is where properties for those components are usually set.
 
 2. Security Control.  It is necessary to allow the realm to use one tenant context, e.g. HOME, and the web app instance another, e.g. acme123.  For the why consider a use case.  One where many customer web app instances run from within one or more instances of a container (like Tomcat).
- Only corporate employees may administer security policies within the customer's web app instances, not the customers themselves.  On the contraray, we may want to allow the customer to administer their own security data in which case we'd set both to acme123.
+ Only corporate employees may administer security policies within the customer's web app instances, not the customers themselves.  On the contrary, we may want to allow the customer to administer their own security data in which case we'd set both to acme123.
 
 ___________________________________________________________________________________
 #### END OF README-MULTITENANCY
