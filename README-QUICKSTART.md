@@ -16,7 +16,7 @@
    under the License.
 
 # README-QUICKSTART for Apache Fortress Web
- * Version 2.0.0-RC1
+ * Version 2.0.0-RC2-SNAPSHOT
 
 -------------------------------------------------------------------------------
 ## Table of Contents
@@ -36,7 +36,7 @@ This document contains instructions to deploy a pre-built Fortress Web instance 
 ## SECTION 1. Prerequisites
 
 Minimum software requirements:
- * Apache Tomcat7++
+ * Apache Tomcat8++
  * Completed either section in Apache Fortress Core Quickstart:
     * *SECTION 3. Apache Fortress Core Integration Test* in [README-QUICKSTART-SLAPD.md](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-SLAPD.md)
     * *SECTION 4. Apache Fortress Core Integration Test* in [README-QUICKSTART-APACHEDS.md](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-APACHEDS.md)

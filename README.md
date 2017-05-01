@@ -16,7 +16,7 @@
    under the License.
 
 # README for Apache Fortress Web
- * Version 2.0.0-RC1
+ * Version 2.0.0-RC2-SNAPSHOT
  * Apache Fortress Web System Architecture Diagram
  ![Apache Fortress Web System Architecture](images/fortress-web-system-arch.png "Apache Fortress Web System Architecture")
 
@@ -56,10 +56,10 @@ Minimum hardware requirements:
  * 4GB RAM
 
 Minimum software requirements:
- * Java SDK 7++
+ * Java SDK 8
  * git
  * Apache Maven3++
- * Apache Tomcat7++
+ * Apache Tomcat8++
  * Apache Fortress Core **Download & Install** in **FORTRESS_CORE_HOME** package **README.md**.
  * Apache Fortress Core **Options for using Apache Fortress and LDAP server** in **FORTRESS_CORE_HOME** package **README.md**.
  * Apache Fortress Realm **Download & Install** in **FORTRESS_REALM_HOME** package **README.md**.
