@@ -109,6 +109,8 @@ ________________________________________________________________________________
  http://hostname:8080/fortress-web
  ```
 
+ where hostname is host or ip for your machine.
+
 2. Click on the links, to pull up various views on the data stored in the directory.
 
 3. Run the Selenium Web driver integration tests with Firefox (default):
