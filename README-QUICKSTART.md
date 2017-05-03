@@ -16,7 +16,7 @@
    under the License.
 
 # README-QUICKSTART for Apache Fortress Web
- * Version 2.0.0-RC2-SNAPSHOT
+ * Version 2.0.0-RC2
 
 -------------------------------------------------------------------------------
 ## Table of Contents
