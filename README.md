@@ -73,7 +73,7 @@ Build the source.
 
  a. from git:
  ```
- git clone --branch 2.0.0-RC1 https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
+ git clone --branch 2.0.0-RC2 https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
  cd directory-fortress-commander
  mvn clean install
  ```
@@ -81,9 +81,9 @@ Build the source.
  b. or download package:
 
  ```
- wget http://www.apache.org/dist/directory/fortress/dist/2.0.0-RC1/fortress-web-2.0.0-RC1-source-release.zip
- unzip fortress-web-2.0.0-RC1-source-release.zip
- cd fortress-web-2.0.0-RC1
+ wget http://www.apache.org/dist/directory/fortress/dist/2.0.0-RC2/fortress-web-2.0.0-RC2-source-release.zip
+ unzip fortress-web-2.0.0-RC2-source-release.zip
+ cd fortress-web-2.0.0-RC2
  mvn clean install
  ```
 
