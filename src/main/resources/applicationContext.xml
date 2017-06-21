@@ -90,7 +90,7 @@
         <property name="targetMethod" value="putAll"/>
         <property name="arguments">
             <util:properties>
-                <prop key="version">2.0.0-RC2</prop>
+                <prop key="version">2.0.0</prop>
             </util:properties>
         </property>
     </bean>
