@@ -27,6 +27,7 @@ import java.util.concurrent.TimeUnit;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import io.github.bonigarcia.wdm.MarionetteDriverManager;
 import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.log4j.Logger;
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -142,6 +143,8 @@ public class FortressWebSeleniumITCase
         driver.get( baseUrl + FORTRESS_WEB );
         login( "test", "password" );
         TUtils.sleep( 1 );
+        WebElement html = driver.findElement(By.tagName("html"));
+        html.sendKeys( Keys.chord( Keys.CONTROL, Keys.SUBTRACT ) );
 
         boolean skipFirstHalf = false;
         //boolean skipFirstHalf = true;
@@ -165,13 +168,18 @@ public class FortressWebSeleniumITCase
             admrles();
             admobjs();
             admperms();
-            //plcys();
+            plcys();
             //groups();
-            //binds();
-            //authzs();
-            //mods();
-        }
 
+/*
+            if( Config.getInstance().isOpenldap())
+            {
+               binds();
+               authzs();
+               mods();
+            }
+*/
+        }
 
         /*****
          *  LOGOUT
@@ -581,21 +589,20 @@ public class FortressWebSeleniumITCase
         TUtils.sleep( 1 );
         driver.findElement( By.linkText( GlobalIds.SELECT ) ).click();
         driver.findElement( By.id( GlobalIds.BEGIN_RANGE ) ).clear();
-        //driver.findElement( By.id( GlobalIds.BEGIN_RANGE ) ).sendKeys( "oamT6D" );
+        driver.findElement( By.id( GlobalIds.BEGIN_RANGE ) ).sendKeys( "oamT6D" );
         driver.findElement( By.name( GlobalIds.ROLEAUXPANEL + ":" + GlobalIds.BEGIN_RANGE_SEARCH ) ).click();
         TUtils.sleep( 1 );
-        TODO: fixme:
-        /*
-                driver.findElement( By.linkText( GlobalIds.SELECT ) ).click();
-                driver.findElement( By.name( GlobalIds.ROLEAUXPANEL + ":" + GlobalIds.BEGIN_INCLUSIVE ) ).click();
-                TUtils.sleep( 2 );
-                driver.findElement( By.name( GlobalIds.ROLEAUXPANEL + ":" + GlobalIds.END_RANGE_SEARCH ) ).click();
-                TUtils.sleep( 2 );
-                driver.findElement( By.linkText( GlobalIds.SELECT ) ).click();
-                driver.findElement( By.name( GlobalIds.ROLEAUXPANEL + ":" + GlobalIds.END_INCLUSIVE ) ).click();
-                driver.findElement( By.name( GlobalIds.ADD ) ).click();
-                TUtils.sleep( 2 );
-        */
+
+        driver.findElement( By.linkText( GlobalIds.SELECT ) ).click();
+        driver.findElement( By.name( GlobalIds.ROLEAUXPANEL + ":" + GlobalIds.BEGIN_INCLUSIVE ) ).click();
+        TUtils.sleep( 2 );
+        driver.findElement( By.name( GlobalIds.ROLEAUXPANEL + ":" + GlobalIds.END_RANGE_SEARCH ) ).click();
+        TUtils.sleep( 2 );
+        driver.findElement( By.linkText( GlobalIds.SELECT ) ).click();
+        driver.findElement( By.name( GlobalIds.ROLEAUXPANEL + ":" + GlobalIds.END_INCLUSIVE ) ).click();
+        driver.findElement( By.name( GlobalIds.ADD ) ).click();
+        TUtils.sleep( 2 );
+
         driver.findElement( By.id( GlobalIds.TEMPORAL_CONSTRAINTS_LABEL ) ).click();
         TUtils.sleep( 2 );
         driver.findElement( By.id( GlobalIds.BEGIN_TIME_P ) ).clear();
@@ -646,7 +653,7 @@ public class FortressWebSeleniumITCase
     private void plcys()
     {
         driver.findElement( By.linkText( PLCYS ) ).click();
-        driver.findElement( By.id( GlobalIds.SEARCH_VAL ) ).sendKeys( "oamtp1policy" );
+        driver.findElement( By.id( GlobalIds.SEARCH_VAL ) ).sendKeys( "oamTP1" );
         driver.findElement( By.name( GlobalIds.SEARCH ) ).click();
         TUtils.sleep( 1 );
     }
@@ -673,12 +680,13 @@ public class FortressWebSeleniumITCase
         driver.findElement( By.id( GlobalIds.DESCRIPTION ) ).sendKeys( "Selenium Test Create Group Node" );
         driver.findElement( By.id( "protocol" ) ).clear();
         driver.findElement( By.id( "protocol" ) ).sendKeys( "test" );
-        driver.findElement( By.id( "memberProps" ) ).clear();
-        driver.findElement( By.id( "memberProps" ) ).sendKeys( "testKey1=testVal1" );
+        driver.findElement( By.name( "memberProps_input" ) ).clear();
+        driver.findElement( By.name( "memberProps_input" ) ).sendKeys( "testKey1=testVal1" );
 
         driver.findElement( By.name( "members.search" ) ).click();
         TUtils.sleep( 2 );
-        driver.findElement( By.linkText( ">" ) ).click();
+        //driver.findElement( By.className( "next" ) ).click();
+        driver.findElement( By.linkText( "5" ) ).click();
         TUtils.sleep( 1 );
         driver.findElement( By.linkText( GlobalIds.SELECT ) ).click();
         TUtils.sleep( 1 );
