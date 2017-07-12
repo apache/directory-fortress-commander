@@ -143,6 +143,8 @@ public class FortressWebSeleniumITCase
         driver.get( baseUrl + FORTRESS_WEB );
         login( "test", "password" );
         TUtils.sleep( 1 );
+
+        // zoom out:
         WebElement html = driver.findElement(By.tagName("html"));
         html.sendKeys( Keys.chord( Keys.CONTROL, Keys.SUBTRACT ) );
 
