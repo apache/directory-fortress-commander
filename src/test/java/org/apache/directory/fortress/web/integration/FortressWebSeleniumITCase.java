@@ -171,16 +171,14 @@ public class FortressWebSeleniumITCase
             admobjs();
             admperms();
             plcys();
-            //groups();
+            groups();
 
-/*
             if( Config.getInstance().isOpenldap())
             {
                binds();
                authzs();
                mods();
             }
-*/
         }
 
         /*****
@@ -751,13 +749,6 @@ public class FortressWebSeleniumITCase
         List<WebElement> allRows = table.findElements(By.tagName("tr"));
         // And iterate over them, getting the cells
         allRows.get( 5 ).findElement(By.className("imxt-cell")).click();
-        TUtils.sleep( 1 );
-        nextPage( "modstable");
-        TUtils.sleep( 1 );
-        allRows.get( 6 ).findElement(By.className("imxt-cell")).click();
-        TUtils.sleep( 1 );
-        nextPage( "modstable");
-        TUtils.sleep( 1 );
     }
 
     private void nextPage(String szTableName)

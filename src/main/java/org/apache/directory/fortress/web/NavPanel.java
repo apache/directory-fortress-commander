@@ -21,10 +21,12 @@
 package org.apache.directory.fortress.web;
 
 
+import jdk.nashorn.internal.runtime.regexp.joni.Config;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
+import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponentPanel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -507,150 +509,127 @@ public class NavPanel extends FormComponentPanel
             }
             );
 
-            add( new SecureIndicatingAjaxButton( GlobalIds.AUDIT_BINDS_PAGE, GlobalIds.ROLE_AUDIT_BINDS )
+            // These pages only work with OpenLDAP:
+            if ( org.apache.directory.fortress.core.util.Config.getInstance().isOpenldap() )
             {
-                /** Default serialVersionUID */
-                private static final long serialVersionUID = 1L;
+                add( new SecureIndicatingAjaxButton( GlobalIds.AUDIT_BINDS_PAGE, GlobalIds.ROLE_AUDIT_BINDS )
+                     {
+                         /**
+                          * Default serialVersionUID
+                          */
+                         private static final long serialVersionUID = 1L;
 
 
-                @Override
-                public void onSubmit( AjaxRequestTarget target, Form<?> form )
-                {
-                    setResponsePage( AuditBindPage.class );
-                }
+                         @Override
+                         public void onSubmit(AjaxRequestTarget target, Form<?> form)
+                         {
+                             setResponsePage( AuditBindPage.class );
+                         }
 
 
-                @Override
-                protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
-                {
-                    super.updateAjaxAttributes( attributes );
-                    AjaxCallListener ajaxCallListener = new AjaxCallListener()
-                    {
-                        /** Default serialVersionUID */
-                        private static final long serialVersionUID = 1L;
+                         @Override
+                         protected void updateAjaxAttributes(AjaxRequestAttributes attributes)
+                         {
+                             super.updateAjaxAttributes( attributes );
+                             AjaxCallListener ajaxCallListener = new AjaxCallListener()
+                             {
+                                 /** Default serialVersionUID */
+                                 private static final long serialVersionUID = 1L;
 
 
-                        @Override
-                        public CharSequence getFailureHandler( Component component )
-                        {
-                            return GlobalIds.WINDOW_LOCATION_REPLACE_COMMANDER_HOME_HTML;
-                        }
-                    };
-                    attributes.getAjaxCallListeners().add( ajaxCallListener );
-                }
+                                 @Override
+                                 public CharSequence getFailureHandler(Component component)
+                                 {
+                                     return GlobalIds.WINDOW_LOCATION_REPLACE_COMMANDER_HOME_HTML;
+                                 }
+                             };
+                             attributes.getAjaxCallListeners().add( ajaxCallListener );
+                         }
+                     }
+
+                );
+
+                add( new SecureIndicatingAjaxButton( GlobalIds.AUDIT_AUTHZS_PAGE, GlobalIds.ROLE_AUDIT_AUTHZS )
+                     {
+                         /**
+                          * Default serialVersionUID
+                          */
+                         private static final long serialVersionUID = 1L;
+
+
+                         @Override
+                         public void onSubmit(AjaxRequestTarget target, Form<?> form)
+                         {
+                             setResponsePage( AuditAuthzPage.class );
+                         }
+
+
+                         @Override
+                         protected void updateAjaxAttributes(AjaxRequestAttributes attributes)
+                         {
+                             super.updateAjaxAttributes( attributes );
+                             AjaxCallListener ajaxCallListener = new AjaxCallListener()
+                             {
+                                 /** Default serialVersionUID */
+                                 private static final long serialVersionUID = 1L;
+
+
+                                 @Override
+                                 public CharSequence getFailureHandler(Component component)
+                                 {
+                                     return GlobalIds.WINDOW_LOCATION_REPLACE_COMMANDER_HOME_HTML;
+                                 }
+                             };
+                             attributes.getAjaxCallListeners().add( ajaxCallListener );
+                         }
+                     }
+
+                );
+
+                add( new SecureIndicatingAjaxButton( GlobalIds.AUDIT_MODS_PAGE, GlobalIds.ROLE_AUDIT_MODS )
+                     {
+                         /**
+                          * Default serialVersionUID
+                          */
+                         private static final long serialVersionUID = 1L;
+
+
+                         @Override
+                         public void onSubmit(AjaxRequestTarget target, Form<?> form)
+                         {
+                             setResponsePage( AuditModPage.class );
+                         }
+
+
+                         @Override
+                         protected void updateAjaxAttributes(AjaxRequestAttributes attributes)
+                         {
+                             super.updateAjaxAttributes( attributes );
+                             AjaxCallListener ajaxCallListener = new AjaxCallListener()
+                             {
+                                 /** Default serialVersionUID */
+                                 private static final long serialVersionUID = 1L;
+
+
+                                 @Override
+                                 public CharSequence getFailureHandler(Component component)
+                                 {
+                                     return GlobalIds.WINDOW_LOCATION_REPLACE_COMMANDER_HOME_HTML;
+                                 }
+                             };
+                             attributes.getAjaxCallListeners().add( ajaxCallListener );
+                         }
+                     }
+                );
             }
-
-            );
-
-            add( new SecureIndicatingAjaxButton( GlobalIds.AUDIT_AUTHZS_PAGE, GlobalIds.ROLE_AUDIT_AUTHZS )
+            // TODO: fix me, there's a better way.
+            // if not openldap add button as state invisible.
+            else
             {
-                /** Default serialVersionUID */
-                private static final long serialVersionUID = 1L;
-
-
-                @Override
-                public void onSubmit( AjaxRequestTarget target, Form<?> form )
-                {
-                    setResponsePage( AuditAuthzPage.class );
-                }
-
-
-                @Override
-                protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
-                {
-                    super.updateAjaxAttributes( attributes );
-                    AjaxCallListener ajaxCallListener = new AjaxCallListener()
-                    {
-                        /** Default serialVersionUID */
-                        private static final long serialVersionUID = 1L;
-
-
-                        @Override
-                        public CharSequence getFailureHandler( Component component )
-                        {
-                            return GlobalIds.WINDOW_LOCATION_REPLACE_COMMANDER_HOME_HTML;
-                        }
-                    };
-                    attributes.getAjaxCallListeners().add( ajaxCallListener );
-                }
+                add (new Button(GlobalIds.AUDIT_BINDS_PAGE).setVisible( false ));
+                add (new Button(GlobalIds.AUDIT_AUTHZS_PAGE).setVisible( false ));
+                add (new Button(GlobalIds.AUDIT_MODS_PAGE).setVisible( false ));
             }
-
-            );
-
-            add( new SecureIndicatingAjaxButton( GlobalIds.AUDIT_MODS_PAGE, GlobalIds.ROLE_AUDIT_MODS )
-            {
-                /** Default serialVersionUID */
-                private static final long serialVersionUID = 1L;
-
-
-                @Override
-                public void onSubmit( AjaxRequestTarget target, Form<?> form )
-                {
-                    setResponsePage( AuditModPage.class );
-                }
-
-
-                @Override
-                protected void updateAjaxAttributes( AjaxRequestAttributes attributes )
-                {
-                    super.updateAjaxAttributes( attributes );
-                    AjaxCallListener ajaxCallListener = new AjaxCallListener()
-                    {
-                        /** Default serialVersionUID */
-                        private static final long serialVersionUID = 1L;
-
-
-                        @Override
-                        public CharSequence getFailureHandler( Component component )
-                        {
-                            return GlobalIds.WINDOW_LOCATION_REPLACE_COMMANDER_HOME_HTML;
-                        }
-                    };
-                    attributes.getAjaxCallListeners().add( ajaxCallListener );
-                }
-            }
-
-            );
-
-            //@Authorizable
-            /*
-                        add( new SecureIndicatingAjaxButton( "test", GlobalIds.ADMIN_MGR, "test")
-                        {
-                            @Override
-                            public void onSubmit( AjaxRequestTarget target, Form<?> form )
-                            {
-                                // sleep for 5 seconds to show off the busy indicator
-                                try
-                                {
-                                    Thread.sleep( 5000 );
-                                }
-                                catch ( InterruptedException e )
-                                {
-                                    // noop
-                                }
-                            }
-                        }.setPosition( IndicatingAjaxButton.Position.RIGHT));
-            */
-            /*
-                    add( new SecureIndicatingAjaxButton("test" )
-                    {
-                        @Override public void onSubmit ( AjaxRequestTarget target, Form < ?>form)
-                        {
-                            // sleep for 5 seconds to show off the busy indicator
-                            try
-                            {
-                                TestAuthorization testSecurity = new TestAuthorization();
-                                boolean result = testSecurity.checkAccess( GlobalUtils.getSession( this ), "foo", "fighters" );
-                                Thread.sleep( 1000 );
-                            }
-                            catch ( InterruptedException e )
-                            {
-                                // noop
-                            }
-                        }
-                    }.setPosition( IndicatingAjaxButton.Position.RIGHT )
-                    );
-            */
-        }
+       }
     }
 }

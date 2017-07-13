@@ -137,14 +137,25 @@ public abstract class FortressWebBasePage extends WebPage
         add( new SecureBookmarkablePageLink( org.apache.directory.fortress.web.common.GlobalIds.GROUP_PAGE, GroupPage.class,
             org.apache.directory.fortress.web.common.GlobalIds.ROLE_GROUPS ) );
 
-        add( new SecureBookmarkablePageLink( org.apache.directory.fortress.web.common.GlobalIds.AUDIT_BINDS_PAGE, AuditBindPage.class,
-            org.apache.directory.fortress.web.common.GlobalIds.ROLE_AUDIT_BINDS ) );
+        // The audit pages only work with OpenLDAP:
+        if ( Config.getInstance().isOpenldap() )
+        {
+            add( new SecureBookmarkablePageLink( org.apache.directory.fortress.web.common.GlobalIds.AUDIT_BINDS_PAGE, AuditBindPage.class,
+                org.apache.directory.fortress.web.common.GlobalIds.ROLE_AUDIT_BINDS ) );
 
-        add( new SecureBookmarkablePageLink( org.apache.directory.fortress.web.common.GlobalIds.AUDIT_AUTHZS_PAGE, AuditAuthzPage.class,
-            org.apache.directory.fortress.web.common.GlobalIds.ROLE_AUDIT_AUTHZS ) );
+            add( new SecureBookmarkablePageLink( org.apache.directory.fortress.web.common.GlobalIds.AUDIT_AUTHZS_PAGE, AuditAuthzPage.class,
+                org.apache.directory.fortress.web.common.GlobalIds.ROLE_AUDIT_AUTHZS ) );
 
-        add( new SecureBookmarkablePageLink( org.apache.directory.fortress.web.common.GlobalIds.AUDIT_MODS_PAGE, AuditModPage.class,
-            org.apache.directory.fortress.web.common.GlobalIds.ROLE_AUDIT_MODS ) );
+            add( new SecureBookmarkablePageLink( org.apache.directory.fortress.web.common.GlobalIds.AUDIT_MODS_PAGE, AuditModPage.class,
+                org.apache.directory.fortress.web.common.GlobalIds.ROLE_AUDIT_MODS ) );
+        }
+        else
+        {
+            // Only supported for openldap so set dummy links to be invisible.
+            add( new Label( org.apache.directory.fortress.web.common.GlobalIds.AUDIT_BINDS_PAGE, "" ).setVisible( false ) );
+            add( new Label( org.apache.directory.fortress.web.common.GlobalIds.AUDIT_AUTHZS_PAGE, "" ).setVisible( false ) );
+            add( new Label( org.apache.directory.fortress.web.common.GlobalIds.AUDIT_MODS_PAGE, "" ).setVisible( false ) );
+        }
 
         add( new Label( "footer", "Copyright (c) 2003-2016, The Apache Software Foundation. All Rights Reserved." ) );
 
