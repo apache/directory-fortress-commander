@@ -16,26 +16,11 @@
    specific language governing permissions and limitations
    under the License.
 -->
-<!DOCTYPE web-app PUBLIC
-        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
-        "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+        version="3.1">
 
-<web-app>
     <display-name>Fortress Web Admin</display-name>
-
-    <servlet>
-        <servlet-name>wicket</servlet-name>
-        <servlet-class>org.apache.wicket.protocol.http.WicketServlet</servlet-class>
-        <init-param>
-            <param-name>applicationFactoryClassName</param-name>
-            <param-value>org.apache.wicket.spring.SpringWebApplicationFactory</param-value>
-        </init-param>
-        <init-param>
-            <param-name>applicationBean</param-name>
-            <param-value>wicketApplication</param-value>
-        </init-param>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
@@ -147,7 +132,6 @@
         <auth-method>FORM</auth-method>
         <realm-name>SentrySecurityRealm</realm-name>
         <form-login-config>
-            basedir
             <form-login-page>/login/login.html</form-login-page>
             <form-error-page>/login/error.html</form-error-page>
         </form-login-config>
