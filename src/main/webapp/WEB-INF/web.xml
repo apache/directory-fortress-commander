@@ -97,8 +97,6 @@
             <web-resource-name>Protected Area</web-resource-name>
             <!-- Define the context-relative URL(s) to be protected -->
             <url-pattern>/wicket/*</url-pattern>
-            <!-- If you list http methods, only those methods are protected -->
-            <!--http-method>GET</http-method-->
         </web-resource-collection>
         <auth-constraint>
             <!-- Anyone with one of the listed roles may access this area -->
@@ -121,16 +119,10 @@
         </auth-constraint>
     </security-constraint>
 
-    <!-- Default login configuration uses form-based authentication -->
-    <!--
-            <login-config>
-                <auth-method>BASIC</auth-method>
-                <realm-name>SentrySecurityRealm</realm-name>
-            </login-config>
-    -->
+    <!-- Use form-based authentication -->
     <login-config>
         <auth-method>FORM</auth-method>
-        <realm-name>SentrySecurityRealm</realm-name>
+        <realm-name>FortressSecurityRealm</realm-name>
         <form-login-config>
             <form-login-page>/login/login.html</form-login-page>
             <form-error-page>/login/error.html</form-error-page>
