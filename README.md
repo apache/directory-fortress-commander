@@ -220,8 +220,7 @@ This section describes most of the fortress.properties that are needed to contro
  port=10389
  ```
 
-2. LDAP Server type.  Each LDAP server impl has different behavior on operations like password policies and audit.  Fortress supports
- OpenLDAP and ApacheDS and so specify which one here.  If using a 3rd type of server that isn't formally supported, leave blank or type is other.
+2. LDAP Server type.  Each LDAP server impl has different behavior on operations like password policies and audit.  If using a 3rd type of server that isn't formally supported, leave blank or type is other.
 
  ```
  # If ApacheDS server:
@@ -249,13 +248,12 @@ This section describes most of the fortress.properties that are needed to contro
  ```
  # Else If OpenLDAP it will look something like this:
  admin.user=cn=Manager,dc=example,dc=com
- admin.pw=secret
  ```
 
-4. Define the number of LDAP connections to use in the pool  Unless you know what you're doing, use this:
+4. Define the number of LDAP connections to use in the pool  This setting will be proportional to the number of concurrent users but won't be one-to-one.  The number of required ldap connections will be much lower than concurrent users:
 
  ```
- # This is min/max settings for LDAP administrator pool connections that have read/write access to all nodes under suffix:
+ # This is min/max settings for LDAP connections.  For testing and low-volume instances this will work:
  min.admin.conn=1
  max.admin.conn=10
  ```
