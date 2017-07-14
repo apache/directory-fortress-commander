@@ -16,7 +16,7 @@
    specific language governing permissions and limitations
    under the License.
 -->
-<Context path="/commander" reloadable="true">
+<Context path="/fortress-web" reloadable="true">
 
     <Realm className="org.apache.directory.fortress.realm.tomcat.Tc7AccessMgrProxy"
            defaultRoles=""

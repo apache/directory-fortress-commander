@@ -31,6 +31,7 @@ port=10389
 admin.user=uid=admin,ou=system
 admin.pw=secret
 
+
 # This is min/max settings for LDAP administrator pool connections that have read/write access to all nodes under suffix:
 min.admin.conn=1
 max.admin.conn=10
