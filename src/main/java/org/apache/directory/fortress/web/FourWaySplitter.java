@@ -22,6 +22,7 @@ package org.apache.directory.fortress.web;
 import com.googlecode.wicket.kendo.ui.widget.splitter.IBorderLayout;
 import com.googlecode.wicket.kendo.ui.widget.splitter.SplitterAdapter;
 import com.googlecode.wicket.kendo.ui.widget.splitter.SplitterBehavior;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.wicket.MarkupContainer;
 
 /**
@@ -68,6 +69,16 @@ public class FourWaySplitter implements IBorderLayout
     @Override
     public String getHorizontalPanes()
     {
-        return "[ { collapsible: true, resizable: false, size: '85px', min: '85x', max: '85px'}, { collapsible: true, size: '" + this.listPercentage + "%' }, { collapsible: true, size: '" + this.detailPercentage + "%'} ]";
+        // Define the layout for the horizontal panels in the splitter.  The default is for Nav panell (left) to be collapsed.
+        String szValue = "[ { collapsible: true, resizable: false, size: '85px', min: '85x', max: '85px', collapsed: " +
+            "true }, { collapsible: true, size: '" + this.listPercentage + "%' }, { collapsible: true, size: '" +
+            this.detailPercentage + "%'} ]";
+
+        // The default of Nav panel collapsed can be overridden by setting fortress.properties enable.nav.panel to 'true':
+        if( Config.getInstance().getProperty( "enable.nav.panel" ) != null && Config.getInstance().getProperty( "enable.nav.panel" ).equalsIgnoreCase( "true" ))
+        {
+            szValue = "[ { collapsible: true, resizable: false, size: '85px', min: '85x', max: '85px' }, { collapsible: true, size: '" + this.listPercentage + "%' }, { collapsible: true, size: '" + this.detailPercentage + "%'} ]";
+        }
+        return szValue;
     }
 }

@@ -46,6 +46,9 @@ max.admin.conn=10
 config.realm=DEFAULT
 config.root=ou=Config,dc=example,dc=com
 
+# ApacheDS stores its password policies objects here by default:
+apacheds.pwpolicy.root=ou=passwordPolicies,ads-interceptorId=authenticationInterceptor,ou=interceptors,ads-directoryServiceId=default,ou=config
+
 # enable this to see trace statements when connection pool allocates new connections:
 debug.ldap.pool=true
 
@@ -64,3 +67,5 @@ http.pw=gX9JbCTxJW5RiH+otQEX0Ja0RIAoPBQf
 http.host=localhost
 http.port=8080
 
+# The default is 'false':
+#enable.nav.panel=true
