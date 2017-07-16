@@ -27,10 +27,20 @@ host=localhost
 #host=localhost
 port=10389
 
-# These credentials are used for read/write access to all nodes under suffix:
+# LDAP Server type.  Each LDAP server impl has different behavior on operations like password policies and audit.  If using a 3rd type of server that isn't formally supported, leave blank or type is other.
+# If ApacheDS server:
+ldap.server.type=apacheds
+# Else if OpenLDAP server:
+# ldap.server.type=slapd
+# Else leave blank:
+#ldap.server.type=other
+
+# Set the credentials of service account.  Must have read/write privileges over the Fortress LDAP DIT:
+# If ApacheDS it will look something like this:
 admin.user=uid=admin,ou=system
 admin.pw=secret
-
+# Else If OpenLDAP it will look something like this:
+# admin.user=cn=Manager,dc=example,dc=com
 
 # This is min/max settings for LDAP administrator pool connections that have read/write access to all nodes under suffix:
 min.admin.conn=1
