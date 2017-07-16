@@ -210,7 +210,7 @@ ________________________________________________________________________________
 ___________________________________________________________________________________
 ## SECTION 7. Fortress Web properties
 
-This section describes most of the fortress.properties that are needed to control fortress-web behavior.
+This section describes the properties needed to control fortress web.
 
 1. LDAP Hostname coordinates.  The host name can be specified as a fully qualified domain name or IP address.
 
@@ -298,7 +298,7 @@ This section describes most of the fortress.properties that are needed to contro
 
  ```
  # The default is 'false':
- #enable.nav.panel=true
+ enable.nav.panel=true
  ```
 
 10. If using ApacheDS and setting password policies, point to the correction location.
