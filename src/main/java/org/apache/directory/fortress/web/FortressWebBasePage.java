@@ -42,7 +42,7 @@ import java.security.Principal;
 
 
 /**
- * Base class for Commander Web.  This class initializes Fortress RBAC context and so contains a synchronized block.
+ * This base class is extended by all pages in the fortress web.  It contains the security session and links for user.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @version $Rev$
@@ -61,6 +61,9 @@ public abstract class FortressWebBasePage extends WebPage
     private static final Logger LOG = Logger.getLogger( CLS_NM );
 
 
+    /**
+     * Default constructor puts page links onto the page, gets or initializes the user's fortress rbac session, and loads it into the wicket session.
+     */
     public FortressWebBasePage()
     {
         // Build the title bar string.
@@ -221,6 +224,11 @@ public abstract class FortressWebBasePage extends WebPage
     }
 
 
+    /**
+     * Return true if the fortress session is cached within the wicket session object.
+     *
+     * @return true if logged in, false otherwise.
+     */
     private boolean isLoggedIn()
     {
         boolean isLoggedIn = false;
