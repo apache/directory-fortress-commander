@@ -125,7 +125,19 @@ public class SecUtils
      */
     public static List<Permission> getPermissions(Component component)
     {
-        return ( ( WicketSession ) component.getSession() ).getPermissions();
+        List<Permission> perms;
+        try
+        {
+            WicketSession wSess = ( WicketSession )component.getSession();
+            perms = wSess.getPermissions();
+        }
+        catch(Exception e)
+        {
+            String error = "getPermissions caught Exception=" + e;
+            LOG.error( error );
+            throw new RuntimeException( error );
+        }
+        return perms;
     }
 
     /**
