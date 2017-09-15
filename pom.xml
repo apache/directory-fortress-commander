@@ -218,12 +218,14 @@
       <version>1.4.9</version>
       <scope>test</scope>
 
+<!--
       <exclusions>
         <exclusion>
           <groupId>xml-apis</groupId>
           <artifactId>xml-apis</artifactId>
         </exclusion>
       </exclusions>
+-->
 
     </dependency>
 
