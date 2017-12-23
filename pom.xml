@@ -88,13 +88,13 @@
   <properties>
     <title>${project.name} ${project.version}</title>
     <fortress.realm.version>2.0.0</fortress.realm.version>
-    <wicket.version>7.8.0</wicket.version>
-    <wicket.jquery.version>7.7.0</wicket.jquery.version>
-    <wicket.kendo-ui.version>7.7.0</wicket.kendo-ui.version>
+    <wicket.version>7.9.0</wicket.version>
+    <wicket.jquery.version>7.9.0</wicket.jquery.version>
+    <wicket.kendo-ui.version>7.9.0</wicket.kendo-ui.version>
     <version.log4j>1.2.17</version.log4j>
     <version.ant>1.9.7</version.ant>
     <version.slf4j.log4j12>1.7.7</version.slf4j.log4j12>
-    <spring.security.version>4.1.3.RELEASE</spring.security.version>
+    <spring.security.version>5.0.0.RELEASE</spring.security.version>
     <javadoc.version>2.9.1</javadoc.version>
     <jetty.version>8.1.8.v20121106</jetty.version>
     <jetty.stopKey>stopJetty</jetty.stopKey>
