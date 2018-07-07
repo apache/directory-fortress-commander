@@ -343,7 +343,7 @@ public class SDListPanel extends FormComponentPanel
 
         rolesModalWindow.setTitle( "Role Search Modal" );
         rolesModalWindow.setInitialWidth( 700 );
-        rolesModalWindow.setInitialHeight( 450 );
+        rolesModalWindow.setInitialHeight( 700 );
         rolesModalWindow.setCookieName( "role-assign-modal" );
     }
 

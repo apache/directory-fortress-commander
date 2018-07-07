@@ -88,9 +88,9 @@
   <properties>
     <title>${project.name} ${project.version}</title>
     <fortress.realm.version>2.0.0</fortress.realm.version>
-    <wicket.version>7.9.0</wicket.version>
-    <wicket.jquery.version>7.9.0</wicket.jquery.version>
-    <wicket.kendo-ui.version>7.9.0</wicket.kendo-ui.version>
+    <wicket.version>7.10.0</wicket.version>
+    <wicket.jquery.version>7.10.0</wicket.jquery.version>
+    <wicket.kendo-ui.version>7.10.0</wicket.kendo-ui.version>
     <version.log4j>1.2.17</version.log4j>
     <version.ant>1.9.7</version.ant>
     <version.slf4j.log4j12>1.7.7</version.slf4j.log4j12>
@@ -211,11 +211,17 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
-    
+
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>3.13.0</version>
+    </dependency>
+
     <dependency>
       <groupId>io.github.bonigarcia</groupId>
       <artifactId>webdrivermanager</artifactId>
-      <version>1.4.9</version>
+      <version>2.2.4</version>
       <scope>test</scope>
     </dependency>
 

@@ -31,7 +31,7 @@ port=10389
 # If ApacheDS server:
 ldap.server.type=apacheds
 # Else if OpenLDAP server:
-# ldap.server.type=slapd
+#ldap.server.type=openldap
 # Else leave blank:
 #ldap.server.type=other
 

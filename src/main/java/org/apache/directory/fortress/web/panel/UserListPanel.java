@@ -399,7 +399,7 @@ public class UserListPanel<T extends Serializable> extends FormComponentPanel
         } );
         rolesModalWindow.setTitle( "RBAC Role Search Modal" );
         rolesModalWindow.setInitialWidth( 700 );
-        rolesModalWindow.setInitialHeight( 450 );
+        rolesModalWindow.setInitialHeight( 700 );
         rolesModalWindow.setCookieName( "role-assign-modal" );
     }
 
@@ -472,7 +472,7 @@ public class UserListPanel<T extends Serializable> extends FormComponentPanel
         } );
         adminRolesModalWindow.setTitle( "Admin Role Search Modal" );
         adminRolesModalWindow.setInitialWidth( 700 );
-        adminRolesModalWindow.setInitialHeight( 450 );
+        adminRolesModalWindow.setInitialHeight( 700 );
         adminRolesModalWindow.setCookieName( "role-assign-modal" );
     }
 

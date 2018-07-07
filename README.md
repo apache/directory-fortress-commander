@@ -190,13 +190,29 @@ ________________________________________________________________________________
 ___________________________________________________________________________________
 ## SECTION 6. Test with Selenium
 
-1. Run the Selenium Web driver integration tests with Firefox (default):
+1. There version of Webdriver being used for Selenium now requires downloading and installing the gecko (firefox) and/or chrome drivers as separate binary packages. For more info:
+https://github.com/bonigarcia/webdrivermanager
+
+2. Once that download has been completed, you will need to set the location of the driver as a system.property.
+ For example, these lines may need to be added to the FortressWebSeleniumITCase test class, or set via other means:
+
+ ```
+     @BeforeClass
+     public static void setupClass()
+     {
+         System.setProperty("webdriver.gecko.driver", "/home/user/drivers/geckodriver");
+         System.setProperty( "webdriver.chrome.driver", "/home/user/drivers/chromedriver");
+         ...
+     }
+ ```
+
+2. Run the Selenium Web driver integration tests with Firefox (default):
 
  ```
  mvn test -Dtest=FortressWebSeleniumITCase
  ```
 
-2. Run the tests using Chrome:
+3. Run the tests using Chrome:
 
  ```
  mvn test -Dtest=FortressWebSeleniumITCase -Dweb.driver=chrome
