@@ -16,7 +16,7 @@
    under the License.
 
 # README-QUICKSTART for Apache Fortress Web
- * Version 2.0.0
+ * Version 2.0.1
 
 -------------------------------------------------------------------------------
 ## Table of Contents
@@ -53,7 +53,7 @@ Set the java system properties in tomcat with the target ldap server's coordinat
  a. For OpenLDAP:
 
  ```
- JAVA_OPTS="-Dversion=2.0.0 -Dfortress.admin.user=cn=Manager,dc=example,dc=com -Dfortress.admin.pw=secret -Dfortress.config.root=ou=Config,dc=example,dc=com"
+ JAVA_OPTS="-Dversion=2.0.1 -Dfortress.admin.user=cn=Manager,dc=example,dc=com -Dfortress.admin.pw=secret -Dfortress.config.root=ou=Config,dc=example,dc=com"
  ```
 
  b. For ApacheDS:
@@ -66,7 +66,7 @@ Set the java system properties in tomcat with the target ldap server's coordinat
 4. Download the fortress realm proxy jar into tomcat/lib folder:
 
   ```
-  wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.0/fortress-realm-proxy-2.0.0.jar -P $TOMCAT_HOME/lib
+  wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.1/fortress-realm-proxy-2.0.1.jar -P $TOMCAT_HOME/lib
   ```
 
   where *TOMCAT_HOME* matches your target env.
@@ -74,7 +74,7 @@ Set the java system properties in tomcat with the target ldap server's coordinat
 5. Download the fortress web war into tomcat/webapps folder:
 
   ```
-  wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-web/2.0.0/fortress-web-2.0.0.war -P $TOMCAT_HOME/webapps
+  wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-web/2.0.1/fortress-web-2.0.1.war -P $TOMCAT_HOME/webapps
   ```
 
   where *TOMCAT_HOME* matches your target env.
