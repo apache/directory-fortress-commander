@@ -24,7 +24,6 @@ perms.cached=true
 
 # Host name and port of LDAP DIT:
 host=localhost
-#host=localhost
 port=10389
 
 # LDAP Server type.  Each LDAP server impl has different behavior on operations like password policies and audit.  If using a 3rd type of server that isn't formally supported, leave blank or type is other.
