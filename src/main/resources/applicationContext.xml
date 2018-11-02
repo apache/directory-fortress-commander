@@ -35,7 +35,7 @@
         ">
 
     <!-- Housekeeping -->
-    <context:property-placeholder location="classpath:fortress.properties" />
+    <context:property-placeholder location="classpath:fortress.properties" ignore-resource-not-found="true"/>
 
     <!-- These Fortress Manager beans are used as api for RBAC domain model -->
     <bean id="reviewMgr" class="org.apache.directory.fortress.core.ReviewMgrFactory" scope="prototype"
