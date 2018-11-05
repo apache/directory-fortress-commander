@@ -38,6 +38,7 @@
     <context:property-placeholder location="classpath:fortress.properties" ignore-resource-not-found="true"/>
 
     <!-- These Fortress Manager beans are used as api for RBAC domain model -->
+    <!-- These beans all use an argument pulled from the java system properties OR defaults to "HOME" if not set, per: https://jira.spring.io/browse/SPR-4785-->
     <bean id="reviewMgr" class="org.apache.directory.fortress.core.ReviewMgrFactory" scope="prototype"
           factory-method="createInstance">
         <constructor-arg value="${contextId:HOME}"/>
@@ -48,7 +49,7 @@
     </bean>
     <bean id="accessMgr" class="org.apache.directory.fortress.core.AccessMgrFactory" scope="prototype"
           factory-method="createInstance">
-        <constructor-arg value="#{systemProperties['contextId'] ?: 'HOME'}"/>
+        <constructor-arg value="${contextId:HOME}"/>
     </bean>
     <bean id="delReviewMgr" class="org.apache.directory.fortress.core.DelReviewMgrFactory" scope="prototype"
           factory-method="createInstance">
