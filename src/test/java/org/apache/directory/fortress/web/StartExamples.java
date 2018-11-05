@@ -52,7 +52,7 @@ public class StartExamples
 		SocketConnector connector = new SocketConnector();
 
 		// fortress-rest navigation (iff enabled in fortress.properties)
-        System.setProperty("version", "2.0.2");
+        System.setProperty("version", "2.0.3");
         System.setProperty( GlobalIds.IS_JETTY_SERVER, "true");
 
 		// Set some timeout options to make debugging easier.
