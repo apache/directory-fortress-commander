@@ -140,6 +140,10 @@ Run maven install with load file:
 mvn install -Dload.file=./src/main/resources/FortressWebDemoUsers.xml
 ```
 
+ Notes:
+  * This step must be completed before tests can be successfully run.
+  * The [DelegatedAdminManagerLoad](https://github.com/apache/directory-fortress-core/blob/master/ldap/setup/DelegatedAdminManagerLoad.xml) must also be loaded into LDAP, for base policy req's.
+
 ___________________________________________________________________________________
 ## SECTION 5. Deploy to Tomcat Server
 
@@ -221,6 +225,7 @@ https://github.com/bonigarcia/webdrivermanager
  Note: These automated tests require that:
  * Either Firefox or Chrome installed to target machine.
  * **FORTRESS_CORE_HOME**/*FortressJUnitTest* successfully run.  This will load some test data to grind on.
+ * **FORTRESS_CORE_HOME**/./setup/ldap/*FortressJUnitTest* successfully run.  This will load some test data to grind on.
  * [FortressWebDemoUsers](./src/main/resources/FortressWebDemoUsers.xml) policy loaded into target LDAP server.
 
 ___________________________________________________________________________________

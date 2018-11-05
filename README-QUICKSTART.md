@@ -98,7 +98,9 @@ From the Fortress Core package perform the following steps:
  mvn install -Dload.file=ldap/setup/FortressWebDemoUsers.xml
  ```
 
- Note: This step must be completed before tests can be successfully run.
+ Notes:
+  * This step must be completed before tests can be successfully run.
+  * The [DelegatedAdminManagerLoad](https://github.com/apache/directory-fortress-core/blob/master/ldap/setup/DelegatedAdminManagerLoad.xml) must also be loaded into LDAP, for base policy req's.
 
 ___________________________________________________________________________________
 ## SECTION 4. Test
