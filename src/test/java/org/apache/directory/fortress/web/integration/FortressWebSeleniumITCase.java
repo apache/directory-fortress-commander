@@ -64,7 +64,10 @@ public class FortressWebSeleniumITCase
     public static final String BINDS = "BINDS";
     public static final String AUTHZ = "AUTHZ";
     public static final String MODS = "MODS";
-    public static final String FORTRESS_WEB = "/fortress-web";
+
+    //private static String version = System.getProperty( "version" );
+    //private static final String FORTRESS_WEB = "/fortress-web-" + version;
+    private static final String FORTRESS_WEB = "/fortress-web";
     private static final String DRIVER_SYS_PROP = "web.driver";
     private WebDriver driver;
     private String baseUrl;
