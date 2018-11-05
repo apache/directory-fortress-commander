@@ -37,7 +37,8 @@ public class ErrorPage extends FortressWebBasePage
     public ErrorPage( Exception e )
     {
         add( new Label( "title", new Model<>( "Runtime Exception Occurred" ) ) );
-        add( new Label( "message", new Model<>( e.getLocalizedMessage() ) ) );
+        add( new Label( "message", new Model<>( "Operation Failed" ) ) );
+        /*add( new Label( "message", new Model<>( e.getLocalizedMessage() ) ) );*/
         add( new BookmarkablePageLink( "homePage", getApplication().getHomePage() ) );
     }
 
