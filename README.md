@@ -74,7 +74,7 @@ Build the source.
 
  a. from git:
  ```
- git clone --branch 2.0.3 https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
+ git clone --branch 2.0.3  https://gitbox.apache.org/repos/asf/directory-fortress-commander.git/
  cd directory-fortress-commander
  mvn clean install
  ```
