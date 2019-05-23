@@ -43,10 +43,10 @@
   </licenses>
 
   <scm>
-    <connection>scm:git:http://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git</connection>
-    <developerConnection>scm:git: https://gitbox.apache.org/repos/asf/directory-fortress-commander.git/
-    </developerConnection>
-    <tag>2.0.3</tag>
+    <connection>scm:git:http://gitbox.apache.org/repos/asf/directory-fortress-commander.git</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/directory-fortress-commander.git/ </developerConnection>
+    <url>https://github.com/apache/directory-fortress-commander/tree/master</url>
+    <tag>master</tag>
   </scm>
 
   <issueManagement>
