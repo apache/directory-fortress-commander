@@ -21,7 +21,6 @@
 package org.apache.directory.fortress.web;
 
 
-import jdk.nashorn.internal.runtime.regexp.joni.Config;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;

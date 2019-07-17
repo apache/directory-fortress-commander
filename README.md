@@ -70,13 +70,12 @@ Everything else covered in steps that follow.  Tested on Debian, Centos & Window
 -------------------------------------------------------------------------------
 ## SECTION 2. Download & Install
 
-Build the source.
+1. Download the source.
 
  a. from git:
  ```
  git clone --branch 2.0.3  https://gitbox.apache.org/repos/asf/directory-fortress-commander.git/
  cd directory-fortress-commander
- mvn clean install
  ```
 
  b. or download package:
@@ -85,7 +84,22 @@ Build the source.
  wget http://www.apache.org/dist/directory/fortress/dist/2.0.3/fortress-web-2.0.3-source-release.zip
  unzip fortress-web-2.0.3-source-release.zip
  cd fortress-web-2.0.3
+ ```
+
+2. Build the source.
+
+a. Java 8 target
+
+ ```
  mvn clean install
+ ```
+
+-- OR --
+
+b. Java 11 target
+
+ ```
+ mvn clean install -Djava.version=11
  ```
 
 ___________________________________________________________________________________
