@@ -17,7 +17,7 @@
    specific language governing permissions and limitations
    under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="https://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -32,21 +32,21 @@
   <packaging>war</packaging>
   <version>2.0.4-SNAPSHOT</version>
   <name>Apache Fortress Web</name>
-  <url>http://directory.apache.org/fortress/</url>
+  <url>https://directory.apache.org/fortress/</url>
   <description>Apache Fortress Web is Role-Based Access Control policy administration and review user interface.</description>
 
   <licenses>
     <license>
       <name>Apache License 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
     </license>
   </licenses>
 
   <scm>
-    <connection>scm:git:http://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git</connection>
-    <developerConnection>scm:git: https://gitbox.apache.org/repos/asf/directory-fortress-commander.git/
-    </developerConnection>
-    <tag>2.0.3</tag>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/directory-fortress-commander.git</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/directory-fortress-commander.git/ </developerConnection>
+    <url>https://github.com/apache/directory-fortress-commander/tree/{project.scm.tag}</url>
+    <tag>master</tag>
   </scm>
 
   <issueManagement>
@@ -58,7 +58,7 @@
     <mailingList>
       <name>Apache Directory -- Fortress List</name>
       <post>fortress@directory.apache.org</post>
-      <archive>http://mail-archives.apache.org/mod_mbox/directory-fortress/</archive>
+      <archive>https://mail-archives.apache.org/mod_mbox/directory-fortress/</archive>
     </mailingList>
   </mailingLists>
 
@@ -544,7 +544,7 @@
   <repositories>
     <repository>
       <id>maven2</id>
-      <url>http://repo1.maven.org/maven2</url>
+      <url>https://repo1.maven.org/maven2</url>
     </repository>
   </repositories>
 
