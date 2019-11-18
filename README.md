@@ -57,7 +57,7 @@ Minimum hardware requirements:
  * 4GB RAM
 
 Minimum software requirements:
- * Java SDK 8
+ * Java SDK 8++
  * git
  * Apache Maven3++
  * Apache Tomcat8++
