@@ -158,7 +158,7 @@ public class FortressWebSeleniumITCase
 
         if ( !skipFirstHalf )
         {
-            //users();
+            users();
             roles();
             pobjs();
             perms();
