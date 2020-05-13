@@ -33,7 +33,7 @@
   <version>2.0.5-SNAPSHOT</version>
   <name>Apache Fortress Web</name>
   <url>https://directory.apache.org/fortress/</url>
-  <description>Apache Fortress Web is Role-Based Access Control policy administration and review user interface.</description>
+  <description>Apache Fortress Web is a policy administration and review user interface.</description>
 
   <licenses>
     <license>
@@ -62,9 +62,6 @@
     </mailingList>
   </mailingLists>
 
-  <!-- ====================================================== -->
-  <!-- The list of current developers            -->
-  <!-- ====================================================== -->
   <developers>
     <developer>
       <id>smckinney</id>
@@ -76,12 +73,6 @@
       <id>elecharny</id>
       <name>Emmanuel Lecharny</name>
       <email>elecharny@apache.org</email>
-    </developer>
-
-    <developer>
-      <id>cpike</id>
-      <name>Chris Pike</name>
-      <email>cpike@apache.org</email>
     </developer>
   </developers>
 
@@ -103,7 +94,7 @@
   </properties>
 
   <dependencies>
-    <!-- Fortress Realm pulls in Fortress Core for RBAC 'CRUD' & access management apis. -->
+    <!-- Fortress Realm also pulls in Fortress Core APIs. -->
     <dependency>
       <groupId>org.apache.directory.fortress</groupId>
       <artifactId>fortress-realm-impl</artifactId>
@@ -122,7 +113,6 @@
       <version>${version.slf4j.log4j12}</version>
     </dependency>
 
-    <!-- Servlet API DEPENDENCIES -->
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
@@ -190,7 +180,7 @@
       <scope>test</scope>
     </dependency>
     
-    <!--  JETTY used for embedded testing -->
+    <!--  JETTY used for devpr embedded testing -->
     <dependency>
       <groupId>org.mortbay.jetty</groupId>
       <artifactId>jetty</artifactId>
@@ -219,6 +209,7 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- Use [WebDriverManager](https://github.com/bonigarcia/webdrivermanager#webdrivermanager-as-java-dependency) for running tests -->
     <dependency>
       <groupId>io.github.bonigarcia</groupId>
       <artifactId>webdrivermanager</artifactId>
