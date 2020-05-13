@@ -45,6 +45,11 @@ admin.pw=secret
 min.admin.conn=1
 max.admin.conn=10
 
+# To read the OpenLDAP audit log, need this service account:
+#log.admin.user=cn=manager,cn=log
+# For corresponding log user:
+#log.admin.pw=secret
+
 # Used for SSL Connection to LDAP Server:
 #enable.ldap.ssl=true
 #enable.ldap.ssl.debug=true
