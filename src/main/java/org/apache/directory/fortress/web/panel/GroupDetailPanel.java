@@ -61,11 +61,7 @@ import org.apache.directory.fortress.web.event.SelectModelEvent;
 import org.apache.directory.fortress.core.model.Group;
 import org.apache.directory.fortress.core.model.User;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
+import java.util.*;
 
 
 /**
@@ -167,7 +163,7 @@ public class GroupDetailPanel extends FormComponentPanel
                     AjaxFallbackLink<Member> removeLink = new AjaxFallbackLink<Member>( "remove-member", item.getModel() )
                     {
                         @Override
-                        public void onClick(AjaxRequestTarget target)
+                        public void onClick(Optional<AjaxRequestTarget> target)
                         {
                             Member member = item.getModelObject();
                             Group group = ( Group ) editForm.getModel().getObject();
@@ -188,7 +184,8 @@ public class GroupDetailPanel extends FormComponentPanel
                                 display.setMessage( szError );
                                 log.warn( szError );
                             }
-                            target.add( component );
+                            // TODO: fix me, figure out how to add a component with optional target:
+                            //target.add( component );
                         }
                     };
                     removeLink.setOutputMarkupId( true );
@@ -209,10 +206,10 @@ public class GroupDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     log.debug( ".onSubmit Add" );
-                    Group group = ( Group ) form.getModel().getObject();
+                    Group group = ( Group ) getForm().getModel().getObject();
                     String msg = null;
                     if ( !StringUtils.isNotBlank( memberAssign ) && !CollectionUtils.isNotEmpty( group.getMembers() ) )
                     {
@@ -244,7 +241,7 @@ public class GroupDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.info( "GroupDetailPanel.add.onError caught" );
                     target.add();
@@ -277,10 +274,10 @@ public class GroupDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     log.debug( ".onSubmit Commit" );
-                    Group group = ( Group ) form.getModel().getObject();
+                    Group group = ( Group ) getForm().getModel().getObject();
                     try
                     {
                         group = groupMgr.update( group );
@@ -299,7 +296,7 @@ public class GroupDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "GroupDetailPanel.commit.onError" );
                 }
@@ -331,14 +328,14 @@ public class GroupDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     log.debug( ".onSubmit Commit" );
-                    Group group = ( Group ) form.getModel().getObject();
+                    Group group = ( Group ) getForm().getModel().getObject();
                     try
                     {
                         groupMgr.delete( group );
-                        clearDetailFields( "Group name: " + group.getName() + " has been deleted", target, form );
+                        clearDetailFields( "Group name: " + group.getName() + " has been deleted", target, getForm() );
                         SaveModelEvent.send( getPage(), this, group, target, SaveModelEvent.Operations.DELETE );
                     }
                     catch ( org.apache.directory.fortress.core.SecurityException se )
@@ -351,7 +348,7 @@ public class GroupDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "GroupDetailPanel.delete.onError" );
                 }
@@ -383,14 +380,14 @@ public class GroupDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
-                    clearDetailFields( "Group cancelled input form", target, form );
+                    clearDetailFields( "Group cancelled input form", target, getForm() );
                 }
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "GroupDetailPanel.cancel.onError" );
                 }
@@ -422,13 +419,13 @@ public class GroupDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form<?> form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     String msg = "clicked on memberProps.add";
                     if ( StringUtils.isNotBlank( memberPropsSelection ) )
                     {
                         msg += " selection:" + memberPropsSelection;
-                        Group group = ( Group ) form.getModel().getObject();
+                        Group group = ( Group ) getForm().getModel().getObject();
                         int idx = memberPropsSelection.indexOf( '=' );
                         if ( idx != -1 )
                         {
@@ -438,9 +435,9 @@ public class GroupDetailPanel extends FormComponentPanel
                             {
                                 Group newGroup = groupMgr.add( group, key, val );
                                 group.setProperties( newGroup.getProperties() );
-                                memberPropsCB = new ComboBox<>( "memberProps", new PropertyModel<String>( form,
+                                memberPropsCB = new ComboBox<>( "memberProps", new PropertyModel<String>( getForm(),
                                     "memberPropsSelection" ), group.getPropList() );
-                                form.addOrReplace( memberPropsCB );
+                                getForm().addOrReplace( memberPropsCB );
                             }
                             catch ( org.apache.directory.fortress.core.SecurityException se )
                             {
@@ -489,13 +486,13 @@ public class GroupDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form<?> form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     String msg = "clicked on memberProps.delete";
                     if ( StringUtils.isNotBlank( memberPropsSelection ) )
                     {
                         msg += " selection:" + memberPropsSelection;
-                        Group group = ( Group ) form.getModel().getObject();
+                        Group group = ( Group ) getForm().getModel().getObject();
                         if ( group.getProperties() != null )
                         {
                             int idx = memberPropsSelection.indexOf( '=' );
@@ -508,8 +505,8 @@ public class GroupDetailPanel extends FormComponentPanel
                                     Group newGroup = groupMgr.delete( group, key, val );
                                     group.setProperties( newGroup.getProperties() );
                                     memberPropsCB = new ComboBox<>( "memberProps", new PropertyModel<String>(
-                                        form, "memberPropsSelection" ), group.getPropList() );
-                                    form.addOrReplace( memberPropsCB );
+                                            getForm(), "memberPropsSelection" ), group.getPropList() );
+                                    getForm().addOrReplace( memberPropsCB );
                                 }
                                 catch ( org.apache.directory.fortress.core.SecurityException se )
                                 {
@@ -563,9 +560,9 @@ public class GroupDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form<?> form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
-                    Group group = ( Group ) form.getModel().getObject();
+                    Group group = ( Group ) getForm().getModel().getObject();
                     if ( StringUtils.isNotBlank( memberAssign ) )
                     {
                         try
@@ -579,7 +576,7 @@ public class GroupDetailPanel extends FormComponentPanel
                                 String msg = "Group: " + group.getName() + ", member: " + memberAssign
                                     + ", has been assigned";
                                 memberAssign = "";
-                                form.add( memberAssignTF );
+                                getForm().add( memberAssignTF );
                                 display.setMessage( msg );
                                 log.debug( msg );
                                 createDataTable( newGroup.getMembers() );
@@ -629,9 +626,9 @@ public class GroupDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form<?> form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
-                    Group group = ( Group ) form.getModel().getObject();
+                    Group group = ( Group ) getForm().getModel().getObject();
                     if ( StringUtils.isNotBlank( memberAssign ) )
                     {
                         try
@@ -645,7 +642,7 @@ public class GroupDetailPanel extends FormComponentPanel
                                 String msg = "Group: " + group.getName() + ", member: " + memberAssign
                                     + ", has been deassigned";
                                 memberAssign = "";
-                                form.add( memberAssignTF );
+                                getForm().add( memberAssignTF );
                                 display.setMessage( msg );
                                 log.debug( msg );
                                 createDataTable( newGroup.getMembers() );
@@ -767,7 +764,7 @@ public class GroupDetailPanel extends FormComponentPanel
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form<?> form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     String msg = "clicked on members search";
                     msg += memberAssign != null ? ": " + memberAssign : "";
@@ -810,7 +807,7 @@ public class GroupDetailPanel extends FormComponentPanel
 
 
         @Override
-        public void onEvent( final IEvent<?> event )
+        public void onEvent( final IEvent event )
         {
             if ( event.getPayload() instanceof SelectModelEvent )
             {

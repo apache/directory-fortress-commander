@@ -96,10 +96,10 @@ public class PwPolicyDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     log.debug( ".onSubmit Add" );
-                    PwPolicy policy = ( PwPolicy ) form.getModel().getObject();
+                    PwPolicy policy = ( PwPolicy ) getForm().getModel().getObject();
                     try
                     {
                         policy.setCheckQuality( ( short ) 2 );
@@ -120,7 +120,7 @@ public class PwPolicyDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.info( "PwPolicyPanel.add.onError caught" );
                     target.add();
@@ -153,10 +153,10 @@ public class PwPolicyDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     log.debug( ".onSubmit Commit" );
-                    PwPolicy policy = ( PwPolicy ) form.getModel().getObject();
+                    PwPolicy policy = ( PwPolicy ) getForm().getModel().getObject();
                     try
                     {
                         pwPolicyMgr.update( policy );
@@ -176,7 +176,7 @@ public class PwPolicyDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "PwPolicyPanel.update.onError" );
                 }
@@ -208,14 +208,15 @@ public class PwPolicyDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     log.debug( ".onSubmit Commit" );
-                    PwPolicy role = ( PwPolicy ) form.getModel().getObject();
+                    PwPolicy role = ( PwPolicy ) getForm().getModel().getObject();
 
                     try
                     {
                         pwPolicyMgr.delete( role );
+                        Form form = getForm();
                         form.setModelObject( new PwPolicy() );
                         modelChanged();
                         String msg = "Role: " + role.getName() + " has been deleted";
@@ -234,7 +235,7 @@ public class PwPolicyDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "PwPolicyPanel.commit.onError" );
                 }
@@ -266,7 +267,7 @@ public class PwPolicyDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     setModelObject( new PwPolicy() );
                     modelChanged();
@@ -277,7 +278,7 @@ public class PwPolicyDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "ControlPanel.cancel.onError" );
                 }
@@ -345,7 +346,7 @@ public class PwPolicyDetailPanel extends FormComponentPanel
 
 
         @Override
-        public void onEvent( final IEvent<?> event )
+        public void onEvent( final IEvent event )
         {
             if ( event.getPayload() instanceof SelectModelEvent )
             {

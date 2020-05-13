@@ -155,7 +155,8 @@ public class OUListPanel extends FormComponentPanel
 
 
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form form)
+            protected void onSubmit(AjaxRequestTarget target)
+            //protected void onSubmit(AjaxRequestTarget target, Form form)
             {
                 log.debug( ".search onSubmit" );
                 info( "Searching OrgUnits..." );
@@ -194,7 +195,7 @@ public class OUListPanel extends FormComponentPanel
 
 
             @Override
-            public void onError(AjaxRequestTarget target, Form form)
+            public void onError(AjaxRequestTarget target)
             {
                 log.warn( ".search.onError" );
                 target.add();

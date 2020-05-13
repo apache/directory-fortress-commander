@@ -97,7 +97,7 @@ public class AuditBindDetailPanel extends FormComponentPanel
 
 
         @Override
-        public void onEvent( final IEvent<?> event )
+        public void onEvent( final IEvent event )
         {
             if ( event.getPayload() instanceof SelectModelEvent )
             {

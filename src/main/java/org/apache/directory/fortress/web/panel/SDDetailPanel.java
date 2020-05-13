@@ -128,10 +128,10 @@ public class SDDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     log.debug( ".onSubmit Add" );
-                    SDSet sdSet = ( SDSet ) form.getModel().getObject();
+                    SDSet sdSet = ( SDSet ) getForm().getModel().getObject();
                     updateEntityWithComboData( sdSet );
                     try
                     {
@@ -159,7 +159,7 @@ public class SDDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.info( "SDDetailPanel.add.onError" );
                     target.add();
@@ -192,10 +192,10 @@ public class SDDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     log.debug( ".onSubmit Commit" );
-                    SDSet sdSet = ( SDSet ) form.getModel().getObject();
+                    SDSet sdSet = ( SDSet ) getForm().getModel().getObject();
                     try
                     {
                         updateEntityWithComboData( sdSet );
@@ -220,7 +220,7 @@ public class SDDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "SDDetailPanel.commmit.onError" );
                 }
@@ -253,10 +253,10 @@ public class SDDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     log.debug( ".onSubmit Delete" );
-                    SDSet sdSet = ( SDSet ) form.getModel().getObject();
+                    SDSet sdSet = ( SDSet ) getForm().getModel().getObject();
 
                     try
                     {
@@ -285,7 +285,7 @@ public class SDDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "SDDetailPanel.delete.onError" );
                 }
@@ -318,7 +318,7 @@ public class SDDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     clearDetailFields();
                     component = editForm;
@@ -328,7 +328,7 @@ public class SDDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "SDDetailPanel.cancel.onError" );
                 }
@@ -382,13 +382,13 @@ public class SDDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form<?> form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     String msg = "clicked on members.delete";
                     if ( StringUtils.isNotEmpty( membersSelection ) )
                     {
                         msg += " selection:" + membersSelection;
-                        SDSet sdSet = ( SDSet ) form.getModel().getObject();
+                        SDSet sdSet = ( SDSet ) getForm().getModel().getObject();
                         if ( sdSet.getMembers() != null )
                         {
                             sdSet.getMembers().remove( membersSelection );
@@ -465,7 +465,7 @@ public class SDDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form<?> form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     String msg = "clicked on roles search";
                     msg += membersSelection != null ? ": " + membersSelection : "";
@@ -515,7 +515,7 @@ public class SDDetailPanel extends FormComponentPanel
 
 
         @Override
-        public void onEvent( final IEvent<?> event )
+        public void onEvent( final IEvent event )
         {
             if ( event.getPayload() instanceof SelectModelEvent )
             {

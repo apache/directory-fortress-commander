@@ -329,10 +329,10 @@ public class UserDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     log.debug( ".onSubmit Add" );
-                    User user = ( User ) form.getModel().getObject();
+                    User user = ( User ) getForm().getModel().getObject();
                     updateEntityWithComboData( user );
                     try
                     {
@@ -353,7 +353,7 @@ public class UserDetailPanel extends FormComponentPanel
                 }
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.info( "UserDetailPanel.add.onError" );
                     target.add();
@@ -386,10 +386,10 @@ public class UserDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form<?> form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     log.debug( ".onSubmit commit" );
-                    User user = ( User ) form.getModel().getObject();
+                    User user = ( User ) getForm().getModel().getObject();
                     // todo: fix this, going from string to char back to string (in ldap)?
 /*
                     if ( pswdField != null )
@@ -423,7 +423,7 @@ public class UserDetailPanel extends FormComponentPanel
                 }
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "UserDetailPanel.commit.onError" );
                 }
@@ -454,10 +454,10 @@ public class UserDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     log.debug( ".onSubmit Commit" );
-                    User user = ( User ) form.getModel().getObject();
+                    User user = ( User ) getForm().getModel().getObject();
                     try
                     {
                         adminMgr.deleteUser( user );
@@ -475,7 +475,7 @@ public class UserDetailPanel extends FormComponentPanel
                 }
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "UserDetailPanel.delete.onError" );
                 }
@@ -505,7 +505,7 @@ public class UserDetailPanel extends FormComponentPanel
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     clearDetailPanel();
                     String msg = "User cancelled input form";
@@ -513,7 +513,7 @@ public class UserDetailPanel extends FormComponentPanel
                 }
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "UserDetailPanel.cancel.onError" );
                 }
@@ -544,11 +544,11 @@ public class UserDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     FileUpload fileUpload = upload.getFileUpload();
                     log.debug( ".onSubmit Save" );
-                    User user = ( User ) form.getModel().getObject();
+                    User user = ( User ) getForm().getModel().getObject();
                     user.setJpegPhoto( fileUpload.getBytes() );
                     component = editForm;
                     String msg = "User: " + user.getUserId() + " photo uploaded successfully.  Must commit for photo " +
@@ -558,7 +558,7 @@ public class UserDetailPanel extends FormComponentPanel
                 }
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "save.onError" );
                 }
@@ -591,9 +591,9 @@ public class UserDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
-                    User user = ( User ) form.getModel().getObject();
+                    User user = ( User ) getForm().getModel().getObject();
                     String msg = "User: " + user.getUserId();
                     try
                     {
@@ -624,7 +624,7 @@ public class UserDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "ControlPanel.lock/unlock error" );
                 }
@@ -658,9 +658,9 @@ public class UserDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
-                    User user = ( User ) form.getModel().getObject();
+                    User user = ( User ) getForm().getModel().getObject();
                     String msg = "User: " + user.getUserId();
                     try
                     {
@@ -682,7 +682,7 @@ public class UserDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "ControlPanel.reset error" );
                 }
@@ -714,10 +714,10 @@ public class UserDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     log.debug( ".onSubmit assign" );
-                    User user = ( User ) form.getModel().getObject();
+                    User user = ( User ) getForm().getModel().getObject();
                     if( StringUtils.isNotEmpty( newUserRole ))
                     {
                         if ( assignRole( user, newUserRole ) )
@@ -740,7 +740,7 @@ public class UserDetailPanel extends FormComponentPanel
                 }
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "assign.onError" );
                 }
@@ -772,10 +772,10 @@ public class UserDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     log.debug( ".onSubmit assignAdminRole" );
-                    User user = ( User ) form.getModel().getObject();
+                    User user = ( User ) getForm().getModel().getObject();
                     if( StringUtils.isNotEmpty( newUserAdminRole ))
                     {
                         if ( assignAdminRole( user, newUserAdminRole ) )
@@ -799,7 +799,7 @@ public class UserDetailPanel extends FormComponentPanel
                 }
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "assignAdminRole.onError" );
                 }
@@ -831,10 +831,10 @@ public class UserDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     log.debug( ".onSubmit deassign" );
-                    User user = ( User ) form.getModel().getObject();
+                    User user = ( User ) getForm().getModel().getObject();
                     UserRole userRole = new UserRole( user.getUserId(), userRoleSelection.getName() );
                     if ( deassignRole( user, userRole ) )
                     {
@@ -850,7 +850,7 @@ public class UserDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "deassign.onError" );
                 }
@@ -882,10 +882,10 @@ public class UserDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     log.debug( ".onSubmit deassignAdminRole" );
-                    User user = ( User ) form.getModel().getObject();
+                    User user = ( User ) getForm().getModel().getObject();
                     UserAdminRole userAdminRole = new UserAdminRole( user.getUserId(), userAdminRoleSelection.getName() );
                     if ( deassignAdminRole( user, userAdminRole ) )
                     {
@@ -902,7 +902,7 @@ public class UserDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "ControlPanel.deassignAdminRole.onError" );
                 }
@@ -933,13 +933,13 @@ public class UserDetailPanel extends FormComponentPanel
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form<?> form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     String msg = "clicked on address.delete";
                     if ( StringUtils.isNotEmpty( addressSelection ) )
                     {
                         msg += " selection:" + addressSelection;
-                        User user = ( User ) form.getModel().getObject();
+                        User user = ( User ) getForm().getModel().getObject();
                         if ( user.getAddress() != null && user.getAddress().getAddresses() != null )
                         {
                             user.getAddress().getAddresses().remove( addressSelection );
@@ -986,13 +986,13 @@ public class UserDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form<?> form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     String msg = "clicked on emails.delete";
                     if ( StringUtils.isNotEmpty( emailsSelection ) )
                     {
                         msg += " selection:" + emailsSelection;
-                        User user = ( User ) form.getModel().getObject();
+                        User user = ( User ) getForm().getModel().getObject();
                         if ( user.getEmails() != null )
                         {
                             user.getEmails().remove( emailsSelection );
@@ -1041,13 +1041,13 @@ public class UserDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form<?> form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     String msg = "clicked on phones.delete";
                     if ( StringUtils.isNotEmpty( phonesSelection ) )
                     {
                         msg += " selection:" + phonesSelection;
-                        User user = ( User ) form.getModel().getObject();
+                        User user = ( User ) getForm().getModel().getObject();
                         if ( user.getPhones() != null )
                         {
                             user.getPhones().remove( phonesSelection );
@@ -1095,13 +1095,13 @@ public class UserDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form<?> form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     String msg = "clicked on mobiles.delete";
                     if ( StringUtils.isNotEmpty( mobilesSelection ) )
                     {
                         msg += " selection:" + mobilesSelection;
-                        User user = ( User ) form.getModel().getObject();
+                        User user = ( User ) getForm().getModel().getObject();
                         if ( user.getMobiles() != null )
                         {
                             user.getMobiles().remove( mobilesSelection );
@@ -1180,7 +1180,7 @@ public class UserDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form<?> form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     String msg = "clicked on roles search";
                     msg += userRoleSelection != null ? ": " + newUserRole : "";
@@ -1248,7 +1248,7 @@ public class UserDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form<?> form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     String msg = "clicked on roles search";
                     msg += userAdminRoleSelection.getName() != null ? ": " + newUserAdminRole : "";
@@ -1319,7 +1319,7 @@ public class UserDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form<?> form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     String msg = "clicked on policies search";
                     User user = ( User ) editForm.getModel().getObject();
@@ -1390,7 +1390,7 @@ public class UserDetailPanel extends FormComponentPanel
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form<?> form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     String msg = "clicked on OrgUnits search";
                     User user = ( User ) editForm.getModel().getObject();
@@ -1683,7 +1683,7 @@ public class UserDetailPanel extends FormComponentPanel
         }
 
         @Override
-        public void onEvent( final IEvent<?> event )
+        public void onEvent( final IEvent event )
         {
 
             if ( event.getPayload() instanceof SelectModelEvent )

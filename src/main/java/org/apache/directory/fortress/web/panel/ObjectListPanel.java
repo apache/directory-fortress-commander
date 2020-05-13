@@ -126,7 +126,7 @@ public class ObjectListPanel extends FormComponentPanel
 
 
             @Override
-            protected void onSubmit( AjaxRequestTarget target, Form form )
+            protected void onSubmit( AjaxRequestTarget target )
             {
                 log.debug( ".search.onSubmit selected radio button: " + selectedRadioButton );
                 info( "Searching Permission Objects..." );
@@ -166,7 +166,7 @@ public class ObjectListPanel extends FormComponentPanel
 
 
             @Override
-            public void onError( AjaxRequestTarget target, Form form )
+            public void onError( AjaxRequestTarget target )
             {
                 log.warn( ".search.onError" );
                 target.add();

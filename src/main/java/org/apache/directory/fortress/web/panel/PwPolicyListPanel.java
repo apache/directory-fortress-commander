@@ -204,7 +204,7 @@ public class PwPolicyListPanel extends FormComponentPanel
 
 
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form form)
+            protected void onSubmit(AjaxRequestTarget target)
             {
                 log.debug( ".search onSubmit" );
                 info( "Searching Policies..." );
@@ -232,7 +232,7 @@ public class PwPolicyListPanel extends FormComponentPanel
 
 
             @Override
-            public void onError(AjaxRequestTarget target, Form form)
+            public void onError(AjaxRequestTarget target)
             {
                 log.warn( ".search.onError" );
                 target.add();

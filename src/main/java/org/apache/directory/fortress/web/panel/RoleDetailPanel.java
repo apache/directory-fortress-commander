@@ -160,7 +160,7 @@ public class RoleDetailPanel extends Panel
                 private static final long serialVersionUID = 1L;
 
 
-                @Override
+                //@Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
                     log.debug( ".onSubmit Add" );
@@ -199,7 +199,8 @@ public class RoleDetailPanel extends Panel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                //public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.info( "RoleDetailPanel.add.onError caught" );
                     target.add();
@@ -232,10 +233,12 @@ public class RoleDetailPanel extends Panel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
+                //protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
                     log.debug( ".onSubmit Commit" );
-                    T role = ( T ) form.getModel().getObject();
+                    //T role = ( T ) form.getModel().getObject();
+                    T role = ( T ) this.getModel().getObject();
                     updateEntityWithComboData( ( Role ) role );
                     try
                     {
@@ -268,7 +271,8 @@ public class RoleDetailPanel extends Panel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
+                //public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "RoleDetailPanel.update.onError" );
                 }
@@ -299,7 +303,7 @@ public class RoleDetailPanel extends Panel
                 private static final long serialVersionUID = 1L;
 
 
-                @Override
+                //@Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
                     log.debug( ".onSubmit Delete" );
@@ -335,7 +339,8 @@ public class RoleDetailPanel extends Panel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
+                //public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "RoleDetailPanel.delete.onError" );
                 }
@@ -365,7 +370,7 @@ public class RoleDetailPanel extends Panel
                 /** Default serialVersionUID */
                 private static final long serialVersionUID = 1L;
 
-                @Override
+                //@Override
                 protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
                     clearDetailFields();
@@ -375,7 +380,7 @@ public class RoleDetailPanel extends Panel
                 }
 
 
-                @Override
+                //@Override
                 public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "RoleDetailPanel.cancel.onError" );
@@ -417,13 +422,15 @@ public class RoleDetailPanel extends Panel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form<?> form )
+                protected void onSubmit( AjaxRequestTarget target )
+                //protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
                     String msg = "clicked on roles.delete";
                     if ( StringUtils.isNotEmpty( parentsSelection ) )
                     {
                         msg += " selection:" + parentsSelection;
-                        Role role = ( Role ) form.getModel().getObject();
+                        Role role = ( Role ) model.getObject();
+                        //Role role = ( Role ) form.getModel().getObject();
                         if ( role.getParents() != null )
                         {
                             role.getParents().remove( parentsSelection );
@@ -512,7 +519,8 @@ public class RoleDetailPanel extends Panel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form<?> form )
+                protected void onSubmit( AjaxRequestTarget target )
+                //protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
                     String msg = "clicked on parent roles search";
                     msg += parentsSelection != null ? ": " + parentsSelection : "";
@@ -560,7 +568,7 @@ public class RoleDetailPanel extends Panel
         }
 
         @Override
-        public void onEvent( final IEvent<?> event )
+        public void onEvent( final IEvent event )
         {
             if ( event.getPayload() instanceof SelectModelEvent )
             {

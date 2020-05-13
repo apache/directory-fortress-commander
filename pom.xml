@@ -90,6 +90,8 @@
     <java.version>1.8</java.version>
     <fortress.realm.version>2.0.4</fortress.realm.version>
     <wicket.version>7.10.0</wicket.version>
+<!--    <wicket.version>8.8.0</wicket.version>-->
+    <!--<wicket.jquery.version>8.6.0</wicket.jquery.version>-->
     <wicket.jquery.version>7.10.0</wicket.jquery.version>
     <wicket.kendo-ui.version>7.10.0</wicket.kendo-ui.version>
     <version.log4j>1.2.17</version.log4j>
@@ -136,7 +138,8 @@
     <dependency>
       <groupId>org.apache.wicket</groupId>
       <artifactId>wicket-spring</artifactId>
-      <version>${wicket.version}</version>
+      <!--<version>${wicket.version}</version>-->
+      <version>8.8.0</version>
       <exclusions>
         <exclusion>
           <groupId>commons-fileupload</groupId>
@@ -155,31 +158,40 @@
     <dependency>
       <groupId>org.wicketstuff</groupId>
       <artifactId>wicketstuff-inmethod-grid</artifactId>
-      <version>${wicket.jquery.version}</version>
+      <version>8.8.0</version>
+<!--      <version>${wicket.jquery.version}</version>-->
+      <!--<version>8.0.0</version>-->
+
     </dependency>
     
     <dependency>
       <groupId>com.googlecode.wicket-jquery-ui</groupId>
       <artifactId>wicket-jquery-ui</artifactId>
-      <version>${wicket.jquery.version}</version>
+      <version>8.6.0</version>
+<!--      <version>${wicket.jquery.version}</version>-->
+      <!--<version>8.0.0</version>-->
     </dependency>
     
     <dependency>
       <groupId>com.googlecode.wicket-jquery-ui</groupId>
       <artifactId>wicket-kendo-ui</artifactId>
-      <version>${wicket.kendo-ui.version}</version>
+      <version>8.6.0</version>
+<!--      <version>${wicket.kendo-ui.version}</version>-->
+      <!--<version>8.0.0</version>-->
     </dependency>
 
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-config</artifactId>
-      <version>${spring.security.config.version}</version>
+      <!--<version>${spring.security.config.version}</version>-->
+      <version>5.3.2.RELEASE</version>
     </dependency>
 
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-web</artifactId>
-      <version>${spring.security.version}</version>
+      <version>5.3.2.RELEASE</version>
+<!--      <version>${spring.security.version}</version>-->
     </dependency>
 
     <!--  ANT DEPENDENCIES FOR RUNNING ANT PLUG-IN FOR FORTRESS LOAD UTILITY  -->
@@ -230,15 +242,18 @@
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
-      <version>3.13.0</version>
+      <version>3.141.59</version>
+<!--      <version>3.13.0</version>-->
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>io.github.bonigarcia</groupId>
       <artifactId>webdrivermanager</artifactId>
+      <version>4.0.0</version>
+      <!--<version>3.8.1</version>-->
       <!--<version>3.6.2</version>-->
-      <version>2.2.4</version>
+      <!--<version>2.2.4</version>-->
       <scope>test</scope>
     </dependency>
 

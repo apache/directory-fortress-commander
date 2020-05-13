@@ -123,10 +123,10 @@ public class PermDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     log.debug( ".onSubmit Add" );
-                    Permission perm = ( Permission ) form.getModel().getObject();
+                    Permission perm = ( Permission ) getForm().getModel().getObject();
                     perm.setAdmin( isAdmin );
                     updateEntityWithComboData( perm );
                     try
@@ -151,7 +151,7 @@ public class PermDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.info( "PermDetailPanel.add.onError caught" );
                     target.add();
@@ -184,10 +184,10 @@ public class PermDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     log.debug( ".onSubmit Commit" );
-                    Permission perm = ( Permission ) form.getModel().getObject();
+                    Permission perm = ( Permission ) getForm().getModel().getObject();
                     perm.setAdmin( isAdmin );
                     updateEntityWithComboData( perm );
                     try
@@ -226,7 +226,7 @@ public class PermDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "PermDetailPanel.commit.onError" );
                 }
@@ -258,10 +258,10 @@ public class PermDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     log.debug( ".onSubmit Delete" );
-                    Permission perm = ( Permission ) form.getModel().getObject();
+                    Permission perm = ( Permission ) getForm().getModel().getObject();
                     perm.setAdmin( isAdmin );
                     try
                     {
@@ -284,7 +284,7 @@ public class PermDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "ControlPanel.delete.onError" );
                 }
@@ -316,7 +316,7 @@ public class PermDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     clearDetailFields();
                     String msg = "Perm cancelled input form";
@@ -326,7 +326,7 @@ public class PermDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "ControlPanel.cancel.onError" );
                 }
@@ -387,13 +387,13 @@ public class PermDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form<?> form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     String msg = "clicked on roles.delete";
                     if ( StringUtils.isNotEmpty( rolesSelection ) )
                     {
                         msg += " selection:" + rolesSelection;
-                        Permission perm = ( Permission ) form.getModel().getObject();
+                        Permission perm = ( Permission ) getForm().getModel().getObject();
                         if ( perm.getRoles() != null )
                         {
                             perm.getRoles().remove( rolesSelection );
@@ -470,7 +470,7 @@ public class PermDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form<?> form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     String msg = "clicked on ObjectNames search";
                     Permission perm = ( Permission ) editForm.getModel().getObject();
@@ -551,7 +551,7 @@ public class PermDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form<?> form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     String msg = "clicked on roles search";
                     msg += rolesSelection != null ? ": " + rolesSelection : "";
@@ -610,7 +610,7 @@ public class PermDetailPanel extends FormComponentPanel
 
 
         @Override
-        public void onEvent( final IEvent<?> event )
+        public void onEvent( final IEvent event )
         {
             if ( event.getPayload() instanceof SelectModelEvent )
             {

@@ -123,10 +123,12 @@ public class OUDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
+                //protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
                     log.debug( ".onSubmit Add" );
-                    OrgUnit orgUnit = ( OrgUnit ) form.getModel().getObject();
+                    OrgUnit orgUnit = ( OrgUnit ) getForm().getModel().getObject();
+                    //OrgUnit orgUnit = ( OrgUnit ) form.getModel().getObject();
                     updateEntityWithComboData( orgUnit );
                     try
                     {
@@ -147,7 +149,7 @@ public class OUDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.info( "OUDetailPanel.add.onError caught" );
                     target.add();
@@ -180,10 +182,12 @@ public class OUDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
+                //protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
                     log.debug( ".onSubmit Commit" );
-                    OrgUnit orgUnit = ( OrgUnit ) form.getModel().getObject();
+                    OrgUnit orgUnit = ( OrgUnit ) getForm().getModel().getObject();
+                    //OrgUnit orgUnit = ( OrgUnit ) form.getModel().getObject();
                     try
                     {
                         updateEntityWithComboData( orgUnit );
@@ -205,7 +209,7 @@ public class OUDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "OUDetailPanel.update.onError" );
                 }
@@ -237,10 +241,12 @@ public class OUDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
+                //protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
                     log.debug( ".onSubmit delete" );
-                    OrgUnit orgUnit = ( OrgUnit ) form.getModel().getObject();
+                    OrgUnit orgUnit = ( OrgUnit ) getForm().getModel().getObject();
+                    //OrgUnit orgUnit = ( OrgUnit ) form.getModel().getObject();
                     try
                     {
                         delAdminMgr.delete( orgUnit );
@@ -261,7 +267,7 @@ public class OUDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "OUDetailPanel.delete.onError" );
                 }
@@ -293,7 +299,8 @@ public class OUDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
+                //protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
                     clearDetailFields();
                     component = editForm;
@@ -303,7 +310,8 @@ public class OUDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
+                //public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "OUDetailPanel.cancel.onError" );
                 }
@@ -356,13 +364,15 @@ public class OUDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form<?> form )
+                protected void onSubmit( AjaxRequestTarget target )
+                //protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
                     String msg = "clicked on members.delete";
                     if ( StringUtils.isNotEmpty( parentsSelection ) )
                     {
                         msg += " selection:" + parentsSelection;
-                        OrgUnit orgUnit = ( OrgUnit ) form.getModel().getObject();
+                        OrgUnit orgUnit = ( OrgUnit ) getForm().getModel().getObject();
+                        //OrgUnit orgUnit = ( OrgUnit ) form.getModel().getObject();
                         if ( orgUnit.getParents() != null )
                         {
                             orgUnit.getParents().remove( parentsSelection );
@@ -441,7 +451,7 @@ public class OUDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form<?> form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     String msg = "clicked on parents search";
                     msg += parentsSelection != null ? ": " + parentsSelection : "";
@@ -491,7 +501,7 @@ public class OUDetailPanel extends FormComponentPanel
 
 
         @Override
-        public void onEvent( final IEvent<?> event )
+        public void onEvent( final IEvent event )
         {
             if ( event.getPayload() instanceof SelectModelEvent )
             {

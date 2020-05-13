@@ -220,6 +220,9 @@ public class FortressWebSeleniumITCase
         driver.findElement( By.id( GlobalIds.PASSWORD ) ).sendKeys( password );
         TUtils.sleep( 1 );
         driver.findElement( By.name( GlobalIds.LOGIN ) ).click();
+
+        // TODO: Determine why the previous step causes 'unexpected system error' worked around by:
+        driver.findElement( By.name( "return" ) ).click();
     }
 
     private void users()

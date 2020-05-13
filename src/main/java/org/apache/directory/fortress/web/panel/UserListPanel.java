@@ -220,7 +220,8 @@ public class UserListPanel<T extends Serializable> extends FormComponentPanel
 
 
             @Override
-            protected void onSubmit( AjaxRequestTarget target, Form form )
+            protected void onSubmit( AjaxRequestTarget target )
+            //protected void onSubmit( AjaxRequestTarget target, Form form )
             {
                 LOG.debug( ".search.onSubmit selected radio button: " + selectedRadioButton );
                 info( "Searching Users..." );
@@ -288,7 +289,8 @@ public class UserListPanel<T extends Serializable> extends FormComponentPanel
 
 
             @Override
-            public void onError( AjaxRequestTarget target, Form form )
+            public void onError( AjaxRequestTarget target )
+            //public void onError( AjaxRequestTarget target, Form form )
             {
                 LOG.warn( ".search.onError" );
                 target.add();
@@ -301,14 +303,18 @@ public class UserListPanel<T extends Serializable> extends FormComponentPanel
 
 
             @Override
-            protected void onSubmit( AjaxRequestTarget target, Form form )
+            protected void onSubmit( AjaxRequestTarget target )
             {
                 setResponsePage( new UserPage() );
             }
 
 
             @Override
-            public void onError( AjaxRequestTarget target, Form form )
+            public void onError( AjaxRequestTarget target )
+            {
+                LOG.warn( "UserListPanel.clear.onError" );
+            }
+            //public void onError( AjaxRequestTarget target, Form form )
             {
                 LOG.warn( "UserListPanel.clear.onError" );
             }

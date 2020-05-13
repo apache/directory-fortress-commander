@@ -212,7 +212,7 @@ public class AuditModListPanel extends FormComponentPanel
 
 
             @Override
-            protected void onSubmit( AjaxRequestTarget target, Form form )
+            protected void onSubmit( AjaxRequestTarget target )
             {
                 LOG.debug( ".search onSubmit" );
                 UserAudit userAudit = ( UserAudit ) listForm.getModelObject();
@@ -229,7 +229,7 @@ public class AuditModListPanel extends FormComponentPanel
 
 
             @Override
-            public void onError( AjaxRequestTarget target, Form form )
+            public void onError( AjaxRequestTarget target )
             {
                 LOG.warn( ".search.onError" );
                 throw new RuntimeException( "error submitting form" );
@@ -262,14 +262,14 @@ public class AuditModListPanel extends FormComponentPanel
 
 
             @Override
-            protected void onSubmit( AjaxRequestTarget target, Form form )
+            protected void onSubmit( AjaxRequestTarget target )
             {
                 setResponsePage( new AuditModPage( new UserAudit() ) );
             }
 
 
             @Override
-            public void onError( AjaxRequestTarget target, Form form )
+            public void onError( AjaxRequestTarget target )
             {
                 LOG.warn( "AuditModListPanel.clear.onError" );
             }

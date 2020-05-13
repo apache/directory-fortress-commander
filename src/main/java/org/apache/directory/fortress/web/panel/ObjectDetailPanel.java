@@ -106,10 +106,11 @@ public class ObjectDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
+                //protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
                     log.debug( ".onSubmit Add" );
-                    PermObj permObj = ( PermObj ) form.getModel().getObject();
+                    PermObj permObj = ( PermObj ) getForm().getModel().getObject();
                     permObj.setAdmin( isAdmin );
                     try
                     {
@@ -130,7 +131,8 @@ public class ObjectDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
+                //public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.info( "ObjectDetailPanel.add.onError caught" );
                     target.add();
@@ -163,10 +165,12 @@ public class ObjectDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
+                //protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
                     log.debug( ".onSubmit Commit" );
-                    PermObj permObj = ( PermObj ) form.getModel().getObject();
+                    //PermObj permObj = ( PermObj ) form.getModel().getObject();
+                    PermObj permObj = ( PermObj ) getForm().getModel().getObject();
                     permObj.setAdmin( isAdmin );
                     try
                     {
@@ -187,7 +191,8 @@ public class ObjectDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
+                //public void onError( AjaxRequestTarget target, Form form )
                 {
                     log.warn( "ObjectDetailPanel.commit.onError" );
                 }
@@ -219,10 +224,11 @@ public class ObjectDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
+                //protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
                     log.debug( ".onSubmit Commit" );
-                    PermObj permObj = ( PermObj ) form.getModel().getObject();
+                    PermObj permObj = ( PermObj ) getForm().getModel().getObject();
                     permObj.setAdmin( isAdmin );
                     try
                     {
@@ -244,7 +250,7 @@ public class ObjectDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "ObjectDetailPanel.delete.onError" );
                 }
@@ -276,7 +282,7 @@ public class ObjectDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     clearDetailFields();
                     String msg = "Object cancelled input form";
@@ -286,7 +292,7 @@ public class ObjectDetailPanel extends FormComponentPanel
 
 
                 @Override
-                public void onError( AjaxRequestTarget target, Form form )
+                public void onError( AjaxRequestTarget target )
                 {
                     log.warn( "ObjectDetailPanel.cancel.onError" );
                 }
@@ -373,7 +379,7 @@ public class ObjectDetailPanel extends FormComponentPanel
 
 
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form<?> form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     String msg = "clicked on OrgUnits search";
                     PermObj permObj = ( PermObj ) editForm.getModel().getObject();
@@ -414,7 +420,7 @@ public class ObjectDetailPanel extends FormComponentPanel
 
 
         @Override
-        public void onEvent( final IEvent<?> event )
+        public void onEvent( final IEvent event )
         {
             if ( event.getPayload() instanceof SelectModelEvent )
             {

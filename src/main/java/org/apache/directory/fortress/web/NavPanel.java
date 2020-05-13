@@ -67,7 +67,7 @@ public class NavPanel extends FormComponentPanel
 
 
                 @Override
-                public void onSubmit( AjaxRequestTarget target, Form<?> form )
+                public void onSubmit( AjaxRequestTarget target )
                 {
                     setResponsePage( UserPage.class );
                 }
@@ -100,7 +100,7 @@ public class NavPanel extends FormComponentPanel
 
 
                 @Override
-                public void onSubmit( AjaxRequestTarget target, Form<?> form )
+                public void onSubmit( AjaxRequestTarget target )
                 {
                     setResponsePage( RolePage.class );
                 }
@@ -136,7 +136,7 @@ public class NavPanel extends FormComponentPanel
 
 
                 @Override
-                public void onSubmit( AjaxRequestTarget target, Form<?> form )
+                public void onSubmit( AjaxRequestTarget target )
                 {
                     setResponsePage( ObjectPage.class, parameters );
                 }
@@ -171,7 +171,7 @@ public class NavPanel extends FormComponentPanel
 
 
                 @Override
-                public void onSubmit( AjaxRequestTarget target, Form<?> form )
+                public void onSubmit( AjaxRequestTarget target )
                 {
                     setResponsePage( PermPage.class );
                 }
@@ -206,7 +206,7 @@ public class NavPanel extends FormComponentPanel
 
 
                 @Override
-                public void onSubmit( AjaxRequestTarget target, Form<?> form )
+                public void onSubmit( AjaxRequestTarget target )
                 {
                     setResponsePage( PwPolicyPage.class );
                 }
@@ -241,7 +241,7 @@ public class NavPanel extends FormComponentPanel
 
 
                 @Override
-                public void onSubmit( AjaxRequestTarget target, Form<?> form )
+                public void onSubmit( AjaxRequestTarget target )
                 {
                     setResponsePage( SdStaticPage.class );
                 }
@@ -276,7 +276,7 @@ public class NavPanel extends FormComponentPanel
 
 
                 @Override
-                public void onSubmit( AjaxRequestTarget target, Form<?> form )
+                public void onSubmit( AjaxRequestTarget target )
                 {
                     setResponsePage( SdDynamicPage.class );
                 }
@@ -311,7 +311,7 @@ public class NavPanel extends FormComponentPanel
 
 
                 @Override
-                public void onSubmit( AjaxRequestTarget target, Form<?> form )
+                public void onSubmit( AjaxRequestTarget target )
                 {
                     setResponsePage( OuUserPage.class );
                 }
@@ -346,7 +346,7 @@ public class NavPanel extends FormComponentPanel
 
 
                 @Override
-                public void onSubmit( AjaxRequestTarget target, Form<?> form )
+                public void onSubmit( AjaxRequestTarget target )
                 {
                     setResponsePage( OuPermPage.class );
                 }
@@ -381,7 +381,7 @@ public class NavPanel extends FormComponentPanel
 
 
                 @Override
-                public void onSubmit( AjaxRequestTarget target, Form<?> form )
+                public void onSubmit( AjaxRequestTarget target )
                 {
                     setResponsePage( RoleAdminPage.class );
                 }
@@ -416,7 +416,7 @@ public class NavPanel extends FormComponentPanel
 
 
                 @Override
-                public void onSubmit( AjaxRequestTarget target, Form<?> form )
+                public void onSubmit( AjaxRequestTarget target )
                 {
                     setResponsePage( ObjectAdminPage.class );
                 }
@@ -451,7 +451,7 @@ public class NavPanel extends FormComponentPanel
 
 
                 @Override
-                public void onSubmit( AjaxRequestTarget target, Form<?> form )
+                public void onSubmit( AjaxRequestTarget target )
                 {
                     setResponsePage( PermAdminPage.class );
                 }
@@ -484,7 +484,7 @@ public class NavPanel extends FormComponentPanel
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                public void onSubmit( AjaxRequestTarget target, Form<?> form )
+                public void onSubmit( AjaxRequestTarget target )
                 {
                     setResponsePage( GroupPage.class );
                 }
@@ -520,7 +520,7 @@ public class NavPanel extends FormComponentPanel
 
 
                          @Override
-                         public void onSubmit(AjaxRequestTarget target, Form<?> form)
+                         public void onSubmit(AjaxRequestTarget target)
                          {
                              setResponsePage( AuditBindPage.class );
                          }
@@ -557,7 +557,7 @@ public class NavPanel extends FormComponentPanel
 
 
                          @Override
-                         public void onSubmit(AjaxRequestTarget target, Form<?> form)
+                         public void onSubmit(AjaxRequestTarget target)
                          {
                              setResponsePage( AuditAuthzPage.class );
                          }
@@ -594,7 +594,7 @@ public class NavPanel extends FormComponentPanel
 
 
                          @Override
-                         public void onSubmit(AjaxRequestTarget target, Form<?> form)
+                         public void onSubmit(AjaxRequestTarget target)
                          {
                              setResponsePage( AuditModPage.class );
                          }

@@ -178,7 +178,7 @@ public class RoleListPanel<T extends Serializable> extends FormComponentPanel
             private static final long serialVersionUID = 1L;
 
 
-            @Override
+            //@Override
             protected void onSubmit(AjaxRequestTarget target, Form form)
             {
                 log.debug( ".search onSubmit" );
@@ -208,7 +208,7 @@ public class RoleListPanel<T extends Serializable> extends FormComponentPanel
 
 
             @Override
-            public void onError(AjaxRequestTarget target, Form form)
+            public void onError(AjaxRequestTarget target)
             {
                 log.warn( ".search.onError" );
                 target.add();

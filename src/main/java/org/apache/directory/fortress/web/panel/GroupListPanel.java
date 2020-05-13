@@ -125,7 +125,8 @@ public class GroupListPanel extends FormComponentPanel
 
 
             @Override
-            protected void onSubmit( AjaxRequestTarget target, Form form )
+            protected void onSubmit( AjaxRequestTarget target )
+            //protected void onSubmit( AjaxRequestTarget target, Form form )
             {
                 log.debug( ".search.onSubmit selected radio button: " + selectedRadioButton );
                 info( "Searching Group Objects..." );
@@ -164,7 +165,8 @@ public class GroupListPanel extends FormComponentPanel
 
 
             @Override
-            public void onError( AjaxRequestTarget target, Form form )
+            public void onError( AjaxRequestTarget target )
+            //public void onError( AjaxRequestTarget target, Form form )
             {
                 log.warn( ".search.onError" );
                 target.add();
