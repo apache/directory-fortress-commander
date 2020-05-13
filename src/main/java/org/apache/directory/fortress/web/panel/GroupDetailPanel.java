@@ -163,7 +163,7 @@ public class GroupDetailPanel extends FormComponentPanel
                     AjaxFallbackLink<Member> removeLink = new AjaxFallbackLink<Member>( "remove-member", item.getModel() )
                     {
                         @Override
-                        public void onClick(Optional<AjaxRequestTarget> target)
+                        public void onClick(Optional<AjaxRequestTarget> targetOptional)
                         {
                             Member member = item.getModelObject();
                             Group group = ( Group ) editForm.getModel().getObject();
@@ -184,8 +184,7 @@ public class GroupDetailPanel extends FormComponentPanel
                                 display.setMessage( szError );
                                 log.warn( szError );
                             }
-                            // TODO: fix me, figure out how to add a component with optional target:
-                            //target.add( component );
+                            targetOptional.ifPresent(target -> target.add( component ));
                         }
                     };
                     removeLink.setOutputMarkupId( true );
