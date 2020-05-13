@@ -189,7 +189,6 @@ public class PermListPanel extends FormComponentPanel
 
             @Override
             protected void onSubmit( AjaxRequestTarget target )
-            //protected void onSubmit( AjaxRequestTarget target, Form<?> form )
             {
                 log.debug( ".search onSubmit" );
                 info( "Searching Perms..." );

@@ -140,7 +140,6 @@ public class RoleAdminDetailPanel extends Panel
 
             @Override
             protected void onSubmit( AjaxRequestTarget target )
-//            protected void onSubmit( AjaxRequestTarget target, Form<?> form )
             {
                 String msg = "clicked on permission OU search";
                 msg += permouSelection != null ? ": " + permouSelection : "";
@@ -184,14 +183,12 @@ public class RoleAdminDetailPanel extends Panel
 
             @Override
             protected void onSubmit( AjaxRequestTarget target )
-            //protected void onSubmit( AjaxRequestTarget target, Form<?> form )
             {
                 String msg = "clicked on permous.delete";
                 if ( StringUtils.isNotEmpty( permouSelection ) )
                 {
                     msg += " selection:" + permouSelection;
                     AdminRole adminRole = ( AdminRole ) getForm().getModel().getObject();
-                    //AdminRole adminRole = ( AdminRole ) form.getModel().getObject();
                     if ( adminRole.getOsPSet() != null )
                     {
                         adminRole.getOsPSet().remove( permouSelection );
@@ -270,7 +267,6 @@ public class RoleAdminDetailPanel extends Panel
 
             @Override
             protected void onSubmit( AjaxRequestTarget target )
-            //protected void onSubmit( AjaxRequestTarget target, Form<?> form )
             {
                 String msg = "clicked on user OU search";
                 msg += userouSelection != null ? ": " + userouSelection : "";
@@ -314,14 +310,12 @@ public class RoleAdminDetailPanel extends Panel
 
             @Override
             protected void onSubmit( AjaxRequestTarget target )
-            //protected void onSubmit( AjaxRequestTarget target, Form<?> form )
             {
                 String msg = "clicked on userous.delete";
                 if ( StringUtils.isNotEmpty( userouSelection ) )
                 {
                     msg += " selection:" + userouSelection;
                     AdminRole adminRole = ( AdminRole ) getForm().getModel().getObject();
-                    //AdminRole adminRole = ( AdminRole ) form.getModel().getObject();
                     if ( adminRole.getOsUSet() != null )
                     {
                         adminRole.getOsUSet().remove( userouSelection );
@@ -399,10 +393,8 @@ public class RoleAdminDetailPanel extends Panel
 
             @Override
             protected void onSubmit( AjaxRequestTarget target )
-            //protected void onSubmit( AjaxRequestTarget target, Form<?> form )
             {
                 AdminRole adminRole = ( AdminRole ) getForm().getModel().getObject();
-                //AdminRole adminRole = ( AdminRole ) form.getModel().getObject();
                 beginRoleSearchModalPanel.setRoleSearchVal( adminRole.getBeginRange() );
                 target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                 beginRoleModalWindow.show( target );
@@ -470,7 +462,6 @@ public class RoleAdminDetailPanel extends Panel
 
             @Override
             protected void onSubmit( AjaxRequestTarget target )
-            //protected void onSubmit( AjaxRequestTarget target, Form<?> form )
             {
                 AdminRole adminRole = ( AdminRole ) getForm().getModel().getObject();
                 endRoleSearchModalPanel.setRoleSearchVal( adminRole.getBeginRange() );

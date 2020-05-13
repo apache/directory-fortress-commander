@@ -365,14 +365,12 @@ public class OUDetailPanel extends FormComponentPanel
 
                 @Override
                 protected void onSubmit( AjaxRequestTarget target )
-                //protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
                     String msg = "clicked on members.delete";
                     if ( StringUtils.isNotEmpty( parentsSelection ) )
                     {
                         msg += " selection:" + parentsSelection;
                         OrgUnit orgUnit = ( OrgUnit ) getForm().getModel().getObject();
-                        //OrgUnit orgUnit = ( OrgUnit ) form.getModel().getObject();
                         if ( orgUnit.getParents() != null )
                         {
                             orgUnit.getParents().remove( parentsSelection );
