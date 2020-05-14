@@ -24,6 +24,7 @@
 ## Table of Contents
 
  * Document Overview
+ * About Apache Fortress Web
  * Tips for first-time users.
  * SECTION 1. Prerequisites
  * SECTION 2. Download & Install
@@ -39,13 +40,37 @@ ________________________________________________________________________________
 This document contains instructions to download, build, and test operations using Apache Fortress Web component.
 
 ___________________________________________________________________________________
+## About Apache Fortress Web
+
+* A web interface to drive administrative and review functions of Apache Fortress.  
+
+* Uses Apache Wicket as the web framework.
+
+* Layered security using ...
+    * declarative controls:
+      * Form-based authentication and coarse-grained role check (Tomcat Realm)
+      * Page-level security (Spring Security)
+    * programmatic controls: 
+      * Buttons and link visibility controlled by Apache Fortress
+
+* Each Page maps to a different Fortress entity (Users, Roles, Perms, Groups, ...) and has four panels:
+
+    1. Nav (optional): links to the pages.
+    2. List: search criteria entered and results are shown.
+    3. Info: errors or other program messages displayed here.
+    4. Detail: where the work gets done, entering data, completing operations.
+
+* The Nav panel is redundant as the default page also has links to all pages. That is why we made it optional and it is not shown by default.
+___________________________________________________________________________________
 ##  Tips for first-time users
 
- * For a tutorial on how to use Apache Fortress check out the: [10 Minute Guide](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/doc-files/ten-minute-guide.html).
- * If you see **FORTRESS_CORE_HOME**, refer to the base package of [directory-fortress-core].
- * If you see **FORTRESS_REALM_HOME**, refer to the base package of [directory-fortress-realm].
- * If you see **FORTRESS_WEB_HOME**, refer to this packages base folder.
- * If you see **TOMCAT_HOME**, refer to the location of that package's base folder.
+ * Fortress requires an LDAP server. These can be installed to a Linux machine on the network:
+   * [README-QUICKSTART-APACHEDS](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-APACHEDS.md)
+   * [README-QUICKSTART-SLAPD](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-SLAPD.md) 
+ * Or for testing, can run inside a Docker container:
+   * [README-QUICKSTART-DOCKER-APACHEDS](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-DOCKER-APACHEDS.md)
+   * [README-QUICKSTART-DOCKER-SLAPD](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-DOCKER-SLAPD.md)
+ * To use the Apache Fortress Web application without building from source, goto: [README-QUICKSTART](README-QUICKSTART.md). 
  * Questions about this software package should be directed to its mailing list:
    * http://mail-archives.apacheorg/mod_mbox/directory-fortress/
 
@@ -57,14 +82,12 @@ Minimum software requirements:
  * git
  * Apache Maven3++
  * Apache Tomcat8++
- * Apache Fortress Core **Download & Install** in **FORTRESS_CORE_HOME** package **README.md**.
- * Apache Fortress Core **Options for using Apache Fortress and LDAP server** in **FORTRESS_CORE_HOME** package **README.md**.
- * Apache Fortress Realm **Download & Install** in **FORTRESS_REALM_HOME** package **README.md**.
+ * LDAP server on the network, configured for Apache Fortress usage.
 
-Everything else covered in steps that follow.  Tested on Debian, Centos & Windows systems.
+Everything else covered in the steps that follow.  Tested on Debian & Centos systems.
 
 -------------------------------------------------------------------------------
-## SECTION 2. Download & Install
+## SECTION 2. Download & Install Apache Fortress Web
 
 1. Download the source.
 
@@ -97,7 +120,6 @@ b. Java 11 target
  ```
  mvn clean install -Djava.version=11
  ```
-
 ___________________________________________________________________________________
 ## SECTION 3. Configure the Apache Fortress Web deployment
 
@@ -192,11 +214,13 @@ ________________________________________________________________________________
       </plugin>
  ```
 
-2. copy **FORTRESS_REALM_HOME** proxy jar to **TOMCAT_HOME**/lib/
+2. Load the Apache Fortress Realm Proxy jar to **TOMCAT_HOME**/lib/
 
- ```
- cp $FORTRESS_REALM_HOME/proxy/target/fortress-realm-proxy-[version].jar $TOMCAT_HOME/lib
- ```
+  ```
+  wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.4/fortress-realm-proxy-2.0.4.jar -P $TOMCAT_HOME/lib
+  ```
+
+  where *TOMCAT_HOME* matches your target env.
 
 3. Restart Tomcat server.
 
