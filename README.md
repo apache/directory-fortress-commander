@@ -27,7 +27,7 @@
  * Tips for first-time users.
  * SECTION 1. Prerequisites
  * SECTION 2. Download & Install
- * SECTION 3. Get the fortress.properties
+ * SECTION 3. Prepare directory-fortress-commander package to use LDAP server
  * SECTION 4. Load Sample Security Policy
  * SECTION 5. Deploy to Tomcat Server
  * SECTION 6. Test with Selenium
@@ -51,10 +51,6 @@ ________________________________________________________________________________
 
 -------------------------------------------------------------------------------
 ## SECTION 1. Prerequisites
-
-Minimum hardware requirements:
- * 2 Cores
- * 4GB RAM
 
 Minimum software requirements:
  * Java SDK 8++
@@ -103,49 +99,68 @@ b. Java 11 target
  ```
 
 ___________________________________________________________________________________
-## SECTION 3. Get the fortress.properties
+## SECTION 3. Prepare directory-fortress-commander package to use LDAP server
 
-These contain the coordinates to the target LDAP server.
+#### 1. Copy the fortress.properties example:
 
-1. Copy the **fortress.properties**, created during **FORTRESS_CORE_HOME** **README.md**, to this package's resource folder.
-
- ```
- cp $FORTRESS_CORE_HOME/config/fortress.properties $FORTRESS_WEB_HOME/src/main/resources
+ ```bash
+ cp src/main/resources/fortress.properties.example src/main/resources/fortress.properties
  ```
 
-2. Verify they match your target LDAP server.
+#### 2. Edit the file:
+
+ ```bash
+ vi src/main/resources/fortress.properties
  ```
+
+#### 3. Choose Apache Directory or OpenLDAP server:
+
+ a. Prepare fortress for ApacheDS usage:
+
+ ```properties
  # This param tells fortress what type of ldap server in use:
  ldap.server.type=apacheds
 
- # ldap host name
+ # Use value from [Set Hostname Entry]:
  host=localhost
 
- # if ApacheDS is listening on
+ # ApacheDS defaults to this:
  port=10389
 
- # If ApacheDS, these credentials are used for read/write to fortress DIT
+ # These credentials are used for read/write access to all nodes under suffix:
  admin.user=uid=admin,ou=system
  admin.pw=secret
-
- # This is min/max settings for admin pool connections:
- min.admin.conn=1
- max.admin.conn=10
-
- # This node contains more fortress properties stored on behalf of connecting LDAP clients:
- config.realm=DEFAULT
- config.root=ou=Config,dc=example,dc=com
-
- # Used by application security components:
- perms.cached=true
-
- # Fortress uses a cache:
- ehcache.config.file=ehcache.xml
-
- # Default for pool reconnect flag is false:
- enable.pool.reconnect=true
  ```
 
+ -- Or --
+
+ b. Prepare fortress for OpenLDAP usage:
+
+ ```properties
+ # This param tells fortress what type of ldap server in use:
+ ldap.server.type=openldap
+
+ # Use value from [Set Hostname Entry]:
+ host=localhost
+
+ # OpenLDAP defaults to this:
+ port=389
+
+ # These credentials are used for read/write access to all nodes under suffix:
+ admin.user=cn=manager,dc=example,dc=com
+ admin.pw=secret
+
+# Optional, If using audit view pages, enable this service account to the slapd access log database:
+log.admin.user=cn=manager,cn=log
+# For corresponding log user:
+log.admin.pw=secret
+ ```
+
+#### 3. Enable other options as needed.  
+
+ a. Look out [fortress.properties.example](src/main/resources/fortress.properties) for a list of typical options.
+ 
+ b. Learn more about what properties there are: [README-PROPERTIES](https://github.com/apache/directory-fortress-core/blob/master/README-PROPERTIES.md).
 ___________________________________________________________________________________
 ## SECTION 4. Load Sample Security Policy
 
