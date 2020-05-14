@@ -27,7 +27,7 @@
  * Tips for first-time users.
  * SECTION 1. Prerequisites
  * SECTION 2. Download & Install
- * SECTION 3. Prepare directory-fortress-commander package to use LDAP server
+ * SECTION 3. Configure the Apache Fortress Web deployment
  * SECTION 4. Load Sample Security Policy
  * SECTION 5. Deploy to Tomcat Server
  * SECTION 6. Test with Selenium
@@ -99,7 +99,7 @@ b. Java 11 target
  ```
 
 ___________________________________________________________________________________
-## SECTION 3. Prepare directory-fortress-commander package to use LDAP server
+## SECTION 3. Configure the Apache Fortress Web deployment
 
 #### 1. Copy the fortress.properties example:
 
