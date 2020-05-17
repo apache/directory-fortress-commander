@@ -59,8 +59,6 @@ ________________________________________________________________________________
     2. List: search criteria entered and results are shown.
     3. Info: errors or other program messages displayed here.
     4. Detail: where the work gets done, entering data, completing operations.
-
-* The Nav panel is redundant as the default page also has links to all pages. That is why we made it optional and it is not shown by default.
 ___________________________________________________________________________________
 ##  Tips for first-time users
 
