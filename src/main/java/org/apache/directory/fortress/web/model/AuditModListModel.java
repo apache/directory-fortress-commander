@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.web.model;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.log4j.Logger;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
@@ -58,7 +59,10 @@ public class AuditModListModel extends Model<SerializableList<Mod>>
     public AuditModListModel( final Session session )
     {
         Injector.get().inject(this);
-        auditMgr.setAdmin( session );
+        if (Config.getInstance().getBoolean(org.apache.directory.fortress.core.GlobalIds.IS_ARBAC02))
+        {
+            auditMgr.setAdmin(session);
+        }
     }
     
 
@@ -71,7 +75,10 @@ public class AuditModListModel extends Model<SerializableList<Mod>>
     {
         Injector.get().inject(this);
         this.userAudit = userAudit;
-        auditMgr.setAdmin( session );
+        if (Config.getInstance().getBoolean(org.apache.directory.fortress.core.GlobalIds.IS_ARBAC02))
+        {
+            auditMgr.setAdmin(session);
+        }
     }
 
     /**

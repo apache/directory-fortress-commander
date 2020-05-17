@@ -28,6 +28,7 @@ import com.googlecode.wicket.kendo.ui.form.dropdown.AjaxDropDownList;
 import com.googlecode.wicket.kendo.ui.form.dropdown.DropDownList;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -91,8 +92,11 @@ public class UserDetailPanel extends FormComponentPanel
         super( id );
         this.editForm = new UserDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<>( new User() ) );
         this.display = display;
-        this.adminMgr.setAdmin( SecUtils.getSession( this ) );
-        this.delAdminMgr.setAdmin( SecUtils.getSession( this ) );
+        if (Config.getInstance().getBoolean(org.apache.directory.fortress.core.GlobalIds.IS_ARBAC02))
+        {
+            this.adminMgr.setAdmin(SecUtils.getSession(this));
+            this.delAdminMgr.setAdmin(SecUtils.getSession(this));
+        }
         add( editForm );
     }
 

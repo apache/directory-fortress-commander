@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.web.model;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.log4j.Logger;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
@@ -55,7 +56,10 @@ public class OUListModel extends Model<SerializableList<OrgUnit>>
     public OUListModel( boolean isUser, Session session )
     {
         Injector.get().inject( this );
-        delReviewMgr.setAdmin( session );
+        if (Config.getInstance().getBoolean(org.apache.directory.fortress.core.GlobalIds.IS_ARBAC02))
+        {
+            delReviewMgr.setAdmin(session);
+        }
     }
 
     
@@ -68,7 +72,10 @@ public class OUListModel extends Model<SerializableList<OrgUnit>>
     {
         Injector.get().inject( this );
         this.orgUnit = orgUnit;
-        delReviewMgr.setAdmin( session );
+        if (Config.getInstance().getBoolean(org.apache.directory.fortress.core.GlobalIds.IS_ARBAC02))
+        {
+            delReviewMgr.setAdmin(session);
+        }
     }
     
 

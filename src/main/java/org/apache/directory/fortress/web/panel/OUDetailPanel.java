@@ -25,6 +25,7 @@ import com.googlecode.wicket.kendo.ui.form.button.AjaxButton;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -79,7 +80,10 @@ public class OUDetailPanel extends FormComponentPanel
     public OUDetailPanel( String id, Displayable display, boolean isUser )
     {
         super( id );
-        this.delAdminMgr.setAdmin( SecUtils.getSession( this ) );
+        if (Config.getInstance().getBoolean(org.apache.directory.fortress.core.GlobalIds.IS_ARBAC02))
+        {
+            this.delAdminMgr.setAdmin(SecUtils.getSession(this));
+        }
         this.isUser = isUser;
         OrgUnit ou = new OrgUnit();
         if ( isUser )

@@ -22,6 +22,7 @@ package org.apache.directory.fortress.web.panel;
 
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.web.control.SecUtils;
 import org.apache.directory.fortress.web.event.SelectModelEvent;
 import org.apache.log4j.Logger;
@@ -68,8 +69,11 @@ public class AuditBindDetailPanel extends FormComponentPanel
     public AuditBindDetailPanel( String id, Displayable display )
     {
         super( id );
-        this.auditMgr.setAdmin( SecUtils.getSession( this ) );
-        this.reviewMgr.setAdmin( SecUtils.getSession( this ) );
+        if (Config.getInstance().getBoolean(org.apache.directory.fortress.core.GlobalIds.IS_ARBAC02))
+        {
+            this.auditMgr.setAdmin(SecUtils.getSession(this));
+            this.reviewMgr.setAdmin(SecUtils.getSession(this));
+        }
         this.detailForm = new AuditBindDetailForm( GlobalIds.DETAIL_FIELDS,
             new CompoundPropertyModel<>( new Bind() ) );
         this.display = display;

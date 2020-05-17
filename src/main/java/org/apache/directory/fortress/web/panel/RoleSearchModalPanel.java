@@ -27,6 +27,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -79,7 +80,10 @@ public class RoleSearchModalPanel extends Panel
         super( id );
         this.window = window;
         this.isAdmin = isAdmin;
-        this.delReviewMgr.setAdmin( SecUtils.getSession( this ) );
+        if (Config.getInstance().getBoolean(org.apache.directory.fortress.core.GlobalIds.IS_ARBAC02))
+        {
+            this.delReviewMgr.setAdmin(SecUtils.getSession(this));
+        }
         loadPanel();
     }
 

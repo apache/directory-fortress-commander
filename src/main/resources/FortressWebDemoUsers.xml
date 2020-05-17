@@ -18,7 +18,7 @@
    under the License.
 -->
 <project basedir="." default="all" name="Fortress Web Sample Policy">
-    <taskdef classname="org.apache.directory.fortress.core.ant.FortressAntTask" name="FortressAdmin" >
+    <taskdef classname="org.apache.directory.fortress.core.ant.FortressAntTask" name="FortressAdmin">
         <classpath path="${java.class.path}"/>
     </taskdef>
 
@@ -26,32 +26,97 @@
         <FortressAdmin>
 
             <adduser>
-                <user userId="test" password="password" description="Fortress Web Demo User" ou="demousrs1" cn="test" sn="user"  beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" photo="TestPhoto1.jpeg"/>
-                <user userId="test1" password="password" description="Fortress Web Demo User1" ou="demousrs1" cn="test1" sn="user"  beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>
-                <user userId="test2" password="password" description="Fortress Web Demo User2" ou="demousrs1" cn="test2" sn="user"  beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>
-                <user userId="test3" password="password" description="Fortress Web Group Demo User2" ou="demousrs1" cn="test3" sn="user" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>
+                <user userId="test" password="password" description="Fortress Web Demo User" ou="demousrs1" cn="test"
+                      sn="user" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101"
+                      beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" photo="TestPhoto1.jpeg"/>
+                <user userId="test1" password="password" description="Fortress Web Demo User1" ou="demousrs1" cn="test1"
+                      sn="user" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101"
+                      beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>
+                <user userId="test2" password="password" description="Fortress Web Demo User2" ou="demousrs1" cn="test2"
+                      sn="user" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101"
+                      beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>
+                <user userId="test3" password="password" description="Fortress Web Demo User3" ou="demousrs1" cn="test3"
+                      sn="user" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101"
+                      beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>
             </adduser>
 
+            <addadminrole>
+                <role name="fortress-web-user-admin"
+                      description="Fortress User Admin"
+                      osps="APP0"
+                      osus="DEV0"
+                      begininclusive="true"
+                      endinclusive="true"/>
+                <role name="fortress-web-audit-admin"
+                      description="Fortress Auditor"
+                      osps="APP0"
+                      osus="DEV0"
+                      begininclusive="true"
+                      endinclusive="true" />
+                <role name="fortress-web-group-admin"
+                      description="Fortress Group Mgr"/>
+            </addadminrole>
+
             <adduseradminrole>
-                <!-- this fortress-core-super-admin role is created in the fortress core DelegatedAdminMgrLoad.xml policy file:-->
-                <userrole userId="test" name="fortress-core-super-admin" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
-                <userrole userId="test1" name="fortress-web-user-admin" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
-                <userrole userId="test2" name="fortress-web-audit-admin" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
-                <userrole userId="test3" name="fortress-core-super-admin" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
+                <!-- the fortress-core-super-admin role is created in the fortress core DelegatedAdminMgrLoad.xml policy file:-->
+                <userrole userId="test" name="fortress-core-super-admin"/>
+                <userrole userId="test1" name="fortress-web-user-admin"/>
+                <userrole userId="test2" name="fortress-web-audit-admin"/>
+                <userrole userId="test3" name="fortress-web-group-admin"/>
             </adduseradminrole>
 
             <adduserrole>
-                <userrole userId="test" name="fortress-web-super-user"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
-                <userrole userId="test" name="fortress-web-group-admin-user"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
-                <userrole userId="test1" name="ROLE_USERS"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
-                <userrole userId="test2" name="ROLE_AUDITOR"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
-                <!--<userrole userId="test3" name="fortress-web-group-admin-user"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>-->
+                <userrole userId="test" name="fortress-web-super-user"/>
+                <userrole userId="test1" name="ROLE_USERS"/>
+                <userrole userId="test2" name="fortress-web-audit-user"/>
+                <userrole userId="test3" name="ROLE_GROUPS"/>
             </adduserrole>
 
-            <addadminrole>
-                <role name="fortress-web-user-admin" description="Fortress User Admin" osps="APP0" osus="DEV0" begininclusive="true" endinclusive="true" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0" beginrange="" endrange=""/>
-                <role name="fortress-web-audit-admin" description="Fortress Auditor" osps="APP0" osus="DEV0" begininclusive="true" endinclusive="true" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0" beginrange="" endrange=""/>
-            </addadminrole>
+            <addrole>
+                <role name="ROLE_USERS" description="Grants User page access in Fortress Web"/>
+                <role name="ROLE_ROLES" description="Grants Role page access in Fortress Web"/>
+                <role name="ROLE_PERMS" description="Grants Perm page access in Fortress Web"/>
+                <role name="ROLE_SSDS" description="Grants Static SoD page access in Fortress Web"/>
+                <role name="ROLE_DSDS" description="Grants Dynamic SoD page access in Fortress Web"/>
+                <role name="ROLE_POLICIES" description="Grants Password Policy page access in Fortress Web"/>
+                <role name="ROLE_PERMOBJS" description="Grants Permission Object page access in Fortress Web"/>
+                <role name="ROLE_USEROUS" description="Grants User Organization page access in Fortress Web"/>
+                <role name="ROLE_PERMOUS" description="Grants Permission Organization page access in Fortress Web"/>
+                <role name="ROLE_ADMINROLES" description="Grants Admin Role page access in Fortress Web"/>
+                <role name="ROLE_ADMINOBJS" description="Grants Admin Permission Object page access in Fortress Web"/>
+                <role name="ROLE_ADMINPERMS" description="Grants Admin Permission page access in Fortress Web"/>
+                <role name="ROLE_AUDIT_AUTHZS" description="Grants Audit Authorization page access in Fortress Web"/>
+                <role name="ROLE_AUDIT_MODS" description="Grants Audit Modification page access in Fortress Web"/>
+                <role name="ROLE_AUDIT_BINDS" description="Grants Audit Bind page access in Fortress Web"/>
+                <role name="ROLE_AUDITOR" description="Grants acces to all Audit pages"/>
+                <role name="ROLE_GROUPS" description="Grants Group page access in Fortress Web"/>
+                <role name="fortress-web-super-user" description="Role to access Fortress Web pages and funtions"/>
+                <role name="fortress-web-audit-user" description="Access User, Group, Audit and PW Policy Pages"/>
+            </addrole>
+
+            <addroleinheritance>
+                <relationship child="fortress-web-super-user" parent="ROLE_USERS"/>
+                <relationship child="fortress-web-super-user" parent="ROLE_ROLES"/>
+                <relationship child="fortress-web-super-user" parent="ROLE_PERMS"/>
+                <relationship child="fortress-web-super-user" parent="ROLE_SSDS"/>
+                <relationship child="fortress-web-super-user" parent="ROLE_DSDS"/>
+                <relationship child="fortress-web-super-user" parent="ROLE_PERMOBJS"/>
+                <relationship child="fortress-web-super-user" parent="ROLE_USEROUS"/>
+                <relationship child="fortress-web-super-user" parent="ROLE_PERMOUS"/>
+                <relationship child="fortress-web-super-user" parent="ROLE_ADMINROLES"/>
+                <relationship child="fortress-web-super-user" parent="ROLE_ADMINOBJS"/>
+                <relationship child="fortress-web-super-user" parent="ROLE_ADMINPERMS"/>
+                <relationship child="fortress-web-super-user" parent="ROLE_GROUPS"/>
+                <relationship child="fortress-web-audit-user" parent="ROLE_GROUPS"/>
+                <relationship child="fortress-web-audit-user" parent="ROLE_POLICIES"/>
+                <relationship child="fortress-web-audit-user" parent="ROLE_USERS"/>
+                <relationship child="fortress-web-audit-user" parent="ROLE_AUDIT_AUTHZS"/>
+                <relationship child="fortress-web-audit-user" parent="ROLE_AUDIT_BINDS"/>
+                <relationship child="fortress-web-audit-user" parent="ROLE_AUDIT_MODS"/>
+                <relationship child="ROLE_AUDITOR" parent="ROLE_AUDIT_BINDS"/>
+                <relationship child="ROLE_AUDITOR" parent="ROLE_AUDIT_AUTHZS"/>
+                <relationship child="ROLE_AUDITOR" parent="ROLE_AUDIT_MODS"/>
+            </addroleinheritance>
 
             <addpermgrant>
                 <permgrant objName="org.apache.directory.fortress.core.impl.AuditMgrImpl" opName="searchBinds" roleNm="fortress-web-audit-admin" admin="true"/>
@@ -97,54 +162,18 @@
                 <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="read" roleNm="fortress-web-user-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="find" roleNm="fortress-web-user-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="findWithUsers" roleNm="fortress-web-user-admin" admin="true"/>
+
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="add" roleNm="fortress-web-group-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="update" roleNm="fortress-web-group-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="delete" roleNm="fortress-web-group-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="addProperty" roleNm="fortress-web-group-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="deleteProperty" roleNm="fortress-web-group-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="assign" roleNm="fortress-web-group-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="deassign" roleNm="fortress-web-group-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="read" roleNm="fortress-web-group-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="find" roleNm="fortress-web-group-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="findWithUsers" roleNm="fortress-web-group-admin" admin="true"/>
             </addpermgrant>
-
-
-            <addrole>
-                <role name="ROLE_USERS" description="Grants User page access in Fortress Web"/>
-                <role name="ROLE_ROLES" description="Grants Role page access in Fortress Web"/>
-                <role name="ROLE_PERMS" description="Grants Perm page access in Fortress Web"/>
-                <role name="ROLE_SSDS" description="Grants Static SoD page access in Fortress Web"/>
-                <role name="ROLE_DSDS" description="Grants Dynamic SoD page access in Fortress Web"/>
-                <role name="ROLE_POLICIES" description="Grants Password Policy page access in Fortress Web"/>
-                <role name="ROLE_PERMOBJS" description="Grants Permission Object page access in Fortress Web"/>
-                <role name="ROLE_USEROUS" description="Grants User Organization page access in Fortress Web"/>
-                <role name="ROLE_PERMOUS" description="Grants Permission Organization page access in Fortress Web"/>
-                <role name="ROLE_ADMINROLES" description="Grants Admin Role page access in Fortress Web"/>
-                <role name="ROLE_ADMINOBJS" description="Grants Admin Permission Object page access in Fortress Web"/>
-                <role name="ROLE_ADMINPERMS" description="Grants Admin Permission page access in Fortress Web"/>
-                <role name="ROLE_AUDIT_AUTHZS" description="Grants Audit Authorization page access in Fortress Web"/>
-                <role name="ROLE_AUDIT_MODS" description="Grants Audit Modification page access in Fortress Web"/>
-                <role name="ROLE_AUDIT_BINDS" description="Grants Audit Bind page access in Fortress Web"/>
-                <role name="ROLE_AUDITOR" description="Grants acces to all Audit pages"/>
-                <role name="ROLE_GROUPS" description="Grants Group page access in Fortress Web"/>
-                <role name="fortress-web-super-user" description="Role to access Fortress Web pages and funtions"/>
-                <role name="fortress-web-group-admin-user" description="Access User, Group, Audit and PW Policy Pages"/>
-            </addrole>
-
-            <addroleinheritance>
-                <relationship child="fortress-web-super-user" parent="ROLE_USERS"/>
-                <relationship child="fortress-web-super-user" parent="ROLE_ROLES"/>
-                <relationship child="fortress-web-super-user" parent="ROLE_PERMS"/>
-                <relationship child="fortress-web-super-user" parent="ROLE_SSDS"/>
-                <relationship child="fortress-web-super-user" parent="ROLE_DSDS"/>
-                <relationship child="fortress-web-super-user" parent="ROLE_PERMOBJS"/>
-                <relationship child="fortress-web-super-user" parent="ROLE_USEROUS"/>
-                <relationship child="fortress-web-super-user" parent="ROLE_PERMOUS"/>
-                <relationship child="fortress-web-super-user" parent="ROLE_ADMINROLES"/>
-                <relationship child="fortress-web-super-user" parent="ROLE_ADMINOBJS"/>
-                <relationship child="fortress-web-super-user" parent="ROLE_ADMINPERMS"/>
-                <relationship child="fortress-web-super-user" parent="ROLE_GROUPS"/>
-                <relationship child="fortress-web-group-admin-user" parent="ROLE_GROUPS"/>
-                <relationship child="fortress-web-group-admin-user" parent="ROLE_POLICIES"/>
-                <relationship child="fortress-web-group-admin-user" parent="ROLE_USERS"/>
-                <relationship child="fortress-web-group-admin-user" parent="ROLE_AUDIT_AUTHZS"/>
-                <relationship child="fortress-web-group-admin-user" parent="ROLE_AUDIT_BINDS"/>
-                <relationship child="fortress-web-group-admin-user" parent="ROLE_AUDIT_MODS"/>
-                <relationship child="ROLE_AUDITOR" parent="ROLE_AUDIT_BINDS"/>
-                <relationship child="ROLE_AUDITOR" parent="ROLE_AUDIT_AUTHZS"/>
-                <relationship child="ROLE_AUDITOR" parent="ROLE_AUDIT_MODS"/>
-            </addroleinheritance>
 
             <addorgunit>
                 <orgunit name="demousrs1" typeName="USER" description="Test User Org 1 for Fortress Web User"/>

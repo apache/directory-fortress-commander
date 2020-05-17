@@ -22,6 +22,7 @@ package org.apache.directory.fortress.web.panel;
 
 
 import com.googlecode.wicket.jquery.ui.form.spinner.Spinner;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -71,7 +72,10 @@ public class PwPolicyDetailPanel extends FormComponentPanel
     public PwPolicyDetailPanel( String id, Displayable display )
     {
         super( id );
-        this.pwPolicyMgr.setAdmin( SecUtils.getSession( this ) );
+        if (Config.getInstance().getBoolean(org.apache.directory.fortress.core.GlobalIds.IS_ARBAC02))
+        {
+            this.pwPolicyMgr.setAdmin(SecUtils.getSession(this));
+        }
         this.editForm = new PwPolicyDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<>(
             new PwPolicy() ) );
         this.display = display;

@@ -116,6 +116,7 @@
             <role-name>ROLE_AUDIT_AUTHZS</role-name>
             <role-name>ROLE_AUDIT_MODS</role-name>
             <role-name>ROLE_AUDIT_BINDS</role-name>
+            <role-name>ROLE_GROUPS</role-name>
         </auth-constraint>
     </security-constraint>
 

@@ -28,6 +28,7 @@ import org.apache.directory.api.ldap.model.name.Dn;
 import org.apache.directory.api.ldap.model.name.Rdn;
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.PropUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.AttributeModifier;
@@ -88,8 +89,10 @@ public class GroupDetailPanel extends FormComponentPanel
     public GroupDetailPanel( String id, Displayable display )
     {
         super( id );
-
-        this.groupMgr.setAdmin( SecUtils.getSession( this ) );
+        if (Config.getInstance().getBoolean(org.apache.directory.fortress.core.GlobalIds.IS_ARBAC02))
+        {
+            this.groupMgr.setAdmin(SecUtils.getSession(this));
+        }
         this.editForm = new GroupDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<>( new Group() ) );
         editForm.setOutputMarkupId( true );
         this.display = display;

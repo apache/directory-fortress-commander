@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.web.model;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.log4j.Logger;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
@@ -56,7 +57,10 @@ public class SDListModel extends Model<SerializableList<SDSet>>
     public SDListModel( boolean isStatic, Session session )
     {
         Injector.get().inject( this );
-        reviewMgr.setAdmin( session );
+        if (Config.getInstance().getBoolean(org.apache.directory.fortress.core.GlobalIds.IS_ARBAC02))
+        {
+            reviewMgr.setAdmin(session);
+        }
     }
     
 
@@ -69,7 +73,10 @@ public class SDListModel extends Model<SerializableList<SDSet>>
     {
         Injector.get().inject( this );
         this.sdSet = sdSet;
-        reviewMgr.setAdmin( session );
+        if (Config.getInstance().getBoolean(org.apache.directory.fortress.core.GlobalIds.IS_ARBAC02))
+        {
+            reviewMgr.setAdmin(session);
+        }
     }
     
 

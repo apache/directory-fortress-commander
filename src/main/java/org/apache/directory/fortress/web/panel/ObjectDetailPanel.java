@@ -22,6 +22,7 @@ package org.apache.directory.fortress.web.panel;
 
 
 import com.googlecode.wicket.kendo.ui.form.button.AjaxButton;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -82,7 +83,10 @@ public class ObjectDetailPanel extends FormComponentPanel
         else
             objName = GlobalIds.ADMIN_MGR;
 
-        this.adminMgr.setAdmin( SecUtils.getSession( this ) );
+        if (Config.getInstance().getBoolean(org.apache.directory.fortress.core.GlobalIds.IS_ARBAC02))
+        {
+            this.adminMgr.setAdmin(SecUtils.getSession(this));
+        }
         this.editForm = new ObjectDetailForm( GlobalIds.EDIT_FIELDS, new CompoundPropertyModel<>( new PermObj() ) );
         this.display = display;
         add( editForm );

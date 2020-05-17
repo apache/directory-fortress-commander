@@ -26,6 +26,7 @@ import com.googlecode.wicket.kendo.ui.form.button.AjaxButton;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -90,8 +91,11 @@ public class RoleDetailPanel extends Panel
     {
         super( id );
         this.isAdmin = isAdmin;
-        this.adminMgr.setAdmin( SecUtils.getSession( this ) );
-        this.delAdminMgr.setAdmin( SecUtils.getSession( this ) );
+        if (Config.getInstance().getBoolean(org.apache.directory.fortress.core.GlobalIds.IS_ARBAC02))
+        {
+            this.adminMgr.setAdmin(SecUtils.getSession(this));
+            this.delAdminMgr.setAdmin(SecUtils.getSession(this));
+        }
         if ( isAdmin )
         {
             this.objName = GlobalIds.DEL_ADMIN_MGR;

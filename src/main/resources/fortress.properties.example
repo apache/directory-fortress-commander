@@ -84,3 +84,6 @@ http.port=8080
 
 # The default is 'false':
 #enable.nav.panel=true
+
+# Boolean value. Disabled by default. If this is set to true, the runtime will enforce administrative permissions and ARBAC02 DA checks:
+is.arbac02=false
