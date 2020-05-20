@@ -64,9 +64,6 @@ public class FortressWebSeleniumITCase
     public static final String BINDS = "BINDS";
     public static final String AUTHZ = "AUTHZ";
     public static final String MODS = "MODS";
-
-    //private static String version = System.getProperty( "version" );
-    //private static final String FORTRESS_WEB = "/fortress-web-" + version;
     private static final String FORTRESS_WEB = "/fortress-web";
     private static final String DRIVER_SYS_PROP = "web.driver";
     private WebDriver driver;
@@ -88,22 +85,12 @@ public class FortressWebSeleniumITCase
     {
         // http default:
         baseUrl = "http://localhost:8080";
-        //baseUrl = "http://10.71.6.75:8080";
-        //baseUrl = "http://fortressdemo2.com:8080";
-        // https:
-        //baseUrl = "https://localhost:8443";
-        //baseUrl = "https://NY1SCOLFTDEMO01:8443";
         driver.manage().timeouts().implicitlyWait( 5, TimeUnit.SECONDS );
     }
 
     @BeforeClass
     public static void setupClass()
     {
-        // TODO: determine usage req's of the browser drivers:
-        //System.setProperty("webdriver.gecko.driver", "/home/user/drivers/geckodriver");
-        //System.setProperty( "webdriver.chrome.driver", "/home/user/drivers/chromedriver");
-
-
         String szDriverType = System.getProperty( DRIVER_SYS_PROP );
         if( StringUtils.isNotEmpty( szDriverType ) && szDriverType.equalsIgnoreCase( DriverType.CHROME.toString() ))
         {
@@ -189,7 +176,6 @@ public class FortressWebSeleniumITCase
          */
         driver.findElement( By.linkText( "LOGOUT" ) ).click();
         log.info( "End FortressWebSeleniumITCase" );
-        //driver.findElement( By.linkText( "glob:search*" ) ).click();
     }
 
 
