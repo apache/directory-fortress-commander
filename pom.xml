@@ -322,6 +322,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
+          <source>8</source>
           <stylesheet>java</stylesheet>
           <bottom>&lt;small&gt;Copyright &amp;copy; 2003-2016, The Apache Software Foundation. All Rights Reserved. Generated ${maven.build.timestamp}&lt;/small&gt;</bottom>
           <overview>src/main/java/org/apache/directory/fortress/web/overview.html</overview>
