@@ -16,7 +16,7 @@
    under the License.
 
 # README for Apache Fortress Web
- * Version 2.0.4
+ * Version 2.0.5
  * Apache Fortress Web System Architecture Diagram
  ![Apache Fortress Web System Architecture](images/fortress-web-system-arch.png "Apache Fortress Web System Architecture")
 
@@ -91,16 +91,16 @@ Everything else covered in the steps that follow.  Tested on Debian & Centos sys
 
  a. from git:
  ```
- git clone --branch 2.0.4  https://gitbox.apache.org/repos/asf/directory-fortress-commander.git/
+ git clone --branch 2.0.5  https://gitbox.apache.org/repos/asf/directory-fortress-commander.git/
  cd directory-fortress-commander
  ```
 
  b. or download package:
 
  ```
- wget http://www.apache.org/dist/directory/fortress/dist/2.0.4/fortress-web-2.0.4-source-release.zip
- unzip fortress-web-2.0.4-source-release.zip
- cd fortress-web-2.0.4
+ wget http://www.apache.org/dist/directory/fortress/dist/2.0.5/fortress-web-2.0.5-source-release.zip
+ unzip fortress-web-2.0.5-source-release.zip
+ cd fortress-web-2.0.5
  ```
 
 2. Build the source.
@@ -215,7 +215,7 @@ ________________________________________________________________________________
 2. Load the Apache Fortress Realm Proxy jar to **TOMCAT_HOME**/lib/
 
   ```
-  wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.4/fortress-realm-proxy-2.0.4.jar -P $TOMCAT_HOME/lib
+  wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.5/fortress-realm-proxy-2.0.5.jar -P $TOMCAT_HOME/lib
   ```
 
   where *TOMCAT_HOME* matches your target env.
