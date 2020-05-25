@@ -40,7 +40,7 @@
 
  * Consists of three tiers: 1. **Browser**, 2. Servlet Container hosting **FortressWeb**, and 3. **DirectoryServer** that stores the policy information.
  * **FortressWeb** is a web application archive (.war) that deploys into a Servlet Container, i.e. Apache Tomcat.
- * **FortressCore** is a set of APIs that get embedded inside of Java apps (like FortressRest).
+ * **FortressCore** is a set of APIs that get embedded inside of Java apps, FortressWeb and Fortress Rest.
  * **DirectoryServer** is a process implementing LDAPv3 protocols, e.g. ApacheDS or OpenLDAP.
 
 ### High-level Security Flow
