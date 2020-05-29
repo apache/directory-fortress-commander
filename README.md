@@ -59,6 +59,8 @@ ________________________________________________________________________________
     2. List: search criteria entered and results are shown.
     3. Info: errors or other program messages displayed here.
     4. Detail: where the work gets done, entering data, completing operations.
+    
+* More here: [README-SECURITY-MODEL](README-SECURITY-MODEL.md)
 ___________________________________________________________________________________
 ##  Tips for first-time users
 
