@@ -469,7 +469,7 @@
             <configuration>
               <target name="fortress-load" if="load.file" description="Loads fortress rbac policy files into ldap">
                 <echo message="############### Run Fortress Policy Load ###############" />
-                <java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="${basedir}" timeout="4000000" taskname="startAnt">
+                <java classname="org.apache.tools.ant.launch.Launcher" fork="true" clonevm="true" failonerror="true" dir="${basedir}" timeout="120000" taskname="startAnt">
                   <classpath>
                     <pathelement location="./src/main/resources" />
                     <pathelement location="${org.apache.ant:ant-launcher:jar}" />
