@@ -264,7 +264,6 @@ ________________________________________________________________________________
  Note: These automated tests require that:
  * Either Firefox or Chrome installed to target machine.
  * **FORTRESS_CORE_HOME**/*FortressJUnitTest* successfully run.  This will load some test data to grind on.
- * **FORTRESS_CORE_HOME**/./setup/ldap/*FortressJUnitTest* successfully run.  This will load some test data to grind on.
  * [FortressWebDemoUsers](./src/main/resources/FortressWebDemoUsers.xml) policy loaded into target LDAP server.
 
 ___________________________________________________________________________________
@@ -289,7 +288,7 @@ This section describes the properties needed to control fortress web.
 
  ```
  # Else if OpenLDAP server:
- ldap.server.type=slapd
+ ldap.server.type=openldap
  ```
 
  ```
