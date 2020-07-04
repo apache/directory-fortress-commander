@@ -82,9 +82,10 @@
     <fortress.realm.version>2.0.5</fortress.realm.version>
     <wicket.version>8.8.0</wicket.version>
     <wicket.googlecode.version>8.6.0</wicket.googlecode.version>
-    <version.log4j>1.2.17</version.log4j>
+    <version.log4j>2.13.3</version.log4j>
     <version.ant>1.9.7</version.ant>
-    <version.slf4j.log4j12>1.7.7</version.slf4j.log4j12>
+    <version.slf4j.api>1.7.29</version.slf4j.api>
+    <version.slf4j.impl>2.13.3</version.slf4j.impl>
     <spring.security.version>5.3.2.RELEASE</spring.security.version>
     <javadoc.version>2.9.1</javadoc.version>
     <jetty.version>8.1.8.v20121106</jetty.version>
@@ -102,15 +103,15 @@
     </dependency>
 
     <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
       <version>${version.log4j}</version>
     </dependency>
     
     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>${version.slf4j.log4j12}</version>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <version>${version.slf4j.impl}</version>
     </dependency>
 
     <dependency>
@@ -477,7 +478,8 @@
                     <pathelement location="${org.apache.directory.fortress:fortress-core:jar}" />
                     <pathelement location="${org.openldap:accelerator-api:jar}" />
                     <pathelement location="${org.openldap:accelerator-impl:jar}" />
-                    <pathelement location="${log4j:log4j:jar}" />
+                    <pathelement location="${org.apache.logging.log4j:log4j-api:jar}" />
+                    <pathelement location="${org.apache.logging.log4j:log4j-core:jar}" />
                     <pathelement location="${org.apache.directory.api:api-all:jar}" />
                     <pathelement location="${org.apache.mina:mina-core:jar}" />
                     <pathelement location="${org.jgrapht:jgrapht-core:jar}" />
@@ -490,7 +492,7 @@
                     <pathelement location="${commons-pool:commons-pool:jar}" />
                     <pathelement location="${net.sf.ehcache:ehcache-core:jar}" />
                     <pathelement location="${org.slf4j:slf4j-api:jar}" />
-                    <pathelement location="${org.slf4j:slf4j-log4j12:jar}" />
+                    <pathelement location="${org.apache.logging.log4j:log4j-slf4j-impl:jar}" />
                     <pathelement location="${org.apache.cxf:cxf-api:jar}" />
                     <pathelement location="${javax.ws.rs:javax.ws.rs-api:jar}" />
                     <pathelement location="${javax.ws.rs:javax.ws.rs-api:jar}" />
