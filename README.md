@@ -333,7 +333,6 @@ This section describes the properties needed to control fortress web.
  enable.ldap.ssl.debug=true
  trust.store=/fully/qualified/path/and/file/name/to/java/truststore
  trust.store.password=changeit
- trust.store.set.prop=true
  ```
 
 7. To use REST instead of LDAP.  Points to fortress-rest instance.
