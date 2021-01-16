@@ -28,7 +28,8 @@ import org.apache.directory.fortress.web.common.GlobalIds;
 import org.apache.directory.fortress.web.control.SecUtils;
 import org.apache.directory.fortress.web.control.SecureBookmarkablePageLink;
 import org.apache.directory.fortress.web.control.WicketSession;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
@@ -58,7 +59,7 @@ public abstract class FortressWebBasePage extends WebPage
     @SpringBean
     private J2eePolicyMgr j2eePolicyMgr;
     private static final String CLS_NM = FortressWebBasePage.class.getName();
-    private static final Logger LOG = Logger.getLogger( CLS_NM );
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
 
     /**

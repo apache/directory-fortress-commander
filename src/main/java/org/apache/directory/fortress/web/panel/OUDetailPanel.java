@@ -26,7 +26,8 @@ import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.util.Config;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
@@ -65,7 +66,7 @@ public class OUDetailPanel extends FormComponentPanel
     private static final long serialVersionUID = 1L;
     @SpringBean
     private DelAdminMgr delAdminMgr;
-    private static final Logger log = Logger.getLogger( OUDetailPanel.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( OUDetailPanel.class.getName() );
     private Form editForm;
     private Displayable display;
     private boolean isUser;
@@ -130,7 +131,7 @@ public class OUDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target )
                 //protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
-                    log.debug( ".onSubmit Add" );
+                    LOG.debug( ".onSubmit Add" );
                     OrgUnit orgUnit = ( OrgUnit ) getForm().getModel().getObject();
                     //OrgUnit orgUnit = ( OrgUnit ) form.getModel().getObject();
                     updateEntityWithComboData( orgUnit );
@@ -145,7 +146,7 @@ public class OUDetailPanel extends FormComponentPanel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error( error );
+                        LOG.error( error );
                         display.setMessage( error );
                         display.display();
                     }
@@ -155,7 +156,7 @@ public class OUDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.info( "OUDetailPanel.add.onError caught" );
+                    LOG.info( "OUDetailPanel.add.onError caught" );
                     target.add();
                 }
 
@@ -189,7 +190,7 @@ public class OUDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target )
                 //protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
-                    log.debug( ".onSubmit Commit" );
+                    LOG.debug( ".onSubmit Commit" );
                     OrgUnit orgUnit = ( OrgUnit ) getForm().getModel().getObject();
                     //OrgUnit orgUnit = ( OrgUnit ) form.getModel().getObject();
                     try
@@ -205,7 +206,7 @@ public class OUDetailPanel extends FormComponentPanel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error( error );
+                        LOG.error( error );
                         display.setMessage( error );
                         display.display();
                     }
@@ -215,7 +216,7 @@ public class OUDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "OUDetailPanel.update.onError" );
+                    LOG.warn( "OUDetailPanel.update.onError" );
                 }
 
 
@@ -248,7 +249,7 @@ public class OUDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target )
                 //protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
-                    log.debug( ".onSubmit delete" );
+                    LOG.debug( ".onSubmit delete" );
                     OrgUnit orgUnit = ( OrgUnit ) getForm().getModel().getObject();
                     //OrgUnit orgUnit = ( OrgUnit ) form.getModel().getObject();
                     try
@@ -263,7 +264,7 @@ public class OUDetailPanel extends FormComponentPanel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error( error );
+                        LOG.error( error );
                         display.setMessage( error );
                         display.display();
                     }
@@ -273,7 +274,7 @@ public class OUDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "OUDetailPanel.delete.onError" );
+                    LOG.warn( "OUDetailPanel.delete.onError" );
                 }
 
 
@@ -317,7 +318,7 @@ public class OUDetailPanel extends FormComponentPanel
                 public void onError( AjaxRequestTarget target )
                 //public void onError( AjaxRequestTarget target, Form form )
                 {
-                    log.warn( "OUDetailPanel.cancel.onError" );
+                    LOG.warn( "OUDetailPanel.cancel.onError" );
                 }
 
 
@@ -396,7 +397,7 @@ public class OUDetailPanel extends FormComponentPanel
                         msg += ", no action taken because parents selection is empty";
                     }
                     display.setMessage( msg );
-                    log.debug( msg );
+                    LOG.debug( msg );
                 }
 
 
@@ -459,7 +460,7 @@ public class OUDetailPanel extends FormComponentPanel
                     msg += parentsSelection != null ? ": " + parentsSelection : "";
                     parentSearchModalPanel.setSearchVal( parentsSelection );
                     display.setMessage( msg );
-                    log.debug( msg );
+                    LOG.debug( msg );
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     parentsModalWindow.show( target );
                 }
@@ -526,7 +527,7 @@ public class OUDetailPanel extends FormComponentPanel
                 addPB.setEnabled( false );
                 editForm.addOrReplace( parentsCB );
                 String msg = "OrgUnit: " + orgUnit.getName() + " has been selected";
-                log.debug( ".onEvent SelectModelEvent: " + orgUnit.getName() );
+                LOG.debug( ".onEvent SelectModelEvent: " + orgUnit.getName() );
                 display.setMessage( msg );
                 component = editForm;
             }
@@ -536,7 +537,7 @@ public class OUDetailPanel extends FormComponentPanel
                 if ( component != null )
                 {
                     AjaxRequestTarget target = ( ( AjaxRequestTarget ) event.getPayload() );
-                    log.debug( ".onEvent AjaxRequestTarget: " + target.toString() );
+                    LOG.debug( ".onEvent AjaxRequestTarget: " + target.toString() );
                     target.add( component );
                     component = null;
                 }

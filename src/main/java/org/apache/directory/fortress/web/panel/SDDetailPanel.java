@@ -27,7 +27,8 @@ import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.util.Config;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
@@ -68,7 +69,7 @@ public class SDDetailPanel extends FormComponentPanel
     @SpringBean
     private AdminMgr adminMgr;
     private static final String MEMBERS_SELECTION = "membersSelection";
-    private static final Logger log = Logger.getLogger( SDDetailPanel.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( SDDetailPanel.class.getName() );
     private Form editForm;
     private Displayable display;
     private boolean isStatic;
@@ -134,7 +135,7 @@ public class SDDetailPanel extends FormComponentPanel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target )
                 {
-                    log.debug( ".onSubmit Add" );
+                    LOG.debug( ".onSubmit Add" );
                     SDSet sdSet = ( SDSet ) getForm().getModel().getObject();
                     updateEntityWithComboData( sdSet );
                     try
@@ -155,7 +156,7 @@ public class SDDetailPanel extends FormComponentPanel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error( error );
+                        LOG.error( error );
                         display.setMessage( error );
                         display.display();
                     }
@@ -165,7 +166,7 @@ public class SDDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.info( "SDDetailPanel.add.onError" );
+                    LOG.info( "SDDetailPanel.add.onError" );
                     target.add();
                 }
 
@@ -198,7 +199,7 @@ public class SDDetailPanel extends FormComponentPanel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target )
                 {
-                    log.debug( ".onSubmit Commit" );
+                    LOG.debug( ".onSubmit Commit" );
                     SDSet sdSet = ( SDSet ) getForm().getModel().getObject();
                     try
                     {
@@ -216,7 +217,7 @@ public class SDDetailPanel extends FormComponentPanel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error( error );
+                        LOG.error( error );
                         display.setMessage( error );
                         display.display();
                     }
@@ -226,7 +227,7 @@ public class SDDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "SDDetailPanel.commmit.onError" );
+                    LOG.warn( "SDDetailPanel.commmit.onError" );
                 }
 
 
@@ -259,7 +260,7 @@ public class SDDetailPanel extends FormComponentPanel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target )
                 {
-                    log.debug( ".onSubmit Delete" );
+                    LOG.debug( ".onSubmit Delete" );
                     SDSet sdSet = ( SDSet ) getForm().getModel().getObject();
 
                     try
@@ -281,7 +282,7 @@ public class SDDetailPanel extends FormComponentPanel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error( error );
+                        LOG.error( error );
                         display.setMessage( error );
                         display.display();
                     }
@@ -291,7 +292,7 @@ public class SDDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "SDDetailPanel.delete.onError" );
+                    LOG.warn( "SDDetailPanel.delete.onError" );
                 }
 
 
@@ -334,7 +335,7 @@ public class SDDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "SDDetailPanel.cancel.onError" );
+                    LOG.warn( "SDDetailPanel.cancel.onError" );
                 }
 
 
@@ -411,7 +412,7 @@ public class SDDetailPanel extends FormComponentPanel
                         msg += ", no action taken because members selection is empty";
                     }
                     display.setMessage( msg );
-                    log.debug( msg );
+                    LOG.debug( msg );
                 }
 
 
@@ -475,7 +476,7 @@ public class SDDetailPanel extends FormComponentPanel
                     msg += membersSelection != null ? ": " + membersSelection : "";
                     roleSearchModalPanel.setRoleSearchVal( membersSelection );
                     display.setMessage( msg );
-                    log.debug( msg );
+                    LOG.debug( msg );
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     rolesModalWindow.show( target );
                 }
@@ -542,7 +543,7 @@ public class SDDetailPanel extends FormComponentPanel
                 addPB.setEnabled( false );
                 editForm.addOrReplace( membersCB );
                 String msg = "SDSet: " + sdSet.getName() + " has been selected";
-                log.debug( msg );
+                LOG.debug( msg );
                 display.setMessage( msg );
                 component = editForm;
             }
@@ -552,7 +553,7 @@ public class SDDetailPanel extends FormComponentPanel
                 if ( component != null )
                 {
                     AjaxRequestTarget target = ( ( AjaxRequestTarget ) event.getPayload() );
-                    log.debug( ".onEvent AjaxRequestTarget: " + target.toString() );
+                    LOG.debug( ".onEvent AjaxRequestTarget: " + target.toString() );
                     target.add( component );
                     component = null;
                 }

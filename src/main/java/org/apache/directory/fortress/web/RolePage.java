@@ -21,7 +21,8 @@ package org.apache.directory.fortress.web;
 
 
 import org.apache.directory.fortress.web.common.GlobalIds;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.Component;
 import org.apache.wicket.extensions.ajax.markup.html.AjaxLazyLoadPanel;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -42,7 +43,7 @@ public class RolePage extends FortressWebBasePage
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
     private boolean isAdmin = false;
-    private static final Logger LOG = Logger.getLogger( RolePage.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( RolePage.class.getName() );
 
 
     public RolePage( PageParameters parameters )

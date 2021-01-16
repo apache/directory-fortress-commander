@@ -27,7 +27,8 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.util.Config;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -69,7 +70,7 @@ public class AuditModDetailPanel extends FormComponentPanel
     private AuditMgr auditMgr;
     @SpringBean
     private ReviewMgr reviewMgr;
-    private static final Logger LOG = Logger.getLogger( AuditModDetailPanel.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( AuditModDetailPanel.class.getName() );
     private Form detailForm;
     private Displayable display;
     private UserAuditDetailPanel userPanel;

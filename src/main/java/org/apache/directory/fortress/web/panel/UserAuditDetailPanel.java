@@ -21,7 +21,8 @@
 package org.apache.directory.fortress.web.panel;
 
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.FormComponentPanel;
 import org.apache.wicket.model.IModel;
@@ -38,7 +39,7 @@ public class UserAuditDetailPanel extends FormComponentPanel
 {
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
-    private static final Logger LOG = Logger.getLogger( UserAuditDetailPanel.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( UserAuditDetailPanel.class.getName() );
 
 
     public UserAuditDetailPanel( String id, final IModel userModel )

@@ -21,7 +21,8 @@ package org.apache.directory.fortress.web;
 
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
@@ -43,7 +44,7 @@ public final class LoginPage extends FortressWebBasePage
 {
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
-    private static final Logger LOG = Logger.getLogger( LoginPage.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( LoginPage.class.getName() );
 
 
     public LoginPage()

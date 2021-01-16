@@ -26,7 +26,8 @@ import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.util.Config;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
@@ -72,7 +73,7 @@ public class PermDetailPanel extends FormComponentPanel
     @SpringBean
     private AdminMgr adminMgr;
     private static final String ROLES_SELECTION = "rolesSelection";
-    private static final Logger log = Logger.getLogger( PermDetailPanel.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( PermDetailPanel.class.getName() );
     private Form editForm;
     private Displayable display;
     private boolean isAdmin;
@@ -129,7 +130,7 @@ public class PermDetailPanel extends FormComponentPanel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target )
                 {
-                    log.debug( ".onSubmit Add" );
+                    LOG.debug( ".onSubmit Add" );
                     Permission perm = ( Permission ) getForm().getModel().getObject();
                     perm.setAdmin( isAdmin );
                     updateEntityWithComboData( perm );
@@ -147,7 +148,7 @@ public class PermDetailPanel extends FormComponentPanel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error( error );
+                        LOG.error( error );
                         display.setMessage( error );
                         display.display();
                     }
@@ -157,7 +158,7 @@ public class PermDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.info( "PermDetailPanel.add.onError caught" );
+                    LOG.info( "PermDetailPanel.add.onError caught" );
                     target.add();
                 }
 
@@ -190,7 +191,7 @@ public class PermDetailPanel extends FormComponentPanel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target )
                 {
-                    log.debug( ".onSubmit Commit" );
+                    LOG.debug( ".onSubmit Commit" );
                     Permission perm = ( Permission ) getForm().getModel().getObject();
                     perm.setAdmin( isAdmin );
                     updateEntityWithComboData( perm );
@@ -222,7 +223,7 @@ public class PermDetailPanel extends FormComponentPanel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error( error );
+                        LOG.error( error );
                         display.setMessage( error );
                         display.display();
                     }
@@ -232,7 +233,7 @@ public class PermDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "PermDetailPanel.commit.onError" );
+                    LOG.warn( "PermDetailPanel.commit.onError" );
                 }
 
 
@@ -264,7 +265,7 @@ public class PermDetailPanel extends FormComponentPanel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target )
                 {
-                    log.debug( ".onSubmit Delete" );
+                    LOG.debug( ".onSubmit Delete" );
                     Permission perm = ( Permission ) getForm().getModel().getObject();
                     perm.setAdmin( isAdmin );
                     try
@@ -280,7 +281,7 @@ public class PermDetailPanel extends FormComponentPanel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error( error );
+                        LOG.error( error );
                         display.setMessage( error );
                         display.display();
                     }
@@ -290,7 +291,7 @@ public class PermDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "ControlPanel.delete.onError" );
+                    LOG.warn( "ControlPanel.delete.onError" );
                 }
 
 
@@ -332,7 +333,7 @@ public class PermDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "ControlPanel.cancel.onError" );
+                    LOG.warn( "ControlPanel.cancel.onError" );
                 }
 
 
@@ -416,7 +417,7 @@ public class PermDetailPanel extends FormComponentPanel
                         msg += ", no action taken because role selection is empty";
                     }
                     display.setMessage( msg );
-                    log.debug( msg );
+                    LOG.debug( msg );
                 }
 
 
@@ -482,7 +483,7 @@ public class PermDetailPanel extends FormComponentPanel
                     objectSearchModalPanel.setSearchVal( perm.getObjName() );
                     objectSearchModalPanel.setAdmin( isAdmin );
                     display.setMessage( msg );
-                    log.debug( msg );
+                    LOG.debug( msg );
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     objectsModalWindow.show( target );
                 }
@@ -561,7 +562,7 @@ public class PermDetailPanel extends FormComponentPanel
                     msg += rolesSelection != null ? ": " + rolesSelection : "";
                     roleSearchModalPanel.setRoleSearchVal( rolesSelection );
                     display.setMessage( msg );
-                    log.debug( msg );
+                    LOG.debug( msg );
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     rolesModalWindow.show( target );
                 }
@@ -640,7 +641,7 @@ public class PermDetailPanel extends FormComponentPanel
                 String msg = "Perm objName: " + perm.getObjName() + " opName: " + perm.getOpName()
                     + " has been selected";
                 display.setMessage( msg );
-                log.debug( msg );
+                LOG.debug( msg );
                 component = editForm;
             }
             else if ( event.getPayload() instanceof AjaxRequestTarget )
@@ -648,7 +649,7 @@ public class PermDetailPanel extends FormComponentPanel
                 if ( component != null )
                 {
                     AjaxRequestTarget target = ( ( AjaxRequestTarget ) event.getPayload() );
-                    log.debug( ".onEvent AjaxRequestTarget: " + target.toString() );
+                    LOG.debug( ".onEvent AjaxRequestTarget: " + target.toString() );
                     target.add( component );
                     component = null;
                 }

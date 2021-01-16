@@ -26,7 +26,8 @@ import org.apache.directory.fortress.core.model.AuthZ;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.StringTokenizer;
@@ -38,7 +39,7 @@ import java.util.StringTokenizer;
  */
 final class AuditUtils
 {
-    private static final Logger LOG = Logger.getLogger( AuditUtils.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( AuditUtils.class.getName() );
 
     private AuditUtils()
     {

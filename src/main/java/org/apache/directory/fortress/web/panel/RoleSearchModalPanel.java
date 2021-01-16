@@ -28,7 +28,8 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.directory.fortress.core.util.Config;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.navigation.paging.AjaxPagingNavigator;
@@ -63,7 +64,7 @@ public class RoleSearchModalPanel extends Panel
     private ReviewMgr reviewMgr;
     @SpringBean
     private DelReviewMgr delReviewMgr;
-    private static final Logger LOG = Logger.getLogger( RoleSearchModalPanel.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( RoleSearchModalPanel.class.getName() );
     private ModalWindow window;
     private Constraint roleSelection;
     private String roleSearchVal;

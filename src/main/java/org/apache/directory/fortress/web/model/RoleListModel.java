@@ -21,7 +21,8 @@ package org.apache.directory.fortress.web.model;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.directory.fortress.core.util.Config;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -50,7 +51,7 @@ public class RoleListModel extends Model<SerializableList<? extends Role>>
     private ReviewMgr reviewMgr;
     @SpringBean
     private DelReviewMgr delReviewMgr;
-    private static final Logger LOG = Logger.getLogger(RoleListModel.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(RoleListModel.class.getName());
     private Role role;
     private SerializableList<? extends Role> roles = null;
     private boolean isAdmin;

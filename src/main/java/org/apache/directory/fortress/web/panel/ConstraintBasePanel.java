@@ -25,7 +25,8 @@ import com.googlecode.wicket.jquery.ui.form.spinner.Spinner;
 
 import com.googlecode.wicket.kendo.ui.form.datetime.DatePicker;
 import com.googlecode.wicket.kendo.ui.form.datetime.TimePicker;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.FormComponentPanel;
 import org.apache.wicket.model.IModel;
@@ -46,7 +47,7 @@ public class ConstraintBasePanel extends FormComponentPanel
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
     private static final String CLS_NM = ConstraintPanel.class.getName();
-    private static final Logger log = Logger.getLogger( CLS_NM );
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
     protected static final String TIMEOUT = "timeout";
     protected static final String SUNDAY = "sunday";
@@ -289,7 +290,7 @@ public class ConstraintBasePanel extends FormComponentPanel
         }
         else
         {
-            log.warn( "constraint was null" );
+            LOG.warn( "constraint was null" );
         }
     }
 
@@ -316,7 +317,7 @@ public class ConstraintBasePanel extends FormComponentPanel
             {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime( localDate );
-                log.debug( "localDate=" + localDate.toString() );
+                LOG.debug( "localDate=" + localDate.toString() );
                 if ( calendar.get( Calendar.HOUR_OF_DAY ) < 10 )
                     szTime = "0" + calendar.get( Calendar.HOUR_OF_DAY );
                 else
@@ -341,7 +342,7 @@ public class ConstraintBasePanel extends FormComponentPanel
             {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime( localDate );
-                log.debug( "localDate=" + localDate.toString() );
+                LOG.debug( "localDate=" + localDate.toString() );
                 szDate = "" + calendar.get( Calendar.YEAR );
 
                 if ( ( calendar.get( Calendar.MONTH ) + 1 ) < 10 )
@@ -378,7 +379,7 @@ public class ConstraintBasePanel extends FormComponentPanel
             catch ( StringIndexOutOfBoundsException e )
             {
                 String warning = CLS_NM + ".renderTime bad time: " + szTime;
-                log.warn( warning );
+                LOG.warn( warning );
                 //warn(warning);
             }
         }
@@ -408,7 +409,7 @@ public class ConstraintBasePanel extends FormComponentPanel
             catch ( StringIndexOutOfBoundsException e )
             {
                 String warning = CLS_NM + ".renderDate bad date: " + szDate;
-                log.warn( warning );
+                LOG.warn( warning );
                 //warn(warning);
             }
         }

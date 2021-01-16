@@ -26,7 +26,8 @@ import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
@@ -69,7 +70,7 @@ public class SDListPanel extends FormComponentPanel
 {
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
-    private static final Logger log = Logger.getLogger( SDListPanel.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( SDListPanel.class.getName() );
     private Form listForm;
     private DefaultTreeModel treeModel;
     private DefaultMutableTreeNode node;
@@ -140,10 +141,10 @@ public class SDListPanel extends FormComponentPanel
                 if ( !node.isRoot() )
                 {
                     SDSet sdSet = ( SDSet ) node.getUserObject();
-                    log.debug( "TreeGrid.addGrid.selectItem selected sdSet =" + sdSet.getName() );
+                    LOG.debug( "TreeGrid.addGrid.selectItem selected sdSet =" + sdSet.getName() );
                     if ( super.isItemSelected( itemModel ) )
                     {
-                        log.debug( "TreeGrid.addGrid.selectItem item is selected" );
+                        LOG.debug( "TreeGrid.addGrid.selectItem item is selected" );
                         super.selectItem( itemModel, false );
                     }
                     else
@@ -202,7 +203,7 @@ public class SDListPanel extends FormComponentPanel
             protected void onSubmit( AjaxRequestTarget target )
             //protected void onSubmit( AjaxRequestTarget target, Form form )
             {
-                log.debug( ".search onSubmit" );
+                LOG.debug( ".search onSubmit" );
                 info( "Searching SDSets..." );
                 if ( !StringUtils.isNotBlank( searchVal ) )
                 {
@@ -220,11 +221,11 @@ public class SDListPanel extends FormComponentPanel
                 switch ( selectedRadioButton )
                 {
                     case NAMES:
-                        log.debug( ".onSubmit NAMES RB selected" );
+                        LOG.debug( ".onSubmit NAMES RB selected" );
                         srchSd.setName( searchVal );
                         break;
                     case ROLES:
-                        log.debug( ".onSubmit ROLES RB selected" );
+                        LOG.debug( ".onSubmit ROLES RB selected" );
                         srchSd.setMember( searchVal );
                         break;
                 }
@@ -250,7 +251,7 @@ public class SDListPanel extends FormComponentPanel
             @Override
             public void onError( AjaxRequestTarget target )
             {
-                log.warn( ".search.onError" );
+                LOG.warn( ".search.onError" );
                 target.add();
             }
 
@@ -297,7 +298,7 @@ public class SDListPanel extends FormComponentPanel
                 UserRole roleConstraint = roleSearchModalPanel.getRoleSelection();
                 if ( roleConstraint != null )
                 {
-                    log.debug( "modal selected:" + roleConstraint.getName() );
+                    LOG.debug( "modal selected:" + roleConstraint.getName() );
                     searchVal = roleConstraint.getName();
                     selectedRadioButton = ROLES;
                     target.add( radioGroup );
@@ -316,7 +317,7 @@ public class SDListPanel extends FormComponentPanel
                 String msg = "clicked on roles search";
                 msg += "roleSelection: " + searchVal;
                 roleSearchModalPanel.setRoleSearchVal( searchVal );
-                log.debug( msg );
+                LOG.debug( msg );
                 target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                 rolesModalWindow.show( target );
             }
@@ -371,7 +372,7 @@ public class SDListPanel extends FormComponentPanel
             }
             AjaxRequestTarget target = ( ( SaveModelEvent ) event.getPayload() ).getAjaxRequestTarget();
             target.add( grid );
-            log.debug( ".onEvent SaveModelEvent: " + target.toString() );
+            LOG.debug( ".onEvent SaveModelEvent: " + target.toString() );
         }
     }
 
@@ -384,7 +385,7 @@ public class SDListPanel extends FormComponentPanel
             DefaultMutableTreeNode node = model.getObject();
             treeModel.removeNodeFromParent( node );
             SDSet sdSet = ( SDSet ) node.getUserObject();
-            log.debug( ".removeSelectedItems sdset node: " + sdSet.getName() );
+            LOG.debug( ".removeSelectedItems sdset node: " + sdSet.getName() );
             List<SDSet> sdSets = ( ( List<SDSet> ) getDefaultModel().getObject() );
             sdSets.remove( sdSet );
         }
@@ -397,10 +398,10 @@ public class SDListPanel extends FormComponentPanel
         rootNode = new DefaultMutableTreeNode( null );
         model = new DefaultTreeModel( rootNode );
         if ( sdSets == null )
-            log.debug( "no SDSets found" );
+            LOG.debug( "no SDSets found" );
         else
         {
-            log.debug( "SDSets found:" + sdSets.size() );
+            LOG.debug( "SDSets found:" + sdSets.size() );
             for ( SDSet sdSet : sdSets )
                 rootNode.add( new DefaultMutableTreeNode( sdSet ) );
         }

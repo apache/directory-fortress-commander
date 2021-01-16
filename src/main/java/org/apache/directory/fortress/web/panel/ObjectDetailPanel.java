@@ -23,7 +23,8 @@ package org.apache.directory.fortress.web.panel;
 
 import com.googlecode.wicket.kendo.ui.form.button.AjaxButton;
 import org.apache.directory.fortress.core.util.Config;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
@@ -59,7 +60,7 @@ public class ObjectDetailPanel extends FormComponentPanel
     private static final long serialVersionUID = 1L;
     @SpringBean
     private AdminMgr adminMgr;
-    private static final Logger log = Logger.getLogger( ObjectDetailPanel.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( ObjectDetailPanel.class.getName() );
     private Form editForm;
     private Displayable display;
     private boolean isAdmin;
@@ -113,7 +114,7 @@ public class ObjectDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target )
                 //protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
-                    log.debug( ".onSubmit Add" );
+                    LOG.debug( ".onSubmit Add" );
                     PermObj permObj = ( PermObj ) getForm().getModel().getObject();
                     permObj.setAdmin( isAdmin );
                     try
@@ -127,7 +128,7 @@ public class ObjectDetailPanel extends FormComponentPanel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error( error );
+                        LOG.error( error );
                         display.setMessage( error );
                         display.display();
                     }
@@ -138,7 +139,7 @@ public class ObjectDetailPanel extends FormComponentPanel
                 public void onError( AjaxRequestTarget target )
                 //public void onError( AjaxRequestTarget target, Form form )
                 {
-                    log.info( "ObjectDetailPanel.add.onError caught" );
+                    LOG.info( "ObjectDetailPanel.add.onError caught" );
                     target.add();
                 }
 
@@ -172,7 +173,7 @@ public class ObjectDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target )
                 //protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
-                    log.debug( ".onSubmit Commit" );
+                    LOG.debug( ".onSubmit Commit" );
                     //PermObj permObj = ( PermObj ) form.getModel().getObject();
                     PermObj permObj = ( PermObj ) getForm().getModel().getObject();
                     permObj.setAdmin( isAdmin );
@@ -187,7 +188,7 @@ public class ObjectDetailPanel extends FormComponentPanel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error( error );
+                        LOG.error( error );
                         display.setMessage( error );
                         display.display();
                     }
@@ -198,7 +199,7 @@ public class ObjectDetailPanel extends FormComponentPanel
                 public void onError( AjaxRequestTarget target )
                 //public void onError( AjaxRequestTarget target, Form form )
                 {
-                    log.warn( "ObjectDetailPanel.commit.onError" );
+                    LOG.warn( "ObjectDetailPanel.commit.onError" );
                 }
 
 
@@ -231,7 +232,7 @@ public class ObjectDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target )
                 //protected void onSubmit( AjaxRequestTarget target, Form form )
                 {
-                    log.debug( ".onSubmit Commit" );
+                    LOG.debug( ".onSubmit Commit" );
                     PermObj permObj = ( PermObj ) getForm().getModel().getObject();
                     permObj.setAdmin( isAdmin );
                     try
@@ -246,7 +247,7 @@ public class ObjectDetailPanel extends FormComponentPanel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error( error );
+                        LOG.error( error );
                         display.setMessage( error );
                         display.display();
                     }
@@ -256,7 +257,7 @@ public class ObjectDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "ObjectDetailPanel.delete.onError" );
+                    LOG.warn( "ObjectDetailPanel.delete.onError" );
                 }
 
 
@@ -298,7 +299,7 @@ public class ObjectDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "ObjectDetailPanel.cancel.onError" );
+                    LOG.warn( "ObjectDetailPanel.cancel.onError" );
                 }
 
 
@@ -390,7 +391,7 @@ public class ObjectDetailPanel extends FormComponentPanel
                     msg += permObj.getOu() != null ? ": " + permObj.getOu() : "";
                     ouSearchModalPanel.setSearchVal( permObj.getOu() );
                     display.setMessage( msg );
-                    log.debug( msg );
+                    LOG.debug( msg );
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     ousModalWindow.show( target );
                 }
@@ -435,7 +436,7 @@ public class ObjectDetailPanel extends FormComponentPanel
                 addPB.setEnabled( false );
                 String msg = "PermObject Name: " + permObj.getObjName() + " has been selected";
                 display.setMessage( msg );
-                log.debug( msg );
+                LOG.debug( msg );
                 component = editForm;
             }
             else if ( event.getPayload() instanceof AjaxRequestTarget )
@@ -443,7 +444,7 @@ public class ObjectDetailPanel extends FormComponentPanel
                 if ( component != null )
                 {
                     AjaxRequestTarget target = ( ( AjaxRequestTarget ) event.getPayload() );
-                    log.debug( ".onEvent AjaxRequestTarget: " + target.toString() );
+                    LOG.debug( ".onEvent AjaxRequestTarget: " + target.toString() );
                     target.add( component );
                     component = null;
                 }

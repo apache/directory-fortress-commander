@@ -21,7 +21,8 @@
 package org.apache.directory.fortress.web.panel;
 
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponentPanel;
@@ -40,7 +41,7 @@ public class InfoPanel extends FormComponentPanel
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
     private static final String CLS_NM = InfoPanel.class.getName();
-    private static final Logger log = Logger.getLogger( CLS_NM );
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private Form infoForm;
 
 
@@ -83,14 +84,14 @@ public class InfoPanel extends FormComponentPanel
         @Override
         public void onError()
         {
-            log.debug( "InfoPanel.onError" );
+            LOG.debug( "InfoPanel.onError" );
         }
 
 
         @Override
         public void onSubmit()
         {
-            log.debug( "InfoPanel.onSubmit message: " + infoField );
+            LOG.debug( "InfoPanel.onSubmit message: " + infoField );
         }
 
 
@@ -118,7 +119,7 @@ public class InfoPanel extends FormComponentPanel
         @Override
         public void display()
         {
-            log.debug( ".display message (no AJAX): " + infoField );
+            LOG.debug( ".display message (no AJAX): " + infoField );
             add( infoTextField );
             add( feedbackPanel );
         }
@@ -127,7 +128,7 @@ public class InfoPanel extends FormComponentPanel
         @Override
         public void display( AjaxRequestTarget target )
         {
-            log.debug( ".display message (AJAX): " + infoField );
+            LOG.debug( ".display message (AJAX): " + infoField );
             target.add( infoTextField );
             target.add( feedbackPanel );
         }

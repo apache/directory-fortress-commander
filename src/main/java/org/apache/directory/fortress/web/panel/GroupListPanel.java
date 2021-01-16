@@ -26,7 +26,8 @@ import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
@@ -69,7 +70,7 @@ public class GroupListPanel extends FormComponentPanel
 {
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
-    private static final Logger log = Logger.getLogger( GroupListPanel.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( GroupListPanel.class.getName() );
     private Form listForm;
     private DefaultTreeModel treeModel;
     private DefaultMutableTreeNode node;
@@ -128,7 +129,7 @@ public class GroupListPanel extends FormComponentPanel
             protected void onSubmit( AjaxRequestTarget target )
             //protected void onSubmit( AjaxRequestTarget target, Form form )
             {
-                log.debug( ".search.onSubmit selected radio button: " + selectedRadioButton );
+                LOG.debug( ".search.onSubmit selected radio button: " + selectedRadioButton );
                 info( "Searching Group Objects..." );
                 if ( !StringUtils.isNotEmpty( searchVal ) )
                 {
@@ -138,11 +139,11 @@ public class GroupListPanel extends FormComponentPanel
                 switch ( selectedRadioButton )
                 {
                     case NAMES:
-                        log.debug( ".onSubmit GROUP RB selected" );
+                        LOG.debug( ".onSubmit GROUP RB selected" );
                         srchObject.setName( searchVal );
                         break;
                     case MEMBERS:
-                        log.debug( ".onSubmit MEMBERS RB selected" );
+                        LOG.debug( ".onSubmit MEMBERS RB selected" );
                         srchObject.setMember( searchVal );
                         break;
                 }
@@ -168,7 +169,7 @@ public class GroupListPanel extends FormComponentPanel
             public void onError( AjaxRequestTarget target )
             //public void onError( AjaxRequestTarget target, Form form )
             {
-                log.warn( ".search.onError" );
+                LOG.warn( ".search.onError" );
                 target.add();
             }
 
@@ -214,11 +215,11 @@ public class GroupListPanel extends FormComponentPanel
                     prune();
                     break;
                 default:
-                    log.error( "onEvent caught invalid operation" );
+                    LOG.error( "onEvent caught invalid operation" );
                     break;
             }
             AjaxRequestTarget target = ( ( SaveModelEvent ) event.getPayload() ).getAjaxRequestTarget();
-            log.debug( ".onEvent AJAX - GroupListPanel - SaveModelEvent: " + target.toString() );
+            LOG.debug( ".onEvent AJAX - GroupListPanel - SaveModelEvent: " + target.toString() );
         }
     }
 
@@ -231,7 +232,7 @@ public class GroupListPanel extends FormComponentPanel
             DefaultMutableTreeNode node = model.getObject();
             treeModel.removeNodeFromParent( node );
             Group group = ( Group ) node.getUserObject();
-            log.debug( ".removeSelectedItems user node: " + group.getName() );
+            LOG.debug( ".removeSelectedItems user node: " + group.getName() );
             //List<Group> groups = ((List<Group>) getDefaultModel().getObject());
             //groups.remove(group.getName());
         }
@@ -244,10 +245,10 @@ public class GroupListPanel extends FormComponentPanel
         rootNode = new DefaultMutableTreeNode( null );
         model = new DefaultTreeModel( rootNode );
         if ( groups == null )
-            log.debug( "no Groups found" );
+            LOG.debug( "no Groups found" );
         else
         {
-            log.debug( ".createTreeModel Groups found:" + groups.size() );
+            LOG.debug( ".createTreeModel Groups found:" + groups.size() );
             for ( Group group : groups )
                 rootNode.add( new DefaultMutableTreeNode( group ) );
         }
@@ -291,10 +292,10 @@ public class GroupListPanel extends FormComponentPanel
                 if ( !node.isRoot() )
                 {
                     Group group = ( Group ) node.getUserObject();
-                    log.debug( "TreeGrid.addGrid.selectItem selected group =" + group.getName() );
+                    LOG.debug( "TreeGrid.addGrid.selectItem selected group =" + group.getName() );
                     if ( super.isItemSelected( itemModel ) )
                     {
-                        log.debug( "TreeGrid.addGrid.selectItem item is selected" );
+                        LOG.debug( "TreeGrid.addGrid.selectItem item is selected" );
                         super.selectItem( itemModel, false );
                     }
                     else
@@ -356,7 +357,7 @@ public class GroupListPanel extends FormComponentPanel
                 String msg = "clicked on ou search";
                 msg += "memberSelection: " + searchVal;
                 userSearchModalPanel.setSearchVal( searchVal );
-                log.debug( msg );
+                LOG.debug( msg );
                 target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                 memberModalWindow.show( target );
             }

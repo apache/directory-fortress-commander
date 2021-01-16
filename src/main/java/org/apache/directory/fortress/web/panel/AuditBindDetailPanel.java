@@ -25,7 +25,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.web.control.SecUtils;
 import org.apache.directory.fortress.web.event.SelectModelEvent;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.event.IEvent;
@@ -54,7 +55,7 @@ public class AuditBindDetailPanel extends FormComponentPanel
     private AuditMgr auditMgr;
     @SpringBean
     private ReviewMgr reviewMgr;
-    private static final Logger LOG = Logger.getLogger( AuditBindDetailPanel.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( AuditBindDetailPanel.class.getName() );
     private Form detailForm;
     private Displayable display;
     private UserAuditDetailPanel userPanel;

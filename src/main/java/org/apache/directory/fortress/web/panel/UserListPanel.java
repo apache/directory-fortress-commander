@@ -33,7 +33,8 @@ import org.apache.directory.fortress.web.control.SecureIndicatingAjaxLink;
 import org.apache.directory.fortress.web.event.SaveModelEvent;
 import org.apache.directory.fortress.web.event.SelectModelEvent;
 import org.apache.directory.fortress.web.model.UserListModel;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
@@ -77,7 +78,7 @@ public class UserListPanel<T extends Serializable> extends FormComponentPanel
 {
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
-    private static final Logger LOG = Logger.getLogger( UserListPanel.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( UserListPanel.class.getName() );
     private Form listForm;
     private DefaultTreeModel treeModel;
     private DefaultMutableTreeNode node;

@@ -27,7 +27,8 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.directory.fortress.core.util.Config;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.navigation.paging.AjaxPagingNavigator;
@@ -55,7 +56,7 @@ public class ObjectSearchModalPanel extends Panel
     private static final long serialVersionUID = 1L;
     @SpringBean
     private ReviewMgr reviewMgr;
-    private static final Logger LOG = Logger.getLogger( ObjectSearchModalPanel.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( ObjectSearchModalPanel.class.getName() );
     private ModalWindow window;
     private PermObj objectSelection;
     private String objectSearchVal;

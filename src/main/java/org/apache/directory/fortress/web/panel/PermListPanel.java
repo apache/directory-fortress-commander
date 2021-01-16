@@ -26,7 +26,8 @@ import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
@@ -67,7 +68,7 @@ public class PermListPanel extends FormComponentPanel
 {
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
-    private static final Logger log = Logger.getLogger( PermListPanel.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( PermListPanel.class.getName() );
     private Form<?> listForm;
     private DefaultTreeModel treeModel;
     private DefaultMutableTreeNode node;
@@ -130,12 +131,12 @@ public class PermListPanel extends FormComponentPanel
                 if ( !node.isRoot() )
                 {
                     Permission perm = ( Permission ) node.getUserObject();
-                    log.debug( "TreeGrid.addGrid.selectItem selected perm objNm: " + perm.getObjName() + " opNm: "
+                    LOG.debug( "TreeGrid.addGrid.selectItem selected perm objNm: " + perm.getObjName() + " opNm: "
                         + perm.getOpName() );
 
                     if ( super.isItemSelected( itemModel ) )
                     {
-                        log.debug( "TreeGrid.addGrid.selectItem item is selected" );
+                        LOG.debug( "TreeGrid.addGrid.selectItem item is selected" );
                         super.selectItem( itemModel, false );
                     }
                     else
@@ -190,7 +191,7 @@ public class PermListPanel extends FormComponentPanel
             @Override
             protected void onSubmit( AjaxRequestTarget target )
             {
-                log.debug( ".search onSubmit" );
+                LOG.debug( ".search onSubmit" );
                 info( "Searching Perms..." );
 
                 if ( !StringUtils.isNotEmpty( permObject ) )
@@ -230,7 +231,7 @@ public class PermListPanel extends FormComponentPanel
             @Override
             public void onError( AjaxRequestTarget target )
             {
-                log.warn( ".search.onError" );
+                LOG.warn( ".search.onError" );
                 target.add();
             }
 
@@ -298,7 +299,7 @@ public class PermListPanel extends FormComponentPanel
                 msg += "objectSelection: " + permObject;
                 objectSearchModalPanel.setSearchVal( permObject );
                 objectSearchModalPanel.setAdmin( isAdmin );
-                log.debug( msg );
+                LOG.debug( msg );
                 target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                 objectsModalWindow.show( target );
             }
@@ -388,7 +389,7 @@ public class PermListPanel extends FormComponentPanel
 
             AjaxRequestTarget target = ( ( SaveModelEvent ) event.getPayload() ).getAjaxRequestTarget();
             target.add( grid );
-            log.debug( ".onEvent SaveModelEvent: " + target.toString() );
+            LOG.debug( ".onEvent SaveModelEvent: " + target.toString() );
         }
     }
 
@@ -402,7 +403,7 @@ public class PermListPanel extends FormComponentPanel
             DefaultMutableTreeNode node = model.getObject();
             treeModel.removeNodeFromParent( node );
             Permission perm = ( Permission ) node.getUserObject();
-            log.debug( ".removeSelectedItems perm objNm: " + perm.getObjName() + " opNm: " + perm.getOpName() );
+            LOG.debug( ".removeSelectedItems perm objNm: " + perm.getObjName() + " opNm: " + perm.getOpName() );
             List<Permission> perms = ( ( List<Permission> ) getDefaultModel().getObject() );
             perms.remove( perm );
         }
@@ -417,11 +418,11 @@ public class PermListPanel extends FormComponentPanel
 
         if ( perms == null )
         {
-            log.debug( ".createTreeModel no Perms found" );
+            LOG.debug( ".createTreeModel no Perms found" );
         }
         else
         {
-            log.debug( ".createTreeModel Perms found:" + perms.size() );
+            LOG.debug( ".createTreeModel Perms found:" + perms.size() );
 
             for ( Permission perm : perms )
             {

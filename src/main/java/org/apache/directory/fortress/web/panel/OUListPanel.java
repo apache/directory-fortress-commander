@@ -26,7 +26,8 @@ import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
@@ -63,7 +64,7 @@ public class OUListPanel extends FormComponentPanel
 {
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
-    private static final Logger log = Logger.getLogger( OUListPanel.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( OUListPanel.class.getName() );
     private DefaultTreeModel treeModel;
     private DefaultMutableTreeNode node;
     private TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String> grid;
@@ -119,10 +120,10 @@ public class OUListPanel extends FormComponentPanel
                 if ( !node.isRoot() )
                 {
                     OrgUnit orgUnit1 = ( OrgUnit ) node.getUserObject();
-                    log.debug( "TreeGrid.addGrid.selectItem selected sdSet =" + orgUnit1.getName() );
+                    LOG.debug( "TreeGrid.addGrid.selectItem selected sdSet =" + orgUnit1.getName() );
                     if ( super.isItemSelected( itemModel ) )
                     {
-                        log.debug( "TreeGrid.addGrid.selectItem item is selected" );
+                        LOG.debug( "TreeGrid.addGrid.selectItem item is selected" );
                         super.selectItem( itemModel, false );
                     }
                     else
@@ -158,7 +159,7 @@ public class OUListPanel extends FormComponentPanel
             protected void onSubmit(AjaxRequestTarget target)
             //protected void onSubmit(AjaxRequestTarget target, Form form)
             {
-                log.debug( ".search onSubmit" );
+                LOG.debug( ".search onSubmit" );
                 info( "Searching OrgUnits..." );
                 if ( !StringUtils.isNotEmpty( searchVal ) )
                 {
@@ -197,7 +198,7 @@ public class OUListPanel extends FormComponentPanel
             @Override
             public void onError(AjaxRequestTarget target)
             {
-                log.warn( ".search.onError" );
+                LOG.warn( ".search.onError" );
                 target.add();
             }
 
@@ -247,7 +248,7 @@ public class OUListPanel extends FormComponentPanel
             }
             AjaxRequestTarget target = ( ( SaveModelEvent ) event.getPayload() ).getAjaxRequestTarget();
             target.add( grid );
-            log.debug( ".onEvent SaveModelEvent: " + target.toString() );
+            LOG.debug( ".onEvent SaveModelEvent: " + target.toString() );
         }
     }
 
@@ -260,7 +261,7 @@ public class OUListPanel extends FormComponentPanel
             DefaultMutableTreeNode node = model.getObject();
             treeModel.removeNodeFromParent( node );
             OrgUnit orgUnit = ( OrgUnit ) node.getUserObject();
-            log.debug( ".removeSelectedItems ou node: " + orgUnit.getName() );
+            LOG.debug( ".removeSelectedItems ou node: " + orgUnit.getName() );
             List<OrgUnit> orgUnits = ( ( List<OrgUnit> ) getDefaultModel().getObject() );
             orgUnits.remove( orgUnit );
         }
@@ -274,11 +275,11 @@ public class OUListPanel extends FormComponentPanel
         model = new DefaultTreeModel( rootNode );
         if ( orgUnits == null )
         {
-            log.debug( "no OrgUnits found" );
+            LOG.debug( "no OrgUnits found" );
         }
         else
         {
-            log.debug( "OrgUnits found:" + orgUnits.size() );
+            LOG.debug( "OrgUnits found:" + orgUnits.size() );
             for ( OrgUnit orgUnit : orgUnits )
             {
                 rootNode.add( new DefaultMutableTreeNode( orgUnit ) );

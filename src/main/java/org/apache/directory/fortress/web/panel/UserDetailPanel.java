@@ -29,7 +29,8 @@ import com.googlecode.wicket.kendo.ui.form.dropdown.DropDownList;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.util.Config;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
@@ -83,7 +84,7 @@ public class UserDetailPanel extends FormComponentPanel
     private AdminMgr adminMgr;
     @SpringBean
     private DelAdminMgr delAdminMgr;
-    private static final Logger log = Logger.getLogger( UserDetailPanel.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( UserDetailPanel.class.getName() );
     private Form editForm;
     private Displayable display;
 
@@ -335,7 +336,7 @@ public class UserDetailPanel extends FormComponentPanel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target )
                 {
-                    log.debug( ".onSubmit Add" );
+                    LOG.debug( ".onSubmit Add" );
                     User user = ( User ) getForm().getModel().getObject();
                     updateEntityWithComboData( user );
                     try
@@ -350,7 +351,7 @@ public class UserDetailPanel extends FormComponentPanel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error( error );
+                        LOG.error( error );
                         display.setMessage( error );
                         display.display();
                     }
@@ -359,7 +360,7 @@ public class UserDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.info( "UserDetailPanel.add.onError" );
+                    LOG.info( "UserDetailPanel.add.onError" );
                     target.add();
                 }
 
@@ -392,7 +393,7 @@ public class UserDetailPanel extends FormComponentPanel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target )
                 {
-                    log.debug( ".onSubmit commit" );
+                    LOG.debug( ".onSubmit commit" );
                     User user = ( User ) getForm().getModel().getObject();
                     // todo: fix this, going from string to char back to string (in ldap)?
 /*
@@ -420,7 +421,7 @@ public class UserDetailPanel extends FormComponentPanel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = "commit caught SecurityException=" + se;
-                        log.error( error );
+                        LOG.error( error );
                         display.setMessage( error );
                         display.display();
                     }
@@ -429,7 +430,7 @@ public class UserDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "UserDetailPanel.commit.onError" );
+                    LOG.warn( "UserDetailPanel.commit.onError" );
                 }
 
                 @Override
@@ -460,7 +461,7 @@ public class UserDetailPanel extends FormComponentPanel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target )
                 {
-                    log.debug( ".onSubmit Commit" );
+                    LOG.debug( ".onSubmit Commit" );
                     User user = ( User ) getForm().getModel().getObject();
                     try
                     {
@@ -473,7 +474,7 @@ public class UserDetailPanel extends FormComponentPanel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error( error );
+                        LOG.error( error );
                         display.setMessage( error );
                     }
                 }
@@ -481,7 +482,7 @@ public class UserDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "UserDetailPanel.delete.onError" );
+                    LOG.warn( "UserDetailPanel.delete.onError" );
                 }
 
                 @Override
@@ -519,7 +520,7 @@ public class UserDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "UserDetailPanel.cancel.onError" );
+                    LOG.warn( "UserDetailPanel.cancel.onError" );
                 }
 
                 @Override
@@ -551,7 +552,7 @@ public class UserDetailPanel extends FormComponentPanel
                 protected void onSubmit( AjaxRequestTarget target )
                 {
                     FileUpload fileUpload = upload.getFileUpload();
-                    log.debug( ".onSubmit Save" );
+                    LOG.debug( ".onSubmit Save" );
                     User user = ( User ) getForm().getModel().getObject();
                     user.setJpegPhoto( fileUpload.getBytes() );
                     component = editForm;
@@ -564,7 +565,7 @@ public class UserDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "save.onError" );
+                    LOG.warn( "save.onError" );
                 }
 
                 @Override
@@ -618,7 +619,7 @@ public class UserDetailPanel extends FormComponentPanel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error( error );
+                        LOG.error( error );
                         display.setMessage( error );
                     }
 
@@ -630,7 +631,7 @@ public class UserDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "ControlPanel.lock/unlock error" );
+                    LOG.warn( "ControlPanel.lock/unlock error" );
                 }
 
 
@@ -676,7 +677,7 @@ public class UserDetailPanel extends FormComponentPanel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error( error );
+                        LOG.error( error );
                         display.setMessage( error );
                     }
 
@@ -688,7 +689,7 @@ public class UserDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "ControlPanel.reset error" );
+                    LOG.warn( "ControlPanel.reset error" );
                 }
 
 
@@ -720,7 +721,7 @@ public class UserDetailPanel extends FormComponentPanel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target )
                 {
-                    log.debug( ".onSubmit assign" );
+                    LOG.debug( ".onSubmit assign" );
                     User user = ( User ) getForm().getModel().getObject();
                     if( StringUtils.isNotEmpty( newUserRole ))
                     {
@@ -738,7 +739,7 @@ public class UserDetailPanel extends FormComponentPanel
                         {
                             String msg = "User: " + user.getUserId() + " assign failed for role: " + newUserRole;
                             display.setMessage( msg );
-                            log.debug( msg );
+                            LOG.debug( msg );
                         }
                     }
                 }
@@ -746,7 +747,7 @@ public class UserDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "assign.onError" );
+                    LOG.warn( "assign.onError" );
                 }
 
 
@@ -778,7 +779,7 @@ public class UserDetailPanel extends FormComponentPanel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target )
                 {
-                    log.debug( ".onSubmit assignAdminRole" );
+                    LOG.debug( ".onSubmit assignAdminRole" );
                     User user = ( User ) getForm().getModel().getObject();
                     if( StringUtils.isNotEmpty( newUserAdminRole ))
                     {
@@ -797,7 +798,7 @@ public class UserDetailPanel extends FormComponentPanel
                         {
                             String msg = "User: " + user.getUserId() + " assign failed for admin role: " + newUserAdminRole;
                             display.setMessage( msg );
-                            log.debug( msg );
+                            LOG.debug( msg );
                         }
                     }
                 }
@@ -805,7 +806,7 @@ public class UserDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "assignAdminRole.onError" );
+                    LOG.warn( "assignAdminRole.onError" );
                 }
 
 
@@ -837,7 +838,7 @@ public class UserDetailPanel extends FormComponentPanel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target )
                 {
-                    log.debug( ".onSubmit deassign" );
+                    LOG.debug( ".onSubmit deassign" );
                     User user = ( User ) getForm().getModel().getObject();
                     UserRole userRole = new UserRole( user.getUserId(), userRoleSelection.getName() );
                     if ( deassignRole( user, userRole ) )
@@ -856,7 +857,7 @@ public class UserDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "deassign.onError" );
+                    LOG.warn( "deassign.onError" );
                 }
 
 
@@ -888,7 +889,7 @@ public class UserDetailPanel extends FormComponentPanel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target )
                 {
-                    log.debug( ".onSubmit deassignAdminRole" );
+                    LOG.debug( ".onSubmit deassignAdminRole" );
                     User user = ( User ) getForm().getModel().getObject();
                     UserAdminRole userAdminRole = new UserAdminRole( user.getUserId(), userAdminRoleSelection.getName() );
                     if ( deassignAdminRole( user, userAdminRole ) )
@@ -908,7 +909,7 @@ public class UserDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "ControlPanel.deassignAdminRole.onError" );
+                    LOG.warn( "ControlPanel.deassignAdminRole.onError" );
                 }
 
 
@@ -962,7 +963,7 @@ public class UserDetailPanel extends FormComponentPanel
                         msg += ", no action taken because address selection is empty";
                     }
                     display.setMessage( msg );
-                    log.debug( msg );
+                    LOG.debug( msg );
                 }
 
                 @Override
@@ -1015,7 +1016,7 @@ public class UserDetailPanel extends FormComponentPanel
                         msg += ", no action taken because emails selection is empty";
                     }
                     display.setMessage( msg );
-                    log.debug( msg );
+                    LOG.debug( msg );
                 }
 
 
@@ -1070,7 +1071,7 @@ public class UserDetailPanel extends FormComponentPanel
                         msg += ", no action taken because phones selection is empty";
                     }
                     display.setMessage( msg );
-                    log.debug( msg );
+                    LOG.debug( msg );
                 }
 
 
@@ -1124,7 +1125,7 @@ public class UserDetailPanel extends FormComponentPanel
                         msg += ", no action taken because mobiles selection is empty";
                     }
                     display.setMessage( msg );
-                    log.debug( msg );
+                    LOG.debug( msg );
                 }
 
 
@@ -1190,7 +1191,7 @@ public class UserDetailPanel extends FormComponentPanel
                     msg += userRoleSelection != null ? ": " + newUserRole : "";
                     roleSearchModalPanel.setRoleSearchVal( newUserRole );
                     display.setMessage( msg );
-                    log.debug( msg );
+                    LOG.debug( msg );
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     rolesModalWindow.show( target );
                 }
@@ -1258,7 +1259,7 @@ public class UserDetailPanel extends FormComponentPanel
                     msg += userAdminRoleSelection.getName() != null ? ": " + newUserAdminRole : "";
                     adminRoleSearchModalPanel.setRoleSearchVal( newUserAdminRole );
                     display.setMessage( msg );
-                    log.debug( msg );
+                    LOG.debug( msg );
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     adminRolesModalWindow.show( target );
                 }
@@ -1330,7 +1331,7 @@ public class UserDetailPanel extends FormComponentPanel
                     msg += user.getPwPolicy() != null ? ": " + user.getPwPolicy() : "";
                     policySearchModalPanel.setSearchVal( user.getPwPolicy() );
                     display.setMessage( msg );
-                    log.debug( msg );
+                    LOG.debug( msg );
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     policiesModalWindow.show( target );
                 }
@@ -1401,7 +1402,7 @@ public class UserDetailPanel extends FormComponentPanel
                     msg += user.getOu() != null ? ": " + user.getOu() : "";
                     ouSearchModalPanel.setSearchVal( user.getOu() );
                     display.setMessage( msg );
-                    log.debug( msg );
+                    LOG.debug( msg );
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     ousModalWindow.show( target );
                 }
@@ -1437,7 +1438,7 @@ public class UserDetailPanel extends FormComponentPanel
             String choice = comboBox.getModelObject();
             String msg = choice != null ? choice : "no choice";
             this.debug( msg );
-            log.debug( msg );
+            LOG.debug( msg );
         }
 
         private void clearDetailPanel()
@@ -1587,7 +1588,7 @@ public class UserDetailPanel extends FormComponentPanel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String warning = "AssignUser caught SecurityException=" + se;
-                        log.warn( warning );
+                        LOG.warn( warning );
                         error( "Error assigning role: " + szRoleName + " error id: " + se.getErrorId() );
                         component = editForm;
                     }
@@ -1596,7 +1597,7 @@ public class UserDetailPanel extends FormComponentPanel
                 {
                     String warning = ".assignUser user [" + user.getUserId() + "] already assigned role [" +
                         szRoleName + "]";
-                    log.warn( warning );
+                    LOG.warn( warning );
                     error( "User already assigned role: " + szRoleName );
                     component = editForm;
                 }
@@ -1618,7 +1619,7 @@ public class UserDetailPanel extends FormComponentPanel
                 catch ( org.apache.directory.fortress.core.SecurityException se )
                 {
                     String warning = "AssignUser caught SecurityException=" + se;
-                    log.warn( warning );
+                    LOG.warn( warning );
                     error( "Error deassigning role: " + user.getName() + " error id: " + se.getErrorId() );
                     component = editForm;
                 }
@@ -1646,7 +1647,7 @@ public class UserDetailPanel extends FormComponentPanel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String warning = "AssignAdminUser caught SecurityException=" + se;
-                        log.warn( warning );
+                        LOG.warn( warning );
                         error( "Error assigning adminRole: " + szAdminRoleName + " error id: " + se.getErrorId() );
                         component = editForm;
                     }
@@ -1656,7 +1657,7 @@ public class UserDetailPanel extends FormComponentPanel
                     String warning = ".assignUser user [" + user.getUserId() + "] already assigned adminRole" +
                         " [" +
                         szAdminRoleName + "]";
-                    log.warn( warning );
+                    LOG.warn( warning );
                     error( "User already assigned adminRole: " + szAdminRoleName );
                     component = editForm;
                 }
@@ -1678,7 +1679,7 @@ public class UserDetailPanel extends FormComponentPanel
                 catch ( org.apache.directory.fortress.core.SecurityException se )
                 {
                     String warning = "AssignAdminUser caught SecurityException=" + se;
-                    log.warn( warning );
+                    LOG.warn( warning );
                     error( "Error assigning adminRole: " + userAdminRole.getName() + " error id: " + se.getErrorId() );
                     component = editForm;
                 }
@@ -1700,7 +1701,7 @@ public class UserDetailPanel extends FormComponentPanel
                 this.setModelObject( user );
                 initAccordionLabels( user );
                 String msg = "User: " + user.getUserId() + " has been selected";
-                log.debug( msg );
+                LOG.debug( msg );
                 display.setMessage( msg );
                 userIdTF.setEnabled( false );
                 addPB.setEnabled( false );
@@ -1778,7 +1779,7 @@ public class UserDetailPanel extends FormComponentPanel
                 if ( component != null )
                 {
                     AjaxRequestTarget target = ( ( AjaxRequestTarget ) event.getPayload() );
-                    log.debug( ".onEvent AjaxRequestTarget: " + target.toString() );
+                    LOG.debug( ".onEvent AjaxRequestTarget: " + target.toString() );
                     target.add( component );
                     component = null;
                 }
@@ -1797,7 +1798,7 @@ public class UserDetailPanel extends FormComponentPanel
             }
             else
             {
-                log.info( ".onBeforeRender null model object" );
+                LOG.info( ".onBeforeRender null model object" );
             }
             super.onBeforeRender();
         }
@@ -1923,12 +1924,12 @@ public class UserDetailPanel extends FormComponentPanel
         catch ( URISyntaxException se )
         {
             String error = "readJpegFile caught URISyntaxException=" + se;
-            log.error( error );
+            LOG.error( error );
         }
         catch ( IOException ioe )
         {
             String error = "readJpegFile caught IOException=" + ioe;
-            log.error( error );
+            LOG.error( error );
         }
         return image;
     }

@@ -26,7 +26,8 @@ import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
@@ -65,7 +66,7 @@ public class RoleListPanel<T extends Serializable> extends FormComponentPanel
 {
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
-    private static final Logger log = Logger.getLogger( RoleListPanel.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( RoleListPanel.class.getName() );
     private DefaultTreeModel treeModel;
     private DefaultMutableTreeNode node;
     private TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String> grid;
@@ -147,7 +148,7 @@ public class RoleListPanel<T extends Serializable> extends FormComponentPanel
                     T role = ( T ) node.getUserObject();
                     if ( super.isItemSelected( itemModel ) )
                     {
-                        log.debug( "TreeGrid.addGrid.selectItem item is selected" );
+                        LOG.debug( "TreeGrid.addGrid.selectItem item is selected" );
                         super.selectItem( itemModel, false );
                     }
                     else
@@ -181,7 +182,7 @@ public class RoleListPanel<T extends Serializable> extends FormComponentPanel
             //@Override
             protected void onSubmit(AjaxRequestTarget target, Form form)
             {
-                log.debug( ".search onSubmit" );
+                LOG.debug( ".search onSubmit" );
                 info( "Searching Roles..." );
                 if ( !StringUtils.isNotEmpty( searchVal ) )
                 {
@@ -210,7 +211,7 @@ public class RoleListPanel<T extends Serializable> extends FormComponentPanel
             @Override
             public void onError(AjaxRequestTarget target)
             {
-                log.warn( ".search.onError" );
+                LOG.warn( ".search.onError" );
                 target.add();
             }
 
@@ -260,7 +261,7 @@ public class RoleListPanel<T extends Serializable> extends FormComponentPanel
             }
             AjaxRequestTarget target = ( ( SaveModelEvent ) event.getPayload() ).getAjaxRequestTarget();
             target.add( grid );
-            log.debug( ".onEvent SaveModelEvent: " + target.toString() );
+            LOG.debug( ".onEvent SaveModelEvent: " + target.toString() );
         }
     }
 
@@ -290,7 +291,7 @@ public class RoleListPanel<T extends Serializable> extends FormComponentPanel
             DefaultMutableTreeNode node = model.getObject();
             treeModel.removeNodeFromParent( node );
             Role role = ( Role ) node.getUserObject();
-            log.debug( ".removeSelectedItems role node: " + role.getName() );
+            LOG.debug( ".removeSelectedItems role node: " + role.getName() );
             List<Role> roles = ( ( List<Role> ) getDefaultModel().getObject() );
             roles.remove( role );
         }
@@ -303,10 +304,10 @@ public class RoleListPanel<T extends Serializable> extends FormComponentPanel
         rootNode = new DefaultMutableTreeNode( null );
         model = new DefaultTreeModel( rootNode );
         if ( roles == null )
-            log.debug( "no Roles found" );
+            LOG.debug( "no Roles found" );
         else
         {
-            log.debug( "Roles found:" + roles.size() );
+            LOG.debug( "Roles found:" + roles.size() );
             for ( T role : roles )
                 rootNode.add( new DefaultMutableTreeNode( role ) );
         }

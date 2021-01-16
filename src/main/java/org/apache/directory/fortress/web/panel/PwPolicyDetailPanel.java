@@ -23,7 +23,8 @@ package org.apache.directory.fortress.web.panel;
 
 import com.googlecode.wicket.jquery.ui.form.spinner.Spinner;
 import org.apache.directory.fortress.core.util.Config;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
@@ -58,7 +59,7 @@ public class PwPolicyDetailPanel extends FormComponentPanel
     private static final long serialVersionUID = 1L;
     @SpringBean
     private PwPolicyMgr pwPolicyMgr;
-    private static final Logger log = Logger.getLogger( PwPolicyDetailPanel.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( PwPolicyDetailPanel.class.getName() );
     private Form editForm;
     private Displayable display;
 
@@ -102,7 +103,7 @@ public class PwPolicyDetailPanel extends FormComponentPanel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target )
                 {
-                    log.debug( ".onSubmit Add" );
+                    LOG.debug( ".onSubmit Add" );
                     PwPolicy policy = ( PwPolicy ) getForm().getModel().getObject();
                     try
                     {
@@ -116,7 +117,7 @@ public class PwPolicyDetailPanel extends FormComponentPanel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error( error );
+                        LOG.error( error );
                         display.setMessage( error );
                         display.display();
                     }
@@ -126,7 +127,7 @@ public class PwPolicyDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.info( "PwPolicyPanel.add.onError caught" );
+                    LOG.info( "PwPolicyPanel.add.onError caught" );
                     target.add();
                 }
 
@@ -159,7 +160,7 @@ public class PwPolicyDetailPanel extends FormComponentPanel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target )
                 {
-                    log.debug( ".onSubmit Commit" );
+                    LOG.debug( ".onSubmit Commit" );
                     PwPolicy policy = ( PwPolicy ) getForm().getModel().getObject();
                     try
                     {
@@ -172,7 +173,7 @@ public class PwPolicyDetailPanel extends FormComponentPanel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error( error );
+                        LOG.error( error );
                         display.setMessage( error );
                         display.display();
                     }
@@ -182,7 +183,7 @@ public class PwPolicyDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "PwPolicyPanel.update.onError" );
+                    LOG.warn( "PwPolicyPanel.update.onError" );
                 }
 
 
@@ -214,7 +215,7 @@ public class PwPolicyDetailPanel extends FormComponentPanel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target )
                 {
-                    log.debug( ".onSubmit Commit" );
+                    LOG.debug( ".onSubmit Commit" );
                     PwPolicy role = ( PwPolicy ) getForm().getModel().getObject();
 
                     try
@@ -231,7 +232,7 @@ public class PwPolicyDetailPanel extends FormComponentPanel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error( error );
+                        LOG.error( error );
                         display.setMessage( error );
                         display.display();
                     }
@@ -241,7 +242,7 @@ public class PwPolicyDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "PwPolicyPanel.commit.onError" );
+                    LOG.warn( "PwPolicyPanel.commit.onError" );
                 }
 
 
@@ -284,7 +285,7 @@ public class PwPolicyDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "ControlPanel.cancel.onError" );
+                    LOG.warn( "ControlPanel.cancel.onError" );
                 }
 
 
@@ -358,7 +359,7 @@ public class PwPolicyDetailPanel extends FormComponentPanel
                 PwPolicy policy = ( PwPolicy ) modelEvent.getEntity();
                 this.setModelObject( policy );
                 String msg = "Policy: " + policy.getName() + " has been selected";
-                log.debug( ".onEvent SelectModelEvent: " + policy.getName() );
+                LOG.debug( ".onEvent SelectModelEvent: " + policy.getName() );
                 display.setMessage( msg );
                 component = editForm;
             }
@@ -368,7 +369,7 @@ public class PwPolicyDetailPanel extends FormComponentPanel
                 if ( component != null )
                 {
                     AjaxRequestTarget target = ( ( AjaxRequestTarget ) event.getPayload() );
-                    log.debug( ".onEvent AjaxRequestTarget: " + target.toString() );
+                    LOG.debug( ".onEvent AjaxRequestTarget: " + target.toString() );
                     target.add( component );
                     component = null;
                 }

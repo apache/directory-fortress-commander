@@ -20,7 +20,8 @@
 package org.apache.directory.fortress.web.control;
 
 import com.googlecode.wicket.jquery.ui.form.button.IndicatingAjaxButton;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.model.Permission;
@@ -39,7 +40,7 @@ public class FtIndicatingAjaxButton extends IndicatingAjaxButton
     @SpringBean
     private AccessMgr accessMgr;
 
-    private static final Logger LOG = Logger.getLogger( SecureIndicatingAjaxButton.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( SecureIndicatingAjaxButton.class.getName() );
 
     public FtIndicatingAjaxButton(String id)
     {

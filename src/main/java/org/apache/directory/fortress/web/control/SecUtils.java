@@ -28,12 +28,13 @@ import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.model.Warning;
 import org.apache.directory.fortress.realm.*;
 import org.apache.directory.fortress.realm.GlobalIds;
-import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -47,7 +48,8 @@ import java.util.List;
  */
 public class SecUtils
 {
-    private static final Logger LOG = Logger.getLogger( SecUtils.class.getName() );
+    //private static final Logger LOG = LoggerFactory.getLogger( SecUtils.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( SecUtils.class.getName() );
     private static final String PERMS_CACHED = "perms.cached";
     public static final boolean IS_PERM_CACHED = ( ( Config.getInstance().getProperty( PERMS_CACHED ) != null ) && ( Config.getInstance()
         .getProperty( PERMS_CACHED ).equalsIgnoreCase( "true" ) ) );

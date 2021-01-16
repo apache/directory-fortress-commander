@@ -27,7 +27,8 @@ import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.util.Config;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
@@ -73,7 +74,7 @@ public class RoleDetailPanel extends Panel
     private AdminMgr adminMgr;
     @SpringBean
     private DelAdminMgr delAdminMgr;
-    private static final Logger log = Logger.getLogger( RoleDetailPanel.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( RoleDetailPanel.class.getName() );
     private static final String PARENTS_SELECTION = "parentsSelection";
     private Form editForm;
     private Displayable display;
@@ -167,7 +168,7 @@ public class RoleDetailPanel extends Panel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target )
                 {
-                    log.debug( ".onSubmit Add" );
+                    LOG.debug( ".onSubmit Add" );
                     T role = ( T ) getForm().getModel().getObject();
                     updateEntityWithComboData( ( Role ) role );
                     try
@@ -195,7 +196,7 @@ public class RoleDetailPanel extends Panel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error( error );
+                        LOG.error( error );
                         display.setMessage( error );
                         display.display();
                     }
@@ -205,7 +206,7 @@ public class RoleDetailPanel extends Panel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.info( "RoleDetailPanel.add.onError caught" );
+                    LOG.info( "RoleDetailPanel.add.onError caught" );
                     target.add();
                 }
 
@@ -238,7 +239,7 @@ public class RoleDetailPanel extends Panel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target )
                 {
-                    log.debug( ".onSubmit Commit" );
+                    LOG.debug( ".onSubmit Commit" );
                     T role = ( T ) getForm().getModel().getObject();
                     updateEntityWithComboData( ( Role ) role );
                     try
@@ -264,7 +265,7 @@ public class RoleDetailPanel extends Panel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error( error );
+                        LOG.error( error );
                         display.setMessage( error );
                         display.display();
                     }
@@ -274,7 +275,7 @@ public class RoleDetailPanel extends Panel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "RoleDetailPanel.update.onError" );
+                    LOG.warn( "RoleDetailPanel.update.onError" );
                 }
 
 
@@ -306,7 +307,7 @@ public class RoleDetailPanel extends Panel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target )
                 {
-                    log.debug( ".onSubmit Delete" );
+                    LOG.debug( ".onSubmit Delete" );
                     T role = ( T ) getForm().getModel().getObject();
                     try
                     {
@@ -331,7 +332,7 @@ public class RoleDetailPanel extends Panel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error( error );
+                        LOG.error( error );
                         display.setMessage( error );
                         display.display();
                     }
@@ -341,7 +342,7 @@ public class RoleDetailPanel extends Panel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "RoleDetailPanel.delete.onError" );
+                    LOG.warn( "RoleDetailPanel.delete.onError" );
                 }
 
 
@@ -382,7 +383,7 @@ public class RoleDetailPanel extends Panel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "RoleDetailPanel.cancel.onError" );
+                    LOG.warn( "RoleDetailPanel.cancel.onError" );
                 }
 
 
@@ -446,7 +447,7 @@ public class RoleDetailPanel extends Panel
                         msg += ", no action taken because parent selection is empty";
                     }
                     display.setMessage( msg );
-                    log.debug( msg );
+                    LOG.debug( msg );
                 }
 
 
@@ -522,7 +523,7 @@ public class RoleDetailPanel extends Panel
                     msg += parentsSelection != null ? ": " + parentsSelection : "";
                     roleSearchModalPanel.setRoleSearchVal( parentsSelection );
                     display.setMessage( msg );
-                    log.debug( msg );
+                    LOG.debug( msg );
                     target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                     rolesModalWindow.show( target );
                 }
@@ -588,7 +589,7 @@ public class RoleDetailPanel extends Panel
                 addPB.setEnabled( false );
                 editForm.addOrReplace( parentsCB );
                 String msg = "Role: " + ( ( Role ) role ).getName() + " has been selected";
-                log.debug( msg );
+                LOG.debug( msg );
                 display.setMessage( msg );
                 component = editForm;
             }
@@ -598,7 +599,7 @@ public class RoleDetailPanel extends Panel
                 if ( component != null )
                 {
                     AjaxRequestTarget target = ( ( AjaxRequestTarget ) event.getPayload() );
-                    log.debug( ".onEvent AjaxRequestTarget: " + target.toString() );
+                    LOG.debug( ".onEvent AjaxRequestTarget: " + target.toString() );
                     target.add( component );
                     component = null;
                 }
@@ -641,7 +642,7 @@ public class RoleDetailPanel extends Panel
             }
             else
             {
-                log.info( ".onBeforeRender null model object" );
+                LOG.info( ".onBeforeRender null model object" );
             }
             super.onBeforeRender();
         }

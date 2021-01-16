@@ -24,7 +24,8 @@ package org.apache.directory.fortress.web.panel;
 import com.googlecode.wicket.kendo.ui.form.button.AjaxButton;
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
@@ -53,7 +54,7 @@ public class RoleAdminDetailPanel extends Panel
 {
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
-    private static final Logger LOG = Logger.getLogger( RoleAdminDetailPanel.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( RoleAdminDetailPanel.class.getName() );
     public static final String PERMOU_SELECTION = "permouSelection";
     public static final String USEROU_SELECTION = "userouSelection";
     public static final String ROLE_ASSIGN_MODAL = "role-assign-modal";

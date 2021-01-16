@@ -21,7 +21,8 @@ package org.apache.directory.fortress.web.control;
 
 
 import org.apache.directory.fortress.core.model.Permission;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 
@@ -36,7 +37,7 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
  */
 public class FtBookmarkablePageLink extends BookmarkablePageLink
 {
-    private static final Logger LOG = Logger.getLogger( FtBookmarkablePageLink.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( FtBookmarkablePageLink.class.getName() );
     Permission perm;
 
     public <C extends Page> FtBookmarkablePageLink( String id, Class<C> pageClass )

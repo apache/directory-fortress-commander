@@ -30,7 +30,8 @@ import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.PropUtil;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -75,7 +76,7 @@ public class GroupDetailPanel extends FormComponentPanel
     private static final long serialVersionUID = 1L;
     @SpringBean
     private GroupMgr groupMgr;
-    private static final Logger log = Logger.getLogger( GroupDetailPanel.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( GroupDetailPanel.class.getName() );
     private Form editForm;
     private Displayable display;
     public static final int ROWS = 5;
@@ -185,7 +186,7 @@ public class GroupDetailPanel extends FormComponentPanel
                             {
                                 String szError = "Group deassign failed group: " + se;
                                 display.setMessage( szError );
-                                log.warn( szError );
+                                LOG.warn( szError );
                             }
                             targetOptional.ifPresent(target -> target.add( component ));
                         }
@@ -210,7 +211,7 @@ public class GroupDetailPanel extends FormComponentPanel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target )
                 {
-                    log.debug( ".onSubmit Add" );
+                    LOG.debug( ".onSubmit Add" );
                     Group group = ( Group ) getForm().getModel().getObject();
                     String msg = null;
                     if ( !StringUtils.isNotBlank( memberAssign ) && !CollectionUtils.isNotEmpty( group.getMembers() ) )
@@ -234,7 +235,7 @@ public class GroupDetailPanel extends FormComponentPanel
                         catch ( org.apache.directory.fortress.core.SecurityException se )
                         {
                             String error = ".onSubmit caught SecurityException=" + se;
-                            log.error( error );
+                            LOG.error( error );
                             display.setMessage( error );
                         }
                     }
@@ -245,7 +246,7 @@ public class GroupDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.info( "GroupDetailPanel.add.onError caught" );
+                    LOG.info( "GroupDetailPanel.add.onError caught" );
                     target.add();
                 }
 
@@ -278,7 +279,7 @@ public class GroupDetailPanel extends FormComponentPanel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target )
                 {
-                    log.debug( ".onSubmit Commit" );
+                    LOG.debug( ".onSubmit Commit" );
                     Group group = ( Group ) getForm().getModel().getObject();
                     try
                     {
@@ -291,7 +292,7 @@ public class GroupDetailPanel extends FormComponentPanel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error( error );
+                        LOG.error( error );
                         display.setMessage( error );
                     }
                 }
@@ -300,7 +301,7 @@ public class GroupDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "GroupDetailPanel.commit.onError" );
+                    LOG.warn( "GroupDetailPanel.commit.onError" );
                 }
 
 
@@ -332,7 +333,7 @@ public class GroupDetailPanel extends FormComponentPanel
                 @Override
                 protected void onSubmit( AjaxRequestTarget target )
                 {
-                    log.debug( ".onSubmit Commit" );
+                    LOG.debug( ".onSubmit Commit" );
                     Group group = ( Group ) getForm().getModel().getObject();
                     try
                     {
@@ -343,7 +344,7 @@ public class GroupDetailPanel extends FormComponentPanel
                     catch ( org.apache.directory.fortress.core.SecurityException se )
                     {
                         String error = ".onSubmit caught SecurityException=" + se;
-                        log.error( error );
+                        LOG.error( error );
                         display.setMessage( error );
                     }
                 }
@@ -352,7 +353,7 @@ public class GroupDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "GroupDetailPanel.delete.onError" );
+                    LOG.warn( "GroupDetailPanel.delete.onError" );
                 }
 
 
@@ -391,7 +392,7 @@ public class GroupDetailPanel extends FormComponentPanel
                 @Override
                 public void onError( AjaxRequestTarget target )
                 {
-                    log.warn( "GroupDetailPanel.cancel.onError" );
+                    LOG.warn( "GroupDetailPanel.cancel.onError" );
                 }
 
 
@@ -445,7 +446,7 @@ public class GroupDetailPanel extends FormComponentPanel
                             {
                                 String error = "Failed add property: " + memberPropsSelection + ", SecurityException="
                                     + se;
-                                log.warn( error );
+                                LOG.warn( error );
                                 display.setMessage( error );
                             }
                         }
@@ -458,7 +459,7 @@ public class GroupDetailPanel extends FormComponentPanel
                         msg += ", no action taken because property selection is empty";
                     }
                     display.setMessage( msg );
-                    log.debug( msg );
+                    LOG.debug( msg );
                 }
 
 
@@ -514,7 +515,7 @@ public class GroupDetailPanel extends FormComponentPanel
                                 {
                                     String error = "Failed delete property: " + memberPropsSelection
                                         + ", SecurityException=" + se;
-                                    log.warn( error );
+                                    LOG.warn( error );
                                     display.setMessage( error );
                                 }
                             }
@@ -532,7 +533,7 @@ public class GroupDetailPanel extends FormComponentPanel
                         msg += ", no action taken because property selection is empty";
                     }
                     display.setMessage( msg );
-                    log.debug( msg );
+                    LOG.debug( msg );
                 }
 
 
@@ -580,14 +581,14 @@ public class GroupDetailPanel extends FormComponentPanel
                                 memberAssign = "";
                                 getForm().add( memberAssignTF );
                                 display.setMessage( msg );
-                                log.debug( msg );
+                                LOG.debug( msg );
                                 createDataTable( newGroup.getMembers() );
                             }
                         }
                         catch ( org.apache.directory.fortress.core.SecurityException se )
                         {
                             String error = "Failed assign user: " + memberAssign + ", SecurityException=" + se;
-                            log.warn( error );
+                            LOG.warn( error );
                             display.setMessage( error );
                         }
                     }
@@ -596,7 +597,7 @@ public class GroupDetailPanel extends FormComponentPanel
                         String msg = "Group: " + group.getName()
                             + ", assign op ignored, no value entered for assignment";
                         display.setMessage( msg );
-                        log.debug( msg );
+                        LOG.debug( msg );
                     }
                     component = editForm;
                 }
@@ -646,14 +647,14 @@ public class GroupDetailPanel extends FormComponentPanel
                                 memberAssign = "";
                                 getForm().add( memberAssignTF );
                                 display.setMessage( msg );
-                                log.debug( msg );
+                                LOG.debug( msg );
                                 createDataTable( newGroup.getMembers() );
                             }
                         }
                         catch ( org.apache.directory.fortress.core.SecurityException se )
                         {
                             String error = "Failed assign user: " + memberAssign + ", SecurityException=" + se;
-                            log.warn( error );
+                            LOG.warn( error );
                             display.setMessage( error );
                         }
                     }
@@ -662,7 +663,7 @@ public class GroupDetailPanel extends FormComponentPanel
                         String msg = "Group: " + group.getName()
                             + ", assign op ignored, no value entered for deassignment";
                         display.setMessage( msg );
-                        log.debug( msg );
+                        LOG.debug( msg );
                     }
                     component = editForm;
                 }
@@ -771,7 +772,7 @@ public class GroupDetailPanel extends FormComponentPanel
                     String msg = "clicked on members search";
                     msg += memberAssign != null ? ": " + memberAssign : "";
                     display.setMessage( msg );
-                    log.debug( msg );
+                    LOG.debug( msg );
                     if ( StringUtils.isNotBlank( memberAssign ) )
                     {
                         memberSearchModalPanel.setSearchVal( memberAssign );
@@ -826,7 +827,7 @@ public class GroupDetailPanel extends FormComponentPanel
                 createDataTable( group.getMembers() );
                 String msg = "Group Name: " + group.getName() + " has been selected";
                 display.setMessage( msg );
-                log.debug( msg );
+                LOG.debug( msg );
                 component = editForm;
             }
             else if ( event.getPayload() instanceof AjaxRequestTarget )
@@ -834,7 +835,7 @@ public class GroupDetailPanel extends FormComponentPanel
                 if ( component != null )
                 {
                     AjaxRequestTarget target = ( ( AjaxRequestTarget ) event.getPayload() );
-                    log.debug( ".onEvent AjaxRequestTarget: " + target.toString() );
+                    LOG.debug( ".onEvent AjaxRequestTarget: " + target.toString() );
                     target.add( component );
                     component = null;
                 }
@@ -864,7 +865,7 @@ public class GroupDetailPanel extends FormComponentPanel
             catch ( LdapInvalidDnException e )
             {
                 String error = "User DN: " + szDn + ", incorrect format: " + e;
-                log.warn( error );
+                LOG.warn( error );
                 display.setMessage( error );
             }
             return szUserId;

@@ -21,7 +21,8 @@ package org.apache.directory.fortress.web.model;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.directory.fortress.core.util.Config;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -46,7 +47,7 @@ public class PermListModel extends Model<SerializableList<Permission>>
     
     @SpringBean
     private ReviewMgr reviewMgr;
-    private static final Logger LOG = Logger.getLogger(PermListModel.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(PermListModel.class.getName());
     private Permission perm;
     private SerializableList<Permission> perms = null;
     private boolean isAdmin;

@@ -26,7 +26,8 @@ import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
@@ -62,7 +63,7 @@ public class PwPolicyListPanel extends FormComponentPanel
 {
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
-    private static final Logger log = Logger.getLogger( PwPolicyListPanel.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( PwPolicyListPanel.class.getName() );
     private DefaultTreeModel treeModel;
     private DefaultMutableTreeNode node;
     private TreeGrid<DefaultTreeModel, DefaultMutableTreeNode, String> grid;
@@ -169,10 +170,10 @@ public class PwPolicyListPanel extends FormComponentPanel
                 if ( !node.isRoot() )
                 {
                     PwPolicy policy = ( PwPolicy ) node.getUserObject();
-                    log.debug( "TreeGrid.addGrid.selectItem selected policy =" + policy.getName() );
+                    LOG.debug( "TreeGrid.addGrid.selectItem selected policy =" + policy.getName() );
                     if ( super.isItemSelected( itemModel ) )
                     {
-                        log.debug( "TreeGrid.addGrid.selectItem item is selected" );
+                        LOG.debug( "TreeGrid.addGrid.selectItem item is selected" );
                         super.selectItem( itemModel, false );
                     }
                     else
@@ -206,7 +207,7 @@ public class PwPolicyListPanel extends FormComponentPanel
             @Override
             protected void onSubmit(AjaxRequestTarget target)
             {
-                log.debug( ".search onSubmit" );
+                LOG.debug( ".search onSubmit" );
                 info( "Searching Policies..." );
                 if ( !StringUtils.isNotEmpty( searchVal ) )
                 {
@@ -234,7 +235,7 @@ public class PwPolicyListPanel extends FormComponentPanel
             @Override
             public void onError(AjaxRequestTarget target)
             {
-                log.warn( ".search.onError" );
+                LOG.warn( ".search.onError" );
                 target.add();
             }
 
@@ -284,7 +285,7 @@ public class PwPolicyListPanel extends FormComponentPanel
             }
             AjaxRequestTarget target = ( ( SaveModelEvent ) event.getPayload() ).getAjaxRequestTarget();
             target.add( grid );
-            log.debug( ".onEvent SaveModelEvent: " + target.toString() );
+            LOG.debug( ".onEvent SaveModelEvent: " + target.toString() );
         }
     }
 
@@ -297,7 +298,7 @@ public class PwPolicyListPanel extends FormComponentPanel
             DefaultMutableTreeNode node = model.getObject();
             treeModel.removeNodeFromParent( node );
             PwPolicy policy = ( PwPolicy ) node.getUserObject();
-            log.debug( ".removeSelectedItems policy node: " + policy.getName() );
+            LOG.debug( ".removeSelectedItems policy node: " + policy.getName() );
             List<PwPolicy> policies = ( ( List<PwPolicy> ) getDefaultModel().getObject() );
             policies.remove( policy );
         }
@@ -310,10 +311,10 @@ public class PwPolicyListPanel extends FormComponentPanel
         rootNode = new DefaultMutableTreeNode( null );
         model = new DefaultTreeModel( rootNode );
         if ( policies == null )
-            log.debug( "no Policies found" );
+            LOG.debug( "no Policies found" );
         else
         {
-            log.debug( "Policies found:" + policies.size() );
+            LOG.debug( "Policies found:" + policies.size() );
             for ( PwPolicy policy : policies )
                 rootNode.add( new DefaultMutableTreeNode( policy ) );
         }

@@ -26,7 +26,8 @@ import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
@@ -69,7 +70,7 @@ public class ObjectListPanel extends FormComponentPanel
 {
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
-    private static final Logger log = Logger.getLogger( ObjectListPanel.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( ObjectListPanel.class.getName() );
     private Form listForm;
     private DefaultTreeModel treeModel;
     private DefaultMutableTreeNode node;
@@ -128,7 +129,7 @@ public class ObjectListPanel extends FormComponentPanel
             @Override
             protected void onSubmit( AjaxRequestTarget target )
             {
-                log.debug( ".search.onSubmit selected radio button: " + selectedRadioButton );
+                LOG.debug( ".search.onSubmit selected radio button: " + selectedRadioButton );
                 info( "Searching Permission Objects..." );
                 if ( !StringUtils.isNotEmpty( searchVal ) )
                 {
@@ -138,11 +139,11 @@ public class ObjectListPanel extends FormComponentPanel
                 switch ( selectedRadioButton )
                 {
                     case NAMES:
-                        log.debug( ".onSubmit OBJECT RB selected" );
+                        LOG.debug( ".onSubmit OBJECT RB selected" );
                         srchObject.setObjName( searchVal );
                         break;
                     case OUS:
-                        log.debug( ".onSubmit OUS RB selected" );
+                        LOG.debug( ".onSubmit OUS RB selected" );
                         srchObject.setOu( searchVal );
                         break;
                 }
@@ -168,7 +169,7 @@ public class ObjectListPanel extends FormComponentPanel
             @Override
             public void onError( AjaxRequestTarget target )
             {
-                log.warn( ".search.onError" );
+                LOG.warn( ".search.onError" );
                 target.add();
             }
 
@@ -213,11 +214,11 @@ public class ObjectListPanel extends FormComponentPanel
                     prune();
                     break;
                 default:
-                    log.error( "onEvent caught invalid operation" );
+                    LOG.error( "onEvent caught invalid operation" );
                     break;
             }
             AjaxRequestTarget target = ( ( SaveModelEvent ) event.getPayload() ).getAjaxRequestTarget();
-            log.debug( ".onEvent AJAX - ObjectListPanel - SaveModelEvent: " + target.toString() );
+            LOG.debug( ".onEvent AJAX - ObjectListPanel - SaveModelEvent: " + target.toString() );
         }
     }
 
@@ -230,7 +231,7 @@ public class ObjectListPanel extends FormComponentPanel
             DefaultMutableTreeNode node = model.getObject();
             treeModel.removeNodeFromParent( node );
             PermObj permObj = ( PermObj ) node.getUserObject();
-            log.debug( ".removeSelectedItems user node: " + permObj.getObjName() );
+            LOG.debug( ".removeSelectedItems user node: " + permObj.getObjName() );
             List<PermObj> permObjs = ( ( List<PermObj> ) getDefaultModel().getObject() );
             permObjs.remove( permObj );
         }
@@ -243,10 +244,10 @@ public class ObjectListPanel extends FormComponentPanel
         rootNode = new DefaultMutableTreeNode( null );
         model = new DefaultTreeModel( rootNode );
         if ( permObjs == null )
-            log.debug( "no Permission Objects found" );
+            LOG.debug( "no Permission Objects found" );
         else
         {
-            log.debug( ".createTreeModel Permission Objects found:" + permObjs.size() );
+            LOG.debug( ".createTreeModel Permission Objects found:" + permObjs.size() );
             for ( PermObj permObj : permObjs )
                 rootNode.add( new DefaultMutableTreeNode( permObj ) );
         }
@@ -293,10 +294,10 @@ public class ObjectListPanel extends FormComponentPanel
                 if ( !node.isRoot() )
                 {
                     PermObj permObj = ( PermObj ) node.getUserObject();
-                    log.debug( "TreeGrid.addGrid.selectItem selected permission object =" + permObj.getObjName() );
+                    LOG.debug( "TreeGrid.addGrid.selectItem selected permission object =" + permObj.getObjName() );
                     if ( super.isItemSelected( itemModel ) )
                     {
-                        log.debug( "TreeGrid.addGrid.selectItem item is selected" );
+                        LOG.debug( "TreeGrid.addGrid.selectItem item is selected" );
                         super.selectItem( itemModel, false );
                     }
                     else
@@ -358,7 +359,7 @@ public class ObjectListPanel extends FormComponentPanel
                 String msg = "clicked on ou search";
                 msg += "ouSelection: " + searchVal;
                 ouSearchModalPanel.setSearchVal( searchVal );
-                log.debug( msg );
+                LOG.debug( msg );
                 target.prependJavaScript( GlobalIds.WICKET_WINDOW_UNLOAD_CONFIRMATION_FALSE );
                 ousModalWindow.show( target );
             }

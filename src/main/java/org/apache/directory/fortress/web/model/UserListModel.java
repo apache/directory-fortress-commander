@@ -22,7 +22,8 @@ package org.apache.directory.fortress.web.model;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.util.Config;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -56,7 +57,7 @@ public class UserListModel extends Model<SerializableList<User>>
     private ReviewMgr reviewMgr;
     @SpringBean
     private DelReviewMgr delReviewMgr;
-    private static final Logger log = Logger.getLogger(UserListModel.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(UserListModel.class.getName());
     private User user;
     private Permission perm;
     private SerializableList<User> users = null;
@@ -79,7 +80,7 @@ public class UserListModel extends Model<SerializableList<User>>
     {
         this.user = user;
         init( session );
-        log.debug( "constructor userId: " + user.getUserId() );
+        LOG.debug( "constructor userId: " + user.getUserId() );
     }
 
     
@@ -87,7 +88,7 @@ public class UserListModel extends Model<SerializableList<User>>
     {
         this.perm = perm;
         init( session );
-        log.debug( "constructor perm: " + perm.getObjName() );
+        LOG.debug( "constructor perm: " + perm.getObjName() );
     }
     
 
@@ -111,13 +112,13 @@ public class UserListModel extends Model<SerializableList<User>>
     {
         if (users != null)
         {
-            log.debug( ".getObject count: " + users.size() );
+            LOG.debug( ".getObject count: " + users.size() );
             return users;
         }
         
         if ( ( user == null ) && ( perm == null  ))
         {
-            log.debug( ".getObject null" );
+            LOG.debug( ".getObject null" );
         }
         else
         {
@@ -135,7 +136,7 @@ public class UserListModel extends Model<SerializableList<User>>
     @Override
     public void setObject( SerializableList<User> object )
     {
-        log.debug(".setObject count: " + object.size() );
+        LOG.debug(".setObject count: " + object.size() );
         users = object;
     }
     
@@ -202,7 +203,7 @@ public class UserListModel extends Model<SerializableList<User>>
         catch ( SecurityException se )
         {
             String error = ".getList caught SecurityException=" + se;
-            log.warn( error );
+            LOG.warn( error );
         }
         
         return usersList;

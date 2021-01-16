@@ -21,7 +21,8 @@ package org.apache.directory.fortress.web.model;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.directory.fortress.core.util.Config;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -47,7 +48,7 @@ public class SDListModel extends Model<SerializableList<SDSet>>
 
     @SpringBean
     private ReviewMgr reviewMgr;
-    private static final Logger LOG = Logger.getLogger(SDListModel.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(SDListModel.class.getName());
     private SDSet sdSet;
     private SerializableList<SDSet> sdSets = null;
 
