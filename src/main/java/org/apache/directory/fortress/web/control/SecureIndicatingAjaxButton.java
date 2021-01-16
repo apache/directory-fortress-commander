@@ -85,6 +85,7 @@ public class SecureIndicatingAjaxButton extends IndicatingAjaxButton
         super( id );
         if ( !SecUtils.isFound( new Permission( objName, opName ), this ) )
             setVisible( false );
+            LOG.info( "arbac perm objName: " + this.perm.getObjName() + " opName: " + this.perm.getOpName() + ", not found in session");
     }
 
     protected boolean checkAccess( String objectName, String opName )
