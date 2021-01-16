@@ -27,7 +27,8 @@ import java.util.concurrent.TimeUnit;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.util.Config;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -78,13 +79,14 @@ public class FortressWebSeleniumITCase
 
     private static DriverType driverType = DriverType.FIREFOX;
     private StringBuffer verificationErrors = new StringBuffer();
-    private static final Logger log = Logger.getLogger( FortressWebSeleniumITCase.class.getName() );
+    private static final Logger LOG = LoggerFactory.getLogger( FortressWebSeleniumITCase.class.getName() );
 
     @Before
     public void setUp() throws Exception
     {
         // http default:
         baseUrl = "http://localhost:8080";
+        //baseUrl = "http://fortress-a:8080";
         driver.manage().timeouts().implicitlyWait( 5, TimeUnit.SECONDS );
     }
 
@@ -129,7 +131,7 @@ public class FortressWebSeleniumITCase
     @Test
     public void testCase1() throws Exception
     {
-        log.info( "Begin FortressWebSeleniumITCase 1" );
+        LOG.info( "Begin FortressWebSeleniumITCase 1" );
         driver.get( baseUrl + FORTRESS_WEB );
         login( "test", "password" );
         TUtils.sleep( 1 );
@@ -175,14 +177,14 @@ public class FortressWebSeleniumITCase
          *  LOGOUT
          */
         driver.findElement( By.linkText( "LOGOUT" ) ).click();
-        log.info( "End FortressWebSeleniumITCase" );
+        LOG.info( "End FortressWebSeleniumITCase" );
     }
 
 
     @Test
     public void testCase2() throws Exception
     {
-        log.info( "Begin FortressWebSeleniumITCase 2" );
+        LOG.info( "Begin FortressWebSeleniumITCase 2" );
         driver.get( baseUrl + FORTRESS_WEB );
         login( "test1", "password" );
         TUtils.sleep( 1 );
@@ -766,7 +768,7 @@ public class FortressWebSeleniumITCase
             String szText = row.getText();
             if(szText.equals( "Go to the next page" ))
                 row.click();
-            log.debug( "row text=" + row.getText());
+            LOG.debug( "row text=" + row.getText());
         }
     }
 
@@ -831,7 +833,7 @@ public class FortressWebSeleniumITCase
 
     private void doNegativeLinkTest( String linkName, String pageName, String userId)
     {
-        log.info("Negative link:" + linkName + " test for " + userId);
+        LOG.info("Negative link:" + linkName + " test for " + userId);
         try
         {
             if(driver.findElement( By.linkText( linkName ) ).isEnabled())
