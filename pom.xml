@@ -247,6 +247,7 @@
           <include>**/*.html</include>
           <include>**/*.js</include>
           <include>**/*.css</include>
+          <include>**/*.jks</include>
           <include>**/*.jpg</include>
           <include>**/*.gif</include>
           <include>**/*.png</include>
