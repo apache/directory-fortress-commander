@@ -80,7 +80,7 @@
     <title>${project.name} ${project.version}</title>
     <java.version>1.8</java.version>
     <fortress.realm.version>2.0.5</fortress.realm.version>
-    <wicket.version>8.8.0</wicket.version>
+    <wicket.version>8.9.0</wicket.version>
     <wicket.googlecode.version>8.6.0</wicket.googlecode.version>
     <version.log4j>2.13.3</version.log4j>
     <version.ant>1.9.7</version.ant>
