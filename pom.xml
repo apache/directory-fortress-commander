@@ -80,15 +80,13 @@
     <title>${project.name} ${project.version}</title>
     <java.version>1.8</java.version>
     <fortress.realm.version>2.0.6</fortress.realm.version>
-    <wicket.version>8.9.0</wicket.version>
-    <wicket.googlecode.version>8.6.0</wicket.googlecode.version>
+    <wicket.version>8.11.0</wicket.version>
+    <wicket.googlecode.version>8.11.0</wicket.googlecode.version>
     <version.log4j>2.13.3</version.log4j>
-    <version.ant>1.9.7</version.ant>
-    <version.slf4j.api>1.7.29</version.slf4j.api>
-    <version.slf4j.impl>2.13.3</version.slf4j.impl>
-    <spring.security.version>5.3.2.RELEASE</spring.security.version>
+    <version.ant>1.10.10</version.ant>
+    <spring.security.version>5.5.1</spring.security.version>
     <javadoc.version>2.9.1</javadoc.version>
-    <jetty.version>8.1.8.v20121106</jetty.version>
+    <jetty.version>8.2.0.v20160908</jetty.version>
     <jetty.stopKey>stopJetty</jetty.stopKey>
     <jetty.stopPort>9081</jetty.stopPort>
     <jetty.port>9080</jetty.port>
@@ -100,18 +98,6 @@
       <groupId>org.apache.directory.fortress</groupId>
       <artifactId>fortress-realm-impl</artifactId>
       <version>${fortress.realm.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-api</artifactId>
-      <version>${version.log4j}</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-slf4j-impl</artifactId>
-      <version>${version.slf4j.impl}</version>
     </dependency>
 
     <dependency>
@@ -185,7 +171,7 @@
     <dependency>
       <groupId>org.mortbay.jetty</groupId>
       <artifactId>jetty</artifactId>
-      <version>6.1.25</version>
+      <version>6.1.26</version>
       <scope>test</scope>
     </dependency>
 
@@ -199,7 +185,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.11</version>
+      <version>4.13.2</version>
       <scope>test</scope>
     </dependency>
 
@@ -214,7 +200,14 @@
     <dependency>
       <groupId>io.github.bonigarcia</groupId>
       <artifactId>webdrivermanager</artifactId>
-      <version>4.0.0</version>
+      <version>4.4.3</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>xerces</groupId>
+      <artifactId>xercesImpl</artifactId>
+      <version>2.12.1</version>
       <scope>test</scope>
     </dependency>
 
@@ -425,6 +418,17 @@
         <groupId>org.apache.rat</groupId>
         <artifactId>apache-rat-plugin</artifactId>
         <configuration>
+          <licenses>
+            <!-- TODO (low prio): Remove this simple workaround when Apache Rat 0.14 has been released. -->
+            <!-- See also: https://issues.apache.org/jira/browse/RAT-212 -->
+            <!-- and       https://issues.apache.org/jira/browse/LEGAL-265 -->
+            <license implementation="org.apache.rat.analysis.license.ApacheSoftwareLicense20">
+              <notes>Also allow the license url to be https.</notes>
+              <patterns>
+                <pattern>https://www.apache.org/licenses/LICENSE-2.0</pattern>
+              </patterns>
+            </license>
+          </licenses>
           <excludeSubProjects>false</excludeSubProjects>
           <excludes>
             <!-- MAVEN_DEFAULT_EXCLUDES -->
@@ -470,44 +474,13 @@
             <phase>test</phase>
             <configuration>
               <target name="fortress-load" if="load.file" description="Loads fortress rbac policy files into ldap">
-                <echo message="############### Run Fortress Policy Load ###############" />
+                <echo message="############### Run Fortress Rest Test Policy Load ###############" />
                 <java classname="org.apache.tools.ant.launch.Launcher" fork="true" clonevm="true" failonerror="true" dir="${basedir}" timeout="120000" taskname="startAnt">
-                  <classpath>
-                    <pathelement location="./src/main/resources" />
-                    <pathelement location="${org.apache.ant:ant-launcher:jar}" />
-                    <pathelement location="${org.apache.ant:ant:jar}" />
-                    <pathelement location="${org.apache.directory.fortress:fortress-core:jar}" />
-                    <pathelement location="${org.openldap:accelerator-api:jar}" />
-                    <pathelement location="${org.openldap:accelerator-impl:jar}" />
-                    <pathelement location="${org.apache.logging.log4j:log4j-api:jar}" />
-                    <pathelement location="${org.apache.logging.log4j:log4j-core:jar}" />
-                    <pathelement location="${org.apache.directory.api:api-all:jar}" />
-                    <pathelement location="${org.apache.mina:mina-core:jar}" />
-                    <pathelement location="${org.jgrapht:jgrapht-core:jar}" />
-                    <pathelement location="${org.jasypt:jasypt:jar}" />
-                    <pathelement location="${commons-configuration:commons-configuration:jar}" />
-                    <pathelement location="${commons-lang:commons-lang:jar}" />
-                    <pathelement location="${commons-collections:commons-collections:jar}" />
-                    <pathelement location="${commons-logging:commons-logging:jar}" />
-                    <pathelement location="${commons-io:commons-io:jar}" />
-                    <pathelement location="${commons-pool:commons-pool:jar}" />
-                    <pathelement location="${net.sf.ehcache:ehcache-core:jar}" />
-                    <pathelement location="${org.slf4j:slf4j-api:jar}" />
-                    <pathelement location="${org.apache.logging.log4j:log4j-slf4j-impl:jar}" />
-                    <pathelement location="${org.apache.cxf:cxf-api:jar}" />
-                    <pathelement location="${javax.ws.rs:javax.ws.rs-api:jar}" />
-                    <pathelement location="${javax.ws.rs:javax.ws.rs-api:jar}" />
-                    <pathelement location="${org.apache.httpcomponents:httpclient:jar}" />
-                    <pathelement location="${org.apache.httpcomponents:httpcore:jar}" />
-                    <pathelement location="${com.sun.xml.bind:jaxb-impl:jar}" />
-                    <pathelement location="${commons-codec:commons-codec:jar}" />
-                    <pathelement location="${antlr:antlr:jar}" />
-                  </classpath>
+                  <classpath refid="maven.test.classpath" />
                   <sysproperty key="version" value="${project.version}" />
                   <sysproperty key="tenant" value="${tenant}" />
                   <arg value="-buildfile" />
                   <arg file="./${load.file}" />
-                  <!--                  <arg file="./src/main/resources/FortressRestServerPolicy.xml" />-->
                 </java>
               </target>
             </configuration>
@@ -516,6 +489,16 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.owasp</groupId>
+        <artifactId>dependency-check-maven</artifactId>
+        <version>6.2.2</version>
+        <configuration>
+          <failBuildOnAnyVulnerability>true</failBuildOnAnyVulnerability>
+          <suppressionFile>${project.basedir}/src/owasp/suppression.xml</suppressionFile>
+        </configuration>
       </plugin>
 
     </plugins>
@@ -527,5 +510,28 @@
       <url>https://repo1.maven.org/maven2</url>
     </repository>
   </repositories>
+
+  <!-- OWASP Dependency Vulnerability Scanner Profile -->
+  <profiles>
+
+    <profile>
+      <id>owasp</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.owasp</groupId>
+            <artifactId>dependency-check-maven</artifactId>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>check</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
 </project>
