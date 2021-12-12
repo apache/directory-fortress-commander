@@ -85,10 +85,6 @@
     <version.ant>1.10.10</version.ant>
     <spring.security.version>5.5.1</spring.security.version>
     <javadoc.version>2.9.1</javadoc.version>
-    <jetty.version>8.2.0.v20160908</jetty.version>
-    <jetty.stopKey>stopJetty</jetty.stopKey>
-    <jetty.stopPort>9081</jetty.stopPort>
-    <jetty.port>9080</jetty.port>
   </properties>
 
   <dependencies>
@@ -166,21 +162,6 @@
       <scope>test</scope>
     </dependency>
     
-    <!--  JETTY used for devpr embedded testing -->
-    <dependency>
-      <groupId>org.mortbay.jetty</groupId>
-      <artifactId>jetty</artifactId>
-      <version>6.1.26</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.eclipse.jetty.aggregate</groupId>
-      <artifactId>jetty-all-server</artifactId>
-      <version>${jetty.version}</version>
-      <scope>provided</scope>
-    </dependency>
-
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -364,24 +345,6 @@
         </configuration>
       </plugin>
       
-      <!-- this works for embedded testing with Jetty -->
-      <plugin>
-        <groupId>org.mortbay.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-        <version>${jetty.version}</version>
-        <configuration>
-          <scanIntervalSeconds>1</scanIntervalSeconds>
-          <stopPort>9999</stopPort>
-          <stopKey>foo</stopKey>
-          <connectors>
-            <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-              <port>8081</port>
-              <maxIdleTime>3600000</maxIdleTime>
-            </connector>
-          </connectors>
-        </configuration>
-      </plugin>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-clean-plugin</artifactId>
