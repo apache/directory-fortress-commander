@@ -36,7 +36,23 @@
 
 ### A Typical Deployment
 
-   (**Browser**)<---https--->(**FortressWeb**)<-in-process->(**FortressCore**)<---ldaps--->(**DirectoryServer**)
+```
+               .---------.      
+               | Browser |      
+               '----.----'      
+                    | HTTPS
+            .-------'------.
+            | FortressWeb  |
+            '-------.------'
+                    | in-process
+            .-------'------.
+            | FortressCore |
+            '-------.------'
+                    | LDAPS
+          .---------'-------.
+          | DirectoryServer |
+          '-----------------'
+```
 
  * Consists of three tiers: 1. **Browser**, 2. Servlet Container hosting **FortressWeb**, and 3. **DirectoryServer** that stores the policy information.
  * **FortressWeb** is a web application archive (.war) that deploys into a Servlet Container, i.e. Apache Tomcat.
