@@ -165,6 +165,12 @@ public class FortressWebSeleniumITCase
             groups();
         }
 
+        // test1 can't do these:
+        doNegativeLinkTest( PLCYS, "PwPolicyPage", "test1" );
+        doNegativeLinkTest( BINDS, "AuditBindPage", "test1" );
+        doNegativeLinkTest( AUTHZ, "AuditAuthzPage", "test1" );
+        doNegativeLinkTest( MODS, "AuditModPage", "test1" );
+
         /*****
          *  LOGOUT
          */
@@ -180,6 +186,8 @@ public class FortressWebSeleniumITCase
         driver.get( baseUrl + FORTRESS_WEB );
         login( "test1", "password" );
         TUtils.sleep( 1 );
+
+        // test2 can't do these:
         doNegativeLinkTest( ROLES, "RolePage", "test1" );
         doNegativeLinkTest( POBJS, "ObjectPage", "test1" );
         doNegativeLinkTest( PERMS, "PermPage", "test1" );
@@ -189,6 +197,9 @@ public class FortressWebSeleniumITCase
         doNegativeLinkTest( OUPRMS, "OuPermPage", "test1" );
         doNegativeLinkTest( ADMRLES, "RoleAdminPage", "test1" );
         doNegativeLinkTest( ADMOBJS, "ObjectAdminPage", "test1" );
+        doNegativeLinkTest( BINDS, "AuditBindPage", "test1" );
+        doNegativeLinkTest( AUTHZ, "AuditAuthzPage", "test1" );
+        doNegativeLinkTest( MODS, "AuditModPage", "test1" );
     }
 
     @Test
@@ -207,6 +218,7 @@ public class FortressWebSeleniumITCase
             mods();
         }
 
+        // test3 can't do these:
         doNegativeLinkTest( ROLES, "RolePage", "test1" );
         doNegativeLinkTest( POBJS, "ObjectPage", "test1" );
         doNegativeLinkTest( PERMS, "PermPage", "test1" );
@@ -857,25 +869,32 @@ public class FortressWebSeleniumITCase
         {
             if(driver.findElement( By.linkText( linkName ) ).isEnabled())
             {
-                fail("Negative Link Test Failed UserId: " + userId + " Link: " + linkName);
+                String msg = "Negative Link Test Failed UserId: " + userId + " Link: " + linkName;
+                LOG.info( msg );
+                fail( msg );
             }
-            fail("Negative Button Test Failed UserId: " + userId + " Link: " + linkName);
+            String msg = "Negative Button Test Failed UserId: " + userId + " Link: " + linkName;
+            LOG.info( msg );
+            fail( msg );
         }
         catch (org.openqa.selenium.NoSuchElementException e)
         {
             // pass
         }
+/*
         try
         {
             if(driver.findElement( By.linkText( linkName ) ).isEnabled())
             {
-                fail("Negative Link Test Failed UserId: " + userId + " Link: " + linkName);
+                String msg = "Negative link:" + linkName + " test for " + userId;
+                LOG.info( msg );
+                fail( msg );
             }
         }
         catch (org.openqa.selenium.NoSuchElementException e)
         {
-            // pass
         }
+*/
 
         // Check that Spring security is enforcing page level security:
         String unauthorizedUrl = baseUrl + FORTRESS_WEB + "/wicket/bookmarkable/org.apache.directory.fortress.web." + pageName;
@@ -888,7 +907,9 @@ public class FortressWebSeleniumITCase
         }
         else
         {
-            fail("Spring Security Test Failed URL: " + unauthorizedUrl + "." + GlobalIds.ADD);
+            String msg = "Spring Security Test Failed URL: " + unauthorizedUrl + "." + GlobalIds.ADD;
+            LOG.info( msg );
+            fail( msg );
         }
     }
 
