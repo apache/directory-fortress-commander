@@ -86,7 +86,7 @@ public class FortressWebSeleniumITCase
     {
         // http default:
         baseUrl = "http://localhost:8080";
-        //baseUrl = "http://fortress-a:8080";
+        //baseUrl = "https://fortress-a:8443";
         driver.manage().timeouts().implicitlyWait( 5, TimeUnit.SECONDS );
     }
 
@@ -162,15 +162,7 @@ public class FortressWebSeleniumITCase
             admrles();
             admobjs();
             admperms();
-            plcys();
             groups();
-
-            if( Config.getInstance().isOpenldap())
-            {
-               binds();
-               authzs();
-               mods();
-            }
         }
 
         /*****
@@ -188,6 +180,33 @@ public class FortressWebSeleniumITCase
         driver.get( baseUrl + FORTRESS_WEB );
         login( "test1", "password" );
         TUtils.sleep( 1 );
+        doNegativeLinkTest( ROLES, "RolePage", "test1" );
+        doNegativeLinkTest( POBJS, "ObjectPage", "test1" );
+        doNegativeLinkTest( PERMS, "PermPage", "test1" );
+        doNegativeLinkTest( SSDS, "SdStaticPage", "test1" );
+        doNegativeLinkTest( DSDS, "SdDynamicPage", "test1" );
+        doNegativeLinkTest( OUSERS, "OuUserPage", "test1" );
+        doNegativeLinkTest( OUPRMS, "OuPermPage", "test1" );
+        doNegativeLinkTest( ADMRLES, "RoleAdminPage", "test1" );
+        doNegativeLinkTest( ADMOBJS, "ObjectAdminPage", "test1" );
+    }
+
+    @Test
+    public void testCase3() throws Exception
+    {
+        LOG.info( "Begin FortressWebSeleniumITCase 3" );
+        driver.get( baseUrl + FORTRESS_WEB );
+        login( "test2", "password" );
+        TUtils.sleep( 1 );
+        if( Config.getInstance().isOpenldap())
+        {
+            plcys();
+            binds();
+            authzs();
+            // mods requires that: is.arbac02=true
+            mods();
+        }
+
         doNegativeLinkTest( ROLES, "RolePage", "test1" );
         doNegativeLinkTest( POBJS, "ObjectPage", "test1" );
         doNegativeLinkTest( PERMS, "PermPage", "test1" );

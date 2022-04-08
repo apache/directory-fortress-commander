@@ -128,7 +128,6 @@
                 <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="readUser" roleNm="fortress-web-audit-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="findUsers" roleNm="fortress-web-audit-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="findPermissions" roleNm="fortress-web-audit-admin" admin="true"/>
-
                 <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="read" roleNm="fortress-web-audit-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="find" roleNm="fortress-web-audit-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="findWithUsers" roleNm="fortress-web-audit-admin" admin="true"/>
