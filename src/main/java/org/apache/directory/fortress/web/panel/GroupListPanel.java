@@ -344,7 +344,6 @@ public class GroupListPanel extends FormComponentPanel
             }
         } );
 
-//        memberRb.add( new SecureIndicatingAjaxLink( "memberAssignLinkLbl", GlobalIds.REVIEW_MGR, "findUsers" )
         memberRb.add( new SecureIndicatingAjaxLink( "memberAssignLinkLbl", GlobalIds.GROUP_MGR, "findUsers" )
         {
             /** Default serialVersionUID */
