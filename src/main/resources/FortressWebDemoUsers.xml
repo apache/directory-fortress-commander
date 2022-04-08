@@ -28,7 +28,7 @@
             <adduser>
                 <user userId="test" password="password" description="Fortress Web Demo User" ou="demousrs1" cn="test"
                       sn="user" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101"
-                      beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" photo="TestPhoto1.jpeg"/>
+                      beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>
                 <user userId="test1" password="password" description="Fortress Web Demo User1" ou="demousrs1" cn="test1"
                       sn="user" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101"
                       beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>

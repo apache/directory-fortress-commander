@@ -132,7 +132,6 @@ public class UserDetailPanel extends FormComponentPanel
         private static final String IMPORT_PHOTO_LABEL = "importPhotoLabel";
         private static final String UPLOAD = "upload";
         private static final String ADMIN_ROLES = "adminRoles";
-        private static final String DEFAULT_JPG = "GenericAvatar.jpg";
 
         // form model attributes:
         private String newUserRole;
