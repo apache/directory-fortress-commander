@@ -124,10 +124,8 @@ public class GroupListPanel extends FormComponentPanel
             /** Default serialVersionUID */
             private static final long serialVersionUID = 1L;
 
-
             @Override
             protected void onSubmit( AjaxRequestTarget target )
-            //protected void onSubmit( AjaxRequestTarget target, Form form )
             {
                 LOG.debug( ".search.onSubmit selected radio button: " + selectedRadioButton );
                 info( "Searching Group Objects..." );
@@ -346,7 +344,8 @@ public class GroupListPanel extends FormComponentPanel
             }
         } );
 
-        memberRb.add( new SecureIndicatingAjaxLink( "memberAssignLinkLbl", GlobalIds.REVIEW_MGR, "findUsers" )
+//        memberRb.add( new SecureIndicatingAjaxLink( "memberAssignLinkLbl", GlobalIds.REVIEW_MGR, "findUsers" )
+        memberRb.add( new SecureIndicatingAjaxLink( "memberAssignLinkLbl", GlobalIds.GROUP_MGR, "findUsers" )
         {
             /** Default serialVersionUID */
             private static final long serialVersionUID = 1L;

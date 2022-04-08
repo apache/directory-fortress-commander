@@ -125,11 +125,11 @@ public class GroupDetailPanel extends FormComponentPanel
             add( name );
             name.setRequired( false );
             TextField protocol = new TextField( "protocol" );
+            protocol.setRequired( false );
             add( protocol );
             TextField description = new TextField( "description" );
             description.setRequired( false );
             add( description );
-            protocol.setRequired( true );
             memberPropsCB = new ComboBox<>( "memberProps", new PropertyModel<String>( this,
                 "memberPropsSelection" ), new ArrayList<String>() );
             memberPropsCB.setOutputMarkupId( true );
