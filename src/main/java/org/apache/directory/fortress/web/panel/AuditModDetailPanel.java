@@ -27,6 +27,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.util.Config;
+import org.apache.wicket.model.AbstractPropertyModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.wicket.AttributeModifier;
@@ -40,7 +41,6 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
-import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
@@ -140,14 +140,14 @@ public class AuditModDetailPanel extends FormComponentPanel
                     item.add( new Label( "type", mod.getType() ) );
                     item.add( new Label( "name", mod.getName() ) );
                     item.add( new Label( "value", mod.getValue() ) );
-                    item.add( AttributeModifier.replace( "class", new AbstractReadOnlyModel<String>()
+                    item.add( AttributeModifier.replace( "class", new AbstractPropertyModel<String>(this)
                     {
                         private static final long serialVersionUID = 1L;
 
                         @Override
-                        public String getObject()
+                        protected String propertyExpression()
                         {
-                            return ( item.getIndex() % 2 == 1 ) ? "even" : "odd";
+                            return null;
                         }
                     } ));
                 }

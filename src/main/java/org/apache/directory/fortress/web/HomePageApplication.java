@@ -20,6 +20,8 @@
 package org.apache.directory.fortress.web;
 
 import org.apache.wicket.Page;
+import org.apache.wicket.csp.CSPDirective;
+import org.apache.wicket.csp.CSPDirectiveSrcValue;
 
 /**
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
@@ -40,7 +42,14 @@ public class HomePageApplication extends ApplicationContext
 	public void init()
 	{
 		super.init();
-        //mountPage("index.html", LoginPage.class);
+		// TODO: refine content security policy:
+		getCspSettings().blocking().clear()
+			.add(CSPDirective.STYLE_SRC, CSPDirectiveSrcValue.SELF)
+			.add(CSPDirective.STYLE_SRC, CSPDirectiveSrcValue.UNSAFE_INLINE)
+			.add(CSPDirective.SCRIPT_SRC, CSPDirectiveSrcValue.SELF)
+			.add(CSPDirective.SCRIPT_SRC, CSPDirectiveSrcValue.UNSAFE_EVAL)
+			.add(CSPDirective.SCRIPT_SRC, CSPDirectiveSrcValue.UNSAFE_INLINE);
+
         mountPage("index.html", LaunchPage.class);
         mountPage("home.html", LaunchPage.class);
 	}

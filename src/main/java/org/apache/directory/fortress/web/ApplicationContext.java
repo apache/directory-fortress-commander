@@ -19,18 +19,13 @@
  */
 package org.apache.directory.fortress.web;
 
-
 import org.apache.directory.fortress.web.control.WicketSession;
 import org.apache.wicket.Page;
 import org.apache.wicket.Session;
-import org.apache.wicket.core.request.handler.PageProvider;
-import org.apache.wicket.core.request.handler.RenderPageRequestHandler;
 import org.apache.wicket.protocol.http.WebApplication;
-import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
-import org.apache.wicket.request.cycle.AbstractRequestCycleListener;
-import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.settings.ExceptionSettings;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 
 /**
@@ -50,16 +45,10 @@ public class ApplicationContext extends WebApplication
     {
         super.init();
         getComponentInstantiationListeners().add( new SpringComponentInjector( this ) );
-
-        // Catch runtime exceptions this way:
-        getRequestCycleListeners().add( new AbstractRequestCycleListener()
-        {
-            @Override
-            public IRequestHandler onException( RequestCycle cycle, Exception e )
-            {
-                return new RenderPageRequestHandler( new PageProvider( new ErrorPage( e ) ) );
-            }
-        } );
+        // Route runtime exceptions to fortress error page:
+        getApplicationSettings().setInternalErrorPage( ErrorPage.class );
+        // show internal error page rather than default developer page
+        getExceptionSettings().setUnexpectedExceptionDisplay(ExceptionSettings.SHOW_INTERNAL_ERROR_PAGE);
         getMarkupSettings().setStripWicketTags( true );
     }
 

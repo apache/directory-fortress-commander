@@ -78,7 +78,7 @@ ________________________________________________________________________________
 ## SECTION 1. Prerequisites
 
 Minimum software requirements:
- * Java SDK 8++
+ * Java SDK 11++
  * git
  * Apache Maven3++
  * Apache Tomcat8++
@@ -107,18 +107,8 @@ Everything else covered in the steps that follow.  Tested on Debian & Centos sys
 
 2. Build the source.
 
-a. Java 8 target
-
  ```
  mvn clean install
- ```
-
--- OR --
-
-b. Java 11 target
-
- ```
- mvn clean install -Djava.version=11
  ```
 ___________________________________________________________________________________
 ## SECTION 3. Configure the Apache Fortress Web deployment
