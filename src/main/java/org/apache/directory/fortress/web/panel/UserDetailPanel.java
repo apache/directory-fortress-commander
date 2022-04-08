@@ -1502,7 +1502,6 @@ public class UserDetailPanel extends FormComponentPanel
 
         private void addPhoto()
         {
-            this.defaultImage = readJpegFile( DEFAULT_JPG );
             // Add the photograph controls:
             add( new JpegImage( GlobalIds.JPEGPHOTO )
             {
