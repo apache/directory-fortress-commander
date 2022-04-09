@@ -27,7 +27,7 @@
 - SECTION 3. Spring security FilterSecurityInterceptor
 - SECTION 4. Apache Wicket Links
 - SECTION 5. Apache Wicket Buttons
-- SECTION 6. Additional ARBAC Checks
+- SECTION 6. Additional Administrative Role-Based Access Control (ARBAC) Checks
 - SECTION 7. Policy load
 - SECTION 8. Verification
 
@@ -139,7 +139,7 @@
 - The following table shows the mappings between Admin permissions, Admin Roles and the corresponding Web Pages.
 - The security policy is defined here: [FortressWebDemoUsers](src/main/resources/FortressWebDemoUsers.xml)
 
-| Perm Name (object name:operation name)                                    | Pages           | fortress-core-super-admin | fortress-web-user-admin | fortress-web-audit-admin |
+| Administrative Permission Name (object name:operation name)               | Pages           | fortress-core-super-admin | fortress-web-user-admin | fortress-web-audit-admin |
 |---------------------------------------------------------------------------|-----------------|---------------------------|-------------------------|--------------------------|
 | org.apache.directory.fortress.core.impl.AdminMgrImpl:addUser              | USERS           | true                      | true                    | false                    |
 | org.apache.directory.fortress.core.impl.AdminMgrImpl:disableUser          | USERS           | true                      | true                    | false                    |
@@ -199,11 +199,31 @@
 | org.apache.directory.fortress.core.impl.AuditMgrImpl:searchBinds          | BINDS           | true                      | false                   | true                     |
 | org.apache.directory.fortress.core.impl.AuditMgrImpl:getUserAuthZs        | AUTHZ           | true                      | false                   | true                     |
 
-## 6. Additional ARBAC Checks
- 
-- Administrative Role-Based Access Control (ARBAC) checking occurs when Apache Fortress Core APIs are invoked in a certain way -- passing an ARBAC session object. 
+### More on Apache Fortress Administrative Permissions
+
+Apache Fortress has two types of roles and permissions, RBAC and ARBAC. They are stored in separate trees in the directory:
+
+```
+dc=example,dc=com
+ ├─ou=rbac  <- 'normal' RBAC data
+ │  ├─ou=roles
+ │  └─ou=perms
+ ├─ou=arbac <- administrative RBAC data
+ │  ├─ou=roles
+ │  └─ou=perms
+ ├─ou=people
+ └─ou=groups
+ ...
+```
+- The RBAC roles and permissions are what are checked by typical applications.
+- The ARBAC roles and permissions are used for Delegated Admininistration and checked by apps that are loading security policy, e.g. Apache Fortress Web
+
+## 6. Additional Administrative Role-Based Access Control (ARBAC) Checks
+
+- In addition to administrative permission checks described above, the Apache Fortress Web can optionally perform additional ARBAC checks.
+- These occur only when the Apache Fortress Core APIs are invoked in a certain way -- passing in an ARBAC session object. 
 - For more on ARBAC: [Apache Fortress Rest Security Model](https://github.com/apache/directory-fortress-enmasse/blob/master/README-SECURITY-MODEL.md)
-- By default Apache Fortress Web does not enforce the additional ARBAC checks. 
+- By default, the Apache Fortress Web does not enforce these additional ARBAC checks. 
 - To enable add the following declaration to the fortress.properties:
 
  ```
