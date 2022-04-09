@@ -163,9 +163,9 @@ public class RoleListModel extends Model<SerializableList<? extends Role>>
         catch ( org.apache.directory.fortress.core.SecurityException se )
         {
             String error = ".getList caught SecurityException=" + se;
-            LOG.warn( error) ;
+            throw new RuntimeException( error, se );
         }
-        
+
         return rolesList;
     }
     
@@ -193,7 +193,7 @@ public class RoleListModel extends Model<SerializableList<? extends Role>>
         catch ( SecurityException se )
         {
             String error = ".getAdminList caught SecurityException=" + se;
-            LOG.warn( error );
+            throw new RuntimeException( error, se );
         }
         
         return rolesList;

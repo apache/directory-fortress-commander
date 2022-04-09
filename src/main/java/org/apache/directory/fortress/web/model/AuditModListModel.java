@@ -208,7 +208,7 @@ public class AuditModListModel extends Model<SerializableList<Mod>>
         catch ( SecurityException se )
         {
             String error = ".getUser caught SecurityException=" + se;
-            LOG.warn( error );
+            throw new RuntimeException( error, se );
         }
         
         return user;

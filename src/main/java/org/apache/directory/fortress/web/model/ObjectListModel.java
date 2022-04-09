@@ -171,7 +171,8 @@ public class ObjectListModel extends Model<SerializableList<PermObj>>
         }
         catch ( SecurityException se )
         {
-            LOG.warn( ".getList caught SecurityException={}", se );
+            String error = ".getList caught SecurityException=" + se ;
+            throw new RuntimeException( error, se );
         }
         
         return permObjList;

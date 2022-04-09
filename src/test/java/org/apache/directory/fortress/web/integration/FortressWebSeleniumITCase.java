@@ -45,11 +45,19 @@ import org.apache.directory.fortress.web.common.GlobalIds;
  <li>Firefox: mvn test -Dtest=FortressWebSeleniumITCase</li>
  <li>Chrome:  mvn test -Dtest=FortressWebSeleniumITCase -Dweb.driver=chrome</li>
  </ol>
+ * The req'd security policy for this test is loaded via:
+ * 1. Run either:
+ * a. Fortress ARBAC Policy Load: [DelegatedAdminManagerLoad](https://github.com/apache/directory-fortress-core/blob/master/ldap/setup/DelegatedAdminManagerLoad.xml)
+ *  OR
+ * b. Fortress Junit Tests: [FortressJUnitTest](https://github.com/apache/directory-fortress-core/blob/master/src/test/java/org/apache/directory/fortress/core/impl/FortressJUnitTest.java)
+ *  AND
+ * 2. Fortress Web Policy Load: [FortressWebDemoUsers](https://github.com/apache/directory-fortress-commander/blob/master/src/main/resources/FortressWebDemoUsers.xml)
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class FortressWebSeleniumITCase
 {
+    public static final String USERS = "USERS";
     public static final String ROLES = "ROLES";
     public static final String POBJS = "POBJS";
     public static final String PERMS = "PERMS";
@@ -129,11 +137,12 @@ public class FortressWebSeleniumITCase
     }
 
     @Test
-    public void testCase1() throws Exception
+    public void testUser0() throws Exception
     {
-        LOG.info( "Begin FortressWebSeleniumITCase 1" );
+        String userId = "test";
+        LOG.info( "Begin FortressWebSeleniumITCase test, userId: " +userId );
         driver.get( baseUrl + FORTRESS_WEB );
-        login( "test", "password" );
+        login( userId, "password" );
         TUtils.sleep( 1 );
 
         // zoom out:
@@ -165,11 +174,11 @@ public class FortressWebSeleniumITCase
             groups();
         }
 
-        // test1 can't do these:
-        doNegativeLinkTest( PLCYS, "PwPolicyPage", "test1" );
-        doNegativeLinkTest( BINDS, "AuditBindPage", "test1" );
-        doNegativeLinkTest( AUTHZ, "AuditAuthzPage", "test1" );
-        doNegativeLinkTest( MODS, "AuditModPage", "test1" );
+        // test can't do these:
+        doNegativeLinkTest( PLCYS, "PwPolicyPage", userId );
+        doNegativeLinkTest( BINDS, "AuditBindPage", userId );
+        doNegativeLinkTest( AUTHZ, "AuditAuthzPage", userId );
+        doNegativeLinkTest( MODS, "AuditModPage", userId );
 
         /*****
          *  LOGOUT
@@ -180,34 +189,40 @@ public class FortressWebSeleniumITCase
 
 
     @Test
-    public void testCase2() throws Exception
+    public void testUser1() throws Exception
     {
-        LOG.info( "Begin FortressWebSeleniumITCase 2" );
+        String userId = "test1";
+        LOG.info( "Begin FortressWebSeleniumITCase 1, userId: " + userId );
         driver.get( baseUrl + FORTRESS_WEB );
         login( "test1", "password" );
         TUtils.sleep( 1 );
 
-        // test2 can't do these:
-        doNegativeLinkTest( ROLES, "RolePage", "test1" );
-        doNegativeLinkTest( POBJS, "ObjectPage", "test1" );
-        doNegativeLinkTest( PERMS, "PermPage", "test1" );
-        doNegativeLinkTest( SSDS, "SdStaticPage", "test1" );
-        doNegativeLinkTest( DSDS, "SdDynamicPage", "test1" );
-        doNegativeLinkTest( OUSERS, "OuUserPage", "test1" );
-        doNegativeLinkTest( OUPRMS, "OuPermPage", "test1" );
-        doNegativeLinkTest( ADMRLES, "RoleAdminPage", "test1" );
-        doNegativeLinkTest( ADMOBJS, "ObjectAdminPage", "test1" );
-        doNegativeLinkTest( BINDS, "AuditBindPage", "test1" );
-        doNegativeLinkTest( AUTHZ, "AuditAuthzPage", "test1" );
-        doNegativeLinkTest( MODS, "AuditModPage", "test1" );
+        // test1 can't do any of these:
+        doNegativeLinkTest( ROLES, "RolePage", userId );
+        doNegativeLinkTest( POBJS, "ObjectPage", userId );
+        doNegativeLinkTest( PERMS, "PermPage", userId );
+        doNegativeLinkTest( SSDS, "SdStaticPage", userId );
+        doNegativeLinkTest( DSDS, "SdDynamicPage", userId );
+        doNegativeLinkTest( OUSERS, "OuUserPage", userId );
+        doNegativeLinkTest( OUPRMS, "OuPermPage", userId );
+        doNegativeLinkTest( ADMRLES, "RoleAdminPage", userId );
+        doNegativeLinkTest( ADMOBJS, "ObjectAdminPage", userId );
+        doNegativeLinkTest( GROUPS, "GroupPage", userId );
+        doNegativeLinkTest( BINDS, "AuditBindPage", userId );
+        doNegativeLinkTest( AUTHZ, "AuditAuthzPage", userId );
+        doNegativeLinkTest( MODS, "AuditModPage", userId );
+
+        // test can do:
+        doPositiveLinkTest( USERS, userId);
     }
 
     @Test
-    public void testCase3() throws Exception
+    public void testUser2() throws Exception
     {
-        LOG.info( "Begin FortressWebSeleniumITCase 3" );
+        String userId = "test2";
+        LOG.info( "Begin FortressWebSeleniumITCase 2, userId:" + userId );
         driver.get( baseUrl + FORTRESS_WEB );
-        login( "test2", "password" );
+        login( userId, "password" );
         TUtils.sleep( 1 );
         if( Config.getInstance().isOpenldap())
         {
@@ -218,16 +233,31 @@ public class FortressWebSeleniumITCase
             mods();
         }
 
+        // can do all of these:
+        doPositiveLinkTest( USERS, userId);
+        doPositiveLinkTest( ROLES, userId);
+        doPositiveLinkTest( GROUPS, userId);
+        doPositiveLinkTest( POBJS, userId);
+        doPositiveLinkTest( PERMS, userId);
+        doPositiveLinkTest( SSDS, userId);
+        doPositiveLinkTest( DSDS, userId);
+        doPositiveLinkTest( OUSERS, userId);
+        doPositiveLinkTest( OUPRMS, userId);
+        doPositiveLinkTest( ADMRLES, userId);
+        doPositiveLinkTest( ADMOBJS, userId);
+
         // test3 can't do these:
-        doNegativeLinkTest( ROLES, "RolePage", "test1" );
-        doNegativeLinkTest( POBJS, "ObjectPage", "test1" );
-        doNegativeLinkTest( PERMS, "PermPage", "test1" );
-        doNegativeLinkTest( SSDS, "SdStaticPage", "test1" );
-        doNegativeLinkTest( DSDS, "SdDynamicPage", "test1" );
-        doNegativeLinkTest( OUSERS, "OuUserPage", "test1" );
-        doNegativeLinkTest( OUPRMS, "OuPermPage", "test1" );
-        doNegativeLinkTest( ADMRLES, "RoleAdminPage", "test1" );
-        doNegativeLinkTest( ADMOBJS, "ObjectAdminPage", "test1" );
+/*
+        doNegativeLinkTest( ROLES, "RolePage", userId );
+        doNegativeLinkTest( POBJS, "ObjectPage", userId );
+        doNegativeLinkTest( PERMS, "PermPage", userId );
+        doNegativeLinkTest( SSDS, "SdStaticPage", userId );
+        doNegativeLinkTest( DSDS, "SdDynamicPage", userId );
+        doNegativeLinkTest( OUSERS, "OuUserPage", userId );
+        doNegativeLinkTest( OUPRMS, "OuPermPage", userId );
+        doNegativeLinkTest( ADMRLES, "RoleAdminPage", userId );
+        doNegativeLinkTest( ADMOBJS, "ObjectAdminPage", userId );
+*/
     }
 
     private void login( String userId, String password )
@@ -255,7 +285,7 @@ public class FortressWebSeleniumITCase
         /*****
          *  USERS_PAGE TESTS
          */
-        driver.findElement( By.linkText( "USERS" ) ).click();
+        driver.findElement( By.linkText( USERS ) ).click();
         //driver.findElement( By.id( "roleRb" ) ).click();
         driver.findElement( By.id( "roleAssignLinkLbl" ) ).click();
         TUtils.sleep( 1 );
@@ -862,6 +892,21 @@ public class FortressWebSeleniumITCase
         }
     }
 
+    private void doPositiveLinkTest( String linkName, String userId)
+    {
+        LOG.info("Positive link:" + linkName + " test for " + userId);
+        try
+        {
+            driver.findElement( By.linkText( linkName ) ).click();
+        }
+        catch (org.openqa.selenium.NoSuchElementException e)
+        {
+            String msg = "Positive Button Test Failed UserId: " + userId + " Link: " + linkName;
+            LOG.info( msg );
+            fail( msg );
+        }
+    }
+
     private void doNegativeLinkTest( String linkName, String pageName, String userId)
     {
         LOG.info("Negative link:" + linkName + " test for " + userId);
@@ -881,21 +926,6 @@ public class FortressWebSeleniumITCase
         {
             // pass
         }
-/*
-        try
-        {
-            if(driver.findElement( By.linkText( linkName ) ).isEnabled())
-            {
-                String msg = "Negative link:" + linkName + " test for " + userId;
-                LOG.info( msg );
-                fail( msg );
-            }
-        }
-        catch (org.openqa.selenium.NoSuchElementException e)
-        {
-        }
-*/
-
         // Check that Spring security is enforcing page level security:
         String unauthorizedUrl = baseUrl + FORTRESS_WEB + "/wicket/bookmarkable/org.apache.directory.fortress.web." + pageName;
         driver.get( unauthorizedUrl );

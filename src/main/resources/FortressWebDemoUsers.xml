@@ -107,9 +107,19 @@
                 <relationship child="fortress-web-super-user" parent="ROLE_ADMINOBJS"/>
                 <relationship child="fortress-web-super-user" parent="ROLE_ADMINPERMS"/>
                 <relationship child="fortress-web-super-user" parent="ROLE_GROUPS"/>
+                <relationship child="fortress-web-audit-user" parent="ROLE_USERS"/>
+                <relationship child="fortress-web-audit-user" parent="ROLE_ROLES"/>
+                <relationship child="fortress-web-audit-user" parent="ROLE_PERMS"/>
+                <relationship child="fortress-web-audit-user" parent="ROLE_SSDS"/>
+                <relationship child="fortress-web-audit-user" parent="ROLE_DSDS"/>
+                <relationship child="fortress-web-audit-user" parent="ROLE_PERMOBJS"/>
+                <relationship child="fortress-web-audit-user" parent="ROLE_USEROUS"/>
+                <relationship child="fortress-web-audit-user" parent="ROLE_PERMOUS"/>
+                <relationship child="fortress-web-audit-user" parent="ROLE_ADMINROLES"/>
+                <relationship child="fortress-web-audit-user" parent="ROLE_ADMINOBJS"/>
+                <relationship child="fortress-web-audit-user" parent="ROLE_ADMINPERMS"/>
                 <relationship child="fortress-web-audit-user" parent="ROLE_GROUPS"/>
                 <relationship child="fortress-web-audit-user" parent="ROLE_POLICIES"/>
-                <relationship child="fortress-web-audit-user" parent="ROLE_USERS"/>
                 <relationship child="fortress-web-audit-user" parent="ROLE_AUDIT_AUTHZS"/>
                 <relationship child="fortress-web-audit-user" parent="ROLE_AUDIT_BINDS"/>
                 <relationship child="fortress-web-audit-user" parent="ROLE_AUDIT_MODS"/>
@@ -128,10 +138,16 @@
                 <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="readUser" roleNm="fortress-web-audit-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="findUsers" roleNm="fortress-web-audit-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="findPermissions" roleNm="fortress-web-audit-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="findRoles" roleNm="fortress-web-audit-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="ssdRoleSets" roleNm="fortress-web-audit-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="dsdRoleSets" roleNm="fortress-web-audit-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="findPermObjs" roleNm="fortress-web-audit-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="searchOU" roleNm="fortress-web-audit-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="ssdSets" roleNm="fortress-web-audit-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="dsdSets" roleNm="fortress-web-audit-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="read" roleNm="fortress-web-audit-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="find" roleNm="fortress-web-audit-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="findWithUsers" roleNm="fortress-web-audit-admin" admin="true"/>
-
                 <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="readUser" roleNm="fortress-web-user-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="findUsers" roleNm="fortress-web-user-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="assignedUsers" roleNm="fortress-web-user-admin" admin="true"/>

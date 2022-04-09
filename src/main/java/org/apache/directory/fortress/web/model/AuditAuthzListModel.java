@@ -190,7 +190,7 @@ public class AuditAuthzListModel extends Model<SerializableList<AuthZ>>
         catch ( SecurityException se )
         {
             String error = ".getPermission caught SecurityException=" + se;
-            LOG.warn( error );
+            throw new RuntimeException( error, se );
         }
         
         return permission;

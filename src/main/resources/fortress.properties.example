@@ -82,5 +82,5 @@ http.port=8080
 # When true, a side panel with buttons is added for page navigation. The default is 'false':
 #enable.nav.panel=true
 
-# Boolean value. Disabled by default. If this is set to true, the runtime will enforce administrative permissions and ARBAC02 DA checks:
+# Disabled by default. If this is set to true, the runtime will enforce administrative permission and ARBAC02 checks:
 is.arbac02=false

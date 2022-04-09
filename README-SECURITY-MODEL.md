@@ -20,18 +20,21 @@
 
 ## Table of Contents
 
- * Document Overview
- * Understand the security model of Apache Fortress Web
- * SECTION 1. TLS
- * SECTION 2. Java EE security
- * SECTION 3. Spring security **FilterSecurityInterceptor**
- * SECTION 4. Apache Wicket Buttons and Links
- * SECTION 5. Apache Fortress Web **ARBAC Checks**
- * SECTION 6. Policy load
+- Document Overview
+- Understand the security model of Apache Fortress Web
+- SECTION 1. TLS
+- SECTION 2. Java EE security
+- SECTION 3. Spring security **FilterSecurityInterceptor**
+- SECTION 4. Apache Wicket Links
+- SECTION 5. Apache Wicket Buttons
+- SECTION 6. Apache Fortress Web **ARBAC Checks**
+- SECTION 7. Policy load
+- SECTION 8. Verification
 
 ## Document Overview
 
- Provides a description of the various security mechanisms that are performed during Apache Fortress WEB runtime operations.
+- Provides a description of the various security mechanisms that are performed during Apache Fortress WEB runtime operations.
+
 ## Understand the security model of Apache Fortress Web
 
 ### A Typical Deployment
@@ -54,17 +57,18 @@
           '-----------------'
 ```
 
- * Consists of three tiers: 1. **Browser**, 2. Servlet Container hosting **FortressWeb**, and 3. **DirectoryServer** that stores the policy information.
- * **FortressWeb** is a web application archive (.war) that deploys into a Servlet Container, i.e. Apache Tomcat.
- * **FortressCore** is a set of APIs that get embedded inside of Java apps, FortressWeb and Fortress Rest.
- * **DirectoryServer** is a process implementing LDAPv3 protocols, e.g. ApacheDS or OpenLDAP.
+- Consists of three tiers: 1. **Browser**, 2. Servlet Container hosting **FortressWeb**, and 3. **DirectoryServer** that stores the policy information.
+- **FortressWeb** is a web application archive (.war) that deploys into a Servlet Container, i.e. Apache Tomcat.
+- **FortressCore** is a set of APIs that get embedded inside of Java apps, FortressWeb and Fortress Rest.
+- **DirectoryServer** is a process implementing LDAPv3 protocols, e.g. ApacheDS or OpenLDAP.
 
 ### High-level Security Flow
- * The user credentials are introduced into the call chain by the Client as a standard HTTP basic auth header.
- * Passed into the Servlet Container for authentication and coarse-grained authorization before dispatch to FortressWeb.
- * Spring security verifies user has role to view the web page.
- * Medium-grained authorization performed inside the pages via Apache Wicket controls button and link visibility.
- * The RBAC session passed into the FortressCore for fine-grained checks.
+
+- The user credentials are introduced into the call chain by the Client as a standard HTTP basic auth header.
+- Passed into the Servlet Container for authentication and coarse-grained authorization before dispatch to FortressWeb.
+- Spring security verifies user has role to view the web page.
+- Medium-grained authorization performed inside the pages via Apache Wicket controls button and link visibility.
+- The RBAC session passed into the FortressCore for fine-grained checks.
 
 ### Apache Fortress Web security model includes:
 
@@ -74,10 +78,10 @@
 
 ## 2. Java EE security
 
- * FortressWeb uses the [Apache Fortress Realm](https://github.com/apache/directory-fortress-realm) to provide Java EE authentication, coarse-grained authorization mapping the users and roles back to a given LDAP server.
- * This interface requires standard HTTP Basic Auth tokens for the userid/password credentials.
- * The credentials are verified by the Apache Fortress Realm via bind op invocation to the Directory Server.
- * The coarse-grained authorization policy ensures callers have been assigned at least one of the following roles to successfully navigate to any page:
+- FortressWeb uses the [Apache Fortress Realm](https://github.com/apache/directory-fortress-realm) to provide Java EE authentication, coarse-grained authorization mapping the users and roles back to a given LDAP server.
+- This interface requires standard HTTP Basic Auth tokens for the userid/password credentials.
+- The credentials are verified by the Apache Fortress Realm via bind op invocation to the Directory Server.
+- The coarse-grained authorization policy ensures callers have been assigned at least one of the following roles to successfully navigate to any page:
     1. ROLE_ADMIN
     2. ROLE_USERS
     3. ROLE_ROLES
@@ -100,6 +104,9 @@
 
 ## 3. Spring security **FilterSecurityInterceptor**
 
+- The page-to-role mappings are enforced by Spring security as defined [applicationContext](src/main/resources/applicationContext.xml)
+- The following table illustrates the mapping:
+
 | Role Name         | USERS | ROLES | POBJS | PERMS | PWPOLICIES | SSDS  | DSDS  | USEROUS | PERMOUS | ADMINROLES | ADMPOBJS | ADMPERMS | GROUPS | BINDS | AUTHZ | MODS  |
 | ----------------- | ----- | ----- | ------| ----- | ---------- | ----- | ----- | ------- | ------- | ---------- | -------- | -------- | -------| ----- | ----- | ----- |
 | ROLE_RBAC_ADMIN   | true  | true  | true  | true  | true       | true  | true  | true    | true    | true       | true     | true     | true   | true  | true  | true  |
@@ -120,39 +127,113 @@
 | ROLE_AUDIT_AUTHZS | false | false | false | false | false      | false | false | false   | false   | false      | false    | false    | false  | false | true  | false |
 | ROLE_AUDIT_MODS   | false | false | false | false | false      | false | false | false   | false   | false      | false    | false    | false  | false | false | true  |
 
- * The page-to-role mappings are enforced by Spring security.
+## 4. Apache Wicket Links
 
-## 4. Apache Wicket Buttons and Links
+- The links displayed at the top of the page are also controlled by RBAC Role assignment as shown in the table above.
 
- * All of the pages in this app have buttons and links that are protected by Apache Fortress Administrative Role-Based Access Control (ARBAC) permissions.  The way it works, when a user logs in, their ARBAC permissions are cached in the HTTP session.
- * When a button or link is loaded onto a page, the Web app will verify that the User has a corresponding ARBAC permission, and will display the control.  Otherwise, the button or link will not be loaded.  
+## 5. Apache Wicket Buttons
 
- TODO: A list of ARBAC permissions being checked:
- 
+- The app pages have buttons that are protected by Apache Fortress Administrative Role-Based Access Control (ARBAC) permissions.  
+- When a user logs in, their activated ARBAC permissions are cached into the HTTP session.
+- Whenever a page is loaded, the app verifies the User has a corresponding ARBAC permission, otherwise, the button is not loaded.
+- The following table shows the mappings between Administrative (ARBAC) permissions, web pages and the corresponding Admin Roles.
+- This security policy is defined here: [FortressWebDemoUsers](src/main/resources/FortressWebDemoUsers.xml)
 
-## 5. Apache Fortress **ARBAC Checks**
+| Perm Name (object name:operation name)                                    | Pages           | fortress-core-super-admin | fortress-web-user-admin | fortress-web-audit-admin |
+|---------------------------------------------------------------------------|-----------------|---------------------------|-------------------------|--------------------------|
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:addUser              | USERS           | true                      | true                    | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:disableUser          | USERS           | true                      | true                    | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:deleteUser           | USERS           | true                      | true                    | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:updateUser           | USERS           | true                      | true                    | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:changePassword       | USERS           | true                      | true                    | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:lockUserAccount      | USERS           | true                      | true                    | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:unlockUserAccount    | USERS           | true                      | true                    | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:resetPassword        | USERS           | true                      | true                    | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:assignUser           | USERS           | true                      | true                    | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:deassignUser         | USERS           | true                      | true                    | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:addRole              | ROLES           | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:updateRole           | ROLES           | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:deleteRole           | ROLES           | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:addPermObj           | POBJS ADMOBJS   | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:updatePermObj        | POBJS ADMOBJS   | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:deletePermObj        | POBJS ADMOBJS   | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:addPermission        | PERMS ADMPERMS  | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:updatePermission     | PERMS ADMPERMS  | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:deletePermission     | PERMS ADMPERMS  | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:createSsdSet         | SSDS            | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:updateSsdSet         | SSDS            | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:deleteSsdSet         | SSDS            | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:createDsdSet         | DSDS            | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:updateDsdSet         | DSDS            | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:deleteDsdSet         | DSDS            | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:addPermission        | PERMS ADMPERMS  | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:updatePermission     | PERMS ADMPERMS  | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:deletePermission     | PERMS ADMPERMS  | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.DelAdminMgrImpl:assignAdminRole   | PERMS ADMPERMS  | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.DelAdminMgrImpl:deassignAdminRole | PERMS ADMPERMS  | true    V                 | false                   | false                    |
+| org.apache.directory.fortress.core.impl.DelAdminMgrImpl:addOU             | OUSERS OUPRMS   | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.DelAdminMgrImpl:updateOU          | OUSERS OUPRMS   | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.DelAdminMgrImpl:deleteOU          | OUSERS OUPRMS   | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.ReviewMgrImpl:findUsers           | USERS GROUPS    | true                      | false                   | true                     |
+| org.apache.directory.fortress.core.impl.ReviewMgrImpl:findRoles           | ROLES SSDS DSDS | true                      | false                   | true                     |
+| org.apache.directory.fortress.core.impl.ReviewMgrImpl:findPermissions     | PERMS ADMPERMS  | true                      | false                   | true                     |
+| org.apache.directory.fortress.core.impl.ReviewMgrImpl:ssdRoleSets         | SSDS DSDS       | true                      | false                   | true                     |
+| org.apache.directory.fortress.core.impl.ReviewMgrImpl:dsdRoleSets         | SSDS DSDS       | true                      | false                   | true                     |
+| org.apache.directory.fortress.core.impl.DelReviewMgrImpl:ssdSets          | SSDS DSDS       | true                      | false                   | true                     |
+| org.apache.directory.fortress.core.impl.DelReviewMgrImpl:dsdSets          | SSDS DSDS       | true                      | false                   | true                     |
+| org.apache.directory.fortress.core.impl.ReviewMgrImpl:findPermObjs        | POBJS ADMPERMS  | true                      | false                   | true                     |
+| org.apache.directory.fortress.core.impl.DelReviewMgrImpl:searchOU         | OUUSERS OUPERMS | true                      | false                   | true                     |
+| org.apache.directory.fortress.core.impl.GroupMgrImpl:add                  | GROUPS          | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.GroupMgrImpl:update               | GROUPS          | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.GroupMgrImpl:delete               | GROUPS          | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.GroupMgrImpl:addProperty          | GROUPS          | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.GroupMgrImpl:deleteProperty       | GROUPS          | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.GroupMgrImpl:assign               | GROUPS          | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.GroupMgrImpl:deassign             | GROUPS          | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.GroupMgrImpl:findUsers            | GROUPS          | true                      | false                   | true                     |
+| org.apache.directory.fortress.core.impl.GroupMgrImpl:find                 | GROUPS          | true                      | false                   | true                     |
+| org.apache.directory.fortress.core.impl.PwPolicyMgrImpl:add               | PLCYS           | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.PwPolicyMgrImpl:update            | PLCYS           | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.PwPolicyMgrImpl:delete            | PLCYS           | true                      | false                   | false                    |
+| org.apache.directory.fortress.core.impl.AuditMgrImpl:searchAdminMods      | MODS            | true                      | false                   | true                     |
+| org.apache.directory.fortress.core.impl.AuditMgrImpl:searchBinds          | BINDS           | true                      | false                   | true                     |
+| org.apache.directory.fortress.core.impl.AuditMgrImpl:getUserAuthZs        | AUTHZ           | true                      | false                   | true                     |
 
- * Administrative Role-Based Access Control (ARBAC) is a type of Delegated Administration.  
- * For an overview on Apache Fortress ARBAC: [Apache Fortress Rest Security Model](https://github.com/apache/directory-fortress-enmasse/blob/master/README-SECURITY-MODEL.md)
- * Disabled in Fortress Web by default, to enable, add the following declaration to the fortress.properties:
+## 6. Apache Fortress **ARBAC Checks**
+
+- Administrative Role-Based Access Control (ARBAC) is a type of Delegated Administration.  
+- These checks happen in the Apache Fortress Core runtime. 
+- For an overview on Apache Fortress ARBAC: [Apache Fortress Rest Security Model](https://github.com/apache/directory-fortress-enmasse/blob/master/README-SECURITY-MODEL.md)
+- Disabled in Fortress Web by default, to enable, add the following declaration to the fortress.properties:
 
  ```
  is.arbac02=true
  ```
 
-## 6. Policy load
+## 7. Policy load
 
- a. The [Policy load file](./src/main/resources/FortressWebDemoUsers.xml) is an ant script that creates the roles and permissions that this app checks during code execution.  This step is performed during setup as described in the project's setup documentation.
+ - The [Policy load file](./src/main/resources/FortressWebDemoUsers.xml) is a script that creates the roles and permissions that this app checks during code execution.  This step is performed during setup as described in the project's setup documentation. 
+ - Test Users 
  
- b. Test Users 
- 
-| User Type   | UserID | USERS | ROLES | POBJS | PERMS | PWPOLICIES | SSDS  | DSDS  | USEROUS | PERMOUS | ADMINROLES | ADMPOBJS | ADMPERMS | GROUPS | BINDS | AUTHZ | MODS  |
-| ----------- | ------ | ----- | ----- | ------| ----- | ---------- | ----- | ----- | ------- | ------- | ---------- | -------- | -------- | -------| ----- | ----- | ----- |
-| Super Admin | test   | true  | true  | true  | true  | true       | true  | true  | true    | true    | true       | true     | true     | true   | true  | true  | true  |
-| User Admin  | test1  | true  | false | false | false | false      | false | false | false   | false   | false      | false    | false    | false  | false | false | false |
-| Auditor     | test2  | true  | false | false | false | true       | false | false | false   | false   | false      | false    | false    | true   | true  | true  | true  |
-| Group Admin | test3  | false | false | true  | false | false      | false | false | false   | false   | false      | false    | false    | true   | false | false | false |
+| User Type   | UserID | USERS | ROLES | POBJS | PERMS | PWPOLICIES | SSDS  | DSDS  | USEROUS | PERMOUS | ADMINROLES | ADMPOBJS | ADMPERMS | GROUPS  | BINDS   | AUTHZ | MODS  |
+| ----------- | ------ | ----- |-------|-------|-------| ---------- |-------|-------|---------|---------|------------|----------|----------|---------|---------| ----- | ----- |
+| Super Admin | test   | true  | true  | true  | true  | true       | true  | true  | true    | true    | true       | true     | true     | true    | true    | true  | true  |
+| User Admin  | test1  | true  | false | false | false | false      | false | false | false   | false   | false      | false    | false    | false   | false   | false | false |
+| Auditor     | test2  | true  | true  | true  | true  | true       | true  | true  | true    | true    | true       | true     | true     | true    | true    | true  | true  |
+| Group Admin | test3  | false | false | false | false | false      | false | false | false   | false   | false      | false    | false    | true    | false   | false | false |
 
- * All test passwords = 'password' 
+ * All test passwords = 'password'
+
+## 8. Verification
+ 
+- Run the Selenium Tests: [FortressWebSeleniumITCase](src/test/java/org/apache/directory/fortress/web/integration/FortressWebSeleniumITCase.java)
+
+Required security policy for selenium tests is loaded: a or b and c:
+
+ a. ARBAC Policy Load: [DelegatedAdminManagerLoad](https://github.com/apache/directory-fortress-core/blob/master/ldap/setup/DelegatedAdminManagerLoad.xml)
+ b. Fortress Junit Tests: [FortressJUnitTest](https://github.com/apache/directory-fortress-core/blob/master/src/test/java/org/apache/directory/fortress/core/impl/FortressJUnitTest.java)
+ c. Fortress Web Demo Load: [FortressWebDemoUsers](src/main/resources/FortressWebDemoUsers.xml)
+
+ Note: a & b are described in the Apache Fortress Core documentation.
 
 #### END OF README

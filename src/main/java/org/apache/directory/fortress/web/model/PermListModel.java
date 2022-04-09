@@ -159,7 +159,7 @@ public class PermListModel extends Model<SerializableList<Permission>>
         catch ( SecurityException se )
         {
             String error = ".getList caught SecurityException=" + se;
-            LOG.warn( error );
+            throw new RuntimeException( error, se );
         }
         
         return permsList;
