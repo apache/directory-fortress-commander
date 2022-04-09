@@ -16,7 +16,6 @@
 #   specific language governing permissions and limitations
 #   under the License.
 #
-
 contextId=HOME
 
 # Used by application security components:
@@ -31,7 +30,7 @@ port=10389
 ldap.server.type=apacheds
 # Else if OpenLDAP server:
 #ldap.server.type=openldap
-# Else leave blank:
+# Else if neither:
 #ldap.server.type=other
 
 # Set the credentials of service account.  Must have read/write privileges over the Fortress LDAP DIT:
@@ -72,16 +71,15 @@ enable.pool.reconnect=true
 ehcache.config.file=ehcache.xml
 
 # This will override default LDAP manager implementations for the RESTful ones:
-#enable.mgr.impl.rest=true
 enable.mgr.impl.rest=false
 
-# Optional parameters needed when Fortress client is connecting with the En Masse (rather than LDAP) server:
+# Optional parameters needed when Fortress Web is using HTTP (rather than LDAP) for connectivity:
 http.user=demouser4
 http.pw=gX9JbCTxJW5RiH+otQEX0Ja0RIAoPBQf
 http.host=localhost
 http.port=8080
 
-# The default is 'false':
+# When true, a side panel with buttons is added for page navigation. The default is 'false':
 #enable.nav.panel=true
 
 # Boolean value. Disabled by default. If this is set to true, the runtime will enforce administrative permissions and ARBAC02 DA checks:
