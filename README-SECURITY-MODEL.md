@@ -24,10 +24,10 @@
 - Understand the security model of Apache Fortress Web
 - SECTION 1. TLS
 - SECTION 2. Java EE security
-- SECTION 3. Spring security **FilterSecurityInterceptor**
+- SECTION 3. Spring security FilterSecurityInterceptor
 - SECTION 4. Apache Wicket Links
 - SECTION 5. Apache Wicket Buttons
-- SECTION 6. Apache Fortress Web **ARBAC Checks**
+- SECTION 6. Additional ARBAC Checks
 - SECTION 7. Policy load
 - SECTION 8. Verification
 
@@ -133,11 +133,11 @@
 
 ## 5. Apache Wicket Buttons
 
-- The app pages have buttons that are protected by Apache Fortress Administrative Role-Based Access Control (ARBAC) permissions.  
-- When a user logs in, their activated ARBAC permissions are cached into the HTTP session.
-- Whenever a page is loaded, the app verifies the User has a corresponding ARBAC permission, otherwise, the button is not loaded.
-- The following table shows the mappings between Administrative (ARBAC) permissions, web pages and the corresponding Admin Roles.
-- This security policy is defined here: [FortressWebDemoUsers](src/main/resources/FortressWebDemoUsers.xml)
+- The app pages have buttons that are protected by Apache Fortress Administrative permissions.  
+- When a user logs in, their activated Admin roles and permissions are cached into their HTTP session.
+- Whenever a page is loaded, the app verifies the User has a corresponding Admin permission, otherwise, the button is not loaded.
+- The following table shows the mappings between Admin permissions, Admin Roles and the corresponding Web Pages.
+- The security policy is defined here: [FortressWebDemoUsers](src/main/resources/FortressWebDemoUsers.xml)
 
 | Perm Name (object name:operation name)                                    | Pages           | fortress-core-super-admin | fortress-web-user-admin | fortress-web-audit-admin |
 |---------------------------------------------------------------------------|-----------------|---------------------------|-------------------------|--------------------------|
@@ -170,7 +170,7 @@
 | org.apache.directory.fortress.core.impl.AdminMgrImpl:updatePermission     | PERMS ADMPERMS  | true                      | false                   | false                    |
 | org.apache.directory.fortress.core.impl.AdminMgrImpl:deletePermission     | PERMS ADMPERMS  | true                      | false                   | false                    |
 | org.apache.directory.fortress.core.impl.DelAdminMgrImpl:assignAdminRole   | PERMS ADMPERMS  | true                      | false                   | false                    |
-| org.apache.directory.fortress.core.impl.DelAdminMgrImpl:deassignAdminRole | PERMS ADMPERMS  | true    V                 | false                   | false                    |
+| org.apache.directory.fortress.core.impl.DelAdminMgrImpl:deassignAdminRole | PERMS ADMPERMS  | true                      | false                   | false                    |
 | org.apache.directory.fortress.core.impl.DelAdminMgrImpl:addOU             | OUSERS OUPRMS   | true                      | false                   | false                    |
 | org.apache.directory.fortress.core.impl.DelAdminMgrImpl:updateOU          | OUSERS OUPRMS   | true                      | false                   | false                    |
 | org.apache.directory.fortress.core.impl.DelAdminMgrImpl:deleteOU          | OUSERS OUPRMS   | true                      | false                   | false                    |
@@ -199,12 +199,12 @@
 | org.apache.directory.fortress.core.impl.AuditMgrImpl:searchBinds          | BINDS           | true                      | false                   | true                     |
 | org.apache.directory.fortress.core.impl.AuditMgrImpl:getUserAuthZs        | AUTHZ           | true                      | false                   | true                     |
 
-## 6. Apache Fortress **ARBAC Checks**
-
-- Administrative Role-Based Access Control (ARBAC) is a type of Delegated Administration.  
-- These checks happen in the Apache Fortress Core runtime. 
-- For an overview on Apache Fortress ARBAC: [Apache Fortress Rest Security Model](https://github.com/apache/directory-fortress-enmasse/blob/master/README-SECURITY-MODEL.md)
-- Disabled in Fortress Web by default, to enable, add the following declaration to the fortress.properties:
+## 6. Additional ARBAC Checks
+ 
+- Administrative Role-Based Access Control (ARBAC) checking occurs when Apache Fortress Core APIs are invoked in a certain way -- passing an ARBAC session object. 
+- For more on ARBAC: [Apache Fortress Rest Security Model](https://github.com/apache/directory-fortress-enmasse/blob/master/README-SECURITY-MODEL.md)
+- By default Apache Fortress Web does not enforce the additional ARBAC checks. 
+- To enable add the following declaration to the fortress.properties:
 
  ```
  is.arbac02=true
@@ -227,13 +227,9 @@
 ## 8. Verification
  
 - Run the Selenium Tests: [FortressWebSeleniumITCase](src/test/java/org/apache/directory/fortress/web/integration/FortressWebSeleniumITCase.java)
-
-Required security policy for selenium tests is loaded: a or b and c:
-
- a. ARBAC Policy Load: [DelegatedAdminManagerLoad](https://github.com/apache/directory-fortress-core/blob/master/ldap/setup/DelegatedAdminManagerLoad.xml)
- b. Fortress Junit Tests: [FortressJUnitTest](https://github.com/apache/directory-fortress-core/blob/master/src/test/java/org/apache/directory/fortress/core/impl/FortressJUnitTest.java)
- c. Fortress Web Demo Load: [FortressWebDemoUsers](src/main/resources/FortressWebDemoUsers.xml)
-
- Note: a & b are described in the Apache Fortress Core documentation.
+- Required security policy for selenium tests is loaded: a or b and c:
+    - a. ARBAC Policy Load: [DelegatedAdminManagerLoad](https://github.com/apache/directory-fortress-core/blob/master/ldap/setup/DelegatedAdminManagerLoad.xml)
+    - b. Fortress Junit Tests: [FortressJUnitTest](https://github.com/apache/directory-fortress-core/blob/master/src/test/java/org/apache/directory/fortress/core/impl/FortressJUnitTest.java)
+    - c. Fortress Web Demo Load: [FortressWebDemoUsers](src/main/resources/FortressWebDemoUsers.xml)
 
 #### END OF README
