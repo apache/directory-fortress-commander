@@ -28,8 +28,9 @@
 - SECTION 4. Apache Wicket Links
 - SECTION 5. Apache Wicket Buttons
 - SECTION 6. Additional Administrative Role-Based Access Control (ARBAC) Checks
-- SECTION 7. Policy load
-- SECTION 8. Verification
+- SECTION 7. Audit Trail / History
+- SECTION 8. Policy load
+- SECTION 9. Verification
 
 ## Document Overview
 
@@ -224,14 +225,18 @@ dc=example,dc=com
 - In addition to the admin perm checks, as described above, when buttons get loaded, the Apache Fortress Web optionally perform checks in its API calls.
 - These occur when Apache Fortress Core's APIs are invoked in a certain way -- when passing in an ARBAC session object. 
 - For more on how ARBAC checks work: [Apache Fortress Rest Security Model](https://github.com/apache/directory-fortress-enmasse/blob/master/README-SECURITY-MODEL.md)
-- By default, the Apache Fortress Web does not enforce these additional ARBAC checks in the APIs. 
+- By default, the Apache Fortress Web does not enforce these additional ARBAC checks in the APIs.
 - To enable, add the following declaration to the fortress.properties:
 
  ```
  is.arbac02=true
  ```
 
-## 7. Policy load
+## 7. Audit Trail / History
+
+TODO: add
+
+## 8. Policy load
 
  - The [Policy load file](./src/main/resources/FortressWebDemoUsers.xml) is a script that creates the roles and permissions that this app checks during code execution.  This step is performed during setup as described in the project's setup documentation. 
  - Test Users 
@@ -244,8 +249,8 @@ dc=example,dc=com
 | Group Admin | test3  | false | false | false | false | false      | false | false | false   | false   | false      | false    | false    | true    | false   | false | false |
 
  * All test passwords = 'password'
-
-## 8. Verification
+ 
+## 9. Verification
  
 - Run the Selenium Tests: [FortressWebSeleniumITCase](src/test/java/org/apache/directory/fortress/web/integration/FortressWebSeleniumITCase.java)
 - Required security policy for selenium tests is loaded: a or b and c:
