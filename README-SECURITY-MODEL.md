@@ -215,16 +215,17 @@ dc=example,dc=com
  └─ou=groups
  ...
 ```
-- The RBAC roles and permissions are what are checked by typical applications.
-- The ARBAC roles and permissions are used for Delegated Admininistration and checked by apps that are loading security policy, e.g. Apache Fortress Web
+- The RBAC roles and permissions are checked by typical applications.
+- The ARBAC roles and permissions are checked by apps when loading sensitive security policy, e.g. Apache Fortress Web
+- The idea, one set controls the normal users policy (RBAC), the other, for administrative, think privileged users (ARBAC).
 
 ## 6. Additional Administrative Role-Based Access Control (ARBAC) Checks
 
-- In addition to administrative permission checks described above, the Apache Fortress Web can optionally perform additional ARBAC checks.
-- These occur only when the Apache Fortress Core APIs are invoked in a certain way -- passing in an ARBAC session object. 
-- For more on ARBAC: [Apache Fortress Rest Security Model](https://github.com/apache/directory-fortress-enmasse/blob/master/README-SECURITY-MODEL.md)
-- By default, the Apache Fortress Web does not enforce these additional ARBAC checks. 
-- To enable add the following declaration to the fortress.properties:
+- In addition to the admin perm checks, as described above, when buttons get loaded, the Apache Fortress Web optionally perform checks in its API calls.
+- These occur when Apache Fortress Core's APIs are invoked in a certain way -- when passing in an ARBAC session object. 
+- For more on how ARBAC checks work: [Apache Fortress Rest Security Model](https://github.com/apache/directory-fortress-enmasse/blob/master/README-SECURITY-MODEL.md)
+- By default, the Apache Fortress Web does not enforce these additional ARBAC checks in the APIs. 
+- To enable, add the following declaration to the fortress.properties:
 
  ```
  is.arbac02=true
