@@ -224,7 +224,6 @@ dc=example,dc=com
 ## 6. Additional Administrative Role-Based Access Control (ARBAC) Checks
 
 The Apache Fortress Web optionally enforces more rigorous checks down in the Apache Fortress Core APIs.
-Occur when Core APIs are invoked in a certain way -- passing in an ARBAC session object.
 
 e.g. enabling ARBAC in the Apache Fortress Core Admin Manager:
 
@@ -244,7 +243,7 @@ if (IS_ARBAC02){
 
 ### ARBAC Rational
 
-Why go to all the trouble of setting up the ARBAC checks?
+Why the ARBAC checks?
 
 Three advantages:
 
@@ -254,13 +253,19 @@ By enabling ARBAC, every Apache Fortress Core API is guarded by a permission che
 
 2. Delegated Administration Checking
 
-ARBAC requires the administrator performing a particular admin function, i.e. the logged on user adding another user, has been granted the authority to perform that action on a set of entities, for a particular organization.
-There are a few ways this is performed. The previous link on Apache Fortress REST security model outlines the ARBAC capabilities.
+ARBAC requires the administrator performing a particular admin function, i.e. the logged in user, has been granted the authority to perform actions across a set of entities, for a particular organization.
+The previous link on Apache Fortress REST security model outlines the ARBAC capabilities.
 
 3. Auditing and History
 
-When using OpenLDAP as the backend database, the Apache Fortress Core APIs can optionally log its entire history of API invocations into the slapo access log. 
-Who did what, when, before and after images, results, etc. 
+When using OpenLDAP, the Apache Fortress Core APIs can optionally log its history into the slapo access log. 
+Who did what, when, before and after images, results, etc.
+
+The Apache Fortress Web has pages for viewing the audit log which can also be searched with any ldap client and/or archived for persistent storage.
+
+- BINDS - authentication attempts
+- AUTHZ - authorization attempts
+- MODS - history of changes to data
 
 ## 7. Policy load
 
