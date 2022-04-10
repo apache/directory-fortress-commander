@@ -133,11 +133,12 @@
 
 ## 5. Apache Wicket Buttons
 
-- The app pages have buttons that are protected by Apache Fortress Administrative permissions.  
-- When a user logs in, their activated Admin roles and permissions are cached into their HTTP session.
-- Whenever a page is loaded, the app verifies the User has a corresponding Admin permission, otherwise, the button is not loaded.
-- The following table shows the mappings between Admin permissions, Admin Roles and the corresponding Web Pages.
-- The security policy is defined here: [FortressWebDemoUsers](src/main/resources/FortressWebDemoUsers.xml)
+The app pages have buttons that are protected by Apache Fortress Administrative permissions. When a user logs in, their activated Admin roles and permissions get cached into their HTTP session.
+When a page loads, this Web app verifies the Users have the corresponding Admin permission for its buttons, otherwise, they're not loaded.
+
+### Table of Apache Fortress Web Permissions
+
+The following table shows the mappings between Admin permissions, Admin Roles and the corresponding Web Pages.
 
 | Administrative Permission Name (object name:operation name)               | Pages           | fortress-core-super-admin | fortress-web-user-admin | fortress-web-audit-admin |
 |---------------------------------------------------------------------------|-----------------|---------------------------|-------------------------|--------------------------|
@@ -199,9 +200,11 @@
 | org.apache.directory.fortress.core.impl.AuditMgrImpl:searchBinds          | BINDS           | true                      | false                   | true                     |
 | org.apache.directory.fortress.core.impl.AuditMgrImpl:getUserAuthZs        | AUTHZ           | true                      | false                   | true                     |
 
+- The above security policy is defined here: [FortressWebDemoUsers](src/main/resources/FortressWebDemoUsers.xml) and gets loaded into the database when the script is run.
+
 ### More on Apache Fortress Administrative Permissions
 
-Apache Fortress has two types of roles and permissions, RBAC and ARBAC. They are stored in separate trees in the directory:
+Apache Fortress supports two types of security semantics, RBAC and ARBAC. Their respective policies are stored inside separate trees in the directory:
 
 ```
 dc=example,dc=com
@@ -215,16 +218,15 @@ dc=example,dc=com
  └─ou=groups
  ...
 ```
-- The RBAC roles and permissions are checked by typical applications.
-- The ARBAC roles and permissions are checked by apps when loading sensitive security policy, e.g. Apache Fortress Web
-- The idea, one set controls the normal users policy (RBAC), the other, for administrative, think privileged users (ARBAC).
+- The RBAC roles and permissions are checked by typical applications and what we normally think of with Role-Based Access Control.
+- The ARBAC roles and permissions are checked by administrative apps when loading security policies, e.g. Apache Fortress Web.
 
 ## 6. Additional Administrative Role-Based Access Control (ARBAC) Checks
 
-In addition to the admin perm checks, as described above, the Apache Fortress Web optionally perform more rigorous checks in its API calls.
-These occur when Core APIs are invoked in a certain way -- when passing in an ARBAC session object.
+The Apache Fortress Web optionally enforces more rigorous checks down in the Apache Fortress Core APIs.
+Occur when Core APIs are invoked in a certain way -- passing in an ARBAC session object.
 
-e.g.
+e.g. enabling ARBAC in the Apache Fortress Core Admin Manager:
 
 ```java
 if (IS_ARBAC02){
@@ -232,8 +234,8 @@ if (IS_ARBAC02){
 }
 ```
 
-- For more on how ARBAC checks work: [Apache Fortress Rest Security Model](https://github.com/apache/directory-fortress-enmasse/blob/master/README-SECURITY-MODEL.md)
-- By default, the ARBAC checking is disabled in the Apache Fortress Web runtime.
+- For more on ARBAC checking: [Apache Fortress Rest Security Model](https://github.com/apache/directory-fortress-enmasse/blob/master/README-SECURITY-MODEL.md)
+- By default, ARBAC is disabled in the Apache Fortress Web runtime.
 - To enable, add the following to fortress.properties:
 
  ```
