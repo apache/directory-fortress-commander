@@ -28,9 +28,8 @@
 - SECTION 4. Apache Wicket Links
 - SECTION 5. Apache Wicket Buttons
 - SECTION 6. Additional Administrative Role-Based Access Control (ARBAC) Checks
-- SECTION 7. Audit Trail / History
-- SECTION 8. Policy load
-- SECTION 9. Verification
+- SECTION 7. Policy load
+- SECTION 8. Verification
 
 ## Document Overview
 
@@ -222,21 +221,46 @@ dc=example,dc=com
 
 ## 6. Additional Administrative Role-Based Access Control (ARBAC) Checks
 
-- In addition to the admin perm checks, as described above, when buttons get loaded, the Apache Fortress Web optionally perform checks in its API calls.
-- These occur when Apache Fortress Core's APIs are invoked in a certain way -- when passing in an ARBAC session object. 
+In addition to the admin perm checks, as described above, the Apache Fortress Web optionally perform more rigorous checks in its API calls.
+These occur when Core APIs are invoked in a certain way -- when passing in an ARBAC session object.
+
+e.g.
+
+```java
+if (IS_ARBAC02){
+    adminMgr.setAdmin(getSession(this));
+}
+```
+
 - For more on how ARBAC checks work: [Apache Fortress Rest Security Model](https://github.com/apache/directory-fortress-enmasse/blob/master/README-SECURITY-MODEL.md)
-- By default, the Apache Fortress Web does not enforce these additional ARBAC checks in the APIs.
-- To enable, add the following declaration to the fortress.properties:
+- By default, the ARBAC checking is disabled in the Apache Fortress Web runtime.
+- To enable, add the following to fortress.properties:
 
  ```
  is.arbac02=true
  ```
 
-## 7. Audit Trail / History
+### ARBAC Rational
 
-TODO: add
+Why go to all the trouble of setting up the ARBAC checks?
 
-## 8. Policy load
+Three advantages:
+
+1. Mandatory Access Controls
+
+By enabling ARBAC, every Apache Fortress Core API is guarded by a permission check. This is more granular than the Apache Fortress Web button checks. For example, one button may call two APIs.
+
+2. Delegated Administration Checking
+
+ARBAC requires the administrator performing a particular admin function, i.e. the logged on user adding another user, has been granted the authority to perform that action on a set of entities, for a particular organization.
+There are a few ways this is performed. The previous link on Apache Fortress REST security model outlines the ARBAC capabilities.
+
+3. Auditing and History
+
+When using OpenLDAP as the backend database, the Apache Fortress Core APIs can optionally log its entire history of API invocations into the slapo access log. 
+Who did what, when, before and after images, results, etc. 
+
+## 7. Policy load
 
  - The [Policy load file](./src/main/resources/FortressWebDemoUsers.xml) is a script that creates the roles and permissions that this app checks during code execution.  This step is performed during setup as described in the project's setup documentation. 
  - Test Users 
@@ -250,7 +274,7 @@ TODO: add
 
  * All test passwords = 'password'
  
-## 9. Verification
+## 8. Verification
  
 - Run the Selenium Tests: [FortressWebSeleniumITCase](src/test/java/org/apache/directory/fortress/web/integration/FortressWebSeleniumITCase.java)
 - Required security policy for selenium tests is loaded: a or b and c:
