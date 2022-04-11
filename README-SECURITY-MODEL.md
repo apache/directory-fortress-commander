@@ -142,68 +142,68 @@
 
 ### Table of Apache Fortress Web Permissions
 
-- Below are list of Admin perms (1), Pages (2), and the admin role mappings (3,4,5).
+- Below are list of Admin perms (1), Pages (2), and the admin role mappings (3 - 6).
 - Each perm maps to a single button on a single page.
 
-| 1. Administrative Permission Name (object name:operation name)            | 2. Pages        | 3. fortress-core-super-admin | 4. fortress-web-user-admin | 5. fortress-web-audit-admin |
-|---------------------------------------------------------------------------|-----------------|------------------------------|----------------------------|-----------------------------|
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:addUser              | USERS           | true                         | true                       | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:disableUser          | USERS           | true                         | true                       | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:deleteUser           | USERS           | true                         | true                       | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:updateUser           | USERS           | true                         | true                       | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:changePassword       | USERS           | true                         | true                       | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:lockUserAccount      | USERS           | true                         | true                       | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:unlockUserAccount    | USERS           | true                         | true                       | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:resetPassword        | USERS           | true                         | true                       | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:assignUser           | USERS           | true                         | true                       | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:deassignUser         | USERS           | true                         | true                       | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:addRole              | ROLES           | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:updateRole           | ROLES           | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:deleteRole           | ROLES           | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:addPermObj           | POBJS ADMOBJS   | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:updatePermObj        | POBJS ADMOBJS   | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:deletePermObj        | POBJS ADMOBJS   | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:addPermission        | PERMS ADMPERMS  | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:updatePermission     | PERMS ADMPERMS  | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:deletePermission     | PERMS ADMPERMS  | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:createSsdSet         | SSDS            | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:updateSsdSet         | SSDS            | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:deleteSsdSet         | SSDS            | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:createDsdSet         | DSDS            | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:updateDsdSet         | DSDS            | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:deleteDsdSet         | DSDS            | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:addPermission        | PERMS ADMPERMS  | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:updatePermission     | PERMS ADMPERMS  | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.AdminMgrImpl:deletePermission     | PERMS ADMPERMS  | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.DelAdminMgrImpl:assignAdminRole   | PERMS ADMPERMS  | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.DelAdminMgrImpl:deassignAdminRole | PERMS ADMPERMS  | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.DelAdminMgrImpl:addOU             | OUSERS OUPRMS   | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.DelAdminMgrImpl:updateOU          | OUSERS OUPRMS   | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.DelAdminMgrImpl:deleteOU          | OUSERS OUPRMS   | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.ReviewMgrImpl:findUsers           | USERS GROUPS    | true                         | false                      | true                        |
-| org.apache.directory.fortress.core.impl.ReviewMgrImpl:findRoles           | ROLES SSDS DSDS | true                         | false                      | true                        |
-| org.apache.directory.fortress.core.impl.ReviewMgrImpl:findPermissions     | PERMS ADMPERMS  | true                         | false                      | true                        |
-| org.apache.directory.fortress.core.impl.ReviewMgrImpl:ssdRoleSets         | SSDS DSDS       | true                         | false                      | true                        |
-| org.apache.directory.fortress.core.impl.ReviewMgrImpl:dsdRoleSets         | SSDS DSDS       | true                         | false                      | true                        |
-| org.apache.directory.fortress.core.impl.DelReviewMgrImpl:ssdSets          | SSDS DSDS       | true                         | false                      | true                        |
-| org.apache.directory.fortress.core.impl.DelReviewMgrImpl:dsdSets          | SSDS DSDS       | true                         | false                      | true                        |
-| org.apache.directory.fortress.core.impl.ReviewMgrImpl:findPermObjs        | POBJS ADMPERMS  | true                         | false                      | true                        |
-| org.apache.directory.fortress.core.impl.DelReviewMgrImpl:searchOU         | OUUSERS OUPERMS | true                         | false                      | true                        |
-| org.apache.directory.fortress.core.impl.GroupMgrImpl:add                  | GROUPS          | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.GroupMgrImpl:update               | GROUPS          | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.GroupMgrImpl:delete               | GROUPS          | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.GroupMgrImpl:addProperty          | GROUPS          | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.GroupMgrImpl:deleteProperty       | GROUPS          | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.GroupMgrImpl:assign               | GROUPS          | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.GroupMgrImpl:deassign             | GROUPS          | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.GroupMgrImpl:findUsers            | GROUPS          | true                         | false                      | true                        |
-| org.apache.directory.fortress.core.impl.GroupMgrImpl:find                 | GROUPS          | true                         | false                      | true                        |
-| org.apache.directory.fortress.core.impl.PwPolicyMgrImpl:add               | PLCYS           | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.PwPolicyMgrImpl:update            | PLCYS           | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.PwPolicyMgrImpl:delete            | PLCYS           | true                         | false                      | false                       |
-| org.apache.directory.fortress.core.impl.AuditMgrImpl:searchAdminMods      | MODS            | true                         | false                      | true                        |
-| org.apache.directory.fortress.core.impl.AuditMgrImpl:searchBinds          | BINDS           | true                         | false                      | true                        |
-| org.apache.directory.fortress.core.impl.AuditMgrImpl:getUserAuthZs        | AUTHZ           | true                         | false                      | true                        |
+| 1. Administrative Permission Name (object name:operation name)            | 2. Pages        | 3. fortress-core-super-admin | 4. fortress-web-user-admin | 5. fortress-web-audit-admin | 6. fortress-web-group-admin |
+|---------------------------------------------------------------------------|-----------------|------------------------------|----------------------------|-----------------------------|-----------------------------|
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:addUser              | USERS           | true                         | true                       | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:disableUser          | USERS           | true                         | true                       | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:deleteUser           | USERS           | true                         | true                       | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:updateUser           | USERS           | true                         | true                       | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:changePassword       | USERS           | true                         | true                       | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:lockUserAccount      | USERS           | true                         | true                       | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:unlockUserAccount    | USERS           | true                         | true                       | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:resetPassword        | USERS           | true                         | true                       | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:assignUser           | USERS           | true                         | true                       | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:deassignUser         | USERS           | true                         | true                       | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:addRole              | ROLES           | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:updateRole           | ROLES           | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:deleteRole           | ROLES           | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:addPermObj           | POBJS ADMOBJS   | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:updatePermObj        | POBJS ADMOBJS   | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:deletePermObj        | POBJS ADMOBJS   | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:addPermission        | PERMS ADMPERMS  | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:updatePermission     | PERMS ADMPERMS  | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:deletePermission     | PERMS ADMPERMS  | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:createSsdSet         | SSDS            | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:updateSsdSet         | SSDS            | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:deleteSsdSet         | SSDS            | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:createDsdSet         | DSDS            | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:updateDsdSet         | DSDS            | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:deleteDsdSet         | DSDS            | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:addPermission        | PERMS ADMPERMS  | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:updatePermission     | PERMS ADMPERMS  | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AdminMgrImpl:deletePermission     | PERMS ADMPERMS  | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.DelAdminMgrImpl:assignAdminRole   | PERMS ADMPERMS  | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.DelAdminMgrImpl:deassignAdminRole | PERMS ADMPERMS  | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.DelAdminMgrImpl:addOU             | OUSERS OUPRMS   | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.DelAdminMgrImpl:updateOU          | OUSERS OUPRMS   | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.DelAdminMgrImpl:deleteOU          | OUSERS OUPRMS   | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.ReviewMgrImpl:findUsers           | USERS GROUPS    | true                         | false                      | true                        | false                       |
+| org.apache.directory.fortress.core.impl.ReviewMgrImpl:findRoles           | ROLES SSDS DSDS | true                         | false                      | true                        | false                       |
+| org.apache.directory.fortress.core.impl.ReviewMgrImpl:findPermissions     | PERMS ADMPERMS  | true                         | false                      | true                        | false                       |
+| org.apache.directory.fortress.core.impl.ReviewMgrImpl:ssdRoleSets         | SSDS DSDS       | true                         | false                      | true                        | false                       |
+| org.apache.directory.fortress.core.impl.ReviewMgrImpl:dsdRoleSets         | SSDS DSDS       | true                         | false                      | true                        | false                       |
+| org.apache.directory.fortress.core.impl.DelReviewMgrImpl:ssdSets          | SSDS DSDS       | true                         | false                      | true                        | false                       |
+| org.apache.directory.fortress.core.impl.DelReviewMgrImpl:dsdSets          | SSDS DSDS       | true                         | false                      | true                        | false                       |
+| org.apache.directory.fortress.core.impl.ReviewMgrImpl:findPermObjs        | POBJS ADMPERMS  | true                         | false                      | true                        | false                       |
+| org.apache.directory.fortress.core.impl.DelReviewMgrImpl:searchOU         | OUUSERS OUPERMS | true                         | false                      | true                        | false                       |
+| org.apache.directory.fortress.core.impl.GroupMgrImpl:add                  | GROUPS          | true                         | false                      | false                       | true                        |
+| org.apache.directory.fortress.core.impl.GroupMgrImpl:update               | GROUPS          | true                         | false                      | false                       | true                        |
+| org.apache.directory.fortress.core.impl.GroupMgrImpl:delete               | GROUPS          | true                         | false                      | false                       | true                        |
+| org.apache.directory.fortress.core.impl.GroupMgrImpl:addProperty          | GROUPS          | true                         | false                      | false                       | true                        |
+| org.apache.directory.fortress.core.impl.GroupMgrImpl:deleteProperty       | GROUPS          | true                         | false                      | false                       | true                        |
+| org.apache.directory.fortress.core.impl.GroupMgrImpl:assign               | GROUPS          | true                         | false                      | false                       | true                        |
+| org.apache.directory.fortress.core.impl.GroupMgrImpl:deassign             | GROUPS          | true                         | false                      | false                       | true                        |
+| org.apache.directory.fortress.core.impl.GroupMgrImpl:findUsers            | GROUPS          | true                         | false                      | true                        | true                        |
+| org.apache.directory.fortress.core.impl.GroupMgrImpl:find                 | GROUPS          | true                         | false                      | true                        | true                        |
+| org.apache.directory.fortress.core.impl.PwPolicyMgrImpl:add               | PLCYS           | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.PwPolicyMgrImpl:update            | PLCYS           | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.PwPolicyMgrImpl:delete            | PLCYS           | true                         | false                      | false                       | false                       |
+| org.apache.directory.fortress.core.impl.AuditMgrImpl:searchAdminMods      | MODS            | true                         | false                      | true                        | false                       |
+| org.apache.directory.fortress.core.impl.AuditMgrImpl:searchBinds          | BINDS           | true                         | false                      | true                        | false                       |
+| org.apache.directory.fortress.core.impl.AuditMgrImpl:getUserAuthZs        | AUTHZ           | true                         | false                      | true                        | false                       |
 
 - For example, the administrator must have the 'GroupMgrImpl:add' perm activated into their session before Wicket will show the add button on the 'GROUPS' page.
 - These policies are defined here: [FortressWebDemoUsers](src/main/resources/FortressWebDemoUsers.xml)
@@ -220,7 +220,7 @@ dc=example,dc=com
  ├─ou=rbac  <- 'normal' RBAC data
  │  ├─ou=roles
  │  └─ou=perms
- ├─ou=arbac <- administrative RBAC data
+ ├─ou=arbac <- administrative RBAC data (ARBAC)
  │  ├─ou=roles
  │  └─ou=perms
  ├─ou=people
@@ -229,8 +229,10 @@ dc=example,dc=com
 ```
 
 - RBAC roles and perms are stored and used on behalf of business apps. For 'typical' security use cases.
-- RBAC roles are checked by the Spring and Wicket enforcement layers mentioned earlier.
-- The ARBAC roles and perms are checked whenever edits are made to the RBAC policies themselves. Like what the Apache Fortress Web does.
+- RBAC roles are also checked by the Spring and Wicket enforcement layers mentioned earlier.
+- ARBAC roles and perms are checked when edits are made to RBAC policies. Like what the Apache Fortress Web does.
+- Users and Groups can be assigned both RBAC and Administrative roles.
+- For example, an administrator would be assigned the 'ROLE_GROUPS' RBAC role + the 'fortress-web-group-admin' ARBAC role to be allowed entry to the 'GROUPS' page and use its buttons. 
 
 ## 6. Additional Administrative Role-Based Access Control (ARBAC) Checks
 
