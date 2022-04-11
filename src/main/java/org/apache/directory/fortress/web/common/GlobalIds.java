@@ -233,6 +233,5 @@ public class GlobalIds
     public static final String ROLES_SEARCH = "roles.search";
     public static final String FIELD_2 = "field2";
     public static final String FIELD_1 = "field1";
-    public static final String IS_JETTY_SERVER = "is-jetty-server";
     public static final String CONTEXT_ID_PROPERTY = "contextId";
 }

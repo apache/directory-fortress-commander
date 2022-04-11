@@ -186,28 +186,15 @@ public abstract class FortressWebBasePage extends WebPage
             // Here the principal was created by fortress realm and is a serialized instance of {@link Session}.
             String szPrincipal = principal.toString();
             Session session = null;
-
-            String szIsJetty = System.getProperty( org.apache.directory.fortress.web.common.GlobalIds.IS_JETTY_SERVER );
-            boolean isJetty = false;
-            if( StringUtils.isNotEmpty( szIsJetty ))
+            try
             {
-                if ( szIsJetty.equalsIgnoreCase( "true" ) )
-                {
-                    isJetty = true;
-                }
+                // Deserialize the principal string into a fortress session:
+                session = j2eePolicyMgr.deserialize( szPrincipal );
             }
-            if( !isJetty )
+            catch(SecurityException se)
             {
-                try
-                {
-                    // Deserialize the principal string into a fortress session:
-                    session = j2eePolicyMgr.deserialize( szPrincipal );
-                }
-                catch(SecurityException se)
-                {
-                    // Can't recover....
-                    throw new RuntimeException( se );
-                }
+                // Can't recover....
+                throw new RuntimeException( se );
             }
 
             // If this is null, it means this app cannot share an rbac session with container and must now (re)create session here:
