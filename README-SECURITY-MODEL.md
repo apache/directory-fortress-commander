@@ -107,25 +107,25 @@
 - The page-to-role mappings are enforced by Spring security as defined [applicationContext](src/main/resources/applicationContext.xml)
 - The following table illustrates the mapping:
 
-| Role Name         | USERS | ROLES | POBJS | PERMS | PWPOLICIES | SSDS  | DSDS  | USEROUS | PERMOUS | ADMINROLES | ADMPOBJS | ADMPERMS | GROUPS | BINDS | AUTHZ | MODS  |
-| ----------------- | ----- | ----- | ------| ----- | ---------- | ----- | ----- | ------- | ------- | ---------- | -------- | -------- | -------| ----- | ----- | ----- |
-| ROLE_RBAC_ADMIN   | true  | true  | true  | true  | true       | true  | true  | true    | true    | true       | true     | true     | true   | true  | true  | true  |
-| ROLE_USERS        | true  | false | false | false | false      | false | false | false   | false   | false      | false    | false    | false  | false | false | false |
-| ROLE_ROLES        | false | true  | false | false | false      | false | false | false   | false   | false      | false    | false    | false  | false | false | false |
-| ROLE_PERMOBJS     | false | false | true  | false | false      | false | false | false   | false   | false      | false    | false    | false  | false | false | false |
-| ROLE_PERMS        | false | false | false | true  | false      | false | false | false   | false   | false      | false    | false    | false  | false | false | false |
-| ROLE_POLICIES     | false | false | false | false | true       | false | false | false   | false   | false      | false    | false    | false  | false | false | false |
-| ROLE_SSDS         | false | false | false | false | false      | true  | false | false   | false   | false      | false    | false    | false  | false | false | false |
-| ROLE_DSDS         | false | false | false | false | false      | false | true  | false   | false   | false      | false    | false    | false  | false | false | false |
-| ROLE_USEROUS      | false | false | false | false | false      | false | false | true    | false   | false      | false    | false    | false  | false | false | false |
-| ROLE_PERMOUS      | false | false | false | false | false      | false | false | false   | true    | false      | false    | false    | false  | false | false | false |
-| ROLE_ADMINROLES   | false | false | false | false | false      | false | false | false   | false   | true       | false    | false    | false  | false | false | false |
-| ROLE_ADMINOBJS    | false | false | false | false | false      | false | false | false   | false   | false      | true     | false    | false  | false | false | false |
-| ROLE_ADMINPERMS   | false | false | false | false | false      | false | false | false   | false   | false      | false    | true     | false  | false | false | false |
-| ROLE_GROUPS       | false | false | false | false | false      | false | false | false   | false   | false      | false    | false    | true   | false | false | false |
-| ROLE_AUDIT_BINDS  | false | false | false | false | false      | false | false | false   | false   | false      | false    | false    | false  | true  | false | false |
+| Role Name    | USERS | ROLES | POBJS | PERMS | PWPOLICIES | SSDS  | DSDS  | USEROUS | PERMOUS | ADMINROLES | ADMPOBJS | ADMPERMS | GROUPS | BINDS | AUTHZ | MODS  |
+|--------------| ----- | ----- | ------| ----- | ---------- | ----- | ----- | ------- | ------- | ---------- | -------- | -------- | -------| ----- | ----- | ----- |
+| ROLE_RBAC_ADMIN | true  | true  | true  | true  | true       | true  | true  | true    | true    | true       | true     | true     | true   | true  | true  | true  |
+| ROLE_USERS   | true  | false | false | false | false      | false | false | false   | false   | false      | false    | false    | false  | false | false | false |
+| ROLE_ROLES   | false | true  | false | false | false      | false | false | false   | false   | false      | false    | false    | false  | false | false | false |
+| ROLE_PERMOBJS | false | false | true  | false | false      | false | false | false   | false   | false      | false    | false    | false  | false | false | false |
+| ROLE_PERMS   | false | false | false | true  | false      | false | false | false   | false   | false      | false    | false    | false  | false | false | false |
+| ROLE_POLICIES | false | false | false | false | true       | false | false | false   | false   | false      | false    | false    | false  | false | false | false |
+| ROLE_SSDS    | false | false | false | false | false      | true  | false | false   | false   | false      | false    | false    | false  | false | false | false |
+| ROLE_DSDS    | false | false | false | false | false      | false | true  | false   | false   | false      | false    | false    | false  | false | false | false |
+| ROLE_USEROUS | false | false | false | false | false      | false | false | true    | false   | false      | false    | false    | false  | false | false | false |
+| ROLE_PERMOUS | false | false | false | false | false      | false | false | false   | true    | false      | false    | false    | false  | false | false | false |
+| ROLE_ADMINROLES | false | false | false | false | false      | false | false | false   | false   | true       | false    | false    | false  | false | false | false |
+| ROLE_ADMINOBJS | false | false | false | false | false      | false | false | false   | false   | false      | true     | false    | false  | false | false | false |
+| ROLE_ADMINPERMS | false | false | false | false | false      | false | false | false   | false   | false      | false    | true     | false  | false | false | false |
+| ROLE_GROUPS  | false | false | false | false | false      | false | false | false   | false   | false      | false    | false    | true   | false | false | false |
+| ROLE_AUDIT_BINDS | false | false | false | false | false      | false | false | false   | false   | false      | false    | false    | false  | true  | false | false |
 | ROLE_AUDIT_AUTHZS | false | false | false | false | false      | false | false | false   | false   | false      | false    | false    | false  | false | true  | false |
-| ROLE_AUDIT_MODS   | false | false | false | false | false      | false | false | false   | false   | false      | false    | false    | false  | false | false | true  |
+| ROLE_AUDIT_MODS | false | false | false | false | false      | false | false | false   | false   | false      | false    | false    | false  | false | false | true  |
 
 - For example, the administrator must have the 'ROLE_GROUPS' role activated into their session before Spring security allows entry to the 'GROUPS' page.
 
@@ -228,12 +228,13 @@ dc=example,dc=com
  ...
 ```
 
-- The RBAC roles and perms are stored and used on behalf of business apps. For 'typical' RRBAC use cases.
+- RBAC roles and perms are stored and used on behalf of business apps. For 'typical' security use cases.
+- RBAC roles are checked by the Spring and Wicket enforcement layers mentioned earlier.
 - The ARBAC roles and perms are checked whenever edits are made to the RBAC policies themselves. Like what the Apache Fortress Web does.
 
 ## 6. Additional Administrative Role-Based Access Control (ARBAC) Checks
 
-Apache Fortress Web optionally enforces more rigorous checks.
+Fortress Web optionally enforces more rigorous checks.
 
 - For more on ARBAC checking: [Apache Fortress Rest Security Model](https://github.com/apache/directory-fortress-enmasse/blob/master/README-SECURITY-MODEL.md)
 - By default, ARBAC is disabled in the Apache Fortress Web runtime.
@@ -262,9 +263,9 @@ Pros:
 3. Auditing and History
 
 - Using OpenLDAP's slapo-access log a complete audit trail can be stored. 
-- Logs all actions, entities, entity history, binds and authorization attempts, etc.
+- Logs all actions, entity history, binds and authorization attempts, etc.
 
-Fortress Web pages for viewing the audit log:
+These Fortress Web pages are for viewing the audit log:
 
 - BINDS - authentication attempts
 - AUTHZ - authorization attempts
@@ -274,11 +275,11 @@ Cons:
 
 1. Can be difficult to setup.
 
-- We've given you a head start with the sample policy load files both in this project and the Fortress Core.
+- We've given a head start with sample ARBAC policy load files.
 
-2. ARBAC is complicated.
+2. It's complicated.
 
-- The ou and range checks are hard to conceptualize and may not be required for your deployment.
+- The user and perm ou and range checks are hard to conceptualize and may not be required.
 
 ## 7. Policy load
 
