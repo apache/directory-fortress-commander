@@ -231,7 +231,7 @@ dc=example,dc=com
 - RBAC roles and perms are stored and used on behalf of business apps. For 'typical' security use cases.
 - RBAC roles are also checked by the Spring and Wicket enforcement layers mentioned earlier.
 - ARBAC roles and perms are checked when edits are made to RBAC policies. Like what the Apache Fortress Web does.
-- Users and Groups can be assigned both RBAC and Administrative roles.
+- Users and Groups can be assigned both RBAC and ARBAC roles.
 - For example, an administrator would be assigned the 'ROLE_GROUPS' RBAC role + the 'fortress-web-group-admin' ARBAC role to be allowed entry to the 'GROUPS' page and use its buttons. 
 
 ## 6. Additional Administrative Role-Based Access Control (ARBAC) Checks
