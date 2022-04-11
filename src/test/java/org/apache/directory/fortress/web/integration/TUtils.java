@@ -78,24 +78,6 @@ public class TUtils extends TestCase
      *
      * @param len
      */
-    public static void sleep( String len )
-    {
-        try
-        {
-            Integer iSleep = ( Integer.parseInt( len ) * 1000 );
-            Thread.currentThread().sleep( iSleep );
-        }
-        catch ( InterruptedException ie )
-        {
-            LOG.warn( TUtils.class.getName() + ".sleep caught InterruptedException=" + ie.getMessage(), ie );
-        }
-    }
-
-
-    /**
-     *
-     * @param len
-     */
     public static void sleep( int len )
     {
         try
@@ -109,21 +91,15 @@ public class TUtils extends TestCase
         }
     }
 
-
-    /**
-     *
-     * @param len
-     */
-    public static void sleep( long len )
+    public static void sleepMillies( int len )
     {
         try
         {
-            long iSleep = len * 1000;
-             Thread.currentThread().sleep( iSleep );
+            Thread.currentThread().sleep( len );
         }
         catch ( InterruptedException ie )
         {
-            LOG.warn( TUtils.class.getName() + ".sleep caught InterruptedException=" + ie.getMessage(), ie );
+            LOG.warn( TUtils.class.getName() + ".sleepmillies caught InterruptedException=" + ie.getMessage(), ie );
         }
     }
 }

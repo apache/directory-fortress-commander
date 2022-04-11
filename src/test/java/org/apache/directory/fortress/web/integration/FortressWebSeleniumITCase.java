@@ -165,7 +165,6 @@ public class FortressWebSeleniumITCase
             ouusers();
             ouperms();
         }
-
         if ( !skipSecondHalf )
         {
             admrles();
@@ -173,16 +172,11 @@ public class FortressWebSeleniumITCase
             admperms();
             groups();
         }
-
-        // test can't do these:
+        // can't do these:
         doNegativeLinkTest( PLCYS, "PwPolicyPage", userId );
         doNegativeLinkTest( BINDS, "AuditBindPage", userId );
         doNegativeLinkTest( AUTHZ, "AuditAuthzPage", userId );
         doNegativeLinkTest( MODS, "AuditModPage", userId );
-
-        /*****
-         *  LOGOUT
-         */
         driver.findElement( By.linkText( "LOGOUT" ) ).click();
         LOG.info( "End FortressWebSeleniumITCase" );
     }
@@ -211,9 +205,10 @@ public class FortressWebSeleniumITCase
         doNegativeLinkTest( BINDS, "AuditBindPage", userId );
         doNegativeLinkTest( AUTHZ, "AuditAuthzPage", userId );
         doNegativeLinkTest( MODS, "AuditModPage", userId );
-
-        // test can do:
+        // test 1 can do:
         doPositiveLinkTest( USERS, userId);
+        driver.findElement( By.linkText( "LOGOUT" ) ).click();
+        LOG.info( "End FortressWebSeleniumITCase 1" );
     }
 
     @Test
@@ -232,7 +227,6 @@ public class FortressWebSeleniumITCase
             // mods requires that: is.arbac02=true
             mods();
         }
-
         // can do all of these:
         doPositiveLinkTest( USERS, userId);
         doPositiveLinkTest( ROLES, userId);
@@ -245,9 +239,20 @@ public class FortressWebSeleniumITCase
         doPositiveLinkTest( OUPRMS, userId);
         doPositiveLinkTest( ADMRLES, userId);
         doPositiveLinkTest( ADMOBJS, userId);
+        driver.findElement( By.linkText( "LOGOUT" ) ).click();
+        LOG.info( "End FortressWebSeleniumITCase 2" );
+    }
 
-        // test3 can't do these:
-/*
+    @Test
+    public void testUser3() throws Exception
+    {
+        String userId = "test3";
+        LOG.info( "Begin FortressWebSeleniumITCase 3, userId:" + userId );
+        driver.get( baseUrl + FORTRESS_WEB );
+        login( userId, "password" );
+        TUtils.sleep( 1 );
+        // test3 can't do:
+        doNegativeLinkTest( USERS, "UserPage", userId );
         doNegativeLinkTest( ROLES, "RolePage", userId );
         doNegativeLinkTest( POBJS, "ObjectPage", userId );
         doNegativeLinkTest( PERMS, "PermPage", userId );
@@ -257,7 +262,13 @@ public class FortressWebSeleniumITCase
         doNegativeLinkTest( OUPRMS, "OuPermPage", userId );
         doNegativeLinkTest( ADMRLES, "RoleAdminPage", userId );
         doNegativeLinkTest( ADMOBJS, "ObjectAdminPage", userId );
-*/
+        doNegativeLinkTest( BINDS, "AuditBindPage", userId );
+        doNegativeLinkTest( AUTHZ, "AuditAuthzPage", userId );
+        doNegativeLinkTest( MODS, "AuditModPage", userId );
+        // test 3 can do:
+        doPositiveLinkTest( GROUPS, userId);
+        driver.findElement( By.linkText( "LOGOUT" ) ).click();
+        LOG.info( "End FortressWebSeleniumITCase 3" );
     }
 
     private void login( String userId, String password )
@@ -932,12 +943,12 @@ public class FortressWebSeleniumITCase
         if(is403())
         {
             // pass
-            TUtils.sleep( 1 );
+            TUtils.sleepMillies( 500 );
             driver.navigate().back();
         }
         else
         {
-            String msg = "Spring Security Test Failed URL: " + unauthorizedUrl + "." + GlobalIds.ADD;
+            String msg = "Spring Security Test Failed URL: " + unauthorizedUrl;
             LOG.info( msg );
             fail( msg );
         }
