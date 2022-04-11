@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.web;
 
 
+import org.apache.directory.fortress.web.common.GlobalIds;
 import org.apache.wicket.markup.html.basic.Label;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,12 +39,18 @@ public class LaunchPage extends FortressWebBasePage
 
     public LaunchPage()
     {
+        String label2 = "";
         HttpServletRequest servletReq = ( HttpServletRequest ) getRequest().getContainerRequest();
         Principal principal = servletReq.getUserPrincipal();
         if ( principal == null )
         {
             setResponsePage( LoginPage.class );
         }
-        add( new Label( "label1", "Click on a link above." ) );
+        else
+        {
+            label2 = "Signed on user: " + principal.getName();
+        }
+        add( new Label( "label1", "Select a program link." ) );
+        add( new Label( "label2", label2 ) );
     }
 }
