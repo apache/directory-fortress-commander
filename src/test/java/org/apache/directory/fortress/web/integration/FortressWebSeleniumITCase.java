@@ -94,6 +94,7 @@ public class FortressWebSeleniumITCase
     {
         // http default:
         baseUrl = "http://localhost:8080";
+        // remote over TLS:
         //baseUrl = "https://fortress-a:8443";
         driver.manage().timeouts().implicitlyWait( 5, TimeUnit.SECONDS );
     }
@@ -191,10 +192,12 @@ public class FortressWebSeleniumITCase
         login( "test1", "password" );
         TUtils.sleep( 1 );
 
-        // test1 can't do any of these:
         doNegativeLinkTest( ROLES, "RolePage", userId );
         doNegativeLinkTest( POBJS, "ObjectPage", userId );
+
         doNegativeLinkTest( PERMS, "PermPage", userId );
+
+        // test 1 can't do these:
         doNegativeLinkTest( SSDS, "SdStaticPage", userId );
         doNegativeLinkTest( DSDS, "SdDynamicPage", userId );
         doNegativeLinkTest( OUSERS, "OuUserPage", userId );
@@ -207,6 +210,7 @@ public class FortressWebSeleniumITCase
         doNegativeLinkTest( MODS, "AuditModPage", userId );
         // test 1 can do:
         doPositiveLinkTest( USERS, userId);
+
         driver.findElement( By.linkText( "LOGOUT" ) ).click();
         LOG.info( "End FortressWebSeleniumITCase 1" );
     }
