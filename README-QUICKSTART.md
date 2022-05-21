@@ -16,7 +16,7 @@
    under the License.
 
 # README-QUICKSTART for Apache Fortress Web
- * Version 2.0.6
+ * Version 2.0.7
 
 -------------------------------------------------------------------------------
 ## Table of Contents

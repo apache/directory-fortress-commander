@@ -16,7 +16,7 @@
    under the License.
 
 # README for Apache Fortress Web
- * Version 2.0.6
+ * Version 2.0.7
  * Apache Fortress Web System Architecture Diagram
  ![Apache Fortress Web System Architecture](images/fortress-web-system-arch.png "Apache Fortress Web System Architecture")
 
