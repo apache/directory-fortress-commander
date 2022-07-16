@@ -91,7 +91,7 @@
         <property name="targetMethod" value="putAll"/>
         <property name="arguments">
             <util:properties>
-                <prop key="version">2.0.7</prop>
+                <prop key="version">2.0.8</prop>
             </util:properties>
         </property>
     </bean>
