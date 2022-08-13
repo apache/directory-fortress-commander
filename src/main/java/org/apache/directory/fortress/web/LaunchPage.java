@@ -20,10 +20,9 @@
 package org.apache.directory.fortress.web;
 
 
-import org.apache.directory.fortress.web.common.GlobalIds;
 import org.apache.wicket.markup.html.basic.Label;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
 

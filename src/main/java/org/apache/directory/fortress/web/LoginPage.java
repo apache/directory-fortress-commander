@@ -31,8 +31,8 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.http.handler.RedirectRequestHandler;
 import org.apache.directory.fortress.core.util.VUtil;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
 

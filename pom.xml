@@ -79,7 +79,8 @@
   <properties>
     <title>${project.name} ${project.version}</title>
     <java.version>11</java.version>
-    <fortress.realm.version>2.0.8</fortress.realm.version>
+    <fortress.realm.version>2.0.9-SNAPSHOT</fortress.realm.version>
+<!--    <fortress.realm.version>2.0.8</fortress.realm.version>-->
     <wicket.version>9.11.0</wicket.version>
     <wicket.googlecode.version>9.8.1</wicket.googlecode.version>
     <version.ant>1.10.12</version.ant>
@@ -96,10 +97,48 @@
     </dependency>
 
     <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>6.0.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+
+<!--
+    <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
       <version>4.0.1</version>
       <scope>provided</scope>
+    </dependency>
+-->
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>6.0.0-M5</version>
+    </dependency>
+
+<!--
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>6.0.0-M5</version>
+    </dependency>
+-->
+
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
+      <version>6.0.0-M6</version>
+      <!--      <version>${spring.security.version}</version>-->
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+<!--      <version>${spring.security.version}</version>-->
+      <version>6.0.0-M5</version>
     </dependency>
 
     <!-- Wicket, Spring and other Web UI framework tools -->
@@ -107,6 +146,22 @@
       <groupId>org.apache.wicket</groupId>
       <artifactId>wicket-spring</artifactId>
       <version>${wicket.version}</version>
+<!--
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-web</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-web</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-config</artifactId>
+        </exclusion>
+      </exclusions>
+-->
     </dependency>
 
     <dependency>
@@ -125,18 +180,6 @@
       <groupId>com.googlecode.wicket-jquery-ui</groupId>
       <artifactId>wicket-kendo-ui</artifactId>
       <version>${wicket.googlecode.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-config</artifactId>
-      <version>${spring.security.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-web</artifactId>
-      <version>${spring.security.version}</version>
     </dependency>
 
     <!--  ANT DEPENDENCIES FOR RUNNING ANT PLUG-IN FOR FORTRESS LOAD UTILITY  -->
@@ -471,6 +514,12 @@
       <id>maven2</id>
       <url>https://repo1.maven.org/maven2</url>
     </repository>
+    <repository>
+      <id>repository.spring.milestone</id>
+      <name>Spring Milestone Repository</name>
+      <url>https://repo.spring.io/milestone</url>
+    </repository>
+
   </repositories>
 
   <!-- OWASP Dependency Vulnerability Scanner Profile -->
