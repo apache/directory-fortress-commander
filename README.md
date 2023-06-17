@@ -78,10 +78,10 @@ ________________________________________________________________________________
 ## SECTION 1. Prerequisites
 
 Minimum software requirements:
- * Java SDK 11++
  * git
- * Apache Maven3++
- * Apache Tomcat8++
+ * Java SDK >= 11
+ * Apache Maven >= 3
+ * Apache Tomcat >= 8 and < 10
  * LDAP server on the network, configured for Apache Fortress usage.
 
 Everything else covered in the steps that follow.  Tested on Debian & Centos systems.
