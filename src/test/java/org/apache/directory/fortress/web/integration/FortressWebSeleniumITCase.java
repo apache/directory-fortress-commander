@@ -96,6 +96,7 @@ public class FortressWebSeleniumITCase
         baseUrl = "http://localhost:8080";
         // remote over TLS:
         //baseUrl = "https://fortress-a:8443";
+        baseUrl = "https://fortress-b:8443";
         driver.manage().timeouts().implicitlyWait( 5, TimeUnit.SECONDS );
     }
 
