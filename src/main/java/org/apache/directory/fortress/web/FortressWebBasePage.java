@@ -161,7 +161,7 @@ public abstract class FortressWebBasePage extends WebPage
             add( new Label( org.apache.directory.fortress.web.common.GlobalIds.AUDIT_MODS_PAGE, "" ).setVisible( false ) );
         }
 
-        add( new Label( "footer", "Copyright (c) 2003-2021, The Apache Software Foundation. All Rights Reserved.;" ) );
+        add( new Label( "footer", "Copyright (c) 2003-2023, The Apache Software Foundation. All Rights Reserved.;" ) );
 
         final Link actionLink = new Link( "logout" )
         {
