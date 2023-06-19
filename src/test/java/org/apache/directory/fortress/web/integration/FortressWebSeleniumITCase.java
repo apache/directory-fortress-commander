@@ -92,6 +92,7 @@ public class FortressWebSeleniumITCase
     @Before
     public void setUp() throws Exception
     {
+        //System.setProperty("webdriver.gecko.driver", "/home/smckinn/bin/geckodriver");
         // http default:
         baseUrl = "http://localhost:8080";
         // remote over TLS:
@@ -102,6 +103,7 @@ public class FortressWebSeleniumITCase
     @BeforeClass
     public static void setupClass()
     {
+        //System.setProperty("webdriver.gecko.driver", "/home/smckinn/bin/geckodriver");
         String szDriverType = System.getProperty( DRIVER_SYS_PROP );
         if( StringUtils.isNotEmpty( szDriverType ) && szDriverType.equalsIgnoreCase( DriverType.CHROME.toString() ))
         {

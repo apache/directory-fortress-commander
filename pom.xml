@@ -78,12 +78,13 @@
 
   <properties>
     <title>${project.name} ${project.version}</title>
-    <java.version>11</java.version>
+    <java.version>17</java.version>
     <fortress.realm.version>3.0.0-SNAPSHOT</fortress.realm.version>
-    <wicket.version>9.14.0</wicket.version>
+    <wicket.version>10.0.0-M1</wicket.version>
+    <wicketstuff.version>9.14.0</wicketstuff.version>
     <wicket.googlecode.version>9.12.0</wicket.googlecode.version>
     <version.ant>1.10.13</version.ant>
-    <spring.security.version>5.8.3</spring.security.version>
+    <spring.security.version>6.1.0</spring.security.version>
     <javadoc.version>2.9.1</javadoc.version>
   </properties>
 
@@ -112,7 +113,7 @@
     <dependency>
       <groupId>org.wicketstuff</groupId>
       <artifactId>wicketstuff-inmethod-grid</artifactId>
-      <version>${wicket.version}</version>
+      <version>${wicketstuff.version}</version>
     </dependency>
     
     <dependency>
@@ -167,7 +168,7 @@
       <version>1.6.1</version>
       <scope>test</scope>
     </dependency>
-    
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -178,7 +179,7 @@
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
-      <version>4.1.1</version>
+      <version>4.10.0</version>
       <scope>test</scope>
     </dependency>
 

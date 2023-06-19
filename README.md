@@ -79,9 +79,9 @@ ________________________________________________________________________________
 
 Minimum software requirements:
  * git
- * Java SDK >= 11
+ * Java SDK >= 17
  * Apache Maven >= 3
- * 8 >= Apache Tomcat < 10
+ * Apache Tomcat >= 10
  * LDAP server on the network, configured for Apache Fortress usage.
 
 Everything else covered in the steps that follow.  Tested on Debian & Redhat systems.
