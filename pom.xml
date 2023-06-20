@@ -84,7 +84,7 @@
     <wicketstuff.version>9.14.0</wicketstuff.version>
     <wicket.googlecode.version>9.12.0</wicket.googlecode.version>
     <version.ant>1.10.13</version.ant>
-    <spring.security.version>6.1.0</spring.security.version>
+    <spring.security.version>6.1.1</spring.security.version>
     <javadoc.version>2.9.1</javadoc.version>
   </properties>
 
@@ -111,11 +111,18 @@
     </dependency>
 
     <dependency>
+      <groupId>org.apache.wicket</groupId>
+      <artifactId>wicket-extensions</artifactId>
+      <version>9.14.0</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.wicketstuff</groupId>
       <artifactId>wicketstuff-inmethod-grid</artifactId>
-      <version>${wicketstuff.version}</version>
+      <version>10.0.1</version>
+<!--      <version>${wicketstuff.version}</version>-->
     </dependency>
-    
+
     <dependency>
       <groupId>com.googlecode.wicket-jquery-ui</groupId>
       <artifactId>wicket-jquery-ui</artifactId>
@@ -179,7 +186,8 @@
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
-      <version>4.10.0</version>
+      <!--<version>4.10.0</version>-->
+      <version>4.1.1</version>
       <scope>test</scope>
     </dependency>
 
@@ -188,6 +196,7 @@
       <groupId>io.github.bonigarcia</groupId>
       <artifactId>webdrivermanager</artifactId>
       <version>5.3.3</version>
+      <!--<version>5.1.1</version>-->
       <scope>test</scope>
     </dependency>
 
@@ -474,6 +483,15 @@
   </build>
 
   <repositories>
+<!--
+    <repository>
+      <id>wicketstuff-core-snapshots</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+-->
     <repository>
       <id>maven2</id>
       <url>https://repo1.maven.org/maven2</url>
