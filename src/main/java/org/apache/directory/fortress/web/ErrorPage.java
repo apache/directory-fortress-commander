@@ -34,6 +34,11 @@ public class ErrorPage extends FortressWebBasePage
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
 
+    public ErrorPage( )
+    {
+        add( new Label( "title", new Model<>( "Runtime Exception Occurred" ) ) );
+        add( new Label( "message", new Model<>( "runtime exception" ) ) );
+    }
     public ErrorPage( Exception e )
     {
         add( new Label( "title", new Model<>( "Runtime Exception Occurred" ) ) );
