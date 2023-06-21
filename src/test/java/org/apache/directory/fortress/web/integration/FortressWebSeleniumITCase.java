@@ -92,7 +92,6 @@ public class FortressWebSeleniumITCase
     @Before
     public void setUp() throws Exception
     {
-        //System.setProperty("webdriver.gecko.driver", "/home/smckinn/bin/geckodriver");
         // http default:
         baseUrl = "http://localhost:8080";
         // remote over TLS:
@@ -103,7 +102,6 @@ public class FortressWebSeleniumITCase
     @BeforeClass
     public static void setupClass()
     {
-        //System.setProperty("webdriver.gecko.driver", "/home/smckinn/bin/geckodriver");
         String szDriverType = System.getProperty( DRIVER_SYS_PROP );
         if( StringUtils.isNotEmpty( szDriverType ) && szDriverType.equalsIgnoreCase( DriverType.CHROME.toString() ))
         {
@@ -143,7 +141,7 @@ public class FortressWebSeleniumITCase
     public void testUser0() throws Exception
     {
         String userId = "test";
-        LOG.info( "Begin FortressWebSeleniumITCase test, userId: " +userId );
+        LOG.info( "Begin FortressWebSeleniumITCase test, userId: " +userId + ", URL: " + baseUrl + FORTRESS_WEB );
         driver.get( baseUrl + FORTRESS_WEB );
         login( userId, "password" );
         TUtils.sleep( 1 );
@@ -277,6 +275,20 @@ public class FortressWebSeleniumITCase
         LOG.info( "End FortressWebSeleniumITCase 3" );
     }
 
+    public boolean is400()
+    {
+        try
+        {
+            //driver.findElement(By.id("HTTP Status 400"));
+            String bodyText = driver.findElement(By.tagName("body")).getText();
+            return bodyText.contains( "HTTP Status 400" );
+        }
+        catch (NoSuchElementException e)
+        {
+            return false;
+        }
+    }
+
     private void login( String userId, String password )
     {
         driver.findElement( By.id( GlobalIds.USER_ID ) ).clear();
@@ -287,10 +299,10 @@ public class FortressWebSeleniumITCase
         TUtils.sleep( 1 );
         driver.findElement( By.name( GlobalIds.LOGIN ) ).click();
 
-        // TODO: Determine why the previous step causes 'unexpected system error' worked around by:
-        if ( driver.findElement( By.name( "return" )).isDisplayed() )
+        // TODO: Fixme:
+        if ( is400() )
         {
-            driver.findElement( By.name( "return" ) ).click();
+            driver.get( baseUrl + FORTRESS_WEB );
         }
     }
 
