@@ -279,7 +279,6 @@ public class FortressWebSeleniumITCase
     {
         try
         {
-            //driver.findElement(By.id("HTTP Status 400"));
             String bodyText = driver.findElement(By.tagName("body")).getText();
             return bodyText.contains( "HTTP Status 400" );
         }
@@ -302,6 +301,7 @@ public class FortressWebSeleniumITCase
         // TODO: Fixme:
         if ( is400() )
         {
+            // goto home page
             driver.get( baseUrl + FORTRESS_WEB );
         }
     }
