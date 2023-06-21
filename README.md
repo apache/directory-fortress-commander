@@ -16,7 +16,7 @@
    under the License.
 
 # README for Apache Fortress Web
- * Version 2.0.8
+ * Version 3.0.0
  * Apache Fortress Web System Architecture Diagram
  ![Apache Fortress Web System Architecture](images/fortress-web-system-arch.png "Apache Fortress Web System Architecture")
 
@@ -184,47 +184,53 @@ ________________________________________________________________________________
 
 1. If Tomcat has global security enabled you must add credentials to pom.xml:
 
- ```
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>tomcat-maven-plugin</artifactId>
-        <version>${version.tomcat.maven.plugin}</version>
-        <configuration>
-            ...
-          <!-- Warning the tomcat manager creds here are for deploying into a demo environment only. -->
-          <username>tcmanager</username>
-          <password>m@nager123</password>
-        </configuration>
-      </plugin>
- ```
+```
+  <plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>tomcat-maven-plugin</artifactId>
+    <version>${version.tomcat.maven.plugin}</version>
+    <configuration>
+        ...
+      <!-- Warning the tomcat manager creds here are for deploying into a demo environment only. -->
+      <username>tcmanager</username>
+      <password>m@nager123</password>
+    </configuration>
+  </plugin>
+```
 
 2. Load the Apache Fortress Realm Proxy jar to **TOMCAT_HOME**/lib/
 
-  ```
-  wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.8/fortress-realm-proxy-2.0.8.jar -P $TOMCAT_HOME/lib
-  ```
+```
+wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.8/fortress-realm-proxy-2.0.8.jar -P $TOMCAT_HOME/lib
+```
 
   where *TOMCAT_HOME* matches your target env.
 
-3. Restart Tomcat server.
+3. Allow javax.swing in **TOMCAT_home**/bin/setenv.sh
 
-4. Enter maven command to deploy to Tomcat:
+```
+JAVA_OPTS="$JAVA_OPTS --add-opens=java.desktop/javax.swing.tree=ALL-UNNAMED"
+```
 
- ```
- mvn tomcat:deploy
- ```
+4. Restart Tomcat server.
 
-5. To redeploy:
+5. Enter maven command to deploy to Tomcat:
 
- ```
- mvn tomcat:redeploy
- ```
+```
+mvn tomcat:deploy
+```
 
-6. Open browser and test (creds: test/password):
+6. To redeploy:
 
- ```
- http://hostname:8080/fortress-web
- ```
+```
+mvn tomcat:redeploy
+```
+
+7. Open browser and test (creds: test/password):
+
+```
+http://hostname:8080/fortress-web
+```
 
  where hostname is host or ip for your machine
 
@@ -235,15 +241,15 @@ ________________________________________________________________________________
 
 2. Run the Selenium Web driver integration tests with Firefox (default):
 
- ```
- mvn test -Dtest=FortressWebSeleniumITCase
- ```
+```
+mvn test -Dtest=FortressWebSeleniumITCase
+```
 
 3. Run the tests using Chrome:
 
- ```
- mvn test -Dtest=FortressWebSeleniumITCase -Dweb.driver=chrome
- ```
+```
+mvn test -Dtest=FortressWebSeleniumITCase -Dweb.driver=chrome
+```
 
  Note: These automated tests require that:
  * Either Firefox or Chrome installed to target machine.
@@ -257,117 +263,117 @@ This section describes the properties needed to control fortress web.
 
 1. LDAP Hostname coordinates.  The host name can be specified as a fully qualified domain name or IP address.
 
- ```
- # Host name and port of LDAP DIT:
- host=localhost
- port=10389
- ```
+```
+# Host name and port of LDAP DIT:
+host=localhost
+port=10389
+```
 
 2. LDAP Server type.  Each LDAP server impl has different behavior on operations like password policies and audit.  If using a 3rd type of server that isn't formally supported, leave blank or type is other.
 
- ```
- # If ApacheDS server:
- ldap.server.type=apacheds
- ```
+```
+# If ApacheDS server:
+ldap.server.type=apacheds
+```
 
- ```
- # Else if OpenLDAP server:
- ldap.server.type=openldap
- ```
+```
+# Else if OpenLDAP server:
+ldap.server.type=openldap
+```
 
- ```
- # Else leave blank:
- #ldap.server.type=other
- ```
+```
+# Else leave blank:
+#ldap.server.type=other
+```
 
 3.  Set the credentials of service account.  Must have read/write privileges over the Fortress LDAP DIT:
 
- ```
- # If ApacheDS it will look something like this:
- admin.user=uid=admin,ou=system
- admin.pw=secret
- ```
+```
+# If ApacheDS it will look something like this:
+admin.user=uid=admin,ou=system
+admin.pw=secret
+```
 
- ```
- # Else If OpenLDAP it will look something like this:
- admin.user=cn=Manager,dc=example,dc=com
- ```
+```
+# Else If OpenLDAP it will look something like this:
+admin.user=cn=Manager,dc=example,dc=com
+```
 
 4. Define the number of LDAP connections to use in the pool  This setting will be proportional to the number of concurrent users but won't be one-to-one.  The number of required ldap connections will be much lower than concurrent users:
 
- ```
- # This is min/max settings for LDAP connections.  For testing and low-volume instances this will work:
- min.admin.conn=1
- max.admin.conn=10
- ```
+```
+# This is min/max settings for LDAP connections.  For testing and low-volume instances this will work:
+min.admin.conn=1
+max.admin.conn=10
+```
 
 5. Give coordinates to the Config node that contains all of the other Fortress properties.  This will match your LDAP's server's config node per Fortress Core setup.
 
- ```
- # This node contains fortress properties stored on behalf of connecting LDAP clients:
- config.realm=DEFAULT
- config.root=ou=Config,dc=example,dc=com
- ```
+```
+# This node contains fortress properties stored on behalf of connecting LDAP clients:
+config.realm=DEFAULT
+config.root=ou=Config,dc=example,dc=com
+```
 
 6. If using LDAPS.
 
- ```
- # Used for SSL Connection to LDAP Server:
- enable.ldap.ssl=true
- enable.ldap.ssl.debug=true
- trust.store=/fully/qualified/path/and/file/name/to/java/truststore
- trust.store.password=changeit
- ```
+```
+# Used for SSL Connection to LDAP Server:
+enable.ldap.ssl=true
+enable.ldap.ssl.debug=true
+trust.store=/fully/qualified/path/and/file/name/to/java/truststore
+trust.store.password=changeit
+```
 
 7. To use REST instead of LDAP.  Points to fortress-rest instance.
 
- ```
- # This will override default LDAP manager implementations for the RESTful ones:
- enable.mgr.impl.rest=true
- ```
+```
+# This will override default LDAP manager implementations for the RESTful ones:
+enable.mgr.impl.rest=true
+```
 
 8. If using REST, provide the credentials of user that has access to fortress-rest.
 
- ```
- # Optional parameters needed when Fortress client is connecting with the En Masse (rather than LDAP) server:
- http.user=demouser4
- http.pw=gX9JbCTxJW5RiH+otQEX0Ja0RIAoPBQf
- http.host=localhost
- http.port=8080
- ```
+```
+# Optional parameters needed when Fortress client is connecting with the En Masse (rather than LDAP) server:
+http.user=demouser4
+http.pw=gX9JbCTxJW5RiH+otQEX0Ja0RIAoPBQf
+http.host=localhost
+http.port=8080
+```
 
 9. To reenable the nav panel on startup.
 
- ```
- # The default is 'false':
- enable.nav.panel=true
- ```
+```
+# The default is 'false':
+enable.nav.panel=true
+```
 
 10. If using ApacheDS and setting password policies, point to the correction location.
 
- ```
- # ApacheDS stores its password policies objects here by default:
- apacheds.pwpolicy.root=ou=passwordPolicies,ads-interceptorId=authenticationInterceptor,ou=interceptors,ads-directoryServiceId=default,ou=config
- ```
+```
+# ApacheDS stores its password policies objects here by default:
+apacheds.pwpolicy.root=ou=passwordPolicies,ads-interceptorId=authenticationInterceptor,ou=interceptors,ads-directoryServiceId=default,ou=config
+```
 
 11. The fortress web runtime will cache user's permissions in their session if set to true.
 
- ```
- # Used by application security components:
- perms.cached=true
- ```
+```
+# Used by application security components:
+perms.cached=true
+```
 
 12. Each instance of a fortress web can be scoped to one and only one tenant.  The default tenant is called HOME.
 
- ```
- # This is the default tenant or home context
- contextId=HOME
- ```
+```
+# This is the default tenant or home context
+contextId=HOME
+```
 
- ```
- # If you need to scope to a different tenant, supply its ID here:
- contextId=mytenantid
- ```
+```
+# If you need to scope to a different tenant, supply its ID here:
+contextId=mytenantid
+```
 
 ___________________________________________________________________________________
 #### END OF README
