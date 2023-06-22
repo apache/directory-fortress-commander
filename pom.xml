@@ -484,7 +484,7 @@
   </build>
 
   <repositories>
-<!--
+    <!-- TODO: remove before release: -->
     <repository>
       <id>wicketstuff-core-snapshots</id>
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
@@ -492,7 +492,6 @@
         <enabled>true</enabled>
       </snapshots>
     </repository>
--->
     <repository>
       <id>maven2</id>
       <url>https://repo1.maven.org/maven2</url>
