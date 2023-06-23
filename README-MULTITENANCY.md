@@ -44,17 +44,17 @@ For an overview of how fortress multitenancy works:
 
 Fortress Realm uses the tenant id inside the context.xml file:
 
- ```
- <Context path="/commander" reloadable="true">
+```xml
+<Context path="/commander" reloadable="true">
 
-    <Realm className="org.apache.directory.fortress.realm.tomcat.Tc7AccessMgrProxy"
-           defaultRoles=""
-           containerType="TomcatContext"
-           realmClasspath=""
-           contextId="HOME"
-           />
- </Context>
- ```
+   <Realm className="org.apache.directory.fortress.realm.tomcat.Tc7AccessMgrProxy"
+          defaultRoles=""
+          containerType="TomcatContext"
+          realmClasspath=""
+          contextId="HOME"
+          />
+</Context>
+```
 
  The operations for this particular instance will be on behalf of the home contextId.
 
@@ -63,9 +63,9 @@ Fortress Realm uses the tenant id inside the context.xml file:
 
 Fortress Web uses the tenant id inside the fortress.properties file:
 
- ```
- contextId=acme123
- ```
+```
+contextId=acme123
+```
 
  The operations for this instance will be scoped to acme123 tenant.
 

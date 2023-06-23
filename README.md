@@ -92,75 +92,75 @@ Everything else covered in the steps that follow.  Tested on Debian & Redhat sys
 1. Download the source.
 
  a. from git:
- ```
- git clone --branch 2.0.8 https://gitbox.apache.org/repos/asf/directory-fortress-commander.git/
- cd directory-fortress-commander
- ```
+```
+git clone --branch 2.0.8 https://gitbox.apache.org/repos/asf/directory-fortress-commander.git/
+cd directory-fortress-commander
+```
 
  b. or [apache fortress downloads](https://directory.apache.org/fortress/download/download-sources.html)
 
 2. Build the source.
 
- ```
- mvn clean install
- ```
+```
+mvn clean install
+```
 ___________________________________________________________________________________
 ## SECTION 3. Configure the Apache Fortress Web deployment
 
 #### 1. Copy the fortress.properties example:
 
- ```bash
- cp src/main/resources/fortress.properties.example src/main/resources/fortress.properties
- ```
+```bash
+cp src/main/resources/fortress.properties.example src/main/resources/fortress.properties
+```
 
 #### 2. Edit the file:
 
- ```bash
- vi src/main/resources/fortress.properties
- ```
+```bash
+vi src/main/resources/fortress.properties
+```
 
 #### 3. Choose Apache Directory or OpenLDAP server:
 
  a. Prepare fortress for ApacheDS usage:
 
- ```properties
- # This param tells fortress what type of ldap server in use:
- ldap.server.type=apacheds
+```properties
+# This param tells fortress what type of ldap server in use:
+ldap.server.type=apacheds
 
- # Use value from [Set Hostname Entry]:
- host=localhost
+# Use value from [Set Hostname Entry]:
+host=localhost
 
- # ApacheDS defaults to this:
- port=10389
+# ApacheDS defaults to this:
+port=10389
 
- # These credentials are used for read/write access to all nodes under suffix:
- admin.user=uid=admin,ou=system
- admin.pw=secret
- ```
+# These credentials are used for read/write access to all nodes under suffix:
+admin.user=uid=admin,ou=system
+admin.pw=secret
+```
 
  -- Or --
 
  b. Prepare fortress for OpenLDAP usage:
 
- ```properties
- # This param tells fortress what type of ldap server in use:
- ldap.server.type=openldap
+```properties
+# This param tells fortress what type of ldap server in use:
+ldap.server.type=openldap
 
- # Use value from [Set Hostname Entry]:
- host=localhost
+# Use value from [Set Hostname Entry]:
+host=localhost
 
- # OpenLDAP defaults to this:
- port=389
+# OpenLDAP defaults to this:
+port=389
 
- # These credentials are used for read/write access to all nodes under suffix:
- admin.user=cn=manager,dc=example,dc=com
- admin.pw=secret
+# These credentials are used for read/write access to all nodes under suffix:
+admin.user=cn=manager,dc=example,dc=com
+admin.pw=secret
 
 # Optional, If using audit view pages, enable this service account to the slapd access log database:
 log.admin.user=cn=manager,cn=log
 # For corresponding log user:
 log.admin.pw=secret
- ```
+```
 
 #### 3. Enable other options as needed.  
 
@@ -184,7 +184,7 @@ ________________________________________________________________________________
 
 1. If Tomcat has global security enabled you must add credentials to pom.xml:
 
-```
+```xml
   <plugin>
     <groupId>org.codehaus.mojo</groupId>
     <artifactId>tomcat-maven-plugin</artifactId>
@@ -201,10 +201,11 @@ ________________________________________________________________________________
 2. Load the Apache Fortress Realm Proxy jar to **TOMCAT_HOME**/lib/
 
 ```
-wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.8/fortress-realm-proxy-2.0.8.jar -P $TOMCAT_HOME/lib
+wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/[version]/fortress-realm-proxy-[version].jar -P $TOMCAT_HOME/lib
 ```
 
   where *TOMCAT_HOME* matches your target env.
+  where [version] matches a particular release of fortress, e.g. 3.0.0.
 
 3. Allow javax.swing in **TOMCAT_home**/bin/setenv.sh
 
@@ -263,7 +264,7 @@ This section describes the properties needed to control fortress web.
 
 1. LDAP Hostname coordinates.  The host name can be specified as a fully qualified domain name or IP address.
 
-```
+```properties
 # Host name and port of LDAP DIT:
 host=localhost
 port=10389
@@ -271,37 +272,37 @@ port=10389
 
 2. LDAP Server type.  Each LDAP server impl has different behavior on operations like password policies and audit.  If using a 3rd type of server that isn't formally supported, leave blank or type is other.
 
-```
+```properties
 # If ApacheDS server:
 ldap.server.type=apacheds
 ```
 
-```
+```properties
 # Else if OpenLDAP server:
 ldap.server.type=openldap
 ```
 
-```
+```properties
 # Else leave blank:
 #ldap.server.type=other
 ```
 
 3.  Set the credentials of service account.  Must have read/write privileges over the Fortress LDAP DIT:
 
-```
+```properties
 # If ApacheDS it will look something like this:
 admin.user=uid=admin,ou=system
 admin.pw=secret
 ```
 
-```
+```properties
 # Else If OpenLDAP it will look something like this:
 admin.user=cn=Manager,dc=example,dc=com
 ```
 
 4. Define the number of LDAP connections to use in the pool  This setting will be proportional to the number of concurrent users but won't be one-to-one.  The number of required ldap connections will be much lower than concurrent users:
 
-```
+```properties
 # This is min/max settings for LDAP connections.  For testing and low-volume instances this will work:
 min.admin.conn=1
 max.admin.conn=10
@@ -309,7 +310,7 @@ max.admin.conn=10
 
 5. Give coordinates to the Config node that contains all of the other Fortress properties.  This will match your LDAP's server's config node per Fortress Core setup.
 
-```
+```properties
 # This node contains fortress properties stored on behalf of connecting LDAP clients:
 config.realm=DEFAULT
 config.root=ou=Config,dc=example,dc=com
@@ -317,7 +318,7 @@ config.root=ou=Config,dc=example,dc=com
 
 6. If using LDAPS.
 
-```
+```properties
 # Used for SSL Connection to LDAP Server:
 enable.ldap.ssl=true
 enable.ldap.ssl.debug=true
@@ -327,14 +328,14 @@ trust.store.password=changeit
 
 7. To use REST instead of LDAP.  Points to fortress-rest instance.
 
-```
+```properties
 # This will override default LDAP manager implementations for the RESTful ones:
 enable.mgr.impl.rest=true
 ```
 
 8. If using REST, provide the credentials of user that has access to fortress-rest.
 
-```
+```properties
 # Optional parameters needed when Fortress client is connecting with the En Masse (rather than LDAP) server:
 http.user=demouser4
 http.pw=gX9JbCTxJW5RiH+otQEX0Ja0RIAoPBQf
@@ -344,33 +345,33 @@ http.port=8080
 
 9. To reenable the nav panel on startup.
 
-```
+```properties
 # The default is 'false':
 enable.nav.panel=true
 ```
 
 10. If using ApacheDS and setting password policies, point to the correction location.
 
-```
+```properties
 # ApacheDS stores its password policies objects here by default:
 apacheds.pwpolicy.root=ou=passwordPolicies,ads-interceptorId=authenticationInterceptor,ou=interceptors,ads-directoryServiceId=default,ou=config
 ```
 
 11. The fortress web runtime will cache user's permissions in their session if set to true.
 
-```
+```properties
 # Used by application security components:
 perms.cached=true
 ```
 
 12. Each instance of a fortress web can be scoped to one and only one tenant.  The default tenant is called HOME.
 
-```
+```properties
 # This is the default tenant or home context
 contextId=HOME
 ```
 
-```
+```properties
 # If you need to scope to a different tenant, supply its ID here:
 contextId=mytenantid
 ```

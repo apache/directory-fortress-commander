@@ -242,9 +242,9 @@ Fortress Web optionally enforces more rigorous checks.
 - By default, ARBAC is disabled in the Apache Fortress Web runtime.
 - To enable, add the following to fortress.properties:
 
- ```
- is.arbac02=true
- ```
+```
+is.arbac02=true
+```
 
 ### ARBAC Rational
 

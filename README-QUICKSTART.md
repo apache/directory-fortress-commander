@@ -16,7 +16,7 @@
    under the License.
 
 # README-QUICKSTART for Apache Fortress Web
- * Version 2.0.8
+ * Version 3.0.0
 
 -------------------------------------------------------------------------------
 ## Table of Contents
@@ -36,7 +36,8 @@ This document contains instructions to deploy a pre-built Fortress Web instance 
 ## SECTION 1. Prerequisites
 
 Minimum software requirements:
- * Apache Tomcat8++
+ * Java SDK >= 17
+ * Apache Tomcat >= 10
  * Completed either section in Apache Fortress Core Quickstart:
     * *SECTION 3. Apache Fortress Core Integration Test* in [README-QUICKSTART-SLAPD.md](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-SLAPD.md)
     * *SECTION 4. Apache Fortress Core Integration Test* in [README-QUICKSTART-APACHEDS.md](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-APACHEDS.md)
@@ -52,30 +53,30 @@ Set the java system properties in tomcat with the target ldap server's coordinat
 
  a. For OpenLDAP:
 
- ```
- JAVA_OPTS="-Dversion=2.0.8 -Dfortress.admin.user=cn=Manager,dc=example,dc=com -Dfortress.admin.pw=secret -Dfortress.config.root=ou=Config,dc=example,dc=com"
- ```
+```
+JAVA_OPTS="-Dversion=[version] -Dfortress.admin.user=cn=Manager,dc=example,dc=com -Dfortress.admin.pw=secret -Dfortress.config.root=ou=Config,dc=example,dc=com"
+```
 
  b. For ApacheDS:
- ```
- JAVA_OPTS="$JAVA_OPTS -Dfortress.admin.user=uid=admin,ou=system -Dfortress.admin.pw=secret -Dfortress.config.root=ou=Config,dc=example,dc=com -Dfortress.port=10389"
- ```
+```
+JAVA_OPTS="$JAVA_OPTS -Dfortress.admin.user=uid=admin,ou=system -Dfortress.admin.pw=secret -Dfortress.config.root=ou=Config,dc=example,dc=com -Dfortress.port=10389"
+```
 
 3. Verify these settings match your target LDAP server.
 
 4. Download the fortress realm proxy jar into tomcat/lib folder:
 
-  ```
-  wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.8/fortress-realm-proxy-2.0.8.jar -P $TOMCAT_HOME/lib
-  ```
+```
+wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/[version]/fortress-realm-proxy-[version].jar -P $TOMCAT_HOME/lib
+```
 
   where *TOMCAT_HOME* matches your target env.
 
 5. Download the fortress web war into tomcat/webapps folder:
 
-  ```
-  wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-web/2.0.8/fortress-web-2.0.8.war -P $TOMCAT_HOME/webapps
-  ```
+```
+wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-web/[version]/fortress-web-[version].war -P $TOMCAT_HOME/webapps
+```
 
   where *TOMCAT_HOME* matches your target env.
 
@@ -88,15 +89,15 @@ From the Fortress Core package perform the following steps:
 
 1. Download the fortress web sample security policy from git:
 
- ```
- wget https://github.com/apache/directory-fortress-commander/blob/master/src/main/resources/FortressWebDemoUsers.xml -P ldap/setup
- ```
+```
+wget https://github.com/apache/directory-fortress-commander/blob/master/src/main/resources/FortressWebDemoUsers.xml -P ldap/setup
+```
 
 2. Run maven install with -Dload.file file:
 
- ```
- mvn install -Dload.file=ldap/setup/FortressWebDemoUsers.xml
- ```
+```
+mvn install -Dload.file=ldap/setup/FortressWebDemoUsers.xml
+```
 
  Notes:
   * This step must be completed before tests can be successfully run.
@@ -107,9 +108,9 @@ ________________________________________________________________________________
 
 1. Open browser and test (creds: test/password):
 
- ```
- http://hostname:8080/fortress-web
- ```
+```
+http://hostname:8080/fortress-web
+```
 
  where hostname is host or ip for your machine.
 
@@ -117,15 +118,15 @@ ________________________________________________________________________________
 
 3. Run the Selenium Web driver integration tests with Firefox (default):
 
- ```
- mvn test -Dtest=FortressWebSeleniumITCase
- ```
+```
+mvn test -Dtest=FortressWebSeleniumITCase
+```
 
 4. Run the tests using Chrome:
 
- ```
- mvn test -Dtest=FortressWebSeleniumITCase -Dweb.driver=chrome
- ```
+```
+mvn test -Dtest=FortressWebSeleniumITCase -Dweb.driver=chrome
+```
 
  Note: The Selenium tests require that:
  * Either Firefox or Chrome installed to target machine.
