@@ -110,11 +110,13 @@
       <version>${wicket.version}</version>
     </dependency>
 
+<!--
     <dependency>
       <groupId>org.apache.wicket</groupId>
       <artifactId>wicket-extensions</artifactId>
       <version>${wicketstuff.version}</version>
     </dependency>
+-->
 
     <dependency>
       <groupId>org.wicketstuff</groupId>
