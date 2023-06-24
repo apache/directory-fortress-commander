@@ -120,6 +120,8 @@ import com.github.openjson.JSONObject;
  * If you want to use form in modal window component make sure that you put the modal window itself
  * in another form (nesting forms is legal in Wicket) and that the form on modal window is submitted
  * before the window get closed.
+ * <p>
+ * This source is from the Apache Wicket 9 source tree. It's no longer supported by that project.
  *
  * @author Matej Knopp
  *
