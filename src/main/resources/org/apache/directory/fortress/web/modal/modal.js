@@ -19,6 +19,7 @@
  * Javascript modal window
  * Licensed under the Apache License, Version 2.0
  * @author Matej Knopp
+ * This file is from the Apache Wicket 9 source tree. It's no longer supported by that project.
  */
 
 ;(function (undefined) {
