@@ -85,6 +85,7 @@
     <wicket.googlecode.version>9.12.0</wicket.googlecode.version>
     <version.ant>1.10.13</version.ant>
     <spring.security.version>6.1.1</spring.security.version>
+    <slf4j.impl.version>2.20.0</slf4j.impl.version>
     <javadoc.version>2.9.1</javadoc.version>
   </properties>
 
@@ -152,6 +153,12 @@
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-web</artifactId>
       <version>${spring.security.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j2-impl</artifactId>
+      <version>${slf4j.impl.version}</version>
     </dependency>
 
     <!--  ANT DEPENDENCIES FOR RUNNING ANT PLUG-IN FOR FORTRESS LOAD UTILITY  -->
