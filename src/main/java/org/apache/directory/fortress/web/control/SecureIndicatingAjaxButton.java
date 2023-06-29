@@ -19,7 +19,7 @@
  */
 package org.apache.directory.fortress.web.control;
 
-import com.googlecode.wicket.jquery.ui.form.button.IndicatingAjaxButton;
+import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.wicket.Component;
@@ -30,7 +30,6 @@ import org.apache.directory.fortress.core.model.Permission;
 import jakarta.servlet.http.HttpServletRequest;
 
 /**
- * ...
  *
  * @author Shawn McKinney
  * @version $Rev$
