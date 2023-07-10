@@ -62,20 +62,6 @@
     </mailingList>
   </mailingLists>
 
-  <developers>
-    <developer>
-      <id>smckinney</id>
-      <name>Shawn McKinney</name>
-      <email>smckinney@apache.org</email>
-    </developer>
-
-    <developer>
-      <id>elecharny</id>
-      <name>Emmanuel Lecharny</name>
-      <email>elecharny@apache.org</email>
-    </developer>
-  </developers>
-
   <properties>
     <title>${project.name} ${project.version}</title>
     <java.version>17</java.version>
