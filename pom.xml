@@ -67,11 +67,15 @@
     <java.version>17</java.version>
     <fortress.realm.version>3.0.0</fortress.realm.version>
     <wicket.version>10.0.0-M1</wicket.version>
-    <wicket.googlecode.version>9.12.0</wicket.googlecode.version>
-    <spring.security.version>6.1.2</spring.security.version>
+    <wicket.googlecode.version>10.0.0-M1</wicket.googlecode.version>
+    <spring.security.version>6.1.3</spring.security.version>
     <slf4j.impl.version>2.20.0</slf4j.impl.version>
     <javadoc.version>2.9.1</javadoc.version>
   </properties>
+
+  <prerequisites>
+    <maven>3.1.0</maven>
+  </prerequisites>
 
   <dependencies>
     <!-- Fortress Realm also pulls in Fortress Core APIs. -->
