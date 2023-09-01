@@ -30,7 +30,7 @@
   <groupId>org.apache.directory.fortress</groupId>
   <artifactId>fortress-web</artifactId>
   <packaging>war</packaging>
-  <version>3.0.1-SNAPSHOT</version>
+  <version>3.0.0</version>
   <name>Apache Fortress Web</name>
   <url>https://directory.apache.org/fortress/</url>
   <description>Apache Fortress Web is a policy administration and review user interface.</description>
