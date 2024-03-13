@@ -93,7 +93,7 @@ Everything else covered in the steps that follow.  Tested on Debian & Redhat sys
 
  a. from git:
 ```
-git clone --branch 2.0.8 https://gitbox.apache.org/repos/asf/directory-fortress-commander.git/
+git clone --branch 3.0.0 https://gitbox.apache.org/repos/asf/directory-fortress-commander.git/
 cd directory-fortress-commander
 ```
 
@@ -208,6 +208,8 @@ wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-
   where [version] matches a particular release of fortress, e.g. 3.0.0.
 
 3. Allow javax.swing in **TOMCAT_home**/bin/setenv.sh
+
+Required for Tomcat 10
 
 ```
 JAVA_OPTS="$JAVA_OPTS --add-opens=java.desktop/javax.swing.tree=ALL-UNNAMED"
