@@ -67,7 +67,7 @@
     <java.version>17</java.version>
     <fortress.realm.version>3.0.0</fortress.realm.version>
     <wicket.version>10.0.0</wicket.version>
-    <wicketstuff.version>10.0.0-M2</wicketstuff.version>
+    <wicketstuff.version>10.0.0</wicketstuff.version>
     <wicket.googlecode.version>10.0.0-M1</wicket.googlecode.version>
     <spring.security.version>6.2.2</spring.security.version>
     <slf4j.impl.version>2.20.0</slf4j.impl.version>
