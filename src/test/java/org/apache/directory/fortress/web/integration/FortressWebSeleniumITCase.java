@@ -37,6 +37,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.apache.directory.fortress.web.common.GlobalIds;
+import org.openqa.selenium.firefox.FirefoxDriverLogLevel;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 /**
  * This class uses apache selenium firefox or chrome driver for running fortress-web automated tests.
@@ -119,11 +121,14 @@ public class FortressWebSeleniumITCase
     {
         if ( driverType.equals( DriverType.CHROME ) )
         {
-            driver = new ChromeDriver();
+            driver = new ChromeDriver();              
         }
         else
         {
-            driver = new FirefoxDriver( );
+            FirefoxOptions options = new FirefoxOptions();
+            // .DEBUG to troubleshoot:
+            options.setLogLevel(FirefoxDriverLogLevel.INFO);
+            driver = new FirefoxDriver(options);            
         }
         driver.manage().window().maximize();
     }
