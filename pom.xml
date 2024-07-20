@@ -66,10 +66,10 @@
     <title>${project.name} ${project.version}</title>
     <java.version>17</java.version>
     <fortress.realm.version>3.0.0</fortress.realm.version>
-    <wicket.version>10.0.0</wicket.version>
-    <wicketstuff.version>10.0.0</wicketstuff.version>
+    <wicket.version>10.1.0</wicket.version>
+    <wicketstuff.version>10.1.1</wicketstuff.version>
     <wicket.googlecode.version>10.0.0-M1</wicket.googlecode.version>
-    <spring.security.version>6.2.2</spring.security.version>
+    <spring.security.version>6.3.1</spring.security.version>
     <slf4j.impl.version>2.20.0</slf4j.impl.version>
     <javadoc.version>2.9.1</javadoc.version>
   </properties>
@@ -160,8 +160,7 @@
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
-      <!--<version>4.10.0</version>-->
-      <version>4.1.1</version>
+      <version>4.23.0</version>
       <scope>test</scope>
     </dependency>
 
@@ -169,7 +168,7 @@
     <dependency>
       <groupId>io.github.bonigarcia</groupId>
       <artifactId>webdrivermanager</artifactId>
-      <version>5.3.3</version>
+      <version>5.9.1</version>      
       <scope>test</scope>
     </dependency>
 
