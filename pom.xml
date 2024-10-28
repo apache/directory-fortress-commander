@@ -69,7 +69,7 @@
     <wicket.version>10.1.0</wicket.version>
     <wicketstuff.version>10.1.1</wicketstuff.version>
     <wicket.googlecode.version>10.0.0-M1</wicket.googlecode.version>
-    <spring.security.version>6.3.1</spring.security.version>
+    <spring.security.version>6.3.4</spring.security.version>
     <slf4j.impl.version>2.20.0</slf4j.impl.version>
     <javadoc.version>2.9.1</javadoc.version>
   </properties>
