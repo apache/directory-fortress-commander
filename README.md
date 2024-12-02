@@ -254,6 +254,21 @@ mvn test -Dtest=FortressWebSeleniumITCase
 mvn test -Dtest=FortressWebSeleniumITCase -Dweb.driver=chrome
 ```
 
+4. Troubleshooting
+
+a. Error running on Ubuntu
+
+Popup message: Your Firefox profile cannot be loaded. It may be missing or inaccessible.
+
+- [issue](https://github.com/mozilla/geckodriver/issues/2010)
+
+Solution:
+
+```bash
+# export temp dir:
+export TMPDIR=~/tmp
+```
+
  Note: These automated tests require that:
  * Either Firefox or Chrome installed to target machine.
  * **FORTRESS_CORE_HOME**/*FortressJUnitTest* successfully run.  This will load some test data to grind on.
