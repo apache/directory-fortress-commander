@@ -54,12 +54,12 @@ Set the java system properties in tomcat with the target ldap server's coordinat
  a. For OpenLDAP:
 
 ```
-JAVA_OPTS="-Dversion=[version] -Dfortress.admin.user=cn=Manager,dc=example,dc=com -Dfortress.admin.pw=secret -Dfortress.config.root=ou=Config,dc=example,dc=com"
+JAVA_OPTS="$JAVA_OPTS -Dfortress.config.realm=TOMCAT -Dfortress.admin.user=cn=Manager,dc=example,dc=com -Dfortress.admin.pw=secret -Dfortress.config.root=ou=Config,dc=example,dc=com"
 ```
 
  b. For ApacheDS:
 ```
-JAVA_OPTS="$JAVA_OPTS -Dfortress.admin.user=uid=admin,ou=system -Dfortress.admin.pw=secret -Dfortress.config.root=ou=Config,dc=example,dc=com -Dfortress.port=10389"
+JAVA_OPTS="$JAVA_OPTS -Dfortress.config.realm=TOMCAT -Dfortress.admin.user=uid=admin,ou=system -Dfortress.admin.pw=secret -Dfortress.config.root=ou=Config,dc=example,dc=com -Dfortress.port=10389"
 ```
 
 3. Verify these settings match your target LDAP server.
@@ -67,7 +67,7 @@ JAVA_OPTS="$JAVA_OPTS -Dfortress.admin.user=uid=admin,ou=system -Dfortress.admin
 4. Download the fortress realm proxy jar into tomcat/lib folder:
 
 ```
-wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/[version]/fortress-realm-proxy-[version].jar -P $TOMCAT_HOME/lib
+wget https://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/[version]/fortress-realm-proxy-[version].jar -P $TOMCAT_HOME/lib
 ```
 
   where *TOMCAT_HOME* matches your target env.
@@ -75,7 +75,7 @@ wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-
 5. Download the fortress web war into tomcat/webapps folder:
 
 ```
-wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-web/[version]/fortress-web-[version].war -P $TOMCAT_HOME/webapps
+wget https://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-web/[version]/fortress-web-[version].war -P $TOMCAT_HOME/webapps
 ```
 
   where *TOMCAT_HOME* matches your target env.
@@ -90,7 +90,7 @@ From the Fortress Core package perform the following steps:
 1. Download the fortress web sample security policy from git:
 
 ```
-wget https://github.com/apache/directory-fortress-commander/blob/master/src/main/resources/FortressWebDemoUsers.xml -P ldap/setup
+wget https://raw.githubusercontent.com/apache/directory-fortress-commander/refs/heads/master/src/main/resources/FortressWebDemoUsers.xml -P ldap/setup
 ```
 
 2. Run maven install with -Dload.file file:
@@ -109,7 +109,7 @@ ________________________________________________________________________________
 1. Open browser and test (creds: test/password):
 
 ```
-http://hostname:8080/fortress-web
+http://hostname:8080/fortress-web[version]
 ```
 
  where hostname is host or ip for your machine.

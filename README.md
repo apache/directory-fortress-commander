@@ -184,6 +184,7 @@ ________________________________________________________________________________
 
 1. If Tomcat has global security enabled you must add credentials to pom.xml:
 
+a. For autodeployment add to pom:
 ```xml
   <plugin>
     <groupId>org.codehaus.mojo</groupId>
@@ -193,9 +194,14 @@ ________________________________________________________________________________
         ...
       <!-- Warning the tomcat manager creds here are for deploying into a demo environment only. -->
       <username>tcmanager</username>
-      <password>m@nager123</password>
+      <password>secret</password>
     </configuration>
   </plugin>
+```
+
+b. Enable in Tomcat user:
+```
+  <user username="tcmanager" password="secret" roles="manager-script"/>
 ```
 
 2. Load the Apache Fortress Realm Proxy jar to **TOMCAT_HOME**/lib/
