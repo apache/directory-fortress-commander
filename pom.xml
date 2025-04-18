@@ -143,6 +143,12 @@
     </dependency>
 
     <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.16.1</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-slf4j2-impl</artifactId>
       <version>${slf4j.impl.version}</version>
@@ -169,14 +175,6 @@
       <groupId>io.github.bonigarcia</groupId>
       <artifactId>webdrivermanager</artifactId>
       <version>5.9.2</version>      
-      <scope>test</scope>
-    </dependency>
-       
-    <!-- Needed to resolve dependency issue as described https://github.com/bonigarcia/webdrivermanager/issues/1398 -->
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>2.16.1</version>
       <scope>test</scope>
     </dependency>
 
