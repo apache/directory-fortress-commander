@@ -21,6 +21,7 @@
 package org.apache.directory.fortress.web.integration;
 
 import java.io.File;
+import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -97,8 +98,8 @@ public class FortressWebSeleniumITCase
         // http default:
         baseUrl = "http://localhost:8080";
         // remote over TLS:
-        //baseUrl = "https://fortress-a:8443";
-        driver.manage().timeouts().implicitlyWait( 5, TimeUnit.SECONDS );
+        //baseUrl = "https://fortress-c:8443";
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
 
     @BeforeClass
@@ -112,7 +113,9 @@ public class FortressWebSeleniumITCase
         }
         else
         {
+            LOG.info("Gecko Driver /home/smckinn/Tools/geckodriver-v0.35.0-linux-aarch64");
             WebDriverManager.firefoxdriver().setup();
+            //System.setProperty("webdriver.gecko.driver", "/home/smckinn/Tools/geckodriver-v0.35.0-linux-aarch64/geckodriver");
         }
     }
 
