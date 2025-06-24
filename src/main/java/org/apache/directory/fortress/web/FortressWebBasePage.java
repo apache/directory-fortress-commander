@@ -20,7 +20,7 @@
 package org.apache.directory.fortress.web;
 
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.realm.J2eePolicyMgr;

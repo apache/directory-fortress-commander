@@ -26,7 +26,7 @@ import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.directory.fortress.core.util.time.TUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
