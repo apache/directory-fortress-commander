@@ -16,7 +16,7 @@
    under the License.
 
 # README for Apache Fortress Web
- * Version 3.0.0
+ * Version 3.0.1
  * Apache Fortress Web System Architecture Diagram
  ![Apache Fortress Web System Architecture](images/fortress-web-system-arch.png "Apache Fortress Web System Architecture")
 
@@ -93,7 +93,7 @@ Everything else covered in the steps that follow.  Tested on Debian & Redhat sys
 
  a. from git:
 ```
-git clone --branch 3.0.0 https://gitbox.apache.org/repos/asf/directory-fortress-commander.git/
+git clone --branch 3.0.1 https://gitbox.apache.org/repos/asf/directory-fortress-commander.git/
 cd directory-fortress-commander
 ```
 
@@ -211,7 +211,7 @@ wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-
 ```
 
   where *TOMCAT_HOME* matches your target env.
-  where [version] matches a particular release of fortress, e.g. 3.0.0.
+  where [version] matches a particular release of fortress, e.g. 3.0.1.
 
 3. Allow javax.swing in **TOMCAT_home**/bin/setenv.sh
 

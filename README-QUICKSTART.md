@@ -16,7 +16,7 @@
    under the License.
 
 # README-QUICKSTART for Apache Fortress Web
- * Version 3.0.0
+ * Version 3.0.1
 
 -------------------------------------------------------------------------------
 ## Table of Contents

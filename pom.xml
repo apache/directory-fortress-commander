@@ -65,7 +65,7 @@
   <properties>
     <title>${project.name} ${project.version}</title>
     <java.version>17</java.version>
-    <fortress.realm.version>3.0.1-SNAPSHOT</fortress.realm.version>
+    <fortress.realm.version>3.0.1</fortress.realm.version>
     <wicket.version>10.5.0</wicket.version>
     <wicketstuff.version>10.5.0</wicketstuff.version>
     <wicket.googlecode.version>10.0.0-M1</wicket.googlecode.version>
